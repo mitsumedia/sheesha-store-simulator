@@ -154,7 +154,7 @@ body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,
 <div class="row">営業時間 <select id="op"></select>〜<select id="cl"></select></div>
 <div id="hrsi" class="m" style="font-size:12px;margin:4px 0"></div><div class="m" style="font-size:12px">シーシャ3500円／おかわり2000円／ドリンクはフリー。閉店1時間前に入店停止、閉店時刻で全員退店。</div>
 <div class="row"><button id="devreset">🛠 開発用：最初からやり直す</button></div></div></details>
-<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.39</div></div></details>
+<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.40</div></div></details>
 <span id="smk"></span>
 </div>
 <div id="p-deco" hidden><div class="card"><div class="dcat"><button data-dc="obj">🪴 置物</button><button data-dc="wp">🖼 壁アイテム</button><button data-dc="fl">🟫 床</button><button data-dc="wl">🧱 壁紙</button><button data-dc="seat" id="dcseat" class="dcw" hidden>🛋 客席</button><button data-dc="inv" class="dcw">📦 持ち物</button><button id="rm" class="dcw">🔧 模様替え（移動・回転・しまう）</button></div><div class="m" id="plc" style="font-size:12px;margin-top:6px"></div></div><div class="card" id="sec-obj"><div class="m" style="margin-bottom:6px">アイテムを選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。</div><div class="grid" id="dl"></div></div><div class="card" id="sec-seat" hidden><div class="m" style="margin-bottom:6px;font-size:12px">席を選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。席の前の1列はシーシャ台を置く場所として使います。</div><div class="m" id="spc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="sl"></div></div><div class="card" id="sec-wp" hidden><div class="m" style="font-size:12px;margin:2px 0 6px">選んでから、店内の壁をタップして貼ります（1区画に1枚）。見えている壁にだけ貼れるので、視点を回すと反対側にも貼れます。</div><div class="m" id="wc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="wl"></div></div><div class="card" id="sec-inv" hidden><div id="ivl"></div></div><div class="card" id="sec-clr" hidden><div class="m" style="font-size:12px">選ぶと店内でお試し表示されます。「購入する」で購入（¥5,000〜）。店の雰囲気には影響しません。</div><div id="clr"></div></div></div>
@@ -2642,7 +2642,7 @@ const EV=[
 /* ---- ★5 ---- */
 
 {id:41,r:5,t:"pre",n:"海外からのお土産",tx:"「ドバイ旅行のお土産！現地のフレーバーだよ」",ef:"レア3以上の未解禁フレーバーを1種類解禁",ok:()=>flPick(5,3)>=0,go:()=>{flUnlock(flPick(5,3),"ドバイのお土産")}},
-{id:42,r:5,t:"pre",ok:()=>false,n:"シーシャフェスに出店",tx:"「フェスにブース出しませんか？」",ef:"ギャラ（スター性×5,000円）／フォロワー+10,000／スター性+10／フレーバー3種解放（月末・休業なし）",go:()=>{const o=G.ow;evMoney(30000,"フェスのギャラ");o.fol+=10000;o.starB=(o.starB||0)+10;o.star=starOf(o);for(let i=0;i<3;i++)flUnlock(flPick(5),"フェスで出会った");motAdd(-15);evx().close={until:G.day+2,msg:"🎪 フェス出店中…"};return{close:"🎪 シーシャフェスに出店中…"}}},
+{id:42,r:5,t:"pre",ok:()=>false,n:"シーシャフェスに出店",tx:"「フェスにブース出しませんか？」",ef:"ギャラ（スター性×5,000円）／フォロワー／「美味しい！」で知名度・スター性が少しずつ上がる／フレーバー3種解放（月末・休業なし）",go:()=>{const o=G.ow;evMoney(30000,"フェスのギャラ");o.fol+=10000;o.starB=(o.starB||0)+10;o.star=starOf(o);for(let i=0;i<3;i++)flUnlock(flPick(5),"フェスで出会った");motAdd(-15);evx().close={until:G.day+2,msg:"🎪 フェス出店中…"};return{close:"🎪 シーシャフェスに出店中…"}}},
 {id:43,r:5,t:"run",n:"大富豪が来店",tx:"「この店、気に入った。釣りはいらないよ」万札を置いていった",ef:"売上 +¥50,000",go:()=>{evMoney(50000,"大富豪")}},
 {id:44,r:5,t:"run",n:"ワンオペ地獄",tx:"「…気づいたら満席、オーダーが止まらない！」",ef:"一気に満席。閉店後、やる気−40（ただし30より下にはならない）",cond:"2・6・9月",ok:()=>[2,6,9].includes(evMo())&&evFree().length>=2&&evCands().length>=2,go:()=>{const L=evCands().sort(()=>Math.random()-.5);let n=0;for(const c of L){if(!evFree().length)break;arrive([c]);n++}R.oneop=1;return"（"+n+"人が一気に来店）"}},
 {id:45,r:5,t:"pre",n:"猫が住み着いた",tx:"「裏口に子猫が…うちの子になる？」",ef:"これからたまに、猫が店に遊びにくる",once:1,go:()=>{G.cat={col:rnd(["tabby","black","white","calico"])}}},
@@ -2761,10 +2761,10 @@ g.fillStyle=`rgba(${col},.2)`;g.beginPath();g.ellipse(b[0],b[1],w*1.1,w*.55,0,0,
 function mobPool(){const L=G.cs.filter(c=>!["人外","シーシャ屋","芸能人"].includes(c.job)&&!(typeof spx==="function"&&spx(c)));return L.length?L:G.cs.slice()}
 function clubRivals(){return mobPool().sort(()=>Math.random()-.5).slice(0,4)}
 function clubCrowd(n){const s=mobPool().sort(()=>Math.random()-.5),o=[];for(let i=0;i<n;i++)o.push(s[i%s.length]);return o}
-function mobify(t){t.forEach(v=>{const c=v[3];if(typeof c!=="string"||c[0]!=="#"||c.length<7)return;const r=parseInt(c.slice(1,3),16),g=parseInt(c.slice(3,5),16),b=parseInt(c.slice(5,7),16),l=(r*.3+g*.59+b*.11)/255,q=Math.round(l<.35?22+l*60:60+l*90).toString(16).padStart(2,"0");v[3]="#"+q+q+q});return t}
+function mobify(t){if(t.length){const zs=t.map(v=>v[2]),z0=Math.min(...zs),g=["#34343a","#3d3d44","#2e2e34","#45454c"][Math.random()*4|0];t.forEach(v=>{const r=v[2]-z0;v[3]=r<3.5?"#141417":r<8.2?g:"#1a1a1f"});return t}t.forEach(v=>{const c=v[3];if(typeof c!=="string"||c[0]!=="#"||c.length<7)return;const r=parseInt(c.slice(1,3),16),g=parseInt(c.slice(3,5),16),b=parseInt(c.slice(5,7),16),l=(r*.3+g*.59+b*.11)/255,q=Math.round(l<.35?22+l*60:60+l*90).toString(16).padStart(2,"0");v[3]="#"+q+q+q});return t}
 /* 会場シーン：lens[i]=ブースiの行列の長さ（i=2が店主）。行列は少しずつ伸びて、長いほど人気＝勝ちっぽく見える */
-function clubScene({title,col,lead,rivals,lens,ms,result,done}){const d=document.createElement("div");d.id="club";d.style.cssText="position:fixed;inset:0;z-index:80;background:#0b0612;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff";
-const W=Math.min(innerWidth,440),H=Math.min(innerHeight*.62,520),dp=Math.min(2,window.devicePixelRatio||1);d.innerHTML=`<div style="font-size:22px;font-weight:800;color:${col};letter-spacing:2px;margin-bottom:6px;text-shadow:0 0 12px ${col}">${title}</div><canvas width="${W*dp}" height="${H*dp}" style="width:${W}px;height:${H}px;border-radius:14px"></canvas><div id="fsx" style="min-height:130px;margin-top:10px;width:${W}px;max-width:92vw"></div>`;document.body.appendChild(d);
+function clubScene({title,col,lead,rivals,lens,ms,result,done,ui}){const d=document.createElement("div");d.id="club";d.style.cssText="position:fixed;inset:0;z-index:80;background:#0b0612;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff";
+const W=Math.min(innerWidth,440),H=Math.min(innerHeight*(ui?.44:.62),520),dp=Math.min(2,window.devicePixelRatio||1);d.innerHTML=`<div style="font-size:22px;font-weight:800;color:${col};letter-spacing:2px;margin-bottom:6px;text-shadow:0 0 12px ${col}">${title}</div><canvas width="${W*dp}" height="${H*dp}" style="width:${W}px;height:${H}px;border-radius:14px"></canvas><div id="fsx" style="min-height:130px;margin-top:10px;width:${W}px;max-width:92vw"></div>`;document.body.appendChild(d);
 const cv=d.querySelector("canvas"),g=cv.getContext("2d");g.setTransform(dp,0,0,dp,0,0);
 const HK=[["#2f6fa8","#3d86c6"],["#7b1fa2","#9c27b0"],["#00897b","#26a69a"],["#c62828","#e53935"],["#5d4037","#8d6e63"]],st=clubSet(HK);
 const host=[...rivals.slice(0,2),G.ow?Object.assign({i:99},G.ow):OW.c,...rivals.slice(2)],hv=host.map((c,i)=>{const t=[];pv(t,CLX[i],-4,1,c,0,0);return i===2?t:mobify(t)});
@@ -2775,8 +2775,8 @@ const bake=vis=>{og.clearRect(0,0,W,H);const a=st.slice();hv.forEach(v=>v.forEac
 const oc=cx;cx=og;try{a.map(v=>({v,d:dep(v,k)})).sort((p,q)=>p.d-q.d).forEach(o=>dv(o.v,k))}finally{cx=oc}};
 const draw=()=>{const t=(performance.now()-T0)/1000,vis=Math.min(maxL,Math.floor(t/grow*maxL));if(vis!==shown){shown=vis;bake(vis)}clubBg(g,W,H);g.drawImage(off,0,0,W,H);
 for(let i=0;i<5;i++){const p=(t*.5+i/5)%1;if(p<.75){const s=clubPj(k,CLX[2]+4.5+Math.sin(i*2+t)*1.2,.5+p*2,13+p*7);g.fillStyle=`rgba(240,240,240,${.7-p*.8})`;g.beginPath();g.arc(s[0],s[1],k.s*(.6+p),0,7);g.fill()}}
-clubBeams(g,k,t);g.textAlign="center";host.forEach((c,i)=>{if(i!==2)return;const a=clubPj(k,CLX[i]+3,1,22),me=i===2,s=me?shopNm():(c&&c.name)||"";g.font=(me?"bold 12px":"bold 10px")+" sans-serif";const w=g.measureText(s).width+10;g.fillStyle=me?"rgba(255,213,74,.95)":"rgba(20,12,30,.8)";g.beginPath();g.roundRect?g.roundRect(a[0]-w/2,a[1]-13,w,17,8):g.rect(a[0]-w/2,a[1]-13,w,17);g.fill();g.fillStyle=me?"#2a1a00":"#fff";g.fillText(s,a[0],a[1])});if(!fin)raf=requestAnimationFrame(draw)};draw();
-const fx=d.querySelector("#fsx");fx.innerHTML=`<div style="text-align:center;font-size:15px;line-height:1.7">${lead}</div>`;
+clubBeams(g,k,t);g.textAlign="center";host.forEach((c,i)=>{const nl=(window.CLL||[])[i];if(i!==2&&!nl)return;const a=clubPj(k,CLX[i]+3,1,i===2?22:15),me=i===2,s=me?shopNm():nl;g.font=(me?"bold 12px":"bold 10px")+" sans-serif";const w=g.measureText(s).width+10;g.fillStyle=me?"rgba(255,213,74,.95)":"rgba(20,12,30,.8)";g.beginPath();g.roundRect?g.roundRect(a[0]-w/2,a[1]-13,w,17,8):g.rect(a[0]-w/2,a[1]-13,w,17);g.fill();g.fillStyle=me?"#2a1a00":"#fff";g.fillText(s,a[0],a[1])});if(!fin)raf=requestAnimationFrame(draw)};draw();
+const fx=d.querySelector("#fsx");if(ui){ui(fx,()=>{fin=true;cancelAnimationFrame(raf);window.CLL=null;d.remove();done&&done()});return}fx.innerHTML=`<div style="text-align:center;font-size:15px;line-height:1.7">${lead}</div>`;
 fx.innerHTML+=`<button class="on" id="clres" style="width:100%;margin-top:12px;padding:12px">結果を見る</button>`;fx.querySelector("#clres").onclick=()=>{fx.innerHTML=`<div style="background:#fffdf6;color:#2a2233;border-radius:14px;padding:12px 14px;font-size:14px;line-height:1.75">${result()}<button class="on" id="clok" style="width:100%;margin-top:10px">OK</button></div>`;fx.querySelector("#clok").onclick=()=>{fin=true;cancelAnimationFrame(raf);d.remove();done&&done()}}}
 /* --- シーシャフェス：行列の長さは演出だけ（スター性が高いほど長くなりやすい） --- */
 function festScene(done){const o=G.ow||{},lo=Math.max(2,Math.min(8,2+Math.round((o.star||0)/100*6)+(Math.random()<.5?0:1)));const lens=[0,0,lo,0,0].map((v,i)=>i===2?v:1+Math.floor(Math.random()*7)),sn=esc(shopNm());
@@ -2794,8 +2794,8 @@ clubScene({title:"🏆 シーシャバトル 🏆",col:"#ff4d7a",lead:`「${esc(
 const sn=esc(shopNm()),head=rk===1?`🏆 「${sn}」優勝！！`:rk===2?`🥈 「${sn}」準優勝！`:`😢 「${sn}」は${rk}位…`,wn="";
 return`<div style="font-weight:800;font-size:17px;margin-bottom:2px">${head}</div>${wn}${m}`}})}
 /* 月末（7日目の営業のあと・精算の前）に入る「8日目」：大会→フェスの順 */
-function day8(cb,fo){const q=[],sn=shopNm(),D=G.evDex||{};if(battleRoll(fo))q.push(f=>{log("🏆 シーシャバトルに出場！");evPop({r:4,n:"シーシャバトルに出場",tx:`「${sn}」がシーシャバトルに出場することになった！`,ef:"会場はクラブ。出場者は9人。技術が高いほど優勝しやすい"},null,!D[40],()=>battleScene(f))});
-if(festRoll(fo))q.push(f=>{log("🎪 シーシャフェスに出店！");evPop({r:5,n:"シーシャフェスにお呼ばれ",tx:`「${sn}」がシーシャフェスにお呼ばれした！`,ef:"会場はクラブ。ブースを出して、たくさんのお客さんにシーシャをふるまおう"},null,!D[42],()=>festScene(f))});if(!q.length)return false;
+function day8(cb,fo){const q=[],sn=shopNm(),D=G.evDex||{};if(battleRoll(fo))q.push(f=>{log("🏆 シーシャバトルに出場！");evPop({r:4,n:"シーシャバトルに出場",tx:`「${sn}」がシーシャバトルに出場することになった！`,ef:"会場はクラブ。8人のトーナメント（エントリー料¥10,000）。お題に合うフレーバー選びと火加減で勝負"},null,!D[40],()=>battleScene(f))});
+if(festRoll(fo))q.push(f=>{log("🎪 シーシャフェスに出店！");evPop({r:5,n:"シーシャフェスにお呼ばれ",tx:`「${sn}」がシーシャフェスにお呼ばれした！`,ef:"会場はクラブ。行列のお客さんにどんどん作ってふるまおう。「美味しい！」で知名度・スター性アップ"},null,!D[42],()=>festScene(f))});if(!q.length)return false;
 const nx=()=>{const f=q.shift();if(f)f(nx);else cb()};nx();return true}
 /* --- ハロウィン：10月の7日目 --- */
 function halloOn(){R.hallo=1;G.cs.forEach(c=>{c.pump=(c.rar|0)<=3&&c.act?1:0});OW.c.pump=1;if(OW._pc)OW._pc=null}
@@ -3608,7 +3608,7 @@ if(b.dataset.gt){try{await aapi({a:"a_gift_toggle",id:b.dataset.gt});admGifts()}
 });
 
 /* ===== 更新チェック：起動時・アプリに戻ったとき・30分ごと。新しい版があればお知らせを出して選んでもらう ===== */
-const GVER="1.0.39";
+const GVER="1.0.40";
 let updV=null,updLater=null,updBusy=0;
 async function updCheck(){if(updBusy||!/^https?:/.test(location.protocol))return;updBusy=1;try{const r=await fetch("version.txt?"+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.text()).trim();if(!v||v===GVER)return;updV=v;updShow()}catch(e){}finally{updBusy=0}}
 function updShow(){if(!updV||updLater===updV||document.getElementById("updm"))return;if(R.phase==="run"||!$("#ov").hidden||document.getElementById("sysm")){setTimeout(updShow,5000);return}
@@ -3841,6 +3841,57 @@ SPF.santy=({H,Q4,hr})=>{const RD="#c8282b",WT="#f4efe6",BT="#e8e8ea",LP="#262d40
 {const _st=start;start=function(){R.sUse={};return _st.apply(this,arguments)}}
 /* 起動時：回した席の向きを正しく描くため、全部の仕組みが揃ってから作り直す */
 try{furnRebuild();build()}catch(e){}
+
+/* ===== シーシャバトル（トーナメント）とシーシャフェス（さばきミニゲーム） ===== */
+const BT_TH=[["甘い系","マカロン,ミルク,チョコレート,カプチーノ,バニラ,ガム,ポップコーン,スイートコーン,ココナッツ,ストロベリー,コーラ"],
+["爽やか系","ミント,レモン,グレープフルーツ,アイスX,ケインミント,いにしえミント,いにしえレモン,ブルーベリーアイス,カクタス,ジャスミン"],
+["フルーツ系","ピーチ,グレープ,ブルーベリー,ライチ,オレンジ,パイナップル,マンゴー,パッションフルーツ,グァバ,スイカ,ペア,メロン,ドラゴンフルーツ,ブルーグァバ,アサイー"],
+["スパイス・重め","ダブルアップル,カルダモン,シナモン,パンラズナ,パンラース,シガー,アールグレイ,タイガ,バジル,コーラ"],
+["花の香り","ジャスミン,ラベンダー,スミレ,ローズ,金木犀,ボムシェル,ライチ"]].map(([n,l])=>[n,l.split(",")]);
+const BT_A=["煙","炭","霧","雲","夜","紫","黒","銀","雷","月","灰","蒼"],BT_B=["の帝王","マスター","職人","の魔術師","番長","の貴公子","仙人","の狼","キング","の求道者","の亡霊","ブラザーズ"];
+const btName=()=>{const a=BT_A[Math.random()*BT_A.length|0],b=BT_B[Math.random()*BT_B.length|0];return Math.random()<.35?["MC","DJ","Mr.","ミスター"][Math.random()*4|0]+a+["丸","太郎","次郎","子"][Math.random()*4|0]:a+b};
+const ckS=()=>Math.max(0,Math.min(100,(G.ow&&G.ow.skill)||0));
+/* タイミングゲージ：止めた位置で 2=ぴったり 1=まあまあ 0=はずれ */
+function tmGauge(box,o,cb){const sk=ckS(),gw=o.great||(.07+sk*.0018),ow=o.ok||(gw+.16),c=.2+Math.random()*.6,sp=o.speed||(.75+Math.random()*.25);
+box.innerHTML=`<div style="font-size:13px;text-align:center;margin-bottom:6px">${o.lead||""}</div><div style="position:relative;height:30px;border-radius:15px;background:#3a2a40;overflow:hidden"><div style="position:absolute;top:0;bottom:0;left:${(c-ow/2)*100}%;width:${ow*100}%;background:#e0a83a"></div><div style="position:absolute;top:0;bottom:0;left:${(c-gw/2)*100}%;width:${gw*100}%;background:#5ad07a"></div><div id="tmk" style="position:absolute;top:-3px;bottom:-3px;width:5px;border-radius:3px;background:#fff;box-shadow:0 0 6px #fff"></div></div><button class="on" id="tmb" style="width:100%;margin-top:10px;padding:13px;font-size:16px">${o.btn||"止める！"}</button>`;
+const mk=box.querySelector("#tmk"),T0=performance.now();let raf,done=0;const pos=()=>{const t=(performance.now()-T0)/1000*sp;const p=t%2;return p<1?p:2-p};
+const loop=()=>{if(done)return;mk.style.left="calc("+(pos()*100)+"% - 2px)";raf=requestAnimationFrame(loop)};loop();
+box.querySelector("#tmb").onclick=()=>{if(done)return;done=1;cancelAnimationFrame(raf);const p=pos(),d=Math.abs(p-c);cb(d<=gw/2?2:d<=ow/2?1:0)}}
+/* ---------- バトル ---------- */
+function battleScene(done){const sn=esc(shopNm()),names=Array.from({length:7},btName),order=[0,1,2,3,4,5,6,7].sort(()=>Math.random()-.5),me=order.indexOf(0);
+const B=order.map(i=>i===0?shopNm():names[i-1]),RS=[5.6,6.6,7.6],RN=["1回戦","準決勝","決勝"];let round=0;const RV=clubRivals();
+const fee=10000;if(!G.lotto)evMoney(-fee,"大会のエントリー料");
+const fl=(G.flu||[]).filter(i=>FL[i]);
+clubScene({title:"🏆 シーシャバトル 🏆",col:"#ff4d7a",rivals:RV,lens:[2,3,2,3,2],ms:6000,done,ui:(fx,fin)=>{
+const card=h=>`<div style="background:#1c1226;border:1px solid #ff4d7a55;border-radius:14px;padding:12px;font-size:14px;line-height:1.7">${h}</div>`;
+const bracket=()=>{let h='<div style="font-size:12px">';for(let i=0;i<8;i+=2)h+=`<div style="display:flex;gap:6px;justify-content:center"><span style="${i===me?"color:#ffd54a;font-weight:800":""}">${esc(B[i])}</span><span style="opacity:.5">vs</span><span style="${i+1===me?"color:#ffd54a;font-weight:800":""}">${esc(B[i+1])}</span></div>`;return h+"</div>"};
+const intro=()=>{fx.innerHTML=card(`<div style="font-weight:800;font-size:16px;text-align:center">「${sn}」出場！ 8人のトーナメント</div><div style="font-size:12px;opacity:.75;text-align:center;margin-bottom:6px">エントリー料 ${moneyTxt(fee)}／3回勝てば優勝</div>${bracket()}<button class="on" id="b0" style="width:100%;margin-top:10px">1回戦へ</button>`);fx.querySelector("#b0").onclick=pick};
+let oppN="",th=null,sel=[];
+const pick=()=>{oppN=round===0?B[me^1]:round===1?B[(((me>>1)^1)<<1)+(Math.random()*2|0)]:B[(me<4?4:0)+(Math.random()*4|0)];window.CLL=[null,null,null,oppN,null];th=BT_TH[Math.random()*BT_TH.length|0];sel=[];draw()};
+const draw=()=>{const L=fl.map(i=>{const on=sel.includes(i);return`<button data-bf="${i}" style="margin:3px;padding:6px 9px;border-radius:14px;font-size:12px;${on?"background:#ff4d7a;color:#fff;border-color:#ff4d7a":""}"><span style="display:inline-block;width:9px;height:9px;border-radius:5px;background:${FL[i][1]};margin-right:4px"></span>${esc(FL[i][0])}</button>`}).join("");
+fx.innerHTML=card(`<div style="font-weight:800;text-align:center">${RN[round]}　vs <span style="color:#ff9ab3">${esc(oppN)}</span></div><div style="text-align:center;margin:4px 0">お題：<b style="font-size:17px;color:#ffd54a">${th[0]}</b></div><div style="font-size:12px;opacity:.75;text-align:center">フレーバーを1〜3つ選んでミックス</div><div style="max-height:150px;overflow-y:auto;margin:6px 0;text-align:center">${L}</div><button class="on" id="b1" style="width:100%" ${sel.length?"":"disabled"}>この組み合わせで作る（${sel.length}/3）</button>`);
+fx.querySelectorAll("[data-bf]").forEach(b=>b.onclick=()=>{const i=+b.dataset.bf;if(sel.includes(i))sel=sel.filter(x=>x!==i);else if(sel.length<3)sel.push(i);draw()});fx.querySelector("#b1").onclick=heat};
+const heat=()=>{fx.innerHTML=card('<div id="tg"></div>');tmGauge(fx.querySelector("#tg"),{lead:"🔥 炭の火加減！ 緑で止めよう",btn:"火加減OK！"},judge)};
+const judge=tq=>{const sk=ckS(),hit=sel.filter(i=>th[1].includes(FL[i][0])).length,mt=hit/sel.length,mix=sel.length>=2&&hit>=1?.6:0,base=2.2+sk/100*3.6+mt*2.2+mix+[0,.9,1.8][tq];
+const js=[0,1,2].map(()=>Math.max(1,Math.min(10,Math.round(base+(Math.random()-.5)*2)))),os=[0,1,2].map(()=>Math.max(1,Math.min(10,Math.round(RS[round]+(Math.random()-.5)*2.4)))),ps=js.reduce((a,b)=>a+b,0),qs=os.reduce((a,b)=>a+b,0),win=ps>qs||(ps===qs&&Math.random()<.5);
+const row=(n,a,t,c)=>`<div style="display:flex;justify-content:space-between;align-items:center;margin:3px 0"><span style="${c}">${esc(n)}</span><span>${a.map(x=>`<b style="display:inline-block;min-width:24px;text-align:center;background:#2b1d36;border-radius:6px;margin-left:3px">${x}</b>`).join("")}<b style="margin-left:8px;font-size:17px">${t}</b></span></div>`;
+fx.innerHTML=card(`<div style="text-align:center;font-weight:800">${RN[round]}　審査員3人の採点</div>${row(shopNm(),js,ps,"color:#ffd54a;font-weight:800")}${row(oppN,os,qs,"")}<div style="font-size:12px;opacity:.75;margin-top:4px">お題に合ったフレーバー ${hit}/${sel.length}・火加減 ${["いまいち","まあまあ","ばっちり"][tq]}</div><div style="text-align:center;font-size:18px;font-weight:800;margin-top:6px;color:${win?"#5ad07a":"#ff6b6b"}">${win?"🎉 勝ち！":"😢 負け…"}</div><button class="on" id="b2" style="width:100%;margin-top:8px">${win&&round<2?"次へ":"結果を見る"}</button>`);
+fx.querySelector("#b2").onclick=()=>{if(win&&round<2){round++;pick();return}const rk=win?1:[5,3,2][round];end(rk)}};
+const end=rk=>{const m=battleApply(rk),head=rk===1?`🏆 「${sn}」優勝！！`:rk===2?`🥈 「${sn}」準優勝！`:rk===3?`「${sn}」はベスト4`:`「${sn}」は1回戦敗退…`;window.CLL=null;
+fx.innerHTML=`<div style="background:#fffdf6;color:#2a2233;border-radius:14px;padding:12px 14px;font-size:14px;line-height:1.75"><div style="font-weight:800;font-size:17px;margin-bottom:2px">${head}</div>${m}<button class="on" id="b3" style="width:100%;margin-top:10px">OK</button></div>`;fx.querySelector("#b3").onclick=fin};
+intro()}})}
+/* ---------- フェス ---------- */
+function festScene(done){const o=G.ow||{},sn=esc(shopNm()),N=12,lo=Math.max(3,Math.min(8,3+Math.round((o.star||0)/100*5)));const lens=[0,0,lo,0,0].map((v,i)=>i===2?v:1+Math.floor(Math.random()*6));
+clubScene({title:"🎪 シーシャフェス 🎪",col:"#ffd54a",rivals:clubRivals(),lens,ms:9000,done,ui:(fx,fin)=>{let n=0,gr=0,ok=0,dF=0,dS=0;const dim=1/(1+(G.festN||0)*.5),capF=3*dim,capS=3*dim,stp=.5*dim;
+const card=h=>`<div style="background:#221a08;border:1px solid #ffd54a55;border-radius:14px;padding:12px;font-size:14px;line-height:1.7">${h}</div>`;
+const intro=()=>{fx.innerHTML=card(`<div style="font-weight:800;font-size:16px;text-align:center">「${sn}」のブースに行列！</div><div style="font-size:13px;text-align:center">${N}人のお客さんに作ってふるまおう。<br>緑で止めると「美味しい！」→ 知名度かスター性が少し上がる<br><span style="opacity:.7;font-size:12px">技術が高いほど緑が広くなる</span></div><button class="on" id="f0" style="width:100%;margin-top:10px">スタート</button>`);fx.querySelector("#f0").onclick=next};
+const next=()=>{if(n>=N){end();return}fx.innerHTML=card(`<div style="display:flex;justify-content:space-between;font-size:12px;opacity:.85"><span>${n+1}/${N}人目</span><span>美味しい ${gr}</span></div><div id="tg"></div><div id="fr" style="text-align:center;min-height:26px;font-weight:800"></div>`);
+tmGauge(fx.querySelector("#tg"),{lead:"🔥 いい感じで止めて提供！",btn:"提供！",speed:.85+n*.05},q=>{n++;const r=fx.querySelector("#fr");if(q===2){gr++;let t="";if(Math.random()<.5&&dF+stp<=capF+1e-9){dF+=stp;t="知名度 +"}else if(dS+stp<=capS+1e-9){dS+=stp;t="スター性 +"}else if(dF+stp<=capF+1e-9){dF+=stp;t="知名度 +"}r.innerHTML=`<span style="color:#5ad07a">😋 美味しい！</span>${t?`<span style="font-size:12px;color:#ffd54a;margin-left:6px">${t}</span>`:""}`}else if(q===1){ok++;r.innerHTML='<span style="color:#e0c34a">🙂 ふつう</span>'}else r.innerHTML='<span style="color:#ff8a80">😐 うーん…</span>';setTimeout(next,750)})};
+const end=()=>{const r=festApply({n:N,gr,ok,dF,dS});fx.innerHTML=`<div style="background:#fffdf6;color:#2a2233;border-radius:14px;padding:12px 14px;font-size:14px;line-height:1.75"><div style="font-weight:800;font-size:16px;margin-bottom:4px">🎉 「${sn}」フェス出店おつかれさま！</div>美味しい！ <b>${gr}</b>／ふつう ${ok}／うーん ${N-gr-ok}<br>ギャラ：<b>${moneyTxt(r.gal)}</b><br>フォロワー <b>+${r.fol.toLocaleString()}</b><br>知名度 <b>+${r.dF.toFixed(1)}</b>／スター性 <b>+${r.dS.toFixed(1)}</b><br>新しいフレーバー：<b>${r.fl.length?r.fl.map(esc).join("・"):"（もう全部持っていた）"}</b><button class="on" id="f9" style="width:100%;margin-top:10px">OK</button></div>`;fx.querySelector("#f9").onclick=fin};
+intro()}})}
+function festApply(R2){R2=R2||{n:12,gr:4,ok:4,dF:0,dS:0};const o=G.ow,gal=Math.round((o.star||0)*5000);evMoney(gal,"フェスのギャラ");const fol=Math.round(R2.n*400+R2.gr*600);o.fol+=fol;
+o.fame=Math.min(100,(o.fame||0)+R2.dF);o.starB=(o.starB||0)+R2.dS;o.star=starOf(o);const fl=[];for(let i=0;i<3;i++){const f=flPick(5);if(f>=0){flUnlock(f,"フェスで出会った");fl.push(FL[f][0])}}
+G.festN=(G.festN||0)+1;G.evDex=G.evDex||{};G.evDex[42]=(G.evDex[42]||0)+1;save();hud();return{gal,fl,fol,dF:R2.dF,dS:R2.dS}}
 ;(function(){const app=$("#app"),sh=document.createElement("div");sh.id="sheet";sh.innerHTML='<div class="grab"></div>';
 const top=$("#top"),cvw=$(".cvw"),atm=$("#atm");[...app.children].forEach(el=>{if(el.classList.contains("tabs")||/^p-/.test(el.id))sh.appendChild(el)});app.appendChild(sh);{const dd=$("#dd");if(dd)document.body.appendChild(dd)}
 const setv=()=>{document.documentElement.style.setProperty("--th",top.offsetHeight+"px");document.documentElement.style.setProperty("--bh",$("#bar").offsetHeight+"px")};setv();setTimeout(setv,300);setTimeout(setv,1200);window.addEventListener("resize",setv);
