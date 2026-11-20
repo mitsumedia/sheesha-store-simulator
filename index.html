@@ -154,7 +154,7 @@ body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,
 <div class="row">営業時間 <select id="op"></select>〜<select id="cl"></select></div>
 <div id="hrsi" class="m" style="font-size:12px;margin:4px 0"></div><div class="m" style="font-size:12px">シーシャ3500円／おかわり2000円／ドリンクはフリー。閉店1時間前に入店停止、閉店時刻で全員退店。</div>
 <div class="row"><button id="devreset">🛠 開発用：最初からやり直す</button></div></div></details>
-<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.53</div></div></details>
+<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.54</div></div></details>
 <span id="smk"></span>
 </div>
 <div id="p-deco" hidden><div class="card"><div class="dcat"><button data-dc="obj">🪴 置物</button><button data-dc="wp">🖼 壁アイテム</button><button data-dc="fl">🟫 床</button><button data-dc="wl">🧱 壁紙</button><button data-dc="seat" id="dcseat" class="dcw" hidden>🛋 客席</button><button data-dc="inv" class="dcw">📦 持ち物</button><button id="rm" class="dcw">🔧 模様替え（移動・回転・しまう）</button></div><div class="m" id="plc" style="font-size:12px;margin-top:6px"></div></div><div class="card" id="sec-obj"><div class="m" style="margin-bottom:6px">アイテムを選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。</div><div class="grid" id="dl"></div></div><div class="card" id="sec-seat" hidden><div class="m" style="margin-bottom:6px;font-size:12px">席を選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。席の前の1列はシーシャ台を置く場所として使います。</div><div class="m" id="spc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="sl"></div></div><div class="card" id="sec-wp" hidden><div class="m" style="font-size:12px;margin:2px 0 6px">選んでから、店内の壁をタップして貼ります（1区画に1枚）。見えている壁にだけ貼れるので、視点を回すと反対側にも貼れます。</div><div class="m" id="wc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="wl"></div></div><div class="card" id="sec-inv" hidden><div id="ivl"></div></div><div class="card" id="sec-clr" hidden><div class="m" style="font-size:12px">選ぶと店内でお試し表示されます。「購入する」で購入（¥5,000〜）。店の雰囲気には影響しません。</div><div id="clr"></div></div></div>
@@ -16022,7 +16022,7 @@ if(b.dataset.gt){try{await aapi({a:"a_gift_toggle",id:b.dataset.gt});admGifts()}
 });
 
 /* ===== 更新チェック：起動時・アプリに戻ったとき・30分ごと。新しい版があればお知らせを出して選んでもらう ===== */
-const GVER="1.0.53";
+const GVER="1.0.54";
 let updV=null,updLater=null,updBusy=0;
 async function updCheck(){if(updBusy||!/^https?:/.test(location.protocol))return;updBusy=1;try{const r=await fetch("version.txt?"+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.text()).trim();if(!v||v===GVER)return;updV=v;updShow()}catch(e){}finally{updBusy=0}}
 function updShow(){if(!updV||updLater===updV||document.getElementById("updm"))return;if(R.phase==="run"||!$("#ov").hidden||document.getElementById("sysm")){setTimeout(updShow,5000);return}
@@ -16503,8 +16503,8 @@ DMD.gf_141=["2f8f5b,6b4a35,d32f2f,e6dfcc,f4efe2", "JQABJgABJwABKAABKQABKgABKwABN
 /* 管理ページ：エラー記録の一覧 */
 document.addEventListener("click",async e=>{if(!e.target.closest||!e.target.closest("#errb"))return;const el=document.getElementById("errl");if(!el)return;el.textContent="読み込み中…";try{const j=await aapi({a:"a_errs"});el.innerHTML=j.list.length?j.list.map(r=>`<div style="padding:5px 0;border-bottom:1px solid #f3d6d6"><b>${new Date(r.at*1000).toLocaleString("ja-JP")}</b>　Ver ${esc(r.ver||"")}・${r.day}日目${r.code?"・"+esc(r.code):""}${r.shop?"（"+esc(r.shop)+"）":""}<br>${esc(r.msg||"")}<br><span style="opacity:.6">${esc(r.src||"")}</span><br><span style="opacity:.5">${esc(r.ua||"")}</span></div>`).join(""):"エラーの記録はありません"}catch(err){el.textContent=err.message}},true);
 
-/* ===== 🏪 お店めぐり：リアルで会った人のQRを読むと、2時間だけその人のお店に遊びに行ける（通信なし） ===== */
-const VIS_MS=2*60*60*1000;
+/* ===== 🏪 お店めぐり：リアルで会った人のQRを読むと、15分だけその人のお店に遊びに行ける（通信なし） ===== */
+const VIS_MS=15*60*1000;
 const VISL={any:["遊びに来てくれてありがとう〜！","自慢のお店です","ゆっくりしていってね","内装、こだわったんだ〜","今度はそっちのお店にも行かせてね","会えてうれしい！","最近なに吸ってる？","このお店、どう？"],pre:["シーシャ吸う？","好きな席に座ってね","今日のおすすめもあるよ"],smk:["いい煙出てるね〜","どう？うまい？","チルいね〜","炭、替えようか？","もくもく〜"],end:["そろそろ時間かな？","また会いに来てね！"]};
 const VSTP=["いいお店！","また来ます","内装すてき","シーシャうまい！","チルい〜","最高でした"];
 try{document.head.insertAdjacentHTML("beforeend",`<style>
@@ -16524,10 +16524,10 @@ async function visEnc(lv){let b=new TextEncoder().encode(JSON.stringify(visSnap(
 async function visDec(u8){if(String.fromCharCode(u8[0],u8[1],u8[2])!=="SV1")throw new Error("シーシャ屋さん経営のお店QRではありません");let b=u8.slice(4);if(u8[3]===90){if(typeof DecompressionStream!=="function")throw new Error("この端末では読み込めません（iOS/ブラウザを最新にしてください）");b=await visZ(b,1)}
 const o=JSON.parse(new TextDecoder().decode(b));if(!o||o.v!==1||!o.u||!Array.isArray(o.fl)||!Array.isArray(o.furn))throw new Error("お店のデータが読み取れませんでした");return o}
 function visQR(str){let q=null;for(const ec of["M","L"]){try{q=qrcode(0,ec);q.addData(str,"Byte");q.make();break}catch(e){q=null}}if(!q)return null;const n=q.getModuleCount(),m=4,px=Math.max(3,Math.ceil(700/(n+m*2))),c=document.createElement("canvas");c.width=c.height=(n+m*2)*px;const g=c.getContext("2d");g.fillStyle="#fff";g.fillRect(0,0,c.width,c.height);g.fillStyle="#000";for(let r=0;r<n;r++)for(let k=0;k<n;k++)if(q.isDark(r,k))g.fillRect((k+m)*px,(r+m)*px,px,px);c.style.cssText="width:100%;max-width:360px;image-rendering:pixelated;display:block;margin:6px auto;border-radius:8px;background:#fff";return c}
-const visOk=e=>{const n=Date.now();return n>=e.at&&n-e.at<VIS_MS},visRem=e=>{const r=Math.max(0,VIS_MS-(Date.now()-e.at)),m=Math.ceil(r/60000);return Math.floor(m/60)+":"+String(m%60).padStart(2,"0")};
+const visOk=e=>{const n=Date.now();return n>=e.at&&n-e.at<VIS_MS},visRem=e=>{const r=Math.max(0,VIS_MS-(Date.now()-e.at)),t=Math.ceil(r/1000);return Math.floor(t/60)+":"+String(t%60).padStart(2,"0")};
 function visPan(h){const o=$("#visp");if(o){if(o._stop)o._stop();o.remove()}const d=document.createElement("div");d.id="visp";d.className="xpan";d.innerHTML=`<div class="xin">${h}</div>`;document.body.appendChild(d);return d}
 function visPanel(){if(!G.setup||G.over)return;const L=(G.vsh||[]).slice().sort((a,b)=>b.at-a.at),run=R.phase!=="prep";
-const d=visPan(`<div class="xh">🏪 お店めぐり</div><div class="xs">リアルで会った店主さんとQRを読み合うと、<b>2時間だけ</b>その人のお店に遊びに行けます</div>
+const d=visPan(`<div class="xh">🏪 お店めぐり</div><div class="xs">リアルで会った店主さんとQRを読み合うと、<b>15分だけ</b>その人のお店に遊びに行けます</div>
 <div class="xb" style="gap:6px"><button data-vp="show" style="flex:1">📱 自分のQRを見せる</button><button data-vp="scan" class="on" style="flex:1">📷 QRを読み取る</button></div>
 ${run?`<div class="xw">営業中は遊びに行けません（営業前・閉店後に行けます）</div>`:""}
 <div style="margin-top:6px">${L.length?L.map(e=>{const ok=visOk(e);return`<div class="vsl ${ok?"":"ex"}"><div><b>🏪 ${esc(e.n)}</b><small>店主：${esc(e.on)}${e.vn?"・訪問"+e.vn+"回":""}${e.lk?"・👍"+e.lk:""}</small><br><small>${ok?"⏳ あと "+visRem(e):"また会った時にQRを読もう"}</small></div>${ok?`<button data-vgo="${esc(e.u)}" class="on" ${run?"disabled":""}>遊びに行く</button>`:`<button data-vdel="${esc(e.u)}" title="一覧から消す">✕</button>`}</div>`}).join(""):`<div class="xs" style="text-align:center;margin:14px 0">まだ行けるお店がありません。<br>友だちの店主さんに会ったら、QRを読み合おう！</div>`}</div>
@@ -16536,7 +16536,7 @@ d.onclick=e=>{const b=e.target.closest("[data-vp],[data-vgo],[data-vdel]");if(!b
 if(b.dataset.vdel){G.vsh=(G.vsh||[]).filter(x=>x.u!==b.dataset.vdel);save();visPanel();return}if(b.dataset.vgo){const x=(G.vsh||[]).find(q=>q.u===b.dataset.vgo);if(!x||!visOk(x)){toast("時間切れです。また会った時にQRを読んでね");visPanel();return}d.remove();visEnter(x)}}}
 async function visShow(){const d=visPan(`<div class="xh">📱 自分のお店のQR</div><div id="visq" class="xs" style="text-align:center;margin:20px 0">作成中…</div><div class="xb"><button data-vp="b" style="flex:1">戻る</button></div>`);d.onclick=e=>{if(e.target.closest("[data-vp=b]"))visPanel()};
 let c=null,lv=0;for(;lv<3&&!c;lv++){try{c=visQR(await visEnc(lv))}catch(e){c=null}}const q=d.querySelector("#visq");if(!q)return;if(!c){q.textContent="お店のデータが大きすぎてQRにできませんでした";return}
-q.innerHTML=`<div>会った相手に、ゲームの「🏪 お店めぐり → 📷 QRを読み取る」で読んでもらってね。読んでから<b>2時間</b>、あなたのお店に遊びに来られます</div>${lv>1?`<div class="xw" style="margin-top:6px">お店の飾りが多いので、${lv>2?"置物と壁アイテム":"壁アイテム"}は省いています</div>`:""}`;q.prepend(c);q.style.margin="6px 0"}
+q.innerHTML=`<div>会った相手に、ゲームの「🏪 お店めぐり → 📷 QRを読み取る」で読んでもらってね。読んでから<b>15分</b>、あなたのお店に遊びに来られます</div>${lv>1?`<div class="xw" style="margin-top:6px">お店の飾りが多いので、${lv>2?"置物と壁アイテム":"壁アイテム"}は省いています</div>`:""}`;q.prepend(c);q.style.margin="6px 0"}
 function visScan(){const d=visPan(`<div class="xh">📷 QRを読み取る</div><div class="xs">相手の「自分のQRを見せる」画面を枠の中に映してね</div><div style="position:relative;background:#000;border-radius:12px;overflow:hidden;aspect-ratio:1;width:100%;max-width:340px;margin:6px auto"><video id="visv" playsinline muted autoplay style="width:100%;height:100%;object-fit:cover"></video><div style="position:absolute;inset:8%;border:3px solid rgba(255,255,255,.85);border-radius:14px"></div></div><div id="vism" class="xs" style="text-align:center;min-height:20px">カメラを起動中…</div><div class="xb"><button data-vp="b" style="flex:1">戻る</button></div>`);
 let st=null,done=0,tm=0;const v=d.querySelector("#visv"),m=d.querySelector("#vism"),cv2=document.createElement("canvas"),g2=cv2.getContext("2d",{willReadFrequently:true});
 const stop=()=>{done=1;clearTimeout(tm);try{st&&st.getTracks().forEach(t=>t.stop())}catch(e){}};d._stop=stop;d.onclick=e=>{if(e.target.closest("[data-vp=b]")){stop();visPanel()}};
@@ -16546,7 +16546,7 @@ navigator.mediaDevices.getUserMedia({video:{facingMode:"environment",width:{idea
 async function visGot(u8){let o;try{o=await visDec(u8)}catch(e){const d=visPan(`<div class="xh">📷 読み取れませんでした</div><div class="xw">${esc(e.message)}</div><div class="xb"><button data-vp="b" style="flex:1">戻る</button><button data-vp="r" class="on" style="flex:1">もう一度</button></div>`);d.onclick=ev=>{const b=ev.target.closest("[data-vp]");if(!b)return;b.dataset.vp==="r"?visScan():visPanel()};return}
 if(o.u===visId()){toast("これは自分のお店のQRです");visScan();return}
 G.vsh=G.vsh||[];let e=G.vsh.find(x=>x.u===o.u);if(!e){e={u:o.u,vn:0,lk:0};G.vsh.push(e)}Object.assign(e,{n:String(o.n||"お店").slice(0,30),on:String(o.on||"店長").slice(0,20),at:Date.now(),d:o});G.vsh.sort((a,b)=>b.at-a.at);G.vsh=G.vsh.slice(0,20);G.vmet=(G.vmet||0)+1;save();
-const run=R.phase!=="prep",d=visPan(`<div class="xh">🎉 読み取りました！</div><div style="text-align:center;margin:10px 0;font-size:16px"><b>🏪 ${esc(e.n)}</b><br><small style="color:var(--mut)">店主：${esc(e.on)}</small></div><div class="xs" style="text-align:center">今から<b>2時間</b>、このお店に遊びに行けます</div>${run?`<div class="xw">営業中は行けません。営業前・閉店後に「お店めぐり」から行けます</div>`:""}<div class="xb" style="gap:6px"><button data-vp="b" style="flex:1">あとで</button><button data-vp="go" class="on" style="flex:2" ${run?"disabled":""}>遊びに行く</button></div>`);
+const run=R.phase!=="prep",d=visPan(`<div class="xh">🎉 読み取りました！</div><div style="text-align:center;margin:10px 0;font-size:16px"><b>🏪 ${esc(e.n)}</b><br><small style="color:var(--mut)">店主：${esc(e.on)}</small></div><div class="xs" style="text-align:center">今から<b>15分</b>、このお店に遊びに行けます</div>${run?`<div class="xw">営業中は行けません。営業前・閉店後に「お店めぐり」から行けます</div>`:""}<div class="xb" style="gap:6px"><button data-vp="b" style="flex:1">あとで</button><button data-vp="go" class="on" style="flex:2" ${run?"disabled":""}>遊びに行く</button></div>`);
 d.onclick=ev=>{const b=ev.target.closest("[data-vp]");if(!b)return;if(b.dataset.vp==="b"){visPanel();return}if(visOk(e)){d.remove();visEnter(e)}}}
 function visEnter(e){if(R.vis||R.phase!=="prep"||!G.setup||G.over||R.mvOn)return;const x=e.d;if(!x)return;const G0=G;
 const v={G0,e,exp:e.at+VIS_MS,sv:{x:OW.x,y:OW.y,dir:OW.dir,sitting:OW.sitting,seat:OW.seat,hd:OW.hd,idleSmk:OW.idleSmk,eat:OW.eat,ph:OW.ph,mode:OW.mode,bt:OW.bt,bub:OW.bub},look:Object.assign({},OW.c),cat:R.cat,pp:R.people,tool:R.tool,cam:JSON.parse(JSON.stringify(R.cam)),smk:0,lt:""};
@@ -16565,7 +16565,7 @@ const b=document.createElement("div");b.id="visbar";const p=v.p,sit=p.st==="sit"
 b.innerHTML=`<button data-va="talk">💬 店主と話す</button><button data-va="sit">🪑 ${sit?"席を移る":"席に座る"}</button><button data-va="smk" ${v.smk?"disabled":""}>💨 ${v.smk?"吸っています":"シーシャを吸う"}</button><button data-va="like" ${v.e.lkAt===v.e.at?"disabled":""}>👍 いいね</button><button data-va="stp">🗯 スタンプ</button><button data-va="ck">📸 チェキ</button>${v.stp?`<div id="visstp">${VSTP.map((t,i)=>`<button data-vs="${i}">${t}</button>`).join("")}</div>`:""}<button data-va="out" class="wide">🚪 自分のお店に帰る</button>`;
 document.body.appendChild(b);b.onclick=e=>{const t=e.target.closest("[data-va],[data-vs]");if(!t||t.disabled||!R.vis)return;e.stopPropagation();if(t.dataset.vs!=null){visStamp(VSTP[+t.dataset.vs]);return}const a=t.dataset.va;
 if(a==="talk")visTalk();else if(a==="sit")visSit();else if(a==="smk")visSmoke();else if(a==="like")visLike();else if(a==="stp"){v.stp=!v.stp;visBar()}else if(a==="ck")visCheki();else if(a==="out")visLeave("🏠 自分のお店に戻りました")}}
-function visTalk(){const v=R.vis;if(!v)return;const L=VISL.any.concat(v.smk?VISL.smk:VISL.pre,v.exp-Date.now()<15*60*1000?VISL.end:[]);let t=rnd(L);for(let i=0;i<6&&t===v.lt;i++)t=rnd(L);v.lt=t;say(OW,t)}
+function visTalk(){const v=R.vis;if(!v)return;const L=VISL.any.concat(v.smk?VISL.smk:VISL.pre,v.exp-Date.now()<3*60*1000?VISL.end:[]);let t=rnd(L);for(let i=0;i<6&&t===v.lt;i++)t=rnd(L);v.lt=t;say(OW,t)}
 function visSit(){const v=R.vis,p=v.p,fr=SEATS.filter(s=>!s.p&&s!==p.seat);if(!fr.length){toast("ほかに空いている席がありません");return}const s=rnd(fr);if(p.seat&&p.seat.p===p)p.seat.p=null;
 const sx=p.st==="sit"?p.seat.px+2:p.x,sy=p.st==="sit"?p.seat.Y0+3:p.y;p.x=sx;p.y=sy;s.p=p;p.seat=s;p.st="vin";p.nohk=1;p.rest=1;p._pc=null;const px=s.px+2;p.path=[[sx,15],[px,15],[px,s.Y0+3]];visBar()}
 function visSmoke(){const v=R.vis,p=v.p;if(p.st!=="sit"){toast(p.st==="vin"?"席に着くまで待ってね":"先に席に座ってね");return}v.smk=1;p.nohk=0;p.rest=0;p._pc=null;visBar();setTimeout(()=>{if(R.vis===v)say(OW,rnd(["はい、どうぞ〜！","自信作だよ〜"]))},500)}
@@ -16578,7 +16578,7 @@ function visCheki(){const v=R.vis;G.ckD=-1;const o=$("#ckp");if(o)o.remove();con
 {const _ot=onTap;onTap=function(clx,cly){if(!R.vis)return _ot.apply(this,arguments);const r=cv.getBoundingClientRect(),X=(clx-r.left)*W/r.width,Y=(cly-r.top)*CH/r.height,k=R.cv;if(!k)return;const q=P(OW.x,OW.y,7);if(Math.hypot(q[0]-X,q[1]-Y)<Math.max(30,k.s*6.5))visTalk()}}
 /* 訪問中の毎フレーム：残り時間・席に着いたら座る・時間切れで帰る（普段の画面更新はしない） */
 {const _hv=hud;hud=function(){if(!R.vis)return _hv.apply(this,arguments);const v=R.vis,p=v.p,now=Date.now();if(p.st==="vin"&&!p.path.length){p.st="sit";p._pc=null;visBar()}
-if(now<v.e.at||now>=v.exp){visLeave("⏰ 2時間たったので自分のお店に戻りました。また会った時にQRを読んでね");return}const el=document.getElementById("visrem");if(el){const t="あと"+visRem(v.e);if(el.textContent!==t)el.textContent=t}}}
+if(now<v.e.at||now>=v.exp){visLeave("⏰ 15分たったので自分のお店に戻りました。また会った時にQRを読んでね");return}const el=document.getElementById("visrem");if(el){const t="あと"+visRem(v.e);if(el.textContent!==t)el.textContent=t}}}
 /* 訪問中はクラウド保存しない */
 {const _cs=cloudSave;cloudSave=async function(){if(R.vis)return false;return _cs.apply(this,arguments)}}
 {const _cp2=cpack;cpack=async function(){if(R.vis)throw new Error("お店めぐり中は保存できません");return _cp2.apply(this,arguments)}}
@@ -16591,6 +16591,14 @@ try{document.head.insertAdjacentHTML("beforeend","<style>body.golk #go{pointer-e
 const goLocked=()=>!!(document.querySelector("#sheet.open")||document.querySelector(".xpan")||document.body.classList.contains("mvmode"));
 {const _hg=hud;hud=function(){const r=_hg.apply(this,arguments);try{const l=goLocked();if(document.body.classList.contains("golk")!==l)document.body.classList.toggle("golk",l)}catch(e){}return r}}
 document.addEventListener("click",e=>{if(e.target.closest&&e.target.closest("#go")&&goLocked()){e.stopPropagation();e.preventDefault()}},true);
+
+/* ===== お店めぐりはゲーム内で3ヶ月たってから解禁 ===== */
+const visUnl=()=>(G.month||0)>=3;
+{const _xr=xrow;xrow=function(){_xr();const b=$("#visb");if(b)b.hidden=!visUnl()}}
+{const _vp=visPanel;visPanel=function(){if(!visUnl())return;return _vp.apply(this,arguments)}}
+function visUnlPop(){G.visU=1;save();try{xrow()}catch(e){}const d=document.createElement("div");d.className="xpan";d.id="visup";d.innerHTML=`<div class="xin" style="text-align:center"><div style="font-size:46px;line-height:1.2">🏪</div><div class="xh" style="justify-content:center">お店めぐりが解禁された！</div><div class="xs" style="font-size:14px;line-height:1.8;margin:8px 0">リアルで会った店主さんとスマホを見せ合うと、その人のお店に遊びに行けます。<br>滞在できるのは<b>15分だけ</b>。<br>会えた時だけの特別な時間を楽しもう！</div><div class="xb"><button data-vu="ok" class="on" style="flex:1">OK</button></div></div>`;document.body.appendChild(d);d.onclick=e=>{if(e.target.closest("[data-vu]"))d.remove()}}
+{const _hu=hud;hud=function(){const r=_hu.apply(this,arguments);try{if(!G.visU&&G.setup&&!G.over&&visUnl()&&R.phase==="prep"&&!R.vis&&$("#ov").hidden&&!document.querySelector(".xpan")&&!document.querySelector("#sheet.open")&&!document.body.classList.contains("mvmode")&&!(typeof TUT!=="undefined"&&TUT))visUnlPop()}catch(e){}return r}}
+try{xrow()}catch(e){}
 ;(function(){const app=$("#app"),sh=document.createElement("div");sh.id="sheet";sh.innerHTML='<div class="grab"></div>';
 const top=$("#top"),cvw=$(".cvw"),atm=$("#atm");[...app.children].forEach(el=>{if(el.classList.contains("tabs")||/^p-/.test(el.id))sh.appendChild(el)});app.appendChild(sh);{const dd=$("#dd");if(dd)document.body.appendChild(dd)}
 const setv=()=>{document.documentElement.style.setProperty("--th",top.offsetHeight+"px");document.documentElement.style.setProperty("--bh",$("#bar").offsetHeight+"px")};setv();setTimeout(setv,300);setTimeout(setv,1200);window.addEventListener("resize",setv);
