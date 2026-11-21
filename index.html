@@ -156,7 +156,7 @@ body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,
 <div class="row">営業時間 <select id="op"></select>〜<select id="cl"></select></div>
 <div id="hrsi" class="m" style="font-size:12px;margin:4px 0"></div><div class="m" style="font-size:12px">シーシャ3500円／おかわり2000円／ドリンクはフリー。閉店1時間前に入店停止、閉店時刻で全員退店。</div>
 <div class="row"><button id="devreset">🛠 開発用：最初からやり直す</button></div></div></details>
-<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.79</div></div></details>
+<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.80</div></div></details>
 <span id="smk"></span>
 </div>
 <div id="p-deco" hidden><div class="card"><div class="dcat"><button data-dc="obj">🪴 置物</button><button data-dc="wp">🖼 壁アイテム</button><button data-dc="fl">🟫 床</button><button data-dc="wl">🧱 壁紙</button><button data-dc="seat" id="dcseat" class="dcw" hidden>🛋 客席</button><button data-dc="inv" class="dcw">📦 持ち物</button><button id="rm" class="dcw">🔧 模様替え（移動・回転・しまう）</button></div><div class="m" id="plc" style="font-size:12px;margin-top:6px"></div></div><div class="card" id="sec-obj"><div class="m" style="margin-bottom:6px">アイテムを選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。</div><div class="grid" id="dl"></div></div><div class="card" id="sec-seat" hidden><div class="m" style="margin-bottom:6px;font-size:12px">席を選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。席の前の1列はシーシャ台を置く場所として使います。</div><div class="m" id="spc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="sl"></div></div><div class="card" id="sec-wp" hidden><div class="m" style="font-size:12px;margin:2px 0 6px">選んでから、店内の壁をタップして貼ります（1区画に1枚）。見えている壁にだけ貼れるので、視点を回すと反対側にも貼れます。</div><div class="m" id="wc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="wl"></div></div><div class="card" id="sec-inv" hidden><div id="ivl"></div></div><div class="card" id="sec-clr" hidden><div class="m" style="font-size:12px">選ぶと店内でお試し表示されます。「購入する」で購入（¥5,000〜）。店の雰囲気には影響しません。</div><div id="clr"></div></div></div>
@@ -12841,7 +12841,7 @@ const WIMG={};
 /* 昔からあるドット絵の壁アイテムにも一覧用の小さな絵を作る */
 function wpThumb(x){if(x._th!==undefined)return x._th;x._th="";try{if(!x.pt||typeof document==="undefined"||!document.createElement)return"";const c=document.createElement("canvas");c.width=8;c.height=10;const g=c.getContext("2d");x.pt.forEach((row,r)=>[...row].forEach((ch,i)=>{g.fillStyle=x.pal[ch]||x.pal["."];g.fillRect(i,r,1,1)}));x._th=c.toDataURL()}catch(e){}return x._th}
 function wpImg(x){let im=WIMG[x.id];if(!im){if(typeof Image==="undefined")return null;im=WIMG[x.id]=new Image();im.onload=()=>{BGK=""};im.src=x.img}return im.complete&&im.naturalWidth?im:null}
-function wpOpen(x){if(!x.u)return true;const[k,n]=x.u;if(k==="flv")return(G.flu||[]).length>=(n>=50?FL.length:n);if(k==="talk")return(G.talkN||0)>=n;if(k==="fol")return!!G.ow&&G.ow.fol>=n;if(k==="buzz")return(G.buzzN||0)>=n;if(k==="year")return(G.month||0)>=n*12;if(k==="gift")return false;return true}
+function wpOpen(x){if(!x.u)return true;const[k,n]=x.u;if(k==="flv")return(G.flu||[]).length>=(n>=50?FL.length:n);if(k==="talk")return(G.talkN||0)>=n;if(k==="fol")return!!G.ow&&G.ow.fol>=n;if(k==="buzz")return(G.buzzN||0)>=n;if(k==="year")return Math.max(G.month||0,Math.floor(((G.day||1)-1)/7))>=n*12;if(k==="gift")return false;return true}
 function wpCond(x){const[k,n]=x.u;if(k==="flv")return n>=50?"フレーバー図鑑コンプで解禁":"フレーバー図鑑"+n+"種で解禁";if(k==="talk")return"話しかけ"+n+"回で解禁（今"+(G.talkN||0)+"回）";if(k==="fol")return"フォロワー"+n.toLocaleString()+"人で解禁";return"バズ"+n+"回で解禁（今"+(G.buzzN||0)+"回）"}
 function wpChk(){const L=WP.filter(x=>x.u);if(!G.wpu){G.wpu=L.filter(wpOpen).map(x=>x.id);return}const nw=L.filter(x=>wpOpen(x)&&!G.wpu.includes(x.id));if(!nw.length)return;nw.forEach(x=>G.wpu.push(x.id));G.wnew=(G.wnew||[]).concat(nw.map(x=>x.id));const bz=nw.filter(x=>x.u[0]==="buzz"),yr=nw.filter(x=>x.u[0]==="year"),ot=nw.filter(x=>x.u[0]!=="buzz"&&x.u[0]!=="year");if(yr.length){log("🐯 3年間の営業おつかれさま！ご褒美に「虎虎水煙店 再現セット」4点が届きました");if(typeof tutCard==="function"&&typeof setTimeout!=="undefined")setTimeout(()=>tutCard("🐯 <b>3年間の営業おつかれさま！</b><br>ご褒美に『虎虎水煙店 再現セット』4点が届きました。<br>（虎ネオンロゴ・虎の掛け軸・虎の敷物・フィギュアケース）<br>装飾タブの「壁アイテム」から飾れます"),400)}if(ot.length)log("🖼 新しい壁アイテム"+ot.map(x=>"「"+x.n+"」").join("")+"が解禁！");if(bz.length)log("🎉 バズのご褒美！ 壁アイテム"+bz.map(x=>"「"+x.n+"」").join("")+"が届きました！")}
 const wpIt=x=>{const op=wpOpen(x);if(!op&&x.u&&(x.u[0]==="buzz"||x.u[0]==="year"))return"";const nw=(G.wnew||[]).includes(x.id);return`<button class="it ${R.tool===x.id?"on":""} ${op?"":"lock"}" ${op?`data-d="${x.id}"`:"disabled"}>${(x.img||wpThumb(x))?`<img src="${x.img||wpThumb(x)}" alt="" style="width:30px;height:30px;object-fit:contain;image-rendering:pixelated;float:left;margin-right:6px">`:""}${op?"":"🔒 "}${nw?"<b style=\"color:#ff5a5a\">NEW </b>":""}${x.n}<small>${op?"¥"+x.p.toLocaleString()+"　"+Object.keys(x.t).map(k=>TL[k]+"+"+x.t[k]).join(" "):wpCond(x)}</small></button>`};
@@ -16024,7 +16024,7 @@ if(b.dataset.gt){try{await aapi({a:"a_gift_toggle",id:b.dataset.gt});admGifts()}
 });
 
 /* ===== 更新チェック：起動時・アプリに戻ったとき・30分ごと。新しい版があればお知らせを出して選んでもらう ===== */
-const GVER="1.0.79";
+const GVER="1.0.80";
 let updV=null,updLater=null,updBusy=0;
 async function updCheck(){if(updBusy||!/^https?:/.test(location.protocol))return;updBusy=1;try{const r=await fetch("version.txt?"+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.text()).trim();if(!v||v===GVER)return;updV=v;updShow()}catch(e){}finally{updBusy=0}}
 function updShow(){if(!updV||updLater===updV||document.getElementById("updm"))return;if(R.phase==="run"||!$("#ov").hidden||document.getElementById("sysm")){setTimeout(updShow,5000);return}
@@ -16208,7 +16208,7 @@ const CKD=[
 ["totono","s","ととのった",{g:1},["ととのった","#2f9be0"]],
 ["kanpai","s","かんぱーい！",{t:"のべ来店数500人",f:()=>(G.tvis||0)>=500},["かんぱーい！","#e0901e"]],
 ["selfie","s","#映え",{t:"フォロワー3000人",f:()=>((G.ow||{}).fol||0)>=3000},["#映え","#9b59d0"]],
-["pray","s","祝1周年",{t:"営業1年",f:()=>(G.month||0)>=12},["祝1周年","#e0352b"]],
+["pray","s","祝1周年",{t:"営業1年",f:()=>Math.max(G.month||0,Math.floor(((G.day||1)-1)/7))>=12},["祝1周年","#e0352b"]],
 ["flex","s","最強",{t:"増築3回",f:()=>(G.exN||0)>=3},["最強","#1d1a26"]],
 ["joren","s","常連さん",{t:"チェキを5回撮る",f:()=>(G.ckN||0)>=5},["常連さん","#6b4a35"]],
 ["itsumo","s","いつもありがとう",{t:"チェキを10回撮る",f:()=>(G.ckN||0)>=10},["いつもありがとう","#ff5c8a"]],
@@ -16595,7 +16595,7 @@ const goLocked=()=>!!(document.querySelector("#sheet.open")||document.querySelec
 document.addEventListener("click",e=>{if(e.target.closest&&e.target.closest("#go")&&goLocked()){e.stopPropagation();e.preventDefault()}},true);
 
 /* ===== お店めぐりはゲーム内で3ヶ月たってから解禁 ===== */
-const visUnl=()=>(G.month||0)>=3;
+const visUnl=()=>Math.max(G.month||0,Math.floor(((G.day||1)-1)/7))>=3;
 {const _xr=xrow;xrow=function(){_xr();const b=$("#visb");if(b)b.hidden=!visUnl()}}
 {const _vp=visPanel;visPanel=function(){if(!visUnl())return;return _vp.apply(this,arguments)}}
 function visUnlPop(){G.visU=1;save();try{xrow()}catch(e){}const d=document.createElement("div");d.className="xpan";d.id="visup";d.innerHTML=`<div class="xin" style="text-align:center"><div style="font-size:46px;line-height:1.2">🏪</div><div class="xh" style="justify-content:center">お店めぐりが解禁された！</div><div class="xs" style="font-size:14px;line-height:1.8;margin:8px 0">リアルで会った店主さんとスマホを見せ合うと、その人のお店に遊びに行けます。<br>滞在できるのは<b>15分だけ</b>。<br>会えた時だけの特別な時間を楽しもう！</div><div class="xb"><button data-vu="ok" class="on" style="flex:1">OK</button></div></div>`;document.body.appendChild(d);d.onclick=e=>{if(e.target.closest("[data-vu]"))d.remove()}}
