@@ -156,7 +156,7 @@ body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,
 <div class="row">営業時間 <select id="op"></select>〜<select id="cl"></select></div>
 <div id="hrsi" class="m" style="font-size:12px;margin:4px 0"></div><div class="m" style="font-size:12px">シーシャ3500円／おかわり2000円／ドリンクはフリー。閉店1時間前に入店停止、閉店時刻で全員退店。</div>
 <div class="row"><button id="devreset">🛠 開発用：最初からやり直す</button></div></div></details>
-<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.57</div></div></details>
+<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.58</div></div></details>
 <span id="smk"></span>
 </div>
 <div id="p-deco" hidden><div class="card"><div class="dcat"><button data-dc="obj">🪴 置物</button><button data-dc="wp">🖼 壁アイテム</button><button data-dc="fl">🟫 床</button><button data-dc="wl">🧱 壁紙</button><button data-dc="seat" id="dcseat" class="dcw" hidden>🛋 客席</button><button data-dc="inv" class="dcw">📦 持ち物</button><button id="rm" class="dcw">🔧 模様替え（移動・回転・しまう）</button></div><div class="m" id="plc" style="font-size:12px;margin-top:6px"></div></div><div class="card" id="sec-obj"><div class="m" style="margin-bottom:6px">アイテムを選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。</div><div class="grid" id="dl"></div></div><div class="card" id="sec-seat" hidden><div class="m" style="margin-bottom:6px;font-size:12px">席を選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。席の前の1列はシーシャ台を置く場所として使います。</div><div class="m" id="spc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="sl"></div></div><div class="card" id="sec-wp" hidden><div class="m" style="font-size:12px;margin:2px 0 6px">選んでから、店内の壁をタップして貼ります（1区画に1枚）。見えている壁にだけ貼れるので、視点を回すと反対側にも貼れます。</div><div class="m" id="wc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="wl"></div></div><div class="card" id="sec-inv" hidden><div id="ivl"></div></div><div class="card" id="sec-clr" hidden><div class="m" style="font-size:12px">選ぶと店内でお試し表示されます。「購入する」で購入（¥5,000〜）。店の雰囲気には影響しません。</div><div id="clr"></div></div></div>
@@ -16024,7 +16024,7 @@ if(b.dataset.gt){try{await aapi({a:"a_gift_toggle",id:b.dataset.gt});admGifts()}
 });
 
 /* ===== 更新チェック：起動時・アプリに戻ったとき・30分ごと。新しい版があればお知らせを出して選んでもらう ===== */
-const GVER="1.0.57";
+const GVER="1.0.58";
 let updV=null,updLater=null,updBusy=0;
 async function updCheck(){if(updBusy||!/^https?:/.test(location.protocol))return;updBusy=1;try{const r=await fetch("version.txt?"+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.text()).trim();if(!v||v===GVER)return;updV=v;updShow()}catch(e){}finally{updBusy=0}}
 function updShow(){if(!updV||updLater===updV||document.getElementById("updm"))return;if(R.phase==="run"||!$("#ov").hidden||document.getElementById("sysm")){setTimeout(updShow,5000);return}
@@ -16665,6 +16665,125 @@ function goRun(){const g=$("#go");if(!g)return;if(R.phase==="run"){const o=G.ope
 if(!g.classList.contains("rv"))g.classList.add("rv");if(g._h!==h){g._h=h;g.innerHTML=h}g.style.setProperty("--p",p.toFixed(1)+"%")}else if(g.classList.contains("rv")){g.classList.remove("rv");g._h="";g.textContent="▶ 営業開始"}}
 {let _lt=0;const _hu2=hud;hud=function(){const r=_hu2.apply(this,arguments);try{goRun();const n=Date.now();if(n-_lt>400){_lt=n;shopLine();uiTop()}}catch(e){}return r}}
 try{xrow();shopLine();uiTop()}catch(e){}
+
+/* ===== 全画面メニュー（メイン #005d4d・差し色 #6658a6・フラット）＋回転する見本ステージ ===== */
+try{document.head.insertAdjacentHTML("beforeend",`<style>
+html body #sheet.open{position:fixed!important;inset:0!important;top:0!important;height:100%!important;max-height:none!important;transform:none!important;border-radius:0!important;z-index:90!important;background:#f3f1ea!important;color:#123a33!important;padding:0 0 calc(env(safe-area-inset-bottom,0px) + 74px)!important;overflow-y:auto!important;box-shadow:none!important;border:none!important}
+html body #sheet.open .grab,html body #sheet.open>.tabs{display:none!important}
+#fmh{display:none}html body #sheet.open #fmh{display:block;position:sticky;top:0;z-index:5;background:#005d4d;color:#fff;padding:calc(env(safe-area-inset-top,0px) + 14px) 12px 10px;margin-bottom:10px}
+#fmh .t{font-weight:900;font-size:22px;letter-spacing:3px}#fmh .t small{display:block;font-size:10px;letter-spacing:2px;color:#8fc9bc;font-weight:700}
+#fmh .pu{position:absolute;right:12px;top:calc(env(safe-area-inset-top,0px) + 16px);background:#6658a6;border-radius:10px;padding:4px 12px;font-weight:900;font-size:18px}#fmh .pu:before{content:"¥ ";color:#ffd76a;font-size:15px}
+#fmt{display:flex;gap:6px;background:#004a3d;border-radius:14px;padding:5px;margin-top:10px}
+#fmt button{flex:1;height:40px;border:none!important;border-radius:10px!important;background:transparent!important;font-size:19px!important;opacity:.5;padding:0!important;box-shadow:none!important;color:#fff!important}
+#fmt button.on{opacity:1;background:#6658a6!important}
+#fmb{display:none}html body #sheet.open #fmb{display:flex;position:fixed;left:12px;right:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 12px);gap:10px;z-index:6}
+#fmb button{flex:1;font-weight:900!important;font-size:15px!important;border-radius:14px!important;padding:11px 0!important;color:#005d4d!important;background:#fff!important;border:2px solid #005d4d!important;box-shadow:none!important}
+#fmb button.a{flex:1.6;background:#6658a6!important;color:#fff!important;border-color:#6658a6!important}
+#fmb button[hidden]{display:none!important}
+html body #sheet.open [id^=p-]{padding:0 12px!important}
+html body #sheet.open .fmhide{display:none!important}
+html body #sheet.open details.cd,html body #sheet.open .card{background:#fff!important;border:none!important;border-radius:12px!important;box-shadow:none!important;color:#123a33!important;margin-bottom:10px!important}
+html body #sheet.open details.cd>summary{color:#123a33!important;font-weight:900!important}
+html body #sheet.open details.cd>summary small{color:#6658a6!important}
+html body #sheet.open .m{color:#5c7a73!important}
+html body #sheet.open button{border-radius:10px!important;box-shadow:none!important}
+html body #sheet.open .row button,html body #sheet.open .dcat button,html body #sheet.open #dc button{background:#fff!important;border:1.5px solid #cfd8d4!important;color:#123a33!important}
+html body #sheet.open .row button.on,html body #sheet.open .dcat button.on,html body #sheet.open #dc button.on{background:#6658a6!important;border-color:#6658a6!important;color:#fff!important}
+html body #sheet.open .dit{background:#fff!important;border:1.5px solid #ecebe4!important;color:#123a33!important}
+html body #sheet.open .dit.fmsel{background:#6658a6!important;border-color:#6658a6!important;color:#fff!important}html body #sheet.open .dit.fmsel small{color:#e8e4ff!important}
+html body #sheet.open .dgh{color:#005d4d!important;font-weight:900!important}
+html body #sheet.open .dxt{background:#fff!important;border:none!important;border-radius:10px!important;box-shadow:none!important;color:#123a33!important}
+html body #sheet.open .dxt .dxi{background:#e3efec!important;border-radius:8px!important;border:none!important;box-shadow:none!important}
+html body #sheet.open .dxt.fmsel{background:#6658a6!important;color:#fff!important}html body #sheet.open .dxt.fmsel .dxi{background:#7d70bd!important}
+html body #sheet.open .dxno{background:#005d4d!important;color:#fff!important;border-radius:5px!important;padding:1px 6px!important;line-height:1.3!important;white-space:nowrap!important;width:auto!important;min-width:0!important;height:auto!important}
+html body #sheet #fms{display:none;position:relative;height:236px;border-radius:12px;background:#005d4d;color:#fff;overflow:hidden;margin:0 12px 10px;touch-action:pan-y}
+html body #sheet.open #fms.on{display:block}
+html body #sheet #fms canvas{position:absolute;left:0;top:0;width:100%;height:100%;background:transparent!important;border:none!important;box-shadow:none!important}
+html body #sheet #fms .pd{position:absolute;left:50%;bottom:34px;width:150px;height:18px;transform:translateX(-50%);border-radius:50%;background:#6658a6}
+html body #sheet #fms .tl{position:absolute;left:12px;top:10px;font-size:11px;font-weight:900;background:#6658a6;border-radius:8px;padding:1px 8px}
+html body #sheet #fms .tr{position:absolute;right:12px;top:10px;font-size:11px;font-weight:700;color:#8fc9bc;text-align:right}
+html body #sheet #fms .nm{position:absolute;left:12px;right:12px;bottom:8px;display:flex;justify-content:space-between;align-items:flex-end;pointer-events:none}
+html body #sheet #fms .nm b{font-size:17px;font-weight:900;display:block}#fms .nm small{font-size:11px;color:#8fc9bc}
+html body #sheet #fms .ga{height:6px;border-radius:3px;background:#004a3d;overflow:hidden;margin-top:3px}#fms .ga i{display:block;height:100%;background:#6658a6}
+html body #sheet #fms .hint{position:absolute;right:12px;bottom:44px;font-size:10px;color:#8fc9bc}
+html body #sheet.open .card button:not(.on),html body #sheet.open details button:not(.on),html body #sheet.open .it:not(.on):not(.fmsel){background:#fff!important;color:#123a33!important;border:1.5px solid #cfd8d4!important}
+html body #sheet.open .card button.on,html body #sheet.open details button.on{background:#6658a6!important;color:#fff!important;border-color:#6658a6!important}
+html body #sheet.open select,html body #sheet.open input,html body #sheet.open textarea{background:#fff!important;color:#123a33!important;border:1.5px solid #cfd8d4!important}
+html body #sheet.open button:disabled{opacity:.5}
+html body #dd{z-index:96!important}html body #ov{z-index:97!important}html body #tut,html body #tutarw{z-index:98!important}
+html body #sheet #fms .hint{left:50%;right:auto;transform:translateX(-50%);top:12px;bottom:auto;white-space:nowrap}
+.fmcard{background:#fff;border-radius:12px;padding:12px;margin-bottom:10px}
+</style>`)}catch(e){}
+/* --- 小さなボクセル描画（見本ステージ用・回転） --- */
+const VSH=new Map();function vsh(c,k){const key=c+k;let r=VSH.get(key);if(r)return r;let h=String(c||"#888").replace("#","");if(h.length===3)h=h.split("").map(x=>x+x).join("");const n=parseInt(h,16)||0,R=(n>>16)&255,G2=(n>>8)&255,B=n&255;r=`rgb(${Math.round(R*k)},${Math.round(G2*k)},${Math.round(B*k)})`;VSH.set(key,r);return r}
+function vRender(cv,vox,ang){const g=cv.getContext("2d"),W=cv.width,H=cv.height;g.clearRect(0,0,W,H);if(!vox||!vox.length)return;
+if(!vox._b){let x0=1e9,x1=-1e9,y0=1e9,y1=-1e9,z0=1e9,z1=-1e9;vox.forEach(v=>{const s=v[5]||1;x0=Math.min(x0,v[0]);x1=Math.max(x1,v[0]+s);y0=Math.min(y0,v[1]);y1=Math.max(y1,v[1]+s);z0=Math.min(z0,v[2]);z1=Math.max(z1,v[2]+s)});const cx=(x0+x1)/2,cy=(y0+y1)/2,r=Math.hypot(x1-x0,y1-y0)/2;vox._b={cx,cy,z0,z1,r}}
+const b=vox._b,co=Math.cos(ang),si=Math.sin(ang),hz=b.z1-b.z0,sc=Math.min(W*.42/(b.r*1.25+.5),H*.68/(hz+b.r*.55+.5)),ox=W/2,oy=H-H*.2-b.r*.5*sc*0;
+const pr=(x,y,z)=>{const dx=x-b.cx,dy=y-b.cy,X=co*dx-si*dy,Y=si*dx+co*dy;return[ox+(X-Y)*.866*sc,oy-(z-b.z0)*sc+(X+Y)*.42*sc-0]};
+const L=vox.map(v=>{const s=v[5]||1,dx=v[0]+s/2-b.cx,dy=v[1]+s/2-b.cy,X=co*dx-si*dy,Y=si*dx+co*dy;return[X+Y,v[2],v]}).sort((p,q)=>p[0]-q[0]||p[1]-q[1]);
+const fx=co+si>0,fy=co-si>0;
+const poly=(pts,col)=>{g.fillStyle=col;g.beginPath();g.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)g.lineTo(pts[i][0],pts[i][1]);g.closePath();g.fill();g.strokeStyle=col;g.lineWidth=.6;g.stroke()};
+for(const [,,v] of L){const s=v[5]||1,x=v[0],y=v[1],z=v[2],c=v[3];
+const a0=pr(x,y,z+s),a1=pr(x+s,y,z+s),a2=pr(x+s,y+s,z+s),a3=pr(x,y+s,z+s),b0=pr(x,y,z),b1=pr(x+s,y,z),b2=pr(x+s,y+s,z),b3=pr(x,y+s,z);
+if(fx)poly([a1,a2,b2,b1],vsh(c,.78));else poly([a0,a3,b3,b0],vsh(c,.78));
+if(fy)poly([a3,a2,b2,b3],vsh(c,.62));else poly([a0,a1,b1,b0],vsh(c,.62));
+poly([a0,a1,a2,a3],vsh(c,1))}}
+/* --- ステージ --- */
+const FMS={vox:null,ang:5.5,auto:1,drag:null,raf:0,last:0};
+function fmsVox(kind,x){const a=[];try{if(kind==="p"){pv(a,0,0,1,x,0,0,0,0)}else if(kind==="d"){decVox(x,0).forEach(s2=>a.push(...s2.v))}}catch(e){}return a}
+function fmsSet(kind,x,html){const st=$("#fms");if(!st)return;FMS.vox=kind?fmsVox(kind,x):null;FMS.ang=5.5;FMS.auto=1;st.querySelector(".info").innerHTML=html||"";st.classList.toggle("on",!!kind);fmsLoop()}
+function fmsLoop(){cancelAnimationFrame(FMS.raf);const st=$("#fms");if(!st||!st.classList.contains("on")||!$("#sheet.open"))return;const cv=st.querySelector("canvas"),dp=Math.min(2,window.devicePixelRatio||1),w=Math.round(st.clientWidth*dp),h=Math.round(st.clientHeight*dp);if(cv.width!==w||cv.height!==h){cv.width=w;cv.height=h}
+const t=performance.now(),dt=Math.min(.05,(t-(FMS.last||t))/1000);FMS.last=t;if(FMS.auto&&!FMS.drag)FMS.ang+=dt*.7;vRender(cv,FMS.vox,FMS.ang);FMS.raf=requestAnimationFrame(fmsLoop)}
+/* --- 全画面メニューの枠 --- */
+let FMTAB="shop",FMSEL={dex:null,deco:null};
+const FMN={shop:["MENU","営業"],deco:["CATALOG","装飾"],dex:["ZUKAN","図鑑"],owner:["OWNER","店主"],etc:["SETTINGS","その他"]};
+function fmBuild(){const sh=$("#sheet");if(!sh||$("#fmh"))return;const h=document.createElement("div");h.id="fmh";h.innerHTML=`<div class="t">MENU<small>営業</small></div><div class="pu">0</div><div id="fmt">${[["shop","🏪"],["deco","🪴"],["dex","📖"],["owner","👕"],["etc","⚙️"]].map(([k,e])=>`<button data-fm="${k}" aria-label="${FMN[k][1]}">${e}</button>`).join("")}</div>`;sh.prepend(h);
+const st=document.createElement("div");st.id="fms";st.innerHTML=`<div class="pd"></div><canvas></canvas><div class="info"></div><div class="hint">ドラッグで回転・ダブルタップで正面</div>`;h.after(st);
+const po=document.createElement("div");po.id="p-own2";po.hidden=true;const pe=document.createElement("div");pe.id="p-etc";pe.hidden=true;sh.appendChild(po);sh.appendChild(pe);
+const bb=document.createElement("div");bb.id="fmb";bb.innerHTML=`<button data-fb="back">◀ もどる</button><button data-fb="go" class="a" hidden></button>`;sh.appendChild(bb);
+h.querySelector("#fmt").onclick=e=>{const b=e.target.closest("[data-fm]");if(b)fmTab(b.dataset.fm)};
+bb.onclick=e=>{const b=e.target.closest("[data-fb]");if(!b)return;e.stopPropagation();if(b.dataset.fb==="back"){sh.classList.remove("open");cancelAnimationFrame(FMS.raf);try{hud()}catch(_){}return}fmGo()};
+/* ステージのドラッグ回転 */
+const P2=e=>(e.touches?e.touches[0]:e).clientX;
+st.addEventListener("pointerdown",e=>{FMS.drag={x:e.clientX,a:FMS.ang};FMS.auto=0});
+window.addEventListener("pointermove",e=>{if(FMS.drag){FMS.ang=FMS.drag.a+(e.clientX-FMS.drag.x)*.012}});
+window.addEventListener("pointerup",()=>{if(FMS.drag){FMS.drag=null;setTimeout(()=>{if(!FMS.drag)FMS.auto=1},1500)}});
+st.addEventListener("dblclick",()=>{FMS.ang=5.5;FMS.auto=1});
+/* 選んでからもう一度（または下のボタン）で今までの動作 */
+sh.addEventListener("click",e=>{if(!sh.classList.contains("open"))return;const d=e.target.closest(".dxt");if(d&&!d._fmpass&&FMTAB==="dex"){const i=+d.dataset.c;if(FMSEL.dex!==i){e.stopPropagation();e.preventDefault();fmDex(i,d);return}}
+const it=e.target.closest(".dit[data-d]");if(it&&!it._fmpass&&FMTAB==="deco"&&!it.disabled){const id=it.dataset.d;if(FMSEL.deco!==id&&decVox(id,0)&&decVox(id,0).length){e.stopPropagation();e.preventDefault();fmDeco(id,it);return}}},true);
+try{const pe=$("#p-etc");["d-log","d-sys"].forEach(id=>{const e=document.getElementById(id);if(e)pe.appendChild(e)})}catch(e){}
+fmObs()}
+function fmGo(){if(FMTAB==="dex"&&FMSEL.dex!=null){const d=document.querySelector(`#dg .dxt[data-c="${FMSEL.dex}"]`);if(d){d._fmpass=1;d.click();d._fmpass=0}}
+else if(FMTAB==="deco"&&FMSEL.deco){const d=document.querySelector(`.dit[data-d="${FMSEL.deco}"]`);if(d){d._fmpass=1;d.click();d._fmpass=0}}
+else if(FMTAB==="owner"){const b=document.querySelector("[data-owedit]");if(b)b.click()}}
+function fmBtn(t){const b=$("#fmb [data-fb=go]");if(!b)return;b.hidden=!t;if(t)b.textContent=t}
+function fmDex(i,el){FMSEL.dex=i;document.querySelectorAll("#dg .dxt.fmsel").forEach(x=>x.classList.remove("fmsel"));if(el)el.classList.add("fmsel");const c=G.cs[i],met=c&&c.met;
+let name="？？？";try{if(met)name=esc(nm(c))}catch(_){name=esc(c.name||"")}
+const met2=G.cs.filter(x=>x.met).length,fp=Math.round(Math.min(100,c.fp||0));
+fmsSet(met?"p":null,c,`<div class="tl">No.${String(i+1).padStart(3,"0")}</div><div class="tr">図鑑 ${met2}/${G.cs.length}</div><div class="nm"><div><b>${name}</b><small>${met?esc(c.job||""):"まだ会っていない"}</small></div>${met?`<div style="text-align:right;font-size:11px;color:#8fc9bc">友好度 ${fp}%<div class="ga" style="width:90px"><i style="width:${fp}%"></i></div></div>`:""}</div>`);
+if(!met){$("#fms").classList.add("on");FMS.vox=null;fmsLoop()}fmBtn("くわしく見る ▶");try{$("#fms").scrollIntoView({block:"nearest"})}catch(_){}}
+function fmDeco(id,el){FMSEL.deco=id;document.querySelectorAll(".dit.fmsel").forEach(x=>x.classList.remove("fmsel"));if(el)el.classList.add("fmsel");const d=(typeof DEC!=="undefined"&&DEC.find(x=>x.id===id))||{n:el?el.querySelector("span").firstChild.textContent:id};
+const tg=d.t?Object.entries(d.t).map(([k,v])=>`${TL[k]||k}+${v}`).join(" "):"";fmsSet("d",id,`<div class="tl">${esc(tg||"置物")}</div><div class="nm"><div><b>${esc(d.n||"")}</b></div><b>${d.p?"¥"+d.p.toLocaleString():""}</b></div>`);fmBtn("置く ▶")}
+function fmOwner(){const o=G.ow||{},st=Math.round(typeof starOf==="function"?starOf(o):0),fm=Math.round(o.fame||0),sk=(o.skill||0);
+fmsSet("p",OW.c,`<div class="tl" style="background:none;padding:0;font-size:15px">${esc(o.name||"店長")}<div style="font-size:10.5px;color:#8fc9bc;font-weight:700">${esc(shopNm())} の店主</div></div><div class="tr" style="width:128px;color:#fff">${[["👀 知名度",fm,fm],["⭐ スター性",st,st],["💨 技術",sk.toFixed(1),Math.min(100,sk)]].map(([l,v,p])=>`<div style="display:flex;justify-content:space-between;font-size:11px"><span>${l}</span><b>${v}</b></div><div class="ga" style="margin:2px 0 6px"><i style="width:${p}%"></i></div>`).join("")}</div>`);
+const po=$("#p-own2");po.innerHTML=`<div class="fmcard"><b>${esc(o.name||"店長")}</b> <span class="m">${o.age?o.age+"歳":""}${o.sex?"・"+esc(o.sex):""}</span><div class="m" style="font-size:12px;margin-top:6px">SNSフォロワー ${(o.fol||0).toLocaleString()}人</div></div><div class="fmcard m" style="font-size:12.5px">着せ替えは「着がえる」から。髪型・服・ズボンを選べます。いろいろなことを達成すると、着せ替えアイテムが増えます。</div>`;fmBtn("着がえる ▶")}
+function fmTab(k){FMTAB=k;const sh=$("#sheet");if(!sh)return;if(!$("#fmh"))fmBuild();if(!$("#p-own2"))return;const h=$("#fmh");h.querySelector(".t").innerHTML=`${FMN[k][0]}<small>${FMN[k][1]}</small>`;h.querySelectorAll("[data-fm]").forEach(b=>b.classList.toggle("on",b.dataset.fm===k));
+const own=["shop","deco","dex"].includes(k);if(own){const ob=[...document.querySelectorAll("#sheet>.tabs button")].find(b=>b.dataset.t===k);if(ob)ob.click()}
+["p-shop","p-deco","p-mk","p-dex"].forEach(id=>{const e=document.getElementById(id);if(e)e.classList.toggle("fmhide",!own)});$("#p-own2").hidden=k!=="owner";$("#p-etc").hidden=k!=="etc";
+if(k==="etc"){const pe=$("#p-etc");["d-log","d-sys"].forEach(id=>{const e=document.getElementById(id);if(e&&e.parentNode!==pe)pe.appendChild(e)});const l=$("#d-log");if(l)l.open=true}
+fmBtn(null);$("#fms").classList.remove("on");cancelAnimationFrame(FMS.raf);
+if(k==="dex"){const i=FMSEL.dex!=null?FMSEL.dex:G.cs.findIndex(c=>c.met);if(i>=0){const el=document.querySelector(`#dg .dxt[data-c="${i}"]`);fmDex(i,el)}}
+else if(k==="deco"){if(FMSEL.deco){const el=document.querySelector(`.dit[data-d="${FMSEL.deco}"]`);if(el&&el.offsetParent)fmDeco(FMSEL.deco,el)}}
+else if(k==="owner")fmOwner();sh.scrollTop=0}
+/* メニューが開いたら全画面の中身を整える／一覧が書き直されたら選択を戻す */
+function fmObs(){const sh=$("#sheet");new MutationObserver(()=>{if(sh.classList.contains("open")){if(!sh._fmo){sh._fmo=1;const cur=[...document.querySelectorAll("#sheet>.tabs button")].find(b=>b.classList.contains("on"));fmTab(FMTAB==="owner"||FMTAB==="etc"?FMTAB:(cur&&cur.dataset.t)||"shop")}}else sh._fmo=0}).observe(sh,{attributes:true,attributeFilter:["class"]});
+const dg=$("#p-dex");if(dg)new MutationObserver(()=>{if(FMSEL.dex!=null){const el=document.querySelector(`#dg .dxt[data-c="${FMSEL.dex}"]`);if(el&&!el.classList.contains("fmsel"))el.classList.add("fmsel")}}).observe(dg,{childList:true,subtree:true});
+const dc=$("#p-deco");if(dc)new MutationObserver(()=>{if(FMTAB!=="deco")return;if(FMSEL.deco){const el=document.querySelector(`.dit[data-d="${FMSEL.deco}"]`);if(el&&!el.classList.contains("fmsel"))el.classList.add("fmsel");if(!el||!el.offsetParent){$("#fms").classList.remove("on");fmBtn(null)}}}).observe(dc,{childList:true,subtree:true})}
+/* 元のタブボタン（図鑑の解禁時のチュートリアルなどで押される）とも同期 */
+document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("#sheet>.tabs button[data-t]");if(b&&$("#sheet.open")&&FMTAB!==b.dataset.t&&["shop","deco","dex"].includes(b.dataset.t)){setTimeout(()=>{if(FMTAB!==b.dataset.t)fmTab(b.dataset.t)},0)}},true);
+{let _fl=0;const _hf=hud;hud=function(){const r=_hf.apply(this,arguments);try{const n=Date.now();if(n-_fl>500){_fl=n;if(!document.getElementById('fmh'))fmBuild();const pu=document.querySelector("#fmh .pu");if(pu&&$("#sheet.open"))pu.textContent=(G.money===Infinity?"∞":Math.round(G.money).toLocaleString())}}catch(e){}return r}}
+setTimeout(()=>{try{fmBuild()}catch(e){console.error(e)}},0);
 ;(function(){const app=$("#app"),sh=document.createElement("div");sh.id="sheet";sh.innerHTML='<div class="grab"></div>';
 const top=$("#top"),cvw=$(".cvw"),atm=$("#atm");[...app.children].forEach(el=>{if(el.classList.contains("tabs")||/^p-/.test(el.id))sh.appendChild(el)});app.appendChild(sh);{const dd=$("#dd");if(dd)document.body.appendChild(dd)}
 const setv=()=>{document.documentElement.style.setProperty("--th",top.offsetHeight+"px");document.documentElement.style.setProperty("--bh",$("#bar").offsetHeight+"px")};setv();setTimeout(setv,300);setTimeout(setv,1200);window.addEventListener("resize",setv);
