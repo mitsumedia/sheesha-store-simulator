@@ -156,7 +156,7 @@ body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,
 <div class="row">営業時間 <select id="op"></select>〜<select id="cl"></select></div>
 <div id="hrsi" class="m" style="font-size:12px;margin:4px 0"></div><div class="m" style="font-size:12px">シーシャ3500円／おかわり2000円／ドリンクはフリー。閉店1時間前に入店停止、閉店時刻で全員退店。</div>
 <div class="row"><button id="devreset">🛠 開発用：最初からやり直す</button></div></div></details>
-<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.81</div></div></details>
+<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.82</div></div></details>
 <span id="smk"></span>
 </div>
 <div id="p-deco" hidden><div class="card"><div class="dcat"><button data-dc="obj">🪴 置物</button><button data-dc="wp">🖼 壁アイテム</button><button data-dc="fl">🟫 床</button><button data-dc="wl">🧱 壁紙</button><button data-dc="seat" id="dcseat" class="dcw" hidden>🛋 客席</button><button data-dc="inv" class="dcw">📦 持ち物</button><button id="rm" class="dcw">🔧 模様替え（移動・回転・しまう）</button></div><div class="m" id="plc" style="font-size:12px;margin-top:6px"></div></div><div class="card" id="sec-obj"><div class="m" style="margin-bottom:6px">アイテムを選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。</div><div class="grid" id="dl"></div></div><div class="card" id="sec-seat" hidden><div class="m" style="margin-bottom:6px;font-size:12px">席を選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。席の前の1列はシーシャ台を置く場所として使います。</div><div class="m" id="spc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="sl"></div></div><div class="card" id="sec-wp" hidden><div class="m" style="font-size:12px;margin:2px 0 6px">選んでから、店内の壁をタップして貼ります（1区画に1枚）。見えている壁にだけ貼れるので、視点を回すと反対側にも貼れます。</div><div class="m" id="wc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="wl"></div></div><div class="card" id="sec-inv" hidden><div id="ivl"></div></div><div class="card" id="sec-clr" hidden><div class="m" style="font-size:12px">選ぶと店内でお試し表示されます。「購入する」で購入（¥5,000〜）。店の雰囲気には影響しません。</div><div id="clr"></div></div></div>
@@ -15012,13 +15012,13 @@ const SNOWL=["寒い…","帰りたい…","こうしてシーシャに向き合
 const EV=[
 /* ---- ★1 ---- */
 {id:1,r:1,t:"pre",n:"炭の発注が遅れてた",tx:"炭の発注が遅れてた…",ef:"開店が3時間遅れる",ok:()=>G.close-G.open>=5,go:()=>{td().late=180}},
-{id:2,r:1,t:"run",n:"常連さんの差し入れ",tx:"「これ、みんなで食べて！」常連さんがお菓子を持ってきてくれた",ef:"やる気+5",ok:()=>evIn().some(p=>p.c.met),go:()=>{motAdd(5)}},
+{id:2,r:1,t:"run",n:"常連さんの差し入れ",tx:"「これ、みんなで食べて！」常連さんがお菓子を持ってきてくれた",ef:"次の日は行動を2回できる",ok:()=>evIn().some(p=>p.c.met),go:()=>{evAct2("常連さんの差し入れ")}},
 {id:3,r:1,t:"run",n:"ホースが破れた",tx:"「あれ、ホースから煙が漏れてる…」",ef:"交換代 −¥500、不満+3",ok:()=>evIn().length>0,go:()=>{evMoney(-500,"ホース交換");R.st.miss+=3}},
 {id:4,r:1,t:"pre",n:"前の道で工事中",tx:"「店の前がガガガガ…今日は人通りが少なそう」",ef:"今日の客足 −20%",go:()=>{const t=td();t.dm=(t.dm||1)*.8}},
 {id:5,r:1,t:"run",n:"急な用事",tx:"大事な用事が入った…ちょっと店を空けないと",ef:"2時間接客できない（その間に来たお客さんは帰ってしまう）",ok:()=>R.t+150<G.close*60,go:()=>{R.away=R.t+120;OW.mode="";OW.path=[];OW.sitting=0;OW.seat=null;OW.idleSmk=0;OW.hd=0;OW.eat=null;OW._pc=null;OW.x=-999;OW.y=-999}},
 {id:6,r:1,t:"run",n:"迷い込んだ観光客",tx:"「Excuse me, shisha OK?」海外の観光客がふらっと入ってきた。本場の技も教えてくれた",ef:"売上 +¥3,500、技術+5",go:()=>{evMoney(3500,"観光客");G.ow.skill=Math.min(100,G.ow.skill+5)}},
 {id:7,r:1,t:"pre",n:"フレーバーの発注忘れ",tx:"あっ…発注忘れてた…",ef:"今日使えるフレーバーは5種類だけ",ok:()=>(G.flu||FLU0).length>5,go:()=>{td().fl5=(G.flu||FLU0).slice().sort(()=>Math.random()-.5).slice(0,5)}},
-{id:8,r:1,t:"pre",n:"家主さんが様子見に",tx:"「どう、調子は？これよかったら」家主さんがおそうざいをくれた",ef:"やる気+3",go:()=>{motAdd(3)}},
+{id:8,r:1,t:"pre",n:"家主さんが様子見に",tx:"「どう、調子は？これよかったら」家主さんがおそうざいをくれた",ef:"次の日は行動を2回できる",go:()=>{evAct2("家主さんのおそうざい")}},
 {id:9,r:1,t:"run",n:"レジの小銭切れ",tx:"「1万円札しかないんですけど…」お釣りが足りない！",ef:"今日の残りの会計は千円未満を割引（¥3,500→¥3,000）",go:()=>{R.coin=1}},
 {id:10,r:1,t:"run",n:"SNSでシェアされた",tx:"お客さんが店の写真をストーリーに上げてくれたみたい",ef:"フォロワー+10",ok:()=>evIn().length>0,go:()=>{G.ow.fol+=10}},
 /* ---- ★2 ---- */
@@ -15031,38 +15031,38 @@ const EV=[
 {id:17,r:2,t:"pre",n:"スマホを落とした",tx:"「画面バキバキ…SNSが見られない」",ef:"3日間SNSを更新できない",go:()=>{evx().sns=G.day+3}},
 {id:18,r:2,t:"pre",n:"寒波",tx:"「外、めちゃくちゃ寒い…今日はみんな家にいそう」",ef:"今日の客足 −30%",cond:"冬（12〜2月）",ok:evWin,go:()=>{const t=td();t.dm=(t.dm||1)*.7}},
 {id:19,r:2,t:"run",n:"ボトルが割れた",tx:"「ガシャーン！」お客さんがシーシャ台を倒してしまった",ef:"ボトル代 −¥20,000",ok:()=>evIn().length>0,go:()=>{evMoney(-20000,"ボトル代")}},
-{id:20,r:2,t:"pre",n:"お花が届いた",tx:"「いつもありがとう」常連さんからお花が届いた",ef:"やる気+8、今週は雰囲気アップ（客足+10%）",go:()=>{motAdd(8);evx().atm={mo:G.month,m:1.1}}},
+{id:20,r:2,t:"pre",n:"お花が届いた",tx:"「いつもありがとう」常連さんからお花が届いた",ef:"会ったことのあるお客さん全員の友好度+5、今週は雰囲気アップ（客足+10%）",go:()=>{evFp(5);evx().atm={mo:G.month,m:1.1}}},
 /* ---- ★3 ---- */
-{id:21,r:3,t:"run",n:"雨漏り",tx:"「ポタッ…天井から水が！」",ef:"席がひとつ今日は使えない、やる気−5",cond:"梅雨（6月）",ok:()=>evMo()===6&&evFree().length>0,go:()=>{const s=rnd(evFree());s.x=1;motAdd(-5)}},
+{id:21,r:3,t:"run",n:"雨漏り",tx:"「ポタッ…天井から水が！」",ef:"席がひとつ今日は使えない、お客さん全員の友好度−5",cond:"梅雨（6月）",ok:()=>evMo()===6&&evFree().length>0,go:()=>{const s=rnd(evFree());s.x=1;evFp(-5)}},
 {id:22,r:3,t:"pre",n:"サークルの貸切予約",tx:"「貸切りできますか？」大学のサークルから予約が入った",ef:"席の数だけ予約客が来て1日中いる（一般客は来ない）。シーシャ代は人数に関係なく¥70,000",ok:()=>G.cs.filter(c=>c.act&&!c.quit).length>=3,go:()=>{td().kashi=1}},
-{id:23,r:3,t:"pre",n:"消防の立入検査",tx:"「消防署です。炭の管理を確認させてください」",ef:"開店が2時間遅れる、やる気−5",ok:()=>G.close-G.open>=4,go:()=>{td().late=120;motAdd(-5)}},
+{id:23,r:3,t:"pre",n:"消防の立入検査",tx:"「消防署です。炭の管理を確認させてください」",ef:"開店が2時間遅れる、お客さん全員の友好度−5",ok:()=>G.close-G.open>=4,go:()=>{td().late=120;evFp(-5)}},
 {id:24,r:3,t:"run",n:"停電",tx:"「バツン…真っ暗！」",ef:"今日の営業はここで終了（お客さんは帰っていく）",go:()=>{R.dark={t:performance.now(),done:0}}},
 {id:25,r:3,t:"pre",n:"風邪をひいた",tx:"風邪をひいた…熱っぽい…",ef:"2日間強制休業",go:()=>{evx().close={until:G.day+2,msg:"🤒 風邪で休業中…"};return{close:"🤒 風邪で休業…"}}},
 {id:26,r:3,t:"pre",n:"近くに新しいシーシャ屋",tx:"「近くに新しいシーシャ屋がオープンしたらしい」",ef:"今月の客足 −10%",go:()=>{const x=evx();x.mm={mo:G.month,m:(x.mm&&x.mm.mo===G.month?x.mm.m:1)*.9}}},
 {id:27,r:3,t:"run",n:"忘れ物の財布",tx:"「席に財布が落ちてる…」届けたら持ち主がすごく感謝してくれた",ef:"",ok:()=>R.lastLeft&&R.t-R.lastLeft.t<60,go:()=>{const c=R.lastLeft.c;c.fp+=10;c.hp=Math.min(100,c.hp+15);R.lastLeft=null;return"（"+nm(c)+"の親密度が大きくアップ）"}},
 {id:28,r:3,t:"pre",n:"炭が届かない",tx:"炭を10箱頼んだのに1箱しか来なかった…",ef:"今日から3日間、シーシャを10本出したらその日は閉店",go:()=>{evx().coal=G.day+3}},
-{id:29,r:3,t:"run",n:"警察の訪問",tx:"警察の訪問…何もしてないのに、なぜかドキドキした",ef:"やる気−20",go:()=>{motAdd(-20)}},
-{id:30,r:3,t:"run",n:"イキリ客が来た",tx:"「もっと爆煙で！濃いめマシマシ！アイスホースないの！？」",ef:"やる気−30（ただし30より下にはならない）",go:()=>{motFloor(30)}},
+{id:29,r:3,t:"run",n:"警察の訪問",tx:"警察の訪問…何もしてないのに、なぜかドキドキした",ef:"次の日は行動できない",go:()=>{evNoAct("警察の訪問")}},
+{id:30,r:3,t:"run",n:"イキリ客が来た",tx:"「もっと爆煙で！濃いめマシマシ！アイスホースないの！？」",ef:"次の日は行動できない",go:()=>{evNoAct("イキリ客")}},
 /* ---- ★4 ---- */
 {id:31,r:4,t:"pre",n:"台風",tx:"「暴風警報が出てる…」",ef:"今日は強制休業、明日の客足+20%",cond:"台風の日（夏〜秋）",ok:()=>false,go:()=>{evx().nd={day:G.day+1,m:1.2};return{close:"🌀 台風のため休業。来たかったお客様は、明日に期待…"}}},
 {id:32,r:4,t:"pre",n:"大雪",tx:"「一面まっしろ…電車も止まってる」自分も帰れないので、とりあえず店は開けるけど…",ef:"お客さんは誰も来ない",cond:"冬（12〜2月）",ok:evWin,go:()=>{td().snow=1;G.wx[G.wd]="snow"}},
-{id:33,r:4,t:"pre",n:"空き巣",tx:"「…あれ？店のカギが開いてる」",ef:"所持金の10%を失う、やる気−30",go:()=>{const v=G.money>0?Math.round(G.money*.1):0;if(v)evMoney(-v,"空き巣");motAdd(-30)}},
+{id:33,r:4,t:"pre",n:"空き巣",tx:"「…あれ？店のカギが開いてる」",ef:"所持金の10%を失う、次の日は行動できない",go:()=>{const v=G.money>0?Math.round(G.money*.1):0;if(v)evMoney(-v,"空き巣");evNoAct("空き巣")}},
 {id:34,r:4,t:"pre",n:"めちゃくちゃバズった",tx:"「昨日の投稿、通知が止まらない…！？」",ef:"フォロワー3倍",go:()=>{const o=G.ow;o.fol=Math.max(10,o.fol*3);o.star=starOf(o);G.buzzN=(G.buzzN||0)+1}},
 {id:35,r:4,t:"pre",n:"近所から煙の苦情",tx:"「煙と匂い、なんとかしてもらえます？」",ef:"換気扇工事（¥100,000）か、断るか",ch:[["pay","🔧 工事する（−¥100,000）",()=>G.money>=100000],["no","🙅 断る（7日間、嫌がらせの騒音で客足−20%・来たお客さんは不満+3）",()=>1]],go:(k)=>{if(k==="pay"){evMoney(-100000,"換気扇工事");return"換気扇を付け替えた。これで文句は言われないはず"}evx().noise=G.day+7;return"…その夜から、隣で謎の工事音が鳴り始めた"}},
 {id:36,r:4,t:"run",n:"常連が友達を連れてきた",tx:"「ここ、私の行きつけなの！」",ef:"レア3〜4のお客さんが来店",ok:()=>evIn().some(p=>p.c.met)&&evFree().length>0&&evCands().some(c=>c.rar===3||c.rar===4),go:()=>{const L=evCands().filter(c=>c.rar===3||c.rar===4),U=L.filter(c=>!c.met),c=rnd(U.length?U:L);c.act=1;arrive([c]);return"（"+nm(c)+"が来店）"}},
 {id:37,r:4,t:"pre",n:"水道管が破裂",tx:"「床が水浸し…！」",ef:"修理代 −¥100,000、今日は強制休業",go:()=>{evMoney(-100000,"水道管修理");return{close:"🚰 水道管の修理で休業…"}}},
 {id:38,r:4,t:"pre",n:"花火大会",tx:"「今日は花火大会！帰りに寄る人が多そう」",ef:"今日の客足+40%（ただし20時までは誰も来ない）",cond:"8月",ok:()=>evMo()===8&&G.close>=22&&G.open<20,go:()=>{const t=td();t.dm=(t.dm||1)*1.4;t.minAt=20*60}},
-{id:39,r:4,t:"pre",n:"税務署からの手紙",tx:"「…申告漏れ？」",ef:"追徴課税で先月の売上の20%を支払う、やる気−30",ok:()=>G.last&&G.last.est>0,go:()=>{evMoney(-Math.round(G.last.est*.2),"追徴課税");motAdd(-30)}},
+{id:39,r:4,t:"pre",n:"税務署からの手紙",tx:"「…申告漏れ？」",ef:"追徴課税で先月の売上の20%を支払う、次の日は行動できない",ok:()=>G.last&&G.last.est>0,go:()=>{evMoney(-Math.round(G.last.est*.2),"追徴課税");evNoAct("税務署の手紙")}},
 {id:40,r:4,t:"pre",ok:()=>false,n:"シーシャの大会に招待",tx:"「シーシャバトルに出てみませんか？」",ef:"6・9・12・3月の月末に開催（休業なし）。技術が高いほど優勝しやすい。優勝¥200,000／準優勝¥50,000、3位以下はやる気−40",go:()=>null},
 /* ---- ★5 ---- */
 
 {id:41,r:5,t:"pre",n:"海外からのお土産",tx:"「ドバイ旅行のお土産！現地のフレーバーだよ」",ef:"レア3以上の未解禁フレーバーを1種類解禁",ok:()=>flPick(5,3)>=0,go:()=>{flUnlock(flPick(5,3),"ドバイのお土産")}},
 {id:42,r:5,t:"pre",ok:()=>false,n:"シーシャフェスに出店",tx:"「フェスにブース出しませんか？」",ef:"ギャラ（スター性×5,000円）／フォロワー／「美味しい！」で知名度・スター性が少しずつ上がる／フレーバー3種解放（月末・休業なし）",go:()=>{const o=G.ow;evMoney(30000,"フェスのギャラ");o.fol+=10000;o.starB=(o.starB||0)+10;o.star=starOf(o);for(let i=0;i<3;i++)flUnlock(flPick(5),"フェスで出会った");motAdd(-15);evx().close={until:G.day+2,msg:"🎪 フェス出店中…"};return{close:"🎪 シーシャフェスに出店中…"}}},
 {id:43,r:5,t:"run",n:"大富豪が来店",tx:"「この店、気に入った。釣りはいらないよ」万札を置いていった",ef:"売上 +¥50,000",go:()=>{evMoney(50000,"大富豪")}},
-{id:44,r:5,t:"run",n:"ワンオペ地獄",tx:"「…気づいたら満席、オーダーが止まらない！」",ef:"一気に満席。閉店後、やる気−40（ただし30より下にはならない）",cond:"2・6・9月",ok:()=>[2,6,9].includes(evMo())&&evFree().length>=2&&evCands().length>=2,go:()=>{const L=evCands().sort(()=>Math.random()-.5);let n=0;for(const c of L){if(!evFree().length)break;arrive([c]);n++}R.oneop=1;return"（"+n+"人が一気に来店）"}},
+{id:44,r:5,t:"run",n:"ワンオペ地獄",tx:"「…気づいたら満席、オーダーが止まらない！」",ef:"一気に満席。次の日は行動できない",cond:"2・6・9月",ok:()=>[2,6,9].includes(evMo())&&evFree().length>=2&&evCands().length>=2,go:()=>{const L=evCands().sort(()=>Math.random()-.5);let n=0;for(const c of L){if(!evFree().length)break;arrive([c]);n++}R.oneop=1;evNoAct("ワンオペ地獄");return"（"+n+"人が一気に来店）"}},
 {id:45,r:5,t:"pre",n:"猫が住み着いた",tx:"「裏口に子猫が…うちの子になる？」",ef:"これからたまに、猫が店に遊びにくる",once:1,go:()=>{G.cat={col:rnd(["tabby","black","white","calico"])}}},
 {id:46,r:5,t:"run",n:"フレーバーミックスが大当たり",tx:"「…この組み合わせ、天才かもしれない」",ef:"今日はこのあと全部「おいしい」が出る",go:()=>{R.allGood=1}},
-{id:47,r:5,t:"run",n:"元恋人が来店",tx:"「…久しぶり。こんな店やってたんだ」",ef:"やる気が+30か−30",go:()=>{const u=Math.random()<.5;motAdd(u?30:-30);return u?"（なんだか元気が出た！やる気+30）":"（心がざわつく…やる気−30）"}},
+{id:47,r:5,t:"run",n:"元恋人が来店",tx:"「…久しぶり。こんな店やってたんだ」",ef:"元恋人の見た目と名前を決めて、図鑑に登録。ときどき来るようになる",once:1,go:()=>"（どんな人だった？）"},
 {id:48,r:5,t:"run",n:"自称インフルエンサーが来店",tx:"「…この店、SNSで紹介していい？」",ef:"フォロワーが2倍か、半分に",go:()=>{const o=G.ow,u=Math.random()<.5;o.fol=Math.max(0,Math.round(o.fol*(u?2:.5)));o.star=starOf(o);return u?"（本物だった！フォロワー2倍）":"（炎上した…フォロワー半分）"}},
 {id:49,r:5,t:"run",n:"フードデリバリーの誤配達",tx:"「ピザLサイズ×10、お届けです！」…頼んでない。お代は払い済みらしい",ef:"お客さんに振る舞って全員の親密度アップ",cond:"お客さんが5人以上いる時",ok:()=>evIn().length>=5,go:()=>{evIn().forEach(p=>{p.c.fp+=3;p.c.hp=Math.min(100,p.c.hp+6);say(p,rnd(["ピザだ！","いいんですか！？","最高の店！"]))})}},
 {id:50,r:5,t:"pre",ok:()=>false,n:"宝くじ1等",tx:"宝くじが1等当たった‼️‼️‼️",ef:"¥100,000,000もらえる。でも今まで通りの生活をする",once:1,go:()=>{evMoney(100000000,"宝くじ")}}];
@@ -16024,7 +16024,7 @@ if(b.dataset.gt){try{await aapi({a:"a_gift_toggle",id:b.dataset.gt});admGifts()}
 });
 
 /* ===== 更新チェック：起動時・アプリに戻ったとき・30分ごと。新しい版があればお知らせを出して選んでもらう ===== */
-const GVER="1.0.81";
+const GVER="1.0.82";
 let updV=null,updLater=null,updBusy=0;
 async function updCheck(){if(updBusy||!/^https?:/.test(location.protocol))return;updBusy=1;try{const r=await fetch("version.txt?"+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.text()).trim();if(!v||v===GVER)return;updV=v;updShow()}catch(e){}finally{updBusy=0}}
 function updShow(){if(!updV||updLater===updV||document.getElementById("updm"))return;if(R.phase==="run"||!$("#ov").hidden||document.getElementById("sysm")){setTimeout(updShow,5000);return}
@@ -17159,6 +17159,36 @@ if(!G.dirt)G.dirt={};
 try{document.head.insertAdjacentHTML("beforeend",`<style>#ov .mnc .mg>[data-mo="refresh"],[data-o="refresh"]{display:none!important}#ov .mnc .mg>button:last-child:nth-child(odd){grid-column:1/-1}</style>`)}catch(e){}
 {const _sm3=showMorning;showMorning=function(){const r=_sm3.apply(this,arguments);try{const g=document.querySelector("#ov .mnc .mg");if(g){const rf=g.querySelector('[data-mo="refresh"]'),cl=g.querySelector('[data-mo="clean"]');if(rf){if(cl)g.insertBefore(cl,rf);rf.remove()}}}catch(e){}return r}}
 {const _ac3=act;act=function(k){if(k==="refresh")return;return _ac3.apply(this,arguments)}}
+
+/* ===== 次の日の行動：2回できる日／できない日 ===== */
+function evAct2(why){G.act2D=G.day+1;G.act2W=why}
+function evNoAct(why){G.noActD=G.day+1;G.noActW=why}
+function evFp(n){G.cs.forEach(c=>{if(!c.met||c.quit)return;const f=c.fp||0;if(n>0)c.fp=f+n;else{const keep=Math.floor(Math.min(f,(typeof NL!=="undefined"?NL:12)*4)/4)*4;c.fp=Math.max(keep,f+n,0)}})}
+const act2On=()=>G.act2D===G.day&&G.noActD!==G.day;
+{const _sm4=showMorning;showMorning=function(){const o=G.ow;
+if(G.noActD===G.day&&canAct()){if(typeof evMorning==="function"&&evMorning())return;if(!canAct())return;o.acted=1;G.actK="none";save();
+ov(`<div class="card" style="text-align:center"><div style="font-size:42px">😣</div><b>今日は行動できません</b><div class="m" style="font-size:13px;margin:8px 0;line-height:1.7">昨日の「${esc(G.noActW||"できごと")}」で、今日は何もする気になれない…<br>このまま開店準備をしよう</div><button id="noactok" class="on" style="width:100%">開店準備へ</button></div>`);
+const b=$("#noactok");if(b)b.onclick=e=>{e.stopPropagation();ovOff();try{rown();fmAct()}catch(_){}};return}
+const r=_sm4.apply(this,arguments);
+try{if(act2On()){const box=document.querySelector("#ov .mnc");if(box&&!box.querySelector(".act2b")){const n=G.act2U===G.day?1:2,d=document.createElement("div");d.className="act2b";d.style.cssText="margin:8px 12px 0;padding:8px 10px;border-radius:10px;background:#6658a6;color:#fff;font-weight:900;font-size:13px;text-align:center";d.textContent="🎁 "+(G.act2W||"昨日のできごと")+"のおかげで、今日は2回行動できる！（あと"+n+"回）";const g=box.querySelector(".mg");if(g)g.parentNode.insertBefore(d,g.previousElementSibling||g)}}}catch(e){}
+return r}}
+{const _ac4=act;act=function(k){const o=G.ow,b4=o&&o.acted;const r=_ac4.apply(this,arguments);
+if(o&&!b4&&o.acted&&act2On()&&G.act2U!==G.day&&k!=="visit"&&R.phase==="prep"){G.act2U=G.day;o.acted=0;save();let n=0;const t=setInterval(()=>{n++;if(n>240||R.phase!=="prep"||o.acted){clearInterval(t);return}
+if($("#ov").hidden&&!$("#clov")&&!document.querySelector(".xpan")&&!document.querySelector("#sheet.open")){clearInterval(t);try{toast("🎁 もう1回行動できます")}catch(_){}showMorning()}},500)}
+return r}}
+/* ===== 💔 元恋人：見た目と名前を決めて図鑑へ ===== */
+const MOTOL=["…元気そうだね","このフレーバー、昔一緒に吸ったやつ","別に、会いに来たわけじゃないから","…ここ、居心地いいね","あの頃より、ちょっと大人になった？","…まだあのマグカップ使ってる？","たまたま近くを通っただけ","変わってないね、そういうところ"];
+function motoEdit(done){const o=G.ow||{},sex=o.sex==="女性"?"男性":"女性",b=mkC(-1,"",sex,1);
+R.od={shop:"",name:"",age:o.age||28,sex,eye:b.eye||0,hs:b.hs,hair:b.hair,skin:b.skin,shirt:b.shirt,top:b.top,bot:b.bot,pants:b.pants,acc:0,accC:"#333333",h2:0,t2:0,b2:0};
+ov(`<div class="card motof"><b>💔 元恋人ってどんな人？</b><div class="m" style="font-size:12px;margin:4px 0">見た目と名前を決めると、図鑑に登録されて、ときどきお店に来るようになります</div>${ownForm2()}<button id="motook" class="on" style="width:100%;margin-top:8px">この人にする</button></div>`);
+try{const n=document.querySelector('#ov .motof [data-ok="name"]');if(n){n.placeholder="名前";n.maxLength=8}const sp=document.querySelector('#ov .motof [data-ok="shop"]');if(sp)sp.closest(".ofrw").remove()}catch(e){}prevO();
+const btn=$("#motook");btn.onclick=e=>{e.stopPropagation();const d=R.od;if(!d||!(d.name||"").trim()){toast("名前を入力してください");return}
+const c=Object.assign(mkC(G.cs.length,d.name.trim(),d.sex,1),{age:d.age,hs:d.hs,hair:d.hair,skin:d.skin,shirt:d.shirt,top:d.top,bot:d.bot,pants:d.pants,eye:d.eye||0,acc:d.acc||0,accC:d.accC,h2:d.h2|0,t2:d.t2|0,b2:d.b2|0},
+{act:1,cu:1,ed:1,g:-1,met:1,fp:0,taps:0,nick:d.name.trim(),hp:10,up:0,quit:0,ret:0,mo:0,moto:1,freq:.5,ap:{k:"start",v:0,p:100},ls:MOTOL.slice()});
+G.cs.push(c);G.motoI=c.i;R.od=null;save();ovOff();log("💔 元恋人「"+c.name+"」が図鑑に登録された。ときどき来るみたい…");try{toast("💔 "+c.name+" を図鑑に登録しました")}catch(_){}try{rdex()}catch(_){}done&&done()}}
+try{document.head.insertAdjacentHTML("beforeend",`<style>.dxno .moto{margin-left:2px}</style>`)}catch(e){}
+{const _ef=evFire;evFire=function(e,after){if(e&&e.id===47&&!G.motoI&&G.cs.length<400)return _ef.call(this,e,r=>motoEdit(()=>after&&after(r)));return _ef.apply(this,arguments)}}
+{const _rd=rdex;rdex=function(){const r=_rd.apply(this,arguments);try{document.querySelectorAll(".dxt[data-c]").forEach(el=>{const c=G.cs[+el.dataset.c];if(c&&c.moto){const n=el.querySelector(".dxno");if(n&&!n.querySelector(".moto"))n.insertAdjacentHTML("beforeend",'<span class="moto">💔</span>')}})}catch(e){}return r}}
 ;(function(){const app=$("#app"),sh=document.createElement("div");sh.id="sheet";sh.innerHTML='<div class="grab"></div>';
 const top=$("#top"),cvw=$(".cvw"),atm=$("#atm");[...app.children].forEach(el=>{if(el.classList.contains("tabs")||/^p-/.test(el.id))sh.appendChild(el)});app.appendChild(sh);{const dd=$("#dd");if(dd)document.body.appendChild(dd)}
 const setv=()=>{document.documentElement.style.setProperty("--th",top.offsetHeight+"px");document.documentElement.style.setProperty("--bh",$("#bar").offsetHeight+"px")};setv();setTimeout(setv,300);setTimeout(setv,1200);window.addEventListener("resize",setv);
