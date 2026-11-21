@@ -156,7 +156,7 @@ body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,
 <div class="row">営業時間 <select id="op"></select>〜<select id="cl"></select></div>
 <div id="hrsi" class="m" style="font-size:12px;margin:4px 0"></div><div class="m" style="font-size:12px">シーシャ3500円／おかわり2000円／ドリンクはフリー。閉店1時間前に入店停止、閉店時刻で全員退店。</div>
 <div class="row"><button id="devreset">🛠 開発用：最初からやり直す</button></div></div></details>
-<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.82</div></div></details>
+<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.83</div></div></details>
 <span id="smk"></span>
 </div>
 <div id="p-deco" hidden><div class="card"><div class="dcat"><button data-dc="obj">🪴 置物</button><button data-dc="wp">🖼 壁アイテム</button><button data-dc="fl">🟫 床</button><button data-dc="wl">🧱 壁紙</button><button data-dc="seat" id="dcseat" class="dcw" hidden>🛋 客席</button><button data-dc="inv" class="dcw">📦 持ち物</button><button id="rm" class="dcw">🔧 模様替え（移動・回転・しまう）</button></div><div class="m" id="plc" style="font-size:12px;margin-top:6px"></div></div><div class="card" id="sec-obj"><div class="m" style="margin-bottom:6px">アイテムを選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。</div><div class="grid" id="dl"></div></div><div class="card" id="sec-seat" hidden><div class="m" style="margin-bottom:6px;font-size:12px">席を選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。席の前の1列はシーシャ台を置く場所として使います。</div><div class="m" id="spc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="sl"></div></div><div class="card" id="sec-wp" hidden><div class="m" style="font-size:12px;margin:2px 0 6px">選んでから、店内の壁をタップして貼ります（1区画に1枚）。見えている壁にだけ貼れるので、視点を回すと反対側にも貼れます。</div><div class="m" id="wc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="wl"></div></div><div class="card" id="sec-inv" hidden><div id="ivl"></div></div><div class="card" id="sec-clr" hidden><div class="m" style="font-size:12px">選ぶと店内でお試し表示されます。「購入する」で購入（¥5,000〜）。店の雰囲気には影響しません。</div><div id="clr"></div></div></div>
@@ -16024,7 +16024,7 @@ if(b.dataset.gt){try{await aapi({a:"a_gift_toggle",id:b.dataset.gt});admGifts()}
 });
 
 /* ===== 更新チェック：起動時・アプリに戻ったとき・30分ごと。新しい版があればお知らせを出して選んでもらう ===== */
-const GVER="1.0.82";
+const GVER="1.0.83";
 let updV=null,updLater=null,updBusy=0;
 async function updCheck(){if(updBusy||!/^https?:/.test(location.protocol))return;updBusy=1;try{const r=await fetch("version.txt?"+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.text()).trim();if(!v||v===GVER)return;updV=v;updShow()}catch(e){}finally{updBusy=0}}
 function updShow(){if(!updV||updLater===updV||document.getElementById("updm"))return;if(R.phase==="run"||!$("#ov").hidden||document.getElementById("sysm")){setTimeout(updShow,5000);return}
@@ -17144,8 +17144,8 @@ function cleanStart(){const cp=cleanPct();ov(`<div class="card clc"><div style="
 const c=document.querySelector("#ov .clc");if(c)c.onclick=e=>{const b=e.target.closest("button");if(!b)return;e.stopPropagation();if(b.id==="clgo"){ovOff();cleanPlay()}else if(b.id==="clauto"){ovOff();const before=cleanPct();FLT.forEach(([tx,ty])=>{const k=tx+","+ty;dirtSet(k,Math.min(G.dirt[k]||0,20))});G.dv=(G.dv||0)+1;save();cleanEnd(before,0)}}}
 function cleanPlay(){const before=cleanPct(),cam=JSON.stringify(R.cam);let left=15,last=null,lastT=0;const o=document.createElement("div");o.id="clov";document.body.appendChild(o);const h=document.createElement("div");h.id="clhd";document.body.appendChild(h);
 const upd=()=>{h.innerHTML=`🧹 なぞって掃除！<b>${Math.ceil(left)}</b><small>きれいさ ${cleanPct()}%</small>`};upd();const t0=performance.now();
-const scrub=(e)=>{const p=scr2tile(e.clientX,e.clientY);if(!p)return;const key=p[0]+","+p[1];if(!FLS.has(key))return;const n=performance.now();if(key===last&&n-lastT<160)return;last=key;lastT=n;const v=G.dirt&&G.dirt[key]||0;if(v<=0)return;dirtSet(key,v-34);G.dv=(G.dv||0)+1;
-OW.x=Math.max(0,Math.min(60,p[2]));OW.y=Math.max(0,Math.min(60,p[3]));OW.mode="";OW.path=[];OW._pc=null;if(v-34<25){const s2=document.createElement("div");s2.className="clspk";s2.textContent="✨";s2.style.left=e.clientX+"px";s2.style.top=e.clientY+"px";document.body.appendChild(s2);setTimeout(()=>s2.remove(),650)}upd()};
+const scrub=(e)=>{const p=scr2tile(e.clientX,e.clientY);if(!p)return;const key=p[0]+","+p[1];if(!FLS.has(key))return;const n=performance.now();if(key===last&&n-lastT<220)return;last=key;lastT=n;const v=G.dirt&&G.dirt[key]||0;if(v<=0)return;dirtSet(key,v-12);G.dv=(G.dv||0)+1;
+OW.x=Math.max(0,Math.min(60,p[2]));OW.y=Math.max(0,Math.min(60,p[3]));OW.mode="";OW.path=[];OW._pc=null;if(v-12<25){const s2=document.createElement("div");s2.className="clspk";s2.textContent="✨";s2.style.left=e.clientX+"px";s2.style.top=e.clientY+"px";document.body.appendChild(s2);setTimeout(()=>s2.remove(),650)}upd()};
 let down=0;o.addEventListener("pointerdown",e=>{down=1;try{o.setPointerCapture(e.pointerId)}catch(_){}scrub(e)});o.addEventListener("pointermove",e=>{if(down)scrub(e)});o.addEventListener("pointerup",()=>{down=0});o.addEventListener("pointercancel",()=>{down=0});
 const tm=setInterval(()=>{R.cam=JSON.parse(cam);left=15-(performance.now()-t0)/1000;upd();if(left<=0){clearInterval(tm);o.remove();h.remove();save();cleanEnd(before,1)}},100)}
 function cleanEnd(before,game){const after=cleanPct(),pk=game&&after>=95;if(pk)G.pika=G.day;save();try{hud()}catch(e){}
@@ -17189,6 +17189,17 @@ G.cs.push(c);G.motoI=c.i;R.od=null;save();ovOff();log("💔 元恋人「"+c.name
 try{document.head.insertAdjacentHTML("beforeend",`<style>.dxno .moto{margin-left:2px}</style>`)}catch(e){}
 {const _ef=evFire;evFire=function(e,after){if(e&&e.id===47&&!G.motoI&&G.cs.length<400)return _ef.call(this,e,r=>motoEdit(()=>after&&after(r)));return _ef.apply(this,arguments)}}
 {const _rd=rdex;rdex=function(){const r=_rd.apply(this,arguments);try{document.querySelectorAll(".dxt[data-c]").forEach(el=>{const c=G.cs[+el.dataset.c];if(c&&c.moto){const n=el.querySelector(".dxno");if(n&&!n.querySelector(".moto"))n.insertAdjacentHTML("beforeend",'<span class="moto">💔</span>')}})}catch(e){}return r}}
+
+/* ===== 掃除ミニゲーム中は営業開始を押せない ===== */
+try{document.head.insertAdjacentHTML("beforeend",`<style>body:has(#clov) #go,body:has(#ov .clc) #go{pointer-events:none!important;opacity:.45!important}</style>`)}catch(e){}
+document.addEventListener("click",e=>{if(e.target.closest&&e.target.closest("#go")&&($("#clov")||document.querySelector("#ov .clc"))){e.stopImmediatePropagation();e.preventDefault()}},true);
+/* ===== 閉店後のバトル・フェス告知：今日のまとめを閉じてから出す。終わるまで次の日の行動は出さない ===== */
+function d8Hide(){const p=$("#evp");if(p&&$("#dlok")){p.style.display="none";R.evHid=1}}
+{const _ep=evPop;evPop=function(){const r=_ep.apply(this,arguments);try{d8Hide()}catch(e){}return r}}
+{const _sd=showDayLog;showDayLog=function(){const r=_sd.apply(this,arguments);try{d8Hide()}catch(e){}return r}}
+document.addEventListener("click",e=>{if(!(e.target.closest&&e.target.closest("#dlok")))return;const p=$("#evp");if(R.evHid&&p){e.stopImmediatePropagation();R.evHid=0;R.d8Def=1;ovOff();p.style.display=""}else R.evHid=0},true);
+{const _d8=day8;day8=function(cb,fo){return _d8.call(this,function(){try{cb&&cb()}finally{if(R.d8Def){R.d8Def=0;if(!(G.last&&!G.last.seen))setTimeout(()=>showMorning(),50)}}},fo)}}
+{const _sm5=showMorning;showMorning=function(){if(R.d8Def||R.evHid)return;return _sm5.apply(this,arguments)}}
 ;(function(){const app=$("#app"),sh=document.createElement("div");sh.id="sheet";sh.innerHTML='<div class="grab"></div>';
 const top=$("#top"),cvw=$(".cvw"),atm=$("#atm");[...app.children].forEach(el=>{if(el.classList.contains("tabs")||/^p-/.test(el.id))sh.appendChild(el)});app.appendChild(sh);{const dd=$("#dd");if(dd)document.body.appendChild(dd)}
 const setv=()=>{document.documentElement.style.setProperty("--th",top.offsetHeight+"px");document.documentElement.style.setProperty("--bh",$("#bar").offsetHeight+"px")};setv();setTimeout(setv,300);setTimeout(setv,1200);window.addEventListener("resize",setv);
