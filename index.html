@@ -156,7 +156,7 @@ body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,
 <div class="row">営業時間 <select id="op"></select>〜<select id="cl"></select></div>
 <div id="hrsi" class="m" style="font-size:12px;margin:4px 0"></div><div class="m" style="font-size:12px">シーシャ3500円／おかわり2000円／ドリンクはフリー。閉店1時間前に入店停止、閉店時刻で全員退店。</div>
 <div class="row"><button id="devreset">🛠 開発用：最初からやり直す</button></div></div></details>
-<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.65</div></div></details>
+<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.66</div></div></details>
 <span id="smk"></span>
 </div>
 <div id="p-deco" hidden><div class="card"><div class="dcat"><button data-dc="obj">🪴 置物</button><button data-dc="wp">🖼 壁アイテム</button><button data-dc="fl">🟫 床</button><button data-dc="wl">🧱 壁紙</button><button data-dc="seat" id="dcseat" class="dcw" hidden>🛋 客席</button><button data-dc="inv" class="dcw">📦 持ち物</button><button id="rm" class="dcw">🔧 模様替え（移動・回転・しまう）</button></div><div class="m" id="plc" style="font-size:12px;margin-top:6px"></div></div><div class="card" id="sec-obj"><div class="m" style="margin-bottom:6px">アイテムを選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。</div><div class="grid" id="dl"></div></div><div class="card" id="sec-seat" hidden><div class="m" style="margin-bottom:6px;font-size:12px">席を選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。席の前の1列はシーシャ台を置く場所として使います。</div><div class="m" id="spc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="sl"></div></div><div class="card" id="sec-wp" hidden><div class="m" style="font-size:12px;margin:2px 0 6px">選んでから、店内の壁をタップして貼ります（1区画に1枚）。見えている壁にだけ貼れるので、視点を回すと反対側にも貼れます。</div><div class="m" id="wc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="wl"></div></div><div class="card" id="sec-inv" hidden><div id="ivl"></div></div><div class="card" id="sec-clr" hidden><div class="m" style="font-size:12px">選ぶと店内でお試し表示されます。「購入する」で購入（¥5,000〜）。店の雰囲気には影響しません。</div><div id="clr"></div></div></div>
@@ -16024,7 +16024,7 @@ if(b.dataset.gt){try{await aapi({a:"a_gift_toggle",id:b.dataset.gt});admGifts()}
 });
 
 /* ===== 更新チェック：起動時・アプリに戻ったとき・30分ごと。新しい版があればお知らせを出して選んでもらう ===== */
-const GVER="1.0.65";
+const GVER="1.0.66";
 let updV=null,updLater=null,updBusy=0;
 async function updCheck(){if(updBusy||!/^https?:/.test(location.protocol))return;updBusy=1;try{const r=await fetch("version.txt?"+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.text()).trim();if(!v||v===GVER)return;updV=v;updShow()}catch(e){}finally{updBusy=0}}
 function updShow(){if(!updV||updLater===updV||document.getElementById("updm"))return;if(R.phase==="run"||!$("#ov").hidden||document.getElementById("sysm")){setTimeout(updShow,5000);return}
@@ -16929,6 +16929,55 @@ html body.mvmode #mvbtn{position:fixed!important;top:calc(var(--uit,104px) + 10p
 html body.mvmode #shopln,html body.mvmode #atm,html body.mvmode #tutarw{display:none!important}
 html body #sheet.open{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 140px)!important}
 </style>`)}catch(e){}
+
+/* ===== 開店前の「今日の行動」を新デザインに（緑×紫）。メニュー側は結果だけ表示 ===== */
+try{document.head.insertAdjacentHTML("beforeend",`<style>
+#ov .card.mnc{padding:0!important;background:#f3f1ea!important;color:#123a33!important;border-radius:16px!important;overflow:hidden;border:none!important;max-width:440px}
+.mnc .mh{background:#005d4d;color:#fff;padding:14px 14px 12px}
+.mnc .mh .t{font-weight:900;font-size:20px;letter-spacing:2px}.mnc .mh .t small{display:block;font-size:10px;color:#8fc9bc;letter-spacing:1px;font-weight:700}
+.mnc .mh .w{margin-top:8px;display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px;font-weight:700}
+.mnc .mh .pu{background:#6658a6;border-radius:9px;padding:3px 10px;font-weight:900;font-size:15px;white-space:nowrap}.mnc .mh .pu:before{content:"¥ ";color:#ffd76a}
+.mnc .ms{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;padding:10px 12px 2px}
+.mnc .ms div{background:#fff;border-radius:10px;text-align:center;padding:6px 0}.mnc .ms small{display:block;font-size:9.5px;color:#7f9690;font-weight:700;white-space:nowrap}.mnc .ms b{font-size:15px;font-weight:900}
+.mnc .mw{margin:6px 12px 0;font-size:12px;font-weight:700;color:#e2557a}
+.mnc .mq{padding:8px 14px 2px;font-size:13px;font-weight:900;color:#6658a6}
+.mnc .mg{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:6px 12px}
+#ov .mnc .mg button{display:block!important;width:100%!important;text-align:left!important;background:#fff!important;border:1.5px solid #ecebe4!important;border-radius:12px!important;padding:10px 12px!important;color:#123a33!important;min-height:92px;margin:0!important;box-shadow:none!important}
+#ov .mnc .mg button .e{font-size:20px;display:block}#ov .mnc .mg button b{display:block;font-size:14.5px;font-weight:900}#ov .mnc .mg button small{display:block;font-size:11px;color:#7f9690;line-height:1.4;margin-top:2px}
+#ov .mnc .mg button.s{background:#6658a6!important;border-color:#6658a6!important;color:#fff!important}#ov .mnc .mg button.s small{color:#e8e4ff}
+#ov .mnc .mg button:disabled{opacity:.45}
+#ov .mnc .mg button:last-child:nth-child(odd){grid-column:1/-1;min-height:0}
+.mnc .mn{padding:4px 14px 2px;font-size:11px;color:#5c7a73;line-height:1.5}
+.mnc .mb{display:flex;gap:10px;padding:10px 12px 12px}
+#ov .mnc .mb button{flex:1;font-weight:900!important;font-size:15px!important;border-radius:14px!important;padding:11px 0!important;background:#fff!important;border:2px solid #005d4d!important;color:#005d4d!important;margin:0!important;box-shadow:none!important}
+#ov .mnc .mb button.a{flex:1.8;background:#6658a6!important;border-color:#6658a6!important;color:#fff!important}#ov .mnc .mb button.a:disabled{opacity:.45}
+#fmst2{display:none}html body #sheet.open #fmst2{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:6px 0 2px}
+#fmst2 .tx{font-size:13px;font-weight:900}
+html body #sheet.open #fmst2 button{background:#6658a6!important;color:#fff!important;border:none!important;border-radius:12px!important;padding:9px 14px!important;font-weight:900!important;font-size:13.5px!important;white-space:nowrap}
+html body #sheet.open #fmact,html body #sheet.open #fmdone{display:none!important}
+</style>`)}catch(e){}
+const MNA={sns:["📱","SNS更新"],prac:["🔥","シーシャの練習"],refresh:["🧖","リフレッシュ"],visit:["🚶","他店舗へ視察"],focus:["🤝","お店に集中"]};
+showMorning=function(){if(!canAct())return;if(typeof evMorning==="function"&&evMorning())return;const snsL=(evx().sns||0)>G.day;const o=G.ow,w=WXI[G.wx[G.wd]],e=G.ev[G.wd],ty=G.wx[G.wd]==="typhoon",mot=Math.round(G.mot??100);
+const L=[["sns","無料・知名度とフォロワーが上がる。たまにバズる",snsL?"スマホが壊れていて更新できない（あと"+((evx().sns)-G.day)+"日）":"",!snsL],
+["prac","¥500・技術アップ（"+tierTxt(o.skill)+"）","",G.money>=500],
+["refresh","¥1,000〜5,000・やる気が回復（温泉／サウナ／スパ）","",G.money>=1000],
+["visit","¥3,500・今日は休業・月1回。技術と知名度が少し上がる",G.vm===G.month?"今月はもう視察しました":"",G.money>=3500&&!ty&&G.vm!==G.month],
+["focus","無料・話しかけの親密度1.5倍（SNSは更新しない）","",true]];
+ov(`<div class="card mnc"><div class="mh"><div class="t">TODAY<small>開店前：今日の行動を選ぼう</small></div><div class="w"><span>${MN[G.month%12]}月 ${WD[G.wd]}曜　${w[0]} ${w[1]}${e?"／"+esc(e.n):""}</span><span class="pu">${G.money===Infinity?"∞":Math.round(G.money).toLocaleString()}</span></div></div>
+<div class="ms"><div><small>👀 知名度</small><b>${Math.round(o.fame)}</b></div><div><small>⭐ スター性</small><b>${o.star}</b></div><div><small>💨 技術</small><b>${sk1(o.skill)}</b></div><div><small>📱 フォロワー</small><b>${o.fol.toLocaleString()}</b></div><div><small>🔥 やる気</small><b style="color:${mot>=30?"inherit":"#e53935"}">${mot}</b></div></div>
+${mot<30?`<div class="mw">やる気が少なくなっています。0になると廃業です。行動したり、お客さんと話したりしよう</div>`:""}
+<div class="mq">今日の行動を1つ選んでください</div>
+<div class="mg">${L.map(([k,d,why,ok])=>`<button data-mo="${k}" ${ok?"":"disabled"}><span class="e">${MNA[k][0]}</span><b>${MNA[k][1]}</b><small>${esc(why||d)}</small></button>`).join("")}</div>
+<div class="mn">行動は1日1回。お店に集中以外ではやる気も上がります。SNSを更新しない日はフォロワーが減ります。</div>
+<div class="mb"><button id="mnskip">あとで</button><button id="mngo" class="a" data-o="" disabled>この行動にする ▶</button></div></div>`);R.mOpen=1;
+const box=document.querySelector("#ov .mnc");if(box)box.onclick=ev=>{const b=ev.target.closest("[data-mo]");if(!b||b.disabled)return;ev.stopPropagation();box.querySelectorAll("[data-mo]").forEach(x=>x.classList.toggle("s",x===b));const g=document.getElementById("mngo");g.dataset.o=b.dataset.mo;g.disabled=false;g.textContent=MNA[b.dataset.mo][1]+"にする ▶"}};
+/* 何をしたかを覚えておく（メニューに表示） */
+{const _ac=act;act=function(k){const was=G.ow&&G.ow.acted;const r=_ac.apply(this,arguments);try{if(G.ow&&G.ow.acted&&!was){G.actK=k;G.actD=G.day}}catch(e){}return r}}
+/* メニュー営業タブ：行動カードの代わりに結果か「行動を選ぶ」 */
+fmAct=function(){const o=$("#own");if(!o)return;let d=$("#fmst2");if(!d){d=document.createElement("div");d.id="fmst2";o.appendChild(d);d.onclick=e=>{if(e.target.closest("[data-mopen]")){e.stopPropagation();showMorning()}}}
+const acted=G.ow&&G.ow.acted,k=G.actD===G.day?G.actK:null,can=typeof canAct==="function"&&canAct();
+const h=acted?`<span class="tx" style="color:#2a9a7c">✅ 今日の行動：${k&&MNA[k]?MNA[k][0]+" "+MNA[k][1]:"実行済み"}</span>`:can?`<span class="tx" style="color:#e2557a">今日の行動がまだです</span><button data-mopen="1">行動を選ぶ ▶</button>`:`<span class="tx" style="color:#7f9690">開店前に1日1回えらべます</span>`;if(d._h!==h){d._h=h;d.innerHTML=h}};
+try{fmAct()}catch(e){}
 ;(function(){const app=$("#app"),sh=document.createElement("div");sh.id="sheet";sh.innerHTML='<div class="grab"></div>';
 const top=$("#top"),cvw=$(".cvw"),atm=$("#atm");[...app.children].forEach(el=>{if(el.classList.contains("tabs")||/^p-/.test(el.id))sh.appendChild(el)});app.appendChild(sh);{const dd=$("#dd");if(dd)document.body.appendChild(dd)}
 const setv=()=>{document.documentElement.style.setProperty("--th",top.offsetHeight+"px");document.documentElement.style.setProperty("--bh",$("#bar").offsetHeight+"px")};setv();setTimeout(setv,300);setTimeout(setv,1200);window.addEventListener("resize",setv);
