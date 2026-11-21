@@ -156,7 +156,7 @@ body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,
 <div class="row">営業時間 <select id="op"></select>〜<select id="cl"></select></div>
 <div id="hrsi" class="m" style="font-size:12px;margin:4px 0"></div><div class="m" style="font-size:12px">シーシャ3500円／おかわり2000円／ドリンクはフリー。閉店1時間前に入店停止、閉店時刻で全員退店。</div>
 <div class="row"><button id="devreset">🛠 開発用：最初からやり直す</button></div></div></details>
-<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.59</div></div></details>
+<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.60</div></div></details>
 <span id="smk"></span>
 </div>
 <div id="p-deco" hidden><div class="card"><div class="dcat"><button data-dc="obj">🪴 置物</button><button data-dc="wp">🖼 壁アイテム</button><button data-dc="fl">🟫 床</button><button data-dc="wl">🧱 壁紙</button><button data-dc="seat" id="dcseat" class="dcw" hidden>🛋 客席</button><button data-dc="inv" class="dcw">📦 持ち物</button><button id="rm" class="dcw">🔧 模様替え（移動・回転・しまう）</button></div><div class="m" id="plc" style="font-size:12px;margin-top:6px"></div></div><div class="card" id="sec-obj"><div class="m" style="margin-bottom:6px">アイテムを選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。</div><div class="grid" id="dl"></div></div><div class="card" id="sec-seat" hidden><div class="m" style="margin-bottom:6px;font-size:12px">席を選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。席の前の1列はシーシャ台を置く場所として使います。</div><div class="m" id="spc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="sl"></div></div><div class="card" id="sec-wp" hidden><div class="m" style="font-size:12px;margin:2px 0 6px">選んでから、店内の壁をタップして貼ります（1区画に1枚）。見えている壁にだけ貼れるので、視点を回すと反対側にも貼れます。</div><div class="m" id="wc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="wl"></div></div><div class="card" id="sec-inv" hidden><div id="ivl"></div></div><div class="card" id="sec-clr" hidden><div class="m" style="font-size:12px">選ぶと店内でお試し表示されます。「購入する」で購入（¥5,000〜）。店の雰囲気には影響しません。</div><div id="clr"></div></div></div>
@@ -15015,7 +15015,7 @@ const EV=[
 {id:2,r:1,t:"run",n:"常連さんの差し入れ",tx:"「これ、みんなで食べて！」常連さんがお菓子を持ってきてくれた",ef:"やる気+5",ok:()=>evIn().some(p=>p.c.met),go:()=>{motAdd(5)}},
 {id:3,r:1,t:"run",n:"ホースが破れた",tx:"「あれ、ホースから煙が漏れてる…」",ef:"交換代 −¥500、不満+3",ok:()=>evIn().length>0,go:()=>{evMoney(-500,"ホース交換");R.st.miss+=3}},
 {id:4,r:1,t:"pre",n:"前の道で工事中",tx:"「店の前がガガガガ…今日は人通りが少なそう」",ef:"今日の客足 −20%",go:()=>{const t=td();t.dm=(t.dm||1)*.8}},
-{id:5,r:1,t:"run",n:"急な用事",tx:"大事な用事が入った…ちょっと店を空けないと",ef:"2時間接客できない（その間に来たお客さんは帰ってしまう）",ok:()=>R.t+150<G.close*60,go:()=>{R.away=R.t+120;OW.mode="";OW.path=[];OW.sitting=0;OW.seat=null;OW.idleSmk=0;OW.hd=0;OW.eat=null;OW._pc=null;OW.x=-8;OW.y=15}},
+{id:5,r:1,t:"run",n:"急な用事",tx:"大事な用事が入った…ちょっと店を空けないと",ef:"2時間接客できない（その間に来たお客さんは帰ってしまう）",ok:()=>R.t+150<G.close*60,go:()=>{R.away=R.t+120;OW.mode="";OW.path=[];OW.sitting=0;OW.seat=null;OW.idleSmk=0;OW.hd=0;OW.eat=null;OW._pc=null;OW.x=-999;OW.y=-999}},
 {id:6,r:1,t:"run",n:"迷い込んだ観光客",tx:"「Excuse me, shisha OK?」海外の観光客がふらっと入ってきた。本場の技も教えてくれた",ef:"売上 +¥3,500、技術+5",go:()=>{evMoney(3500,"観光客");G.ow.skill=Math.min(100,G.ow.skill+5)}},
 {id:7,r:1,t:"pre",n:"フレーバーの発注忘れ",tx:"あっ…発注忘れてた…",ef:"今日使えるフレーバーは5種類だけ",ok:()=>(G.flu||FLU0).length>5,go:()=>{td().fl5=(G.flu||FLU0).slice().sort(()=>Math.random()-.5).slice(0,5)}},
 {id:8,r:1,t:"pre",n:"家主さんが様子見に",tx:"「どう、調子は？これよかったら」家主さんがおそうざいをくれた",ef:"やる気+3",go:()=>{motAdd(3)}},
@@ -16024,7 +16024,7 @@ if(b.dataset.gt){try{await aapi({a:"a_gift_toggle",id:b.dataset.gt});admGifts()}
 });
 
 /* ===== 更新チェック：起動時・アプリに戻ったとき・30分ごと。新しい版があればお知らせを出して選んでもらう ===== */
-const GVER="1.0.59";
+const GVER="1.0.60";
 let updV=null,updLater=null,updBusy=0;
 async function updCheck(){if(updBusy||!/^https?:/.test(location.protocol))return;updBusy=1;try{const r=await fetch("version.txt?"+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.text()).trim();if(!v||v===GVER)return;updV=v;updShow()}catch(e){}finally{updBusy=0}}
 function updShow(){if(!updV||updLater===updV||document.getElementById("updm"))return;if(R.phase==="run"||!$("#ov").hidden||document.getElementById("sysm")){setTimeout(updShow,5000);return}
@@ -16825,6 +16825,15 @@ if(FMASEL&&(acted||!o.querySelector(`[data-o="${FMASEL}"]`)||o.querySelector(`[d
 {const _ft=fmTab;fmTab=function(k){const r=_ft.apply(this,arguments);try{if(k==="shop"){fmStat();fmAct();const d=$("#d-own");if(d)d.open=true;if(FMASEL)fmBtn("この行動にする ▶")}
 if(k==="deco"&&!FMSEL.deco){const it=[...document.querySelectorAll("#dl .dit[data-d]:not([disabled])")].find(x=>{try{return decVox(x.dataset.d,0).length}catch(e){return false}});if(it)fmDeco(it.dataset.d,it)}}catch(e){}return r}}
 {let _t2=0;const _h3=hud;hud=function(){const r=_h3.apply(this,arguments);try{const n=Date.now();if(n-_t2>1000&&$("#sheet.open")&&FMTAB==="shop"){_t2=n;fmStat()}}catch(e){}return r}}
+
+/* ===== 図鑑：ステージも「解禁度」でカードと同じ色・色の説明を表示 ===== */
+const DXCL=[[0,"#8a8494","0〜9%"],[10,"#5c9cff","10〜29%"],[30,"#f2d04a","30〜49%"],[50,"#4fd18a","50〜69%"],[70,"#ff6a5a","70〜99%"],[100,"#ffcf5a","100%（コンプリート）"]];
+const dxColL=p=>{let c=DXCL[0][1];for(const d of DXCL)if(p>=d[0])c=d[1];return c};
+try{document.head.insertAdjacentHTML("beforeend",`<style>#dxlg{display:flex;flex-wrap:wrap;gap:4px 10px;margin-top:6px;font-size:10.5px;font-weight:700;color:#5c7a73}#dxlg span{display:inline-flex;align-items:center;gap:3px}#dxlg i{display:inline-block;width:14px;height:5px;border-radius:3px}</style>`)}catch(e){}
+function dxLegend(){const dc=$("#dc");if(!dc||R.dxm==="f"||R.dxm==="e"||dc.querySelector("#dxlg"))return;const d=document.createElement("div");d.id="dxlg";d.innerHTML=`<b style="color:#123a33">解禁度の色：</b>`+DXCL.map(x=>`<span><i style="background:${x[1]}"></i>${x[2]}</span>`).join("");dc.appendChild(d)}
+{const _rd=rdex;rdex=function(){const r=_rd.apply(this,arguments);try{dxLegend()}catch(e){}return r}}
+{const _fd=fmDex;fmDex=function(i,el){const r=_fd.apply(this,arguments);try{const c=G.cs[i];if(c&&c.met){const L=lv(c),p=L>=NL?100:Math.floor(L/NL*100),col=dxColL(p),nm2=document.querySelector("#fms .nm>div:last-child");if(nm2)nm2.innerHTML=`解禁度 ${p}%<div class="ga" style="width:90px"><i style="width:${p}%;background:${col}"></i></div>`}}catch(e){}return r}}
+try{dxLegend()}catch(e){}
 ;(function(){const app=$("#app"),sh=document.createElement("div");sh.id="sheet";sh.innerHTML='<div class="grab"></div>';
 const top=$("#top"),cvw=$(".cvw"),atm=$("#atm");[...app.children].forEach(el=>{if(el.classList.contains("tabs")||/^p-/.test(el.id))sh.appendChild(el)});app.appendChild(sh);{const dd=$("#dd");if(dd)document.body.appendChild(dd)}
 const setv=()=>{document.documentElement.style.setProperty("--th",top.offsetHeight+"px");document.documentElement.style.setProperty("--bh",$("#bar").offsetHeight+"px")};setv();setTimeout(setv,300);setTimeout(setv,1200);window.addEventListener("resize",setv);
