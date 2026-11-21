@@ -156,7 +156,7 @@ body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,
 <div class="row">営業時間 <select id="op"></select>〜<select id="cl"></select></div>
 <div id="hrsi" class="m" style="font-size:12px;margin:4px 0"></div><div class="m" style="font-size:12px">シーシャ3500円／おかわり2000円／ドリンクはフリー。閉店1時間前に入店停止、閉店時刻で全員退店。</div>
 <div class="row"><button id="devreset">🛠 開発用：最初からやり直す</button></div></div></details>
-<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.80</div></div></details>
+<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.81</div></div></details>
 <span id="smk"></span>
 </div>
 <div id="p-deco" hidden><div class="card"><div class="dcat"><button data-dc="obj">🪴 置物</button><button data-dc="wp">🖼 壁アイテム</button><button data-dc="fl">🟫 床</button><button data-dc="wl">🧱 壁紙</button><button data-dc="seat" id="dcseat" class="dcw" hidden>🛋 客席</button><button data-dc="inv" class="dcw">📦 持ち物</button><button id="rm" class="dcw">🔧 模様替え（移動・回転・しまう）</button></div><div class="m" id="plc" style="font-size:12px;margin-top:6px"></div></div><div class="card" id="sec-obj"><div class="m" style="margin-bottom:6px">アイテムを選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。</div><div class="grid" id="dl"></div></div><div class="card" id="sec-seat" hidden><div class="m" style="margin-bottom:6px;font-size:12px">席を選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。席の前の1列はシーシャ台を置く場所として使います。</div><div class="m" id="spc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="sl"></div></div><div class="card" id="sec-wp" hidden><div class="m" style="font-size:12px;margin:2px 0 6px">選んでから、店内の壁をタップして貼ります（1区画に1枚）。見えている壁にだけ貼れるので、視点を回すと反対側にも貼れます。</div><div class="m" id="wc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="wl"></div></div><div class="card" id="sec-inv" hidden><div id="ivl"></div></div><div class="card" id="sec-clr" hidden><div class="m" style="font-size:12px">選ぶと店内でお試し表示されます。「購入する」で購入（¥5,000〜）。店の雰囲気には影響しません。</div><div id="clr"></div></div></div>
@@ -15279,7 +15279,7 @@ if(G.tut===4&&R.phase==="run"&&R.people.some(p=>p.drk&&p.st==="go")){R.tutSp=R.s
 /* ===== まだ触っていないメニュー項目に⚠️、初めて開いたら詳しい説明 ===== */
 const SEEN={"t:deco":["🪴 装飾","空いているマスをタップすると置物を置けます（1回置くと選択が外れます）。<br>置いた置物は<b>🔧 模様替え</b>から、移動・回転・しまう（📦 持ち物へ）ができます（開店前だけ）。<br>🔒の置物は、知名度・スター性・技術・増築・営業月数で解禁されます。壁アイテムや床・壁紙もここで変えられます"],
 "t:dex":["📖 図鑑","<b>👥 お客さん</b>：出会ったお客さんの情報です。話しかけて親密度が上がるほど、好きなフレーバーや性格などが解禁されます。<br><b>🍃 フレーバー</b>：解禁したフレーバーと、それが好きなお客さんを確認できます"],
-"d-own":["🧑‍🍳 店主の行動","開店前に1日1回だけ行動できます。<br>📱 SNS更新：知名度とフォロワーが上がる（たまにバズる）<br>🔥 練習：技術が上がり、美味しい一本が出やすくなる。新しいフレーバーも解禁<br>🧖 リフレッシュ：温泉・サウナ・スパのどれかにランダムで行き、やる気が回復（¥1,000〜5,000）<br>🚶 視察（月1回）：その日は休業。技術と知名度が上がり、フレーバーが見つかることも"],
+"d-own":["🧑‍🍳 店主の行動","開店前に1日1回だけ行動できます。<br>📱 SNS更新：知名度とフォロワーが上がる（たまにバズる）<br>🔥 練習：技術が上がり、美味しい一本が出やすくなる。新しいフレーバーも解禁<br>🧹 掃除：床をなぞって汚れを落とす。きれいだと口コミが良くなる<br>🚶 視察（月1回）：その日は休業。技術と知名度が上がり、フレーバーが見つかることも"],
 "d-log":["📝 ログ","お店で起きたことが新しい順に記録されます。来店・注文・味の評価・解禁などを確認できます"],
 "d-fin":["📊 経営・天気","今週の売上や天気、借入の残り、家賃などが見られます。<br>7日目の営業後に1か月分の精算があり、所持金がマイナスになると廃業です"],
 "d-frc":["🥤 ドリンクメニュー","冷蔵庫に置くドリンクを<b>6種類まで</b>選べます。補充はいりません。<br>飲まれた分の原価は月末にまとめて払います。<br>お客さんの好きなドリンクがないと、少し不満がたまります（営業中は変更できません）"],
@@ -16024,7 +16024,7 @@ if(b.dataset.gt){try{await aapi({a:"a_gift_toggle",id:b.dataset.gt});admGifts()}
 });
 
 /* ===== 更新チェック：起動時・アプリに戻ったとき・30分ごと。新しい版があればお知らせを出して選んでもらう ===== */
-const GVER="1.0.80";
+const GVER="1.0.81";
 let updV=null,updLater=null,updBusy=0;
 async function updCheck(){if(updBusy||!/^https?:/.test(location.protocol))return;updBusy=1;try{const r=await fetch("version.txt?"+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.text()).trim();if(!v||v===GVER)return;updV=v;updShow()}catch(e){}finally{updBusy=0}}
 function updShow(){if(!updV||updLater===updV||document.getElementById("updm"))return;if(R.phase==="run"||!$("#ov").hidden||document.getElementById("sysm")){setTimeout(updShow,5000);return}
@@ -16552,7 +16552,7 @@ const run=R.phase!=="prep",d=visPan(`<div class="xh">🎉 読み取りました�
 d.onclick=ev=>{const b=ev.target.closest("[data-vp]");if(!b)return;if(b.dataset.vp==="b"){visPanel();return}if(visOk(e)){d.remove();visEnter(e)}}}
 function visEnter(e){if(R.vis||R.phase!=="prep"||!G.setup||G.over||R.mvOn)return;const x=e.d;if(!x)return;const G0=G;
 const v={G0,e,exp:e.at+VIS_MS,sv:{x:OW.x,y:OW.y,dir:OW.dir,sitting:OW.sitting,seat:OW.seat,hd:OW.hd,idleSmk:OW.idleSmk,eat:OW.eat,ph:OW.ph,mode:OW.mode,bt:OW.bt,bub:OW.bub},look:Object.assign({},OW.c),cat:R.cat,pp:R.people,tool:R.tool,cam:JSON.parse(JSON.stringify(R.cam)),smk:0,lt:""};
-const me=Object.assign({i:99,hp:10,up:0,met:1,vt:2,nick:(G0.ow&&G0.ow.name)||"店長"},visLook(G0.ow));v.me=me;
+const me=Object.assign({i:99,hp:10,up:0,met:1,vt:2,nick:(G0.ow&&G0.ow.name)||"店長"},visLook(G0.ow));if(me.prT==null)me.prT=(G0.ow&&G0.ow.shop)||"SHISHA";v.me=me;
 const g=JSON.parse(JSON.stringify(G0));Object.assign(g,{fl:x.fl,furn:x.furn,decor:x.decor||[],wall:x.wall||[],inv:[],ckD:-1,wcl:x.wcl||0});if(x.fcl!=null)g.fcl=x.fcl;if(x.loc!=null)g.loc=x.loc;g.ow=Object.assign({},g.ow||{},x.ow||{},{name:x.on,shop:x.n});
 try{R.vis=v;G=g;R.cat=null;R.people=[];R.tool=null;e.vn=(e.vn||0)+1;G0.vtot=(G0.vtot||0)+1;
 syncFl();furnRebuild();build();Object.assign(OW,{x:3,y:8,dir:1,sitting:0,seat:null,hd:0,idleSmk:0,eat:null,ph:0,mode:null,bt:0,bub:""});applyOwLook();OW._pc=null;
@@ -16968,7 +16968,7 @@ ov(`<div class="card mnc"><div class="mh"><div class="t">TODAY<small>開店前�
 ${mot<30?`<div class="mw">やる気が少なくなっています。0になると廃業です。行動したり、お客さんと話したりしよう</div>`:""}
 <div class="mq">今日の行動を1つ選んでください</div>
 <div class="mg">${L.map(([k,d,why,ok])=>`<button data-mo="${k}" ${ok?"":"disabled"}><span class="e">${MNA[k][0]}</span><b>${MNA[k][1]}</b><small>${esc(why||d)}</small></button>`).join("")}</div>
-<div class="mn">行動は1日1回。お店に集中以外ではやる気も上がります。SNSを更新しない日はフォロワーが減ります。</div>
+<div class="mn">行動は1日1回。SNSを更新しない日はフォロワーが減ります。</div>
 <div class="mb"><button id="mnskip">あとで</button><button id="mngo" class="a" data-o="" disabled>この行動にする ▶</button></div></div>`);R.mOpen=1;
 const box=document.querySelector("#ov .mnc");if(box)box.onclick=ev=>{const b=ev.target.closest("[data-mo]");if(!b||b.disabled)return;ev.stopPropagation();box.querySelectorAll("[data-mo]").forEach(x=>x.classList.toggle("s",x===b));const g=document.getElementById("mngo");g.dataset.o=b.dataset.mo;g.disabled=false;g.textContent=MNA[b.dataset.mo][1]+"にする ▶"}};
 /* 何をしたかを覚えておく（メニューに表示） */
@@ -17154,6 +17154,11 @@ const c=document.querySelector("#ov .clc");if(c)c.onclick=e=>{if(e.target.closes
 /* 業者に頼む（行動を使わずにきれいに・¥3,000） */
 {const _fa=fmAct;fmAct=function(){const r=_fa.apply(this,arguments);try{const d=$("#fmst2");if(d&&R.phase==="prep"&&!d.querySelector("[data-clpro]")){const b=document.createElement("button");b.dataset.clpro="1";b.textContent="🧹 業者に掃除を頼む ¥3,000";b.style.cssText="margin-top:8px;width:100%";d.style.flexWrap="wrap";d.appendChild(b);b.onclick=e=>{e.stopPropagation();if(G.money<3000){toast("お金が足りません");return}if(cleanPct()>=98){toast("もう十分きれいです");return}G.money-=3000;FLT.forEach(([tx,ty])=>dirtSet(tx+","+ty,0));G.dv=(G.dv||0)+1;save();hud();toast("🧹 業者さんがピカピカにしてくれました");log("🧹 清掃業者に頼んだ（¥3,000）")}}}catch(e){}return r}}
 if(!G.dirt)G.dirt={};
+
+/* ===== リフレッシュを行動から外す（掃除を練習の次に並べ、5つ目は横いっぱい） ===== */
+try{document.head.insertAdjacentHTML("beforeend",`<style>#ov .mnc .mg>[data-mo="refresh"],[data-o="refresh"]{display:none!important}#ov .mnc .mg>button:last-child:nth-child(odd){grid-column:1/-1}</style>`)}catch(e){}
+{const _sm3=showMorning;showMorning=function(){const r=_sm3.apply(this,arguments);try{const g=document.querySelector("#ov .mnc .mg");if(g){const rf=g.querySelector('[data-mo="refresh"]'),cl=g.querySelector('[data-mo="clean"]');if(rf){if(cl)g.insertBefore(cl,rf);rf.remove()}}}catch(e){}return r}}
+{const _ac3=act;act=function(k){if(k==="refresh")return;return _ac3.apply(this,arguments)}}
 ;(function(){const app=$("#app"),sh=document.createElement("div");sh.id="sheet";sh.innerHTML='<div class="grab"></div>';
 const top=$("#top"),cvw=$(".cvw"),atm=$("#atm");[...app.children].forEach(el=>{if(el.classList.contains("tabs")||/^p-/.test(el.id))sh.appendChild(el)});app.appendChild(sh);{const dd=$("#dd");if(dd)document.body.appendChild(dd)}
 const setv=()=>{document.documentElement.style.setProperty("--th",top.offsetHeight+"px");document.documentElement.style.setProperty("--bh",$("#bar").offsetHeight+"px")};setv();setTimeout(setv,300);setTimeout(setv,1200);window.addEventListener("resize",setv);
