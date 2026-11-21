@@ -156,7 +156,7 @@ body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,
 <div class="row">営業時間 <select id="op"></select>〜<select id="cl"></select></div>
 <div id="hrsi" class="m" style="font-size:12px;margin:4px 0"></div><div class="m" style="font-size:12px">シーシャ3500円／おかわり2000円／ドリンクはフリー。閉店1時間前に入店停止、閉店時刻で全員退店。</div>
 <div class="row"><button id="devreset">🛠 開発用：最初からやり直す</button></div></div></details>
-<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.72</div></div></details>
+<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.73</div></div></details>
 <span id="smk"></span>
 </div>
 <div id="p-deco" hidden><div class="card"><div class="dcat"><button data-dc="obj">🪴 置物</button><button data-dc="wp">🖼 壁アイテム</button><button data-dc="fl">🟫 床</button><button data-dc="wl">🧱 壁紙</button><button data-dc="seat" id="dcseat" class="dcw" hidden>🛋 客席</button><button data-dc="inv" class="dcw">📦 持ち物</button><button id="rm" class="dcw">🔧 模様替え（移動・回転・しまう）</button></div><div class="m" id="plc" style="font-size:12px;margin-top:6px"></div></div><div class="card" id="sec-obj"><div class="m" style="margin-bottom:6px">アイテムを選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。</div><div class="grid" id="dl"></div></div><div class="card" id="sec-seat" hidden><div class="m" style="margin-bottom:6px;font-size:12px">席を選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。席の前の1列はシーシャ台を置く場所として使います。</div><div class="m" id="spc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="sl"></div></div><div class="card" id="sec-wp" hidden><div class="m" style="font-size:12px;margin:2px 0 6px">選んでから、店内の壁をタップして貼ります（1区画に1枚）。見えている壁にだけ貼れるので、視点を回すと反対側にも貼れます。</div><div class="m" id="wc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="wl"></div></div><div class="card" id="sec-inv" hidden><div id="ivl"></div></div><div class="card" id="sec-clr" hidden><div class="m" style="font-size:12px">選ぶと店内でお試し表示されます。「購入する」で購入（¥5,000〜）。店の雰囲気には影響しません。</div><div id="clr"></div></div></div>
@@ -14255,7 +14255,7 @@ R.people.forEach(p=>{const c=p.c,s=p.seat;
 if(s.p===p&&p.st!=="in"&&!p.nohk){const hc=hkCenter(p);if(!p.sh||p===p.sh.a)hkPush(a,hc);const hd=hdOf(p);if(hd)hosePush(a,p,hc,hd)}
 if(!c.pump&&(c.acc===1||c.acc===7||c.acc===10)){if(p.st==="sit")GLS.push(glFxS(s,c.acc,c.accC||"#333333",3.04,seatZo(s)));else{const d=p.dir||0,o=d%2,fw=o?3:4,fd=o?4:3;GLS.push(glFx(p.x-fw/2,p.y-fd/2,1,0,d,c.acc,c.accC||"#333333",3.04))}}
 if(p.st==="sit"){const hd=hdOf(p),md=actMode(p,hd),key=s.id+"|"+hd+"|"+(md?md.k+md.mir:"")+"|"+[c.hs,c.acc,c.hair,c.skin,c.shirt,c.accC,c.i,c.eye,c.top,c.bot,c.pants,c.pump].join();if(!p._pc||p._pc.k!==key){const t=[];pv(t,s.px,s.Y0,s.f,c,1,0,hd,md?md.nh:0);seatPose(t,s,c);const ab=md?actBuild(t,p,md):null;p._pc={k:key,l:cullS(t),ab}}actDraw(p,1);sprPush(p._pc,a,[s.px+2,s.Y0+3,4.5])}
-else{const d=p.dir||0,o=d%2,fw=o?3:4,fd=o?4:3;pv(a,p.x-fw/2,p.y-fd/2,1,c,0,d)}});
+else{const d=p.dir||0,o=d%2,fw=o?3:4,fd=o?4:3;if(!walkSpr(a,c,d,p.x-fw/2,p.y-fd/2))pv(a,p.x-fw/2,p.y-fd/2,1,c,0,d)}});
 bbFill(a);if(typeof catPush==="function")catPush(a);return a}
 function dv(v,k){const s=v[5]||1,x=v[0],y=v[1],z=v[2],c=v[3],ox=k.ox+k.s*((x-TX)*k.rx+(y-TY)*k.ry),oy=k.oy-k.s*((x-TX)*k.ux+(y-TY)*k.uy+(z-TZ)*k.uz),exx=k.exx*s,exy=k.exy*s,eyx=k.eyx*s,eyy=k.eyy*s,ezy=k.ezy*s;
 const i=k.cx>0?1:0,j=k.cy>0?1:0,ax=ox+i*exx,ay=oy+i*exy;
@@ -14284,8 +14284,8 @@ function draw(){const k=camVec();R.cv=k;cx.setTransform(dpr,0,0,dpr,0,0);cx.clea
 if(w.s===1)q=[[X+1,Y],[X+5,Y]];else if(w.s===3)q=[[X+5,Y+6],[X+1,Y+6]];else if(w.s===2)q=[[X,Y+5],[X,Y+1]];else q=[[X+6,Y+1],[X+6,Y+5]];
 poly([P3(q[0][0],q[0][1],z0,k),P3(q[1][0],q[1][1],z0,k),P3(q[1][0],q[1][1],z1,k),P3(q[0][0],q[0][1],z1,k)],"rgba(255,80,80,.38)")})}
 if(typeof mvHi==="function")mvHi(k);if(R.tab==="deco"&&R.tool&&R.tool!=="rm"&&R.tool!=="mv"&&!String(R.tool).startsWith("wp_")&&typeof occ==="function"){cx.fillStyle="rgba(255,80,80,.32)";const stt=String(R.tool).startsWith("st:")?R.tool.split(":")[1]:null;FLT.forEach(([tx,ty])=>{if(stt?!(furnFits({k:stt,tx,ty,f:1},-1)||(stt!=="b"&&furnFits({k:stt,tx,ty,f:-1},-1))||furnFits({k:stt,tx,ty,f:1,o:1},-1)||furnFits({k:stt,tx,ty,f:1,o:3},-1)):occ(tx,ty))return;const x=tx*6,y=ty*6;poly([P3(x+.3,y+.3,0,k),P3(x+5.7,y+.3,0,k),P3(x+5.7,y+5.7,0,k),P3(x+.3,y+5.7,0,k)],cx.fillStyle)})}
-const A=statFG(k),Bn=dyn().map(v=>({v,d:dep(v,k)})).concat(GLS.map(g=>({v:{fn:g.fn},d:g.pos[0]*k.cx+g.pos[1]*k.cy+g.pos[2]*k.cz+.6})));decPush(Bn,k);Bn.sort((p,q)=>p.d-q.d);let i=0,j=0;
-while(i<A.length||j<Bn.length){const o=(j>=Bn.length||(i<A.length&&A[i].d<=Bn[j].d))?A[i++]:Bn[j++];o.v.fn?o.v.fn(k):dv(o.v,k)}
+if(!scnDraw(k)){const A=statFG(k),Bn=dyn().map(v=>({v,d:dep(v,k)})).concat(GLS.map(g=>({v:{fn:g.fn},d:g.pos[0]*k.cx+g.pos[1]*k.cy+g.pos[2]*k.cz+.6})));decPush(Bn,k);Bn.sort((p,q)=>p.d-q.d);let i=0,j=0;
+while(i<A.length||j<Bn.length){const o=(j>=Bn.length||(i<A.length&&A[i].d<=Bn[j].d))?A[i++]:Bn[j++];o.v.fn?o.v.fn(k):dv(o.v,k)}}
 const T=performance.now()/1000;R.people.forEach(p=>{if(p.st!=="sit")return;if(!hdOf(p))return;const ph=(T+p.seed)%5,f=p.seat.f,hc0=hkCenter(p),hx=hc0.x-.5,hy=hc0.y-.5;
 if(ph<1.8){for(let q=0;q<3;q++){const o=P(hx+.5,hy+.5,.8+((T*1.6+q*.5)%1)*2.4),r=Math.max(1.2,s*.45);cx.fillStyle="rgba(255,255,255,.75)";cx.beginPath();cx.arc(o[0],o[1],r,0,7);cx.fill()}}
 else if(ph>=2.0){const ag=(ph-2.0)/3;for(let q=0;q<7;q++){const a2=ag-q*.07;if(a2<0||a2>1)continue;const so=p.seat.o,o=so?P(p.x+(so===1?1:-1)*a2*8,p.y+Math.sin(q*2.3)*2,9+a2*8+q*.3):P(p.x+Math.sin(q*2.3)*2,p.y+f*(a2*8),9+a2*8+q*.3);cx.fillStyle=`rgba(125,135,155,${.62*(1-a2)})`;cx.beginPath();cx.arc(o[0],o[1],s*(1.3+a2*4.4),0,7);cx.fill()}}});
@@ -14673,7 +14673,7 @@ R.people.forEach(p=>{if(p.sh&&p===p.sh.a){p.sh.t-=dm;if(p.sh.t<=0){p.sh.cur^=1;p
 R.people.forEach(p=>{move(p,sdt);if(spx(p.c)){p.c.fp=0;p.c.hp=0;p.c.up=0}});
 R.people=R.people.filter(p=>!p.gone);
 if(R.phase==="run"&&(R.t>=G.close*60||R.closed)&&!R.people.length&&!R.sched.length&&!OW.mode&&R.evSp==null){R.cat=null;R.dark=null;R.away=null;owReset();endDay()}
-draw();hud();requestAnimationFrame(tick)}
+draw();{const _n=performance.now();if(_n-(window._hudT||0)>=90){window._hudT=_n;hud()}}requestAnimationFrame(tick)}
 let smkTxt="";function hud(){{const S=Math.round(R.smoke),st=S>=60?"煙たい！":S>=30?"少し煙たい":"快適",tx=R.phase==="run"?"煙たさ "+S+"　"+st+(R.vent>0?"　換気中…（あと"+Math.max(1,Math.ceil(R.ventE!=null?R.ventE-R.t:R.vent))+"分）":R.vcd>0?"　（換気は"+Math.ceil(R.vcd)+"分後に再使用）":""):"",b=$("#vent");if(tx!==smkTxt){smkTxt=tx;$("#smk").textContent=tx}b.disabled=!(R.phase==="run"&&R.vent<=0&&R.vcd<=0)}
 if(G.lotto){if(G.money<G.lottoM)G.money=G.lottoM;else G.lottoM=G.money}$("#money").textContent=G.lotto?"∞":"¥"+G.money.toLocaleString();$("#day").textContent=MN[G.month%12]+"月 "+WD[G.wd]+"曜（"+(G.wd+1)+"/7日目）";const tm=Math.floor(R.phase==="run"?R.t:G.open*60),h=Math.floor(tm/60);$("#clock").textContent=(R.phase==="run"?"":"開店 ")+(h%24)+":"+String(tm%60).padStart(2,"0")+(h>=24?"（翌）":"")}
 /* ===== 装飾・図鑑・補充UI ===== */
@@ -16024,7 +16024,7 @@ if(b.dataset.gt){try{await aapi({a:"a_gift_toggle",id:b.dataset.gt});admGifts()}
 });
 
 /* ===== 更新チェック：起動時・アプリに戻ったとき・30分ごと。新しい版があればお知らせを出して選んでもらう ===== */
-const GVER="1.0.72";
+const GVER="1.0.73";
 let updV=null,updLater=null,updBusy=0;
 async function updCheck(){if(updBusy||!/^https?:/.test(location.protocol))return;updBusy=1;try{const r=await fetch("version.txt?"+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.text()).trim();if(!v||v===GVER)return;updV=v;updShow()}catch(e){}finally{updBusy=0}}
 function updShow(){if(!updV||updLater===updV||document.getElementById("updm"))return;if(R.phase==="run"||!$("#ov").hidden||document.getElementById("sysm")){setTimeout(updShow,5000);return}
@@ -17035,6 +17035,38 @@ try{document.head.insertAdjacentHTML("beforeend",`<style>#spdtip{position:absolu
 /* ===== 雰囲気タグは省略せず正式名で（1行に収まるよう小さめ） ===== */
 ratm=function(){const a=atmo();$("#atm").innerHTML=TAGS.map(k=>`<span>${TL[k]} ${a[k]}</span>`).join("")};try{ratm()}catch(e){}
 try{document.head.insertAdjacentHTML("beforeend",`<style>.fs #atm span,#atm span{padding:2px 6px!important;font-size:10.5px!important;white-space:nowrap}.fs #atm,#atm{gap:3px!important;max-width:calc(100vw - 20px)}</style>`)}catch(e){}
+
+/* ===== 描画の高速化：動かない物（壁・家具・置物）は1枚の絵にしておき、人や煙など動く物の周りだけ描き直す ===== */
+const SCNC={key:"",c:null,items:null,tiles:null,gw:0,gh:0,T:40,off:0,n:0};
+function scnKey(k){let ds="";const D=G.decor||[];for(let i=0;i<D.length;i++){const d=D[i];ds+=d.id+","+d.tx+","+d.ty+","+(d.r||0)+";"}return SC.key+"|"+ds+"|"+W+","+CH+","+dpr+"|"+k.s.toFixed(4)+","+k.rx.toFixed(5)+","+k.ry.toFixed(5)+","+k.ux.toFixed(5)+","+k.uy.toFixed(5)+","+k.uz.toFixed(5)+","+k.ox+","+k.oy}
+function wbb(x0,x1,y0,y1,z0,z1,k){let a=1e9,b=1e9,c=-1e9,d=-1e9;for(const x of[x0,x1])for(const y of[y0,y1])for(const z of[z0,z1]){const p=P3(x,y,z,k);if(p[0]<a)a=p[0];if(p[1]<b)b=p[1];if(p[0]>c)c=p[0];if(p[1]>d)d=p[1]}return[a-1,b-1,c+1,d+1]}
+function scnBuild(k){const A=statFG(k),items=A.map(o=>{const v=o.v,s2=v[5]||1;return{v,d:o.d,bb:wbb(v[0],v[0]+s2,v[1],v[1]+s2,v[2],v[2]+s2,k)}});
+(G.decor||[]).forEach(dd=>{const ox=dd.tx*6,oy=dd.ty*6,sl=decVox(dd.id,dd.r);if(!sl)return;sl.forEach(s2=>{const d=(ox+s2.cx)*k.cx+(oy+s2.cy)*k.cy+(s2.si+.5)*k.cz,sp=decSprite(dd.id,s2,k,dd.r);let bb;
+if(sp){const P0=P3(ox,oy,0,k);bb=[P0[0]-sp.ax-1,P0[1]-sp.ay-1,P0[0]-sp.ax+sp.w+1,P0[1]-sp.ay+sp.h+1]}else{const b=s2.bb;bb=b?wbb(ox+b[0],ox+b[1],oy+b[2],oy+b[3],b[4],b[5],k):[0,0,W,CH]}
+items.push({v:{fn:k2=>{const sp2=decSprite(dd.id,s2,k2,dd.r);if(!sp2){s2.v.map(v=>[v[0]+ox,v[1]+oy,v[2],v[3],undefined,.5]).map(v=>({v,d:dep(v,k2)})).sort((p,q)=>p.d-q.d).forEach(o=>dv(o.v,k2));return}const P0=P3(ox,oy,0,k2);cx.drawImage(sp2.c,P0[0]-sp2.ax,P0[1]-sp2.ay,sp2.w,sp2.h)}},d,bb})})});
+items.sort((p,q)=>p.d-q.d);
+if(!SCNC.c)SCNC.c=document.createElement("canvas");const c=SCNC.c;if(c.width!==cv.width||c.height!==cv.height){c.width=cv.width;c.height=cv.height}const g=c.getContext("2d");g.setTransform(dpr,0,0,dpr,0,0);g.clearRect(0,0,W,CH);
+const oc=cx;cx=g;try{for(const o of items)o.v.fn?o.v.fn(k):dv(o.v,k)}finally{cx=oc}
+const T=SCNC.T,gw=Math.ceil(W/T),gh=Math.ceil(CH/T),tiles=Array.from({length:gw*gh},()=>[]);
+items.forEach((o,i)=>{const b=o.bb,x0=Math.max(0,Math.floor(b[0]/T)),y0=Math.max(0,Math.floor(b[1]/T)),x1=Math.min(gw-1,Math.floor(b[2]/T)),y1=Math.min(gh-1,Math.floor(b[3]/T));for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++)tiles[y*gw+x].push(i)});
+SCNC.items=items;SCNC.tiles=tiles;SCNC.gw=gw;SCNC.gh=gh;SCNC.n++}
+function scnDraw(k){if(SCNC.off||window.SCN_OFF||typeof document==="undefined"||!document.createElement)return false;
+try{const key=scnKey(k);if(SCNC.key!==key){scnBuild(k);SCNC.key=key}
+const Bn=dyn().map(v=>({v,d:dep(v,k)})).concat(GLS.map(g=>({v:{fn:g.fn},d:g.pos[0]*k.cx+g.pos[1]*k.cy+g.pos[2]*k.cz+.6,g:g.pos})));
+const T=SCNC.T,gw=SCNC.gw,gh=SCNC.gh,mk=new Uint8Array(gw*gh);let any=0;
+const mark=(a,b,c,d)=>{const x0=Math.max(0,Math.floor(a/T)),y0=Math.max(0,Math.floor(b/T)),x1=Math.min(gw-1,Math.floor(c/T)),y1=Math.min(gh-1,Math.floor(d/T));for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++){mk[y*gw+x]=1;any=1}};
+for(const o of Bn){if(o.g){const p=o.g,b=wbb(p[0]-5,p[0]+5,p[1]-5,p[1]+5,Math.max(-1,p[2]-6),p[2]+10,k);mark(b[0],b[1],b[2],b[3])}else{const v=o.v,s2=v[5]||1,p=P3(v[0]+s2/2,v[1]+s2/2,v[2]+s2/2,k),r=k.s*s2*1.05+1;mark(p[0]-r,p[1]-r,p[0]+r,p[1]+r)}}
+const rects=()=>{cx.beginPath();for(let y=0;y<gh;y++){let x=0;while(x<gw){if(!mk[y*gw+x]){x++;continue}let e=x;while(e+1<gw&&mk[y*gw+e+1])e++;cx.rect(x*T,y*T,(e-x+1)*T,T);x=e+1}}};
+cx.save();if(any){rects();cx.rect(0,0,W,CH);cx.clip("evenodd")}cx.setTransform(1,0,0,1,0,0);cx.drawImage(SCNC.c,0,0);cx.restore();
+if(!any)return true;
+const seen=new Uint8Array(SCNC.items.length),S=[];for(let t=0;t<mk.length;t++){if(!mk[t])continue;const L=SCNC.tiles[t];for(let q=0;q<L.length;q++){const id=L[q];if(!seen[id]){seen[id]=1;S.push(id)}}}S.sort((a,b)=>a-b);
+Bn.sort((p,q)=>p.d-q.d);cx.save();rects();cx.clip();let i=0,j=0;const IT=SCNC.items;
+while(i<S.length||j<Bn.length){const o=(j>=Bn.length||(i<S.length&&IT[S[i]].d<=Bn[j].d))?IT[S[i++]]:Bn[j++];o.v.fn?o.v.fn(k):dv(o.v,k)}cx.restore();return true}
+catch(e){SCNC.off=1;try{console.error(e)}catch(_){}return false}}
+
+const WSPR=new WeakMap();
+function walkSpr(a,c,d,ox,oy){if(window.SCN_OFF||typeof document==="undefined"||!document.createElement||typeof sprPush!=="function")return false;try{let m=WSPR.get(c);if(!m){m={};WSPR.set(c,m)}const key=d+"|"+[c.hs,c.acc,c.hair,c.skin,c.shirt,c.accC,c.eye,c.top,c.bot,c.pants,c.pump,c.h2,c.t2,c.b2,c.sp].join();let pc=m[key];if(!pc){const t=[];pv(t,0,0,1,c,0,d);pc=m[key]={l:t}}
+const n0=GLS.length;sprPush(pc,a,[ox+2,oy+1.5,5]);if(GLS.length!==n0+1)return true;const g=GLS.pop(),inner=g.fn;GLS.push({pos:[ox+2,oy+1.5,5],fn:k=>{const p0=P3(0,0,0,k),p1=P3(ox,oy,0,k);cx.save();cx.translate(Math.round((p1[0]-p0[0])*dpr)/dpr,Math.round((p1[1]-p0[1])*dpr)/dpr);try{inner(k)}finally{cx.restore()}}});return true}catch(e){return false}}
 ;(function(){const app=$("#app"),sh=document.createElement("div");sh.id="sheet";sh.innerHTML='<div class="grab"></div>';
 const top=$("#top"),cvw=$(".cvw"),atm=$("#atm");[...app.children].forEach(el=>{if(el.classList.contains("tabs")||/^p-/.test(el.id))sh.appendChild(el)});app.appendChild(sh);{const dd=$("#dd");if(dd)document.body.appendChild(dd)}
 const setv=()=>{document.documentElement.style.setProperty("--th",top.offsetHeight+"px");document.documentElement.style.setProperty("--bh",$("#bar").offsetHeight+"px")};setv();setTimeout(setv,300);setTimeout(setv,1200);window.addEventListener("resize",setv);
