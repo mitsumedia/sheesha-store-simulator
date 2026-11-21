@@ -156,7 +156,7 @@ body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,
 <div class="row">営業時間 <select id="op"></select>〜<select id="cl"></select></div>
 <div id="hrsi" class="m" style="font-size:12px;margin:4px 0"></div><div class="m" style="font-size:12px">シーシャ3500円／おかわり2000円／ドリンクはフリー。閉店1時間前に入店停止、閉店時刻で全員退店。</div>
 <div class="row"><button id="devreset">🛠 開発用：最初からやり直す</button></div></div></details>
-<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.58</div></div></details>
+<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.59</div></div></details>
 <span id="smk"></span>
 </div>
 <div id="p-deco" hidden><div class="card"><div class="dcat"><button data-dc="obj">🪴 置物</button><button data-dc="wp">🖼 壁アイテム</button><button data-dc="fl">🟫 床</button><button data-dc="wl">🧱 壁紙</button><button data-dc="seat" id="dcseat" class="dcw" hidden>🛋 客席</button><button data-dc="inv" class="dcw">📦 持ち物</button><button id="rm" class="dcw">🔧 模様替え（移動・回転・しまう）</button></div><div class="m" id="plc" style="font-size:12px;margin-top:6px"></div></div><div class="card" id="sec-obj"><div class="m" style="margin-bottom:6px">アイテムを選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。</div><div class="grid" id="dl"></div></div><div class="card" id="sec-seat" hidden><div class="m" style="margin-bottom:6px;font-size:12px">席を選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。席の前の1列はシーシャ台を置く場所として使います。</div><div class="m" id="spc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="sl"></div></div><div class="card" id="sec-wp" hidden><div class="m" style="font-size:12px;margin:2px 0 6px">選んでから、店内の壁をタップして貼ります（1区画に1枚）。見えている壁にだけ貼れるので、視点を回すと反対側にも貼れます。</div><div class="m" id="wc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="wl"></div></div><div class="card" id="sec-inv" hidden><div id="ivl"></div></div><div class="card" id="sec-clr" hidden><div class="m" style="font-size:12px">選ぶと店内でお試し表示されます。「購入する」で購入（¥5,000〜）。店の雰囲気には影響しません。</div><div id="clr"></div></div></div>
@@ -16024,7 +16024,7 @@ if(b.dataset.gt){try{await aapi({a:"a_gift_toggle",id:b.dataset.gt});admGifts()}
 });
 
 /* ===== 更新チェック：起動時・アプリに戻ったとき・30分ごと。新しい版があればお知らせを出して選んでもらう ===== */
-const GVER="1.0.58";
+const GVER="1.0.59";
 let updV=null,updLater=null,updBusy=0;
 async function updCheck(){if(updBusy||!/^https?:/.test(location.protocol))return;updBusy=1;try{const r=await fetch("version.txt?"+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.text()).trim();if(!v||v===GVER)return;updV=v;updShow()}catch(e){}finally{updBusy=0}}
 function updShow(){if(!updV||updLater===updV||document.getElementById("updm"))return;if(R.phase==="run"||!$("#ov").hidden||document.getElementById("sysm")){setTimeout(updShow,5000);return}
@@ -16784,6 +16784,47 @@ const dc=$("#p-deco");if(dc)new MutationObserver(()=>{if(FMTAB!=="deco")return;i
 document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("#sheet>.tabs button[data-t]");if(b&&$("#sheet.open")&&FMTAB!==b.dataset.t&&["shop","deco","dex"].includes(b.dataset.t)){setTimeout(()=>{if(FMTAB!==b.dataset.t)fmTab(b.dataset.t)},0)}},true);
 {let _fl=0;const _hf=hud;hud=function(){const r=_hf.apply(this,arguments);try{const n=Date.now();if(n-_fl>500){_fl=n;if(!document.getElementById('fmh'))fmBuild();const pu=document.querySelector("#fmh .pu");if(pu&&$("#sheet.open"))pu.textContent=(G.money===Infinity?"∞":Math.round(G.money).toLocaleString())}}catch(e){}return r}}
 setTimeout(()=>{try{fmBuild()}catch(e){console.error(e)}},0);
+
+/* ===== 全画面メニュー 続き：営業タブ（今日の状況カード＋店主の行動カード）／装飾タブ（カタログ一覧） ===== */
+try{document.head.insertAdjacentHTML("beforeend",`<style>
+html body #sheet.open #own>.f,html body #sheet.open #own>b,html body #sheet.open #own>span.m,html body #sheet.open #own>.m,html body #sheet.open #own .row{display:none!important}
+#fmstat{display:none}html body #sheet.open #fmstat{display:block;background:#fff;border-radius:12px;padding:12px;margin:0 0 10px}
+#fmstat .a{display:flex;justify-content:space-between;align-items:flex-start}#fmstat .a small{display:block;font-size:11px;color:#7f9690;font-weight:700}#fmstat .a b{font-size:19px;font-weight:900}#fmstat .a em{font-style:normal;font-size:12px;color:#6658a6;font-weight:900;margin-left:4px}
+#fmstat .bars{display:flex;gap:4px;align-items:flex-end;height:44px;margin-top:10px}#fmstat .bars i{flex:1;border-radius:4px;background:#e3efec;min-height:3px}#fmstat .bars i.t{background:#6658a6}
+#fmstat .wd{display:flex;justify-content:space-between;font-size:10px;color:#7f9690;font-weight:700;margin-top:3px}#fmstat .wd span{flex:1;text-align:center}
+#fmact{display:none}html body #sheet.open #fmact{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0 4px}
+html body #sheet.open #fmact button{display:block!important;text-align:left!important;background:#fff!important;border:1.5px solid #ecebe4!important;border-radius:12px!important;padding:10px 12px!important;color:#123a33!important;min-height:78px}
+#fmact button:last-child:nth-child(odd){grid-column:1/-1;min-height:0}
+#fmact button .e{font-size:20px;display:block}#fmact button b{display:block;font-size:14.5px;font-weight:900}#fmact button small{display:block;font-size:11px;color:#7f9690;line-height:1.35}
+html body #sheet.open #fmact button.sel{background:#6658a6!important;border-color:#6658a6!important;color:#fff!important}html body #sheet.open #fmact button.sel small{color:#e8e4ff!important}
+#fmact button:disabled{opacity:.45}
+#fmdone{display:none}html body #sheet.open #fmdone{display:block;font-size:12.5px;font-weight:900;color:#2a9a7c;margin:6px 0 2px}
+html body #sheet.open #dl{display:block!important;background:#fff;border-radius:12px;padding:2px 10px}
+html body #sheet.open #dl .dgh{display:block;padding:10px 2px 4px;font-size:12px;border-bottom:1px solid #ecebe4}
+html body #sheet.open #dl .dit{display:flex!important;align-items:center;gap:10px;width:100%!important;height:auto!important;min-height:48px;margin:0!important;padding:6px 4px!important;border:none!important;border-bottom:1px solid #ecebe4!important;border-radius:0!important;background:transparent!important;text-align:left!important;color:#123a33!important}
+html body #sheet.open #dl .dit img{width:34px!important;height:34px!important;flex:none;border-radius:7px;background:#e3efec;object-fit:contain;margin:0!important}
+html body #sheet.open #dl .dit span{flex:1;display:block;font-weight:900;font-size:14px;line-height:1.3}
+html body #sheet.open #dl .dit small{display:block;font-weight:700;font-size:11px;color:#7f9690!important}
+html body #sheet.open #dl .dit.fmsel{background:#6658a6!important;border-radius:10px!important;color:#fff!important;border-bottom-color:transparent!important}html body #sheet.open #dl .dit.fmsel small{color:#e8e4ff!important}
+html body #sheet.open #dl .dit.lock{opacity:.55}
+html body #sheet #fms .hint{top:36px!important}
+</style>`)}catch(e){}
+const FMACT={sns:["📱","SNS更新","無料・👀知名度アップ"],prac:["🔥","シーシャの練習","¥500・💨技術アップ"],refresh:["🧖","リフレッシュ","¥1,000〜・🔥やる気回復"],visit:["🚶","他店舗へ視察","¥3,500・今日は休業"],focus:["🤝","お店に集中","その日の親密度アップ"]};
+let FMASEL=null;
+function fmStat(){const p=$("#p-shop");if(!p)return;let c=$("#fmstat");if(!c){c=document.createElement("div");c.id="fmstat";p.prepend(c)}
+let w=["",""],m=1;try{const k=G.wx[G.wd];w=WXI[k]||w;m=(WXI[k]||[0,0,1])[2];const e=G.ev&&G.ev[G.wd];if(e)m=m*(e.m||1)}catch(e){}
+const wk=(G.week||[]).map(d=>d&&d.sales||0),mx=Math.max(1,...wk),tot=wk.reduce((a,b)=>a+b,0),dn=(typeof DN!=="undefined"?DN:["月","火","水","木","金","土","日"]);
+const day=(document.querySelector("#day")&&document.querySelector("#day").childNodes[0])?document.querySelector("#day").childNodes[0].textContent.trim():"";
+const h=`<div class="a"><div><small>${esc(day)}</small><b>${w[0]} ${esc(w[1]||"")}</b><em>客足 ×${(+m).toFixed(2)}</em></div><div style="text-align:right"><small>今週の売上</small><b>${yen(tot)}</b></div></div><div class="bars">${[0,1,2,3,4,5,6].map(i=>`<i class="${i===G.wd?"t":""}" style="height:${Math.round((wk[i]||0)/mx*100)}%"></i>`).join("")}</div><div class="wd">${[0,1,2,3,4,5,6].map(i=>`<span>${["月","火","水","木","金","土","日"][i]}</span>`).join("")}</div>`;if(c._h!==h){c._h=h;c.innerHTML=h}}
+function fmAct(){const o=$("#own");if(!o)return;let g=$("#fmact"),dn=$("#fmdone");if(!g){g=document.createElement("div");g.id="fmact";o.appendChild(g);g.onclick=e=>{const b=e.target.closest("[data-fa]");if(!b||b.disabled)return;e.stopPropagation();FMASEL=b.dataset.fa;fmAct();if(typeof fmBtn==="function"&&FMTAB==="shop")fmBtn("この行動にする ▶")}}
+if(!dn){dn=document.createElement("div");dn.id="fmdone";g.before(dn)}const acted=G.ow&&G.ow.acted;dn.textContent=acted?"✅ 今日の行動は実行済みです":"今日の行動を1つ選んでください（開店前に1回）";dn.style.color=acted?"#2a9a7c":"#e2557a";
+const h=Object.entries(FMACT).map(([k,[e,n,d]])=>{const ob=o.querySelector(`[data-o="${k}"]`),dis=!ob||ob.disabled;return`<button data-fa="${k}" class="${FMASEL===k&&!dis?"sel":""}" ${dis?"disabled":""}><span class="e">${e}</span><b>${n}</b><small>${d}</small></button>`}).join("");if(g._h!==h){g._h=h;g.innerHTML=h}
+if(FMASEL&&(acted||!o.querySelector(`[data-o="${FMASEL}"]`)||o.querySelector(`[data-o="${FMASEL}"]`).disabled)){FMASEL=null;if(FMTAB==="shop"&&typeof fmBtn==="function")fmBtn(null)}}
+{const _ro=rown;rown=function(){const r=_ro.apply(this,arguments);try{fmAct()}catch(e){}return r}}
+{const _fg=fmGo;fmGo=function(){if(FMTAB==="shop"&&FMASEL){const b=document.querySelector(`#own [data-o="${FMASEL}"]`);FMASEL=null;fmBtn(null);if(b&&!b.disabled)b.click();setTimeout(()=>{try{fmAct()}catch(e){}},50);return}return _fg.apply(this,arguments)}}
+{const _ft=fmTab;fmTab=function(k){const r=_ft.apply(this,arguments);try{if(k==="shop"){fmStat();fmAct();const d=$("#d-own");if(d)d.open=true;if(FMASEL)fmBtn("この行動にする ▶")}
+if(k==="deco"&&!FMSEL.deco){const it=[...document.querySelectorAll("#dl .dit[data-d]:not([disabled])")].find(x=>{try{return decVox(x.dataset.d,0).length}catch(e){return false}});if(it)fmDeco(it.dataset.d,it)}}catch(e){}return r}}
+{let _t2=0;const _h3=hud;hud=function(){const r=_h3.apply(this,arguments);try{const n=Date.now();if(n-_t2>1000&&$("#sheet.open")&&FMTAB==="shop"){_t2=n;fmStat()}}catch(e){}return r}}
 ;(function(){const app=$("#app"),sh=document.createElement("div");sh.id="sheet";sh.innerHTML='<div class="grab"></div>';
 const top=$("#top"),cvw=$(".cvw"),atm=$("#atm");[...app.children].forEach(el=>{if(el.classList.contains("tabs")||/^p-/.test(el.id))sh.appendChild(el)});app.appendChild(sh);{const dd=$("#dd");if(dd)document.body.appendChild(dd)}
 const setv=()=>{document.documentElement.style.setProperty("--th",top.offsetHeight+"px");document.documentElement.style.setProperty("--bh",$("#bar").offsetHeight+"px")};setv();setTimeout(setv,300);setTimeout(setv,1200);window.addEventListener("resize",setv);
