@@ -156,7 +156,7 @@ body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,
 <div class="row">営業時間 <select id="op"></select>〜<select id="cl"></select></div>
 <div id="hrsi" class="m" style="font-size:12px;margin:4px 0"></div><div class="m" style="font-size:12px">シーシャ3500円／おかわり2000円／ドリンクはフリー。閉店1時間前に入店停止、閉店時刻で全員退店。</div>
 <div class="row"><button id="devreset">🛠 開発用：最初からやり直す</button></div></div></details>
-<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.88</div></div></details>
+<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.89</div></div></details>
 <span id="smk"></span>
 </div>
 <div id="p-deco" hidden><div class="card"><div class="dcat"><button data-dc="obj">🪴 置物</button><button data-dc="wp">🖼 壁アイテム</button><button data-dc="fl">🟫 床</button><button data-dc="wl">🧱 壁紙</button><button data-dc="seat" id="dcseat" class="dcw" hidden>🛋 客席</button><button data-dc="inv" class="dcw">📦 持ち物</button><button id="rm" class="dcw">🔧 模様替え（移動・回転・しまう）</button></div><div class="m" id="plc" style="font-size:12px;margin-top:6px"></div></div><div class="card" id="sec-obj"><div class="m" style="margin-bottom:6px">アイテムを選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。</div><div class="grid" id="dl"></div></div><div class="card" id="sec-seat" hidden><div class="m" style="margin-bottom:6px;font-size:12px">席を選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。席の前の1列はシーシャ台を置く場所として使います。</div><div class="m" id="spc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="sl"></div></div><div class="card" id="sec-wp" hidden><div class="m" style="font-size:12px;margin:2px 0 6px">選んでから、店内の壁をタップして貼ります（1区画に1枚）。見えている壁にだけ貼れるので、視点を回すと反対側にも貼れます。</div><div class="m" id="wc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="wl"></div></div><div class="card" id="sec-inv" hidden><div id="ivl"></div></div><div class="card" id="sec-clr" hidden><div class="m" style="font-size:12px">選ぶと店内でお試し表示されます。「購入する」で購入（¥5,000〜）。店の雰囲気には影響しません。</div><div id="clr"></div></div></div>
@@ -14674,7 +14674,7 @@ R.people.forEach(p=>{if(p.sh&&p===p.sh.a){p.sh.t-=dm;if(p.sh.t<=0){p.sh.cur^=1;p
 R.people.forEach(p=>{move(p,sdt);if(spx(p.c)){p.c.fp=0;p.c.hp=0;p.c.up=0}});
 R.people=R.people.filter(p=>!p.gone);
 if(R.phase==="run"&&(R.t>=G.close*60||R.closed)&&!R.people.length&&!R.sched.length&&!OW.mode&&R.evSp==null){R.cat=null;R.dark=null;R.away=null;owReset();endDay()}
-draw();{const _n=performance.now();if(_n-(window._hudT||0)>=90){window._hudT=_n;hud()}}requestAnimationFrame(tick)}
+liteDraw(now);{const _n=performance.now();if(_n-(window._hudT||0)>=90){window._hudT=_n;hud()}}requestAnimationFrame(tick)}
 let smkTxt="";function hud(){{const S=Math.round(R.smoke),st=S>=60?"煙たい！":S>=30?"少し煙たい":"快適",tx=R.phase==="run"?"煙たさ "+S+"　"+st+(R.vent>0?"　換気中…（あと"+Math.max(1,Math.ceil(R.ventE!=null?R.ventE-R.t:R.vent))+"分）":R.vcd>0?"　（換気は"+Math.ceil(R.vcd)+"分後に再使用）":""):"",b=$("#vent");if(tx!==smkTxt){smkTxt=tx;$("#smk").textContent=tx}b.disabled=!(R.phase==="run"&&R.vent<=0&&R.vcd<=0)}
 if(G.lotto){if(G.money<G.lottoM)G.money=G.lottoM;else G.lottoM=G.money}$("#money").textContent=G.lotto?"∞":"¥"+G.money.toLocaleString();$("#day").textContent=MN[G.month%12]+"月 "+WD[G.wd]+"曜（"+(G.wd+1)+"/7日目）";const tm=Math.floor(R.phase==="run"?R.t:G.open*60),h=Math.floor(tm/60);$("#clock").textContent=(R.phase==="run"?"":"開店 ")+(h%24)+":"+String(tm%60).padStart(2,"0")+(h>=24?"（翌）":"")}
 /* ===== 装飾・図鑑・補充UI ===== */
@@ -15512,7 +15512,7 @@ try{const fl=new File([bl],"cheki.png",{type:"image/png"});if(navigator.canShare
 try{const a=document.createElement("a");a.href=url;a.download="cheki.png";document.body.appendChild(a);a.click();a.remove()}catch(_){}toast("保存されない場合は、画像を長押しで保存してください")}}}
 /* ===== ボタン列：雰囲気タグの下に並べる。チェキボタンを追加 ===== */
 {const _xr=xrow;xrow=function(){_xr();const r=$("#xrow");if(!r)return;let b=$("#chekib");if(!b){b=document.createElement("button");b.id="chekib";r.appendChild(b);b.onclick=e=>{e.stopPropagation();chekiPanel()}}const ok=G.ckD!==G.day&&G.setup&&!G.over;b.textContent=ok?"📸 チェキ":"📸 チェキ（済）";b.classList.toggle("done",!ok);
-try{const a=$("#atm").getBoundingClientRect(),c=$(".cvw").getBoundingClientRect();if(a.height)r.style.top=Math.round(a.bottom-c.top+6)+"px"}catch(_){}}}
+try{const _n=performance.now();if(!r.style.top||_n-(window._xrT||0)>1000){window._xrT=_n;const a=$("#atm").getBoundingClientRect(),c=$(".cvw").getBoundingClientRect();if(a.height){const t=Math.round(a.bottom-c.top+6)+"px";if(r.style.top!==t)r.style.top=t}}}catch(_){}}}
 document.head.insertAdjacentHTML("beforeend",`<style>
 .fs #atm{flex-wrap:wrap!important;row-gap:3px}
 #xrow{flex-wrap:wrap;right:84px}
@@ -16025,7 +16025,7 @@ if(b.dataset.gt){try{await aapi({a:"a_gift_toggle",id:b.dataset.gt});admGifts()}
 });
 
 /* ===== 更新チェック：起動時・アプリに戻ったとき・30分ごと。新しい版があればお知らせを出して選んでもらう ===== */
-const GVER="1.0.88";
+const GVER="1.0.89";
 let updV=null,updLater=null,updBusy=0;
 async function updCheck(){if(updBusy||!/^https?:/.test(location.protocol))return;updBusy=1;try{const r=await fetch("version.txt?"+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.text()).trim();if(!v||v===GVER)return;updV=v;updShow()}catch(e){}finally{updBusy=0}}
 function updShow(){if(!updV||updLater===updV||document.getElementById("updm"))return;if(R.phase==="run"||!$("#ov").hidden||document.getElementById("sysm")){setTimeout(updShow,5000);return}
@@ -16036,7 +16036,7 @@ setTimeout(updCheck,1500);setInterval(updCheck,30*60*1000);
 
 /* ===== 画面サイズに合わせてキャンバスの解像度を合わせる（PCで横に伸びる・スマホで比率がずれるのを防ぐ） ===== */
 function fitCv(){try{const r=cv.getBoundingClientRect(),w=Math.round(r.width),h=Math.round(r.height);if(w<80||h<80)return;
-const d=Math.max(1,Math.min(2,window.devicePixelRatio||1,Math.sqrt(2600000/(w*h))));if(w===W&&h===CH&&Math.abs(d-dpr)<.01&&cv.width===Math.round(w*d))return;
+const d=Math.max(1,Math.min(R.lite?1.5:2,window.devicePixelRatio||1,Math.sqrt(2600000/(w*h))));if(w===W&&h===CH&&Math.abs(d-dpr)<.01&&cv.width===Math.round(w*d))return;
 W=w;CH=h;dpr=d;cv.width=Math.round(W*dpr);cv.height=Math.round(CH*dpr);cv.style.aspectRatio=W+" / "+CH;if(typeof BGK!=="undefined")BGK="";R.camVer++}catch(e){}}
 {let t=0;const go=()=>{clearTimeout(t);t=setTimeout(fitCv,80)};window.addEventListener("resize",go);window.addEventListener("orientationchange",go);if(window.ResizeObserver)new ResizeObserver(go).observe(cv);[0,300,1300].forEach(ms=>setTimeout(fitCv,ms))}
 
@@ -17215,6 +17215,12 @@ try{document.head.insertAdjacentHTML("beforeend",`<style>html body #ov .card.mnc
 html body #ov .mnc .mb{position:sticky;bottom:0;background:#f3f1ea;z-index:2;padding-bottom:max(12px,env(safe-area-inset-bottom));box-shadow:0 -6px 12px -6px rgba(0,0,0,.12)}
 html body #ov .mnc .mg button{min-height:0!important;padding:8px 11px!important}
 html body #ov .mnc .mg button .e{font-size:18px}</style>`)}catch(e){}
+
+/* ===== 自動の軽量モード：描き直しが重い端末だけ、30fps＋解像度1.5倍にする ===== */
+const LITE={t0:performance.now(),fi:16,dw:5,lastD:0,lastF:0,bad:0};
+function liteDraw(now){const L=LITE;if(L.lastF){const fi=now-L.lastF;if(fi<100&&document.visibilityState==="visible")L.fi+=(fi-L.fi)*.05}L.lastF=now;
+if(R.lite&&now-L.lastD<30)return;L.lastD=now;const a=performance.now();draw();const d=performance.now()-a;L.dw+=(d-L.dw)*.05;
+if(!R.lite&&now-L.t0>6000){const st=Math.min(100,now-(L.lastC||now));L.lastC=now;if(L.dw>12||L.fi>24)L.bad+=st;else L.bad=Math.max(0,L.bad-st*2);if(L.bad>3000){R.lite=1;try{fitCv()}catch(e){}}}}
 ;(function(){const app=$("#app"),sh=document.createElement("div");sh.id="sheet";sh.innerHTML='<div class="grab"></div>';
 const top=$("#top"),cvw=$(".cvw"),atm=$("#atm");[...app.children].forEach(el=>{if(el.classList.contains("tabs")||/^p-/.test(el.id))sh.appendChild(el)});app.appendChild(sh);{const dd=$("#dd");if(dd)document.body.appendChild(dd)}
 const setv=()=>{document.documentElement.style.setProperty("--th",top.offsetHeight+"px");document.documentElement.style.setProperty("--bh",$("#bar").offsetHeight+"px")};setv();setTimeout(setv,300);setTimeout(setv,1200);window.addEventListener("resize",setv);
