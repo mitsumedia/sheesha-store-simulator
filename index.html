@@ -156,7 +156,7 @@ body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,
 <div class="row">営業時間 <select id="op"></select>〜<select id="cl"></select></div>
 <div id="hrsi" class="m" style="font-size:12px;margin:4px 0"></div><div class="m" style="font-size:12px">シーシャ3500円／おかわり2000円／ドリンクはフリー。閉店1時間前に入店停止、閉店時刻で全員退店。</div>
 <div class="row"><button id="devreset">🛠 開発用：最初からやり直す</button></div></div></details>
-<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.90</div></div></details>
+<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.91</div></div></details>
 <span id="smk"></span>
 </div>
 <div id="p-deco" hidden><div class="card"><div class="dcat"><button data-dc="obj">🪴 置物</button><button data-dc="wp">🖼 壁アイテム</button><button data-dc="fl">🟫 床</button><button data-dc="wl">🧱 壁紙</button><button data-dc="seat" id="dcseat" class="dcw" hidden>🛋 客席</button><button data-dc="inv" class="dcw">📦 持ち物</button><button id="rm" class="dcw">🔧 模様替え（移動・回転・しまう）</button></div><div class="m" id="plc" style="font-size:12px;margin-top:6px"></div></div><div class="card" id="sec-obj"><div class="m" style="margin-bottom:6px">アイテムを選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。</div><div class="grid" id="dl"></div></div><div class="card" id="sec-seat" hidden><div class="m" style="margin-bottom:6px;font-size:12px">席を選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。席の前の1列はシーシャ台を置く場所として使います。</div><div class="m" id="spc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="sl"></div></div><div class="card" id="sec-wp" hidden><div class="m" style="font-size:12px;margin:2px 0 6px">選んでから、店内の壁をタップして貼ります（1区画に1枚）。見えている壁にだけ貼れるので、視点を回すと反対側にも貼れます。</div><div class="m" id="wc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="wl"></div></div><div class="card" id="sec-inv" hidden><div id="ivl"></div></div><div class="card" id="sec-clr" hidden><div class="m" style="font-size:12px">選ぶと店内でお試し表示されます。「購入する」で購入（¥5,000〜）。店の雰囲気には影響しません。</div><div id="clr"></div></div></div>
@@ -12665,7 +12665,7 @@ while(m.length<n){const i=op[Math.random()*op.length|0];if(!m.includes(i))m.push
 const mixName=m=>m.length===1?FL[m[0]][0]+"単品":m.map(i=>FL[i][0]).join("×");
 const MIXL=["今日は{m}です","{m}にしてもらいました","{m}、いい香り…","今回は{m}！","{m}だって。楽しみ"];
 /* ===== やる気：0になったら廃業。何もしないと約1か月（7日）で尽きる ===== */
-function motAdd(v,why){if(G.over)return;const o=G.mot==null?100:G.mot;G.mot=Math.max(0,Math.min(100,o+v));if(why&&Math.abs(v)>=3)log((v>0?"🔥 やる気+":"💧 やる気")+Math.round(v)+"（"+why+"）");
+function motAdd(v,why){G.mot=100;return;if(G.over)return;const o=G.mot==null?100:G.mot;G.mot=Math.max(0,Math.min(100,o+v));if(why&&Math.abs(v)>=3)log((v>0?"🔥 やる気+":"💧 やる気")+Math.round(v)+"（"+why+"）");
 if(o>30&&G.mot<=30)log("😮‍💨 やる気が落ちてきた…お客さんと話したり、行動してみよう");if(o>10&&G.mot<=10)log("🥀 もう限界かも…（やる気"+Math.round(G.mot)+"）")}
 function cloRoll(sex){const r=Math.random(),top=r<.32?0:r<.42?1:r<.5?2:r<.6?3:r<.66?4:r<.76?5:r<.84?6:r<.9?7:8,q=Math.random(),bot=sex==="女性"?(q<.45?0:q<.65?1:q<.88?2:3):(q<.6?0:q<.82?1:3);return{top,bot,pants:PCOL[Math.random()*PCOL.length|0]}}
 function mkC(i,name,sex,act){const age=ageRoll();return Object.assign(cloRoll(sex),{i,name,age,sex,fav:rnd(TAGS),fl:Math.random()*FL.length|0,fd:wd(),hist:rnd(HIST),sl:Math.random()*4|0,freq:frqRoll(),first:.3+Math.random()*.6,repeat:.3+Math.random()*.65,refill:.1+Math.random()*.8,stay:50+10*(Math.random()*7|0),fr:.15+Math.random()*.7,aw:.1+Math.random()*.6,tl:2+(Math.random()*5|0),pe:Math.random()*10|0,job:age<=22?"学生":rnd(JOBS.filter(j=>j!=="学生"&&!JSP.includes(j))),hb:rnd(HBL),ls:[],hs:Math.random()*18|0,eye:Math.random()<.4?0:1+(Math.random()*5|0),acc:Math.random()<.3?1+(Math.random()*9|0):0,accC:rnd(SHC),mo:0,act,ap:{k:"start",v:0,p:100},shirt:rnd(SHC),hair:rnd(HRC),skin:rnd(SKC),met:0,fp:0,taps:0,nick:"",ret:0,hp:10,up:0,quit:0})}
@@ -14634,7 +14634,7 @@ if(c.moto){G.talkN=(G.talkN||0)+1;c.hp=Math.min(100,c.hp+1);NOGOBI=1;sayX(p,rnd(
 if(p.tp>c.tl&&c.fp<40){c.up=Math.min(100,c.up+4);c.hp=Math.max(0,c.hp-1);motAdd(-1);say(p,rnd(LT)+sh);if(p.tp===c.tl+1){R.st.miss++;log("😣 "+nm(c)+" に話しかけすぎた…（不満）")};return}
 {const tm=(p.seat&&p.seat.kind==="c"?1.5:1)*(G.focusD===G.day?1.5:1);c.fpx=(c.fpx||0)+tm;const w=Math.floor(c.fpx+1e-9);c.fp+=w*(c.ex?4:1);c.fpx-=w}G.talkN=(G.talkN||0)+1;c.hp=Math.min(100,c.hp+1);if(p.seat&&p.seat.kind==="c"){c.hp=Math.min(100,c.hp+1)}say(p,line(c)+sh);if((R.mtk||0)<8){R.mtk=(R.mtk||0)+1;motAdd(2)}if(c.fp>=50&&Math.random()<.01){const t=!flOpen(c.fl)&&FL[c.fl][2]<=flMax()+1?c.fl:flPick(Math.min(5,(c.rar||2)+1));if(t>=0&&!flOpen(t)){say(p,"「"+FL[t][0]+"」って知ってます？おいしいですよ");flUnlock(t,nm(c)+"に教わった")}}giftTry(p);if(lv(c)>b)log("📖 "+nm(c)+" の新しい情報が解禁！（図鑑）")}
 function endDay(){const s=R.st,dl=(R.dl||[]).slice();R.dl=null;evEnd(s);log(`—— ${MN[G.month%12]}月${WD[G.wd]}曜 終了：売上${yen(s.sales)} 来店${s.visits}人 取り逃し${s.lost}人 ドリンク${s.drinks}杯 不満${s.miss}件${s.q?"　味 まずい"+s.q[0]+"/通常"+s.q[1]+"/美味しい"+s.q[2]:""} ——`);
-const mv=((G.month||0)<3?-8:-10)+hrsMot()+(s.visits>0&&!s.miss?1:0)+Math.min(9,s.visits*1.5)+(s.sales>=20000?3:0)+(s.sales>=40000?3:0),m0=G.mot;motAdd(mv);evEndMot();log("🔥 今日のやる気 "+(mv>=0?"+":"")+Math.round(mv*10)/10+"（"+Math.round(m0)+"→"+Math.round(G.mot)+"）");
+const mv=((G.month||0)<3?-8:-10)+hrsMot()+(s.visits>0&&!s.miss?1:0)+Math.min(9,s.visits*1.5)+(s.sales>=20000?3:0)+(s.sales>=40000?3:0),m0=G.mot;G.mot=100;
 dayDone({sales:s.sales,visits:s.visits,drinks:s.drinks,miss:s.miss,dc:s.dc||0,coal:s.coal||0,closed:false});if(G.mot<=0&&!G.over){G.over=true;G.overR="mot";save();if(typeof showMotOver==="function"){showMotOver();return}}showDayLog(dl,s)}
 /* 休業日（台風など）：来たかった客は翌日の来店確率が少し上がる。売上は日平均に含めない */
 function closeDay(msg){sched(true);R.sched.forEach(e=>e.m.forEach(c=>{c.bst=1}));R.sched=[];log(msg||"🌀 台風のため休業。来たかったお客様は、明日に期待…");dayDone({sales:0,visits:0,drinks:0,miss:0,dc:0,closed:true});if($("#ov").hidden&&typeof showMorning==="function")showMorning()}
@@ -14757,7 +14757,7 @@ motAdd(gr?9:6);const nf=flSkill().concat(flVisit());let shT="";{const L=G.cs.fil
 save();hud();rown()}
 function showActRes(){const r=R.actRes,o=G.ow;if(!r||!o)return;const th={great:["linear-gradient(135deg,#fff3c4,#ffd6e8)","#b8860b"],good:["linear-gradient(135deg,#e6f7ea,#eef6ff)","#2e9e5b"],bad:["linear-gradient(135deg,#e7e7ee,#d9dbe6)","#5b5f7a"]}[r.md],
 dl=(n,a,b,f)=>{const d=b-a;if(Math.abs(d)<.05)return"";return`<div class="f"><span>${n}</span><span class="${d>0?"pos":"neg"}">${f(a)} → ${f(b)}（${d>0?"+":""}${f(d)}）</span></div>`},rd=v=>String(Math.round(v*10)/10),ri=v=>Math.round(v).toLocaleString();
-const rows=dl("フォロワー",r.b0.fol,o.fol,ri)+dl("知名度",r.b0.fame,o.fame,rd)+dl("スター性",r.b0.star,o.star,ri)+dl("技術",r.b0.skill,o.skill,sk1)+dl("やる気",r.b0.mot??100,G.mot??100,ri);
+const rows=dl("フォロワー",r.b0.fol,o.fol,ri)+dl("知名度",r.b0.fame,o.fame,rd)+dl("スター性",r.b0.star,o.star,ri)+dl("技術",r.b0.skill,o.skill,sk1);
 ov(`<div class="card" style="background:${th[0]};color:#2a2233;text-align:center${r.md==="bad"?"":""}"><div style="font-size:56px;line-height:1.2;margin-top:4px${r.md==="great"?";animation:pop .6s ease":""}">${r.ic}</div><b style="font-size:18px;color:${th[1]}">${r.t}</b><div style="margin:6px 0 10px;font-size:13px">${r.msg}</div><div style="text-align:left;background:rgba(255,255,255,.6);border-radius:10px;padding:6px 10px">${rows||"<div class='m'>大きな変化はなかった</div>"}</div><button id="arok" class="on" style="width:100%;margin-top:10px">${r.md==="bad"?"気を取り直して開店準備へ":"開店準備へ"}</button></div>`);R.actRes=null}
 
 function showSetup(){ov(`<div class="card">${(G.tut||0)<1?`<div class="tutin">👋 ようこそ！まずは<b>自分（店長）</b>を作ろう。名前や見た目を決めたら、下の「開業」を押してね</div>`:""}<b>開業準備</b><div class="m" style="margin:6px 0">開業資金100万円を借りて店を開きます（内装・設備で85万円を使い、手元に残るのは<b>15万円</b>）。借入は年利10%（月あたり約0.83%）です。毎月の精算で、決めた金額を返済します。</div>${ownForm2()}${locForm()}<div class="row">毎月の返済額 <select id="pay">${payOpts(30000)}</select></div><div class="m" style="font-size:12px;margin-bottom:8px">最初の月の利息は約8,300円。残りが元本の返済になります。家賃12万円×立地（<b>最初の1ヶ月はフリーレントで0円</b>）・水道光熱費4万円＋客席1席あたり1,000円・フレーバー代（売上の30%）・炭代（お客さん1人150円）・ドリンク原価（飲まれた分）も毎月かかります。たまに設備の故障で修理代もかかります。</div><button id="start0" class="on">開業する（4月・月曜）</button></div>`);prevO()}
@@ -14830,7 +14830,7 @@ for(let h=12;h<=22;h++)$("#op").add(new Option(h+":00",h));for(let h=16;h<=29;h+
 $("#op").value=G.open;$("#cl").value=G.close;
 $("#op").onchange=()=>{G.open=+$("#op").value;if(G.close<G.open+3){G.close=G.open+3;$("#cl").value=G.close}save();hud();rhrs()};
 $("#cl").onchange=()=>{G.close=Math.max(+$("#cl").value,G.open+3);$("#cl").value=G.close;save();rhrs()};
-function rhrs(){const e=$("#hrsi");if(!e||!G.ow)return;const h=hrsNow(),m=hrsMot();e.innerHTML=`営業 <b>${h}時間</b>：光熱費 月<b>${yen(utilNow())}</b>／やる気 1日 <b style="color:${m<0?"#ff7a7a":"#7adf8f"}">${m>0?"+"+m+"（短時間ボーナス）":m<0?m+"（長時間営業）":"±0"}</b>${G.close>24?"<br>0時以降は疲れて、美味しい一本が出にくくなります":""}`}
+function rhrs(){const e=$("#hrsi");if(!e||!G.ow)return;const h=hrsNow(),m=hrsMot();e.innerHTML=`営業 <b>${h}時間</b>：光熱費 月<b>${yen(utilNow())}</b>${G.close>24?"<br>0時以降は疲れて、美味しい一本が出にくくなります":""}`}
 try{rhrs()}catch(e){}
 $("#go").onclick=start;
 const camReset=()=>{R.cam.yaw=-.6;R.cam.pit=.92;R.cam.zoom=1;R.camVer++};
@@ -15005,7 +15005,7 @@ function td(){if(!G.evT||G.evT.day!==G.day)G.evT={day:G.day};return G.evT}
 function evx(){return G.evX=G.evX||{}}
 function starOf(o){return Math.min(100,starFor(o.fol)+(o.starB||0))}
 /* やる気を下げる。ただしこのイベントでは30未満にはならない */
-function motFloor(v){const m=G.mot??100,t=Math.max(m-v,Math.min(m,30));G.mot=Math.max(0,Math.min(100,t))}
+function motFloor(v){G.mot=100;return;const m=G.mot??100,t=Math.max(m-v,Math.min(m,30));G.mot=Math.max(0,Math.min(100,t))}
 function evMoney(v,src){G.money+=v;if(R.phase==="run"&&R.st){if(v>0)R.st.sales+=v;else R.st.cost=(R.st.cost||0)-v}log((v>=0?"💰 +":"💸 −")+yen(Math.abs(v))+"（"+src+"）")}
 function evM(){let m=1;const t=td(),x=evx();if(t.hw)m*=1.2;if(t.dm)m*=t.dm;if(x.wk&&x.wk.mo===G.month)m*=x.wk.m;if(x.atm&&x.atm.mo===G.month)m*=x.atm.m;if(x.mm&&x.mm.mo===G.month)m*=x.mm.m;if(x.nd&&x.nd.day===G.day)m*=x.nd.m;if(x.noise>G.day)m*=.8;return m}
 const evCands=()=>{const pr=new Set(R.people.map(p=>p.c.i));return G.cs.filter(c=>c.act&&!c.quit&&(!c.ex||G.at2)&&!pr.has(c.i)&&!(c.banM!=null&&G.month<=c.banM))};
@@ -15054,7 +15054,7 @@ const EV=[
 {id:37,r:4,t:"pre",n:"水道管が破裂",tx:"「床が水浸し…！」",ef:"修理代 −¥100,000、今日は強制休業",go:()=>{evMoney(-100000,"水道管修理");return{close:"🚰 水道管の修理で休業…"}}},
 {id:38,r:4,t:"pre",n:"花火大会",tx:"「今日は花火大会！帰りに寄る人が多そう」",ef:"今日の客足+40%（ただし20時までは誰も来ない）",cond:"8月",ok:()=>evMo()===8&&G.close>=22&&G.open<20,go:()=>{const t=td();t.dm=(t.dm||1)*1.4;t.minAt=20*60}},
 {id:39,r:4,t:"pre",n:"税務署からの手紙",tx:"「…申告漏れ？」",ef:"追徴課税で先月の売上の20%を支払う、次の日は行動できない",ok:()=>G.last&&G.last.est>0,go:()=>{evMoney(-Math.round(G.last.est*.2),"追徴課税");evNoAct("税務署の手紙")}},
-{id:40,r:4,t:"pre",ok:()=>false,n:"シーシャの大会に招待",tx:"「シーシャバトルに出てみませんか？」",ef:"6・9・12・3月の月末に開催（休業なし）。技術が高いほど優勝しやすい。優勝¥200,000／準優勝¥50,000、3位以下はやる気−40",go:()=>null},
+{id:40,r:4,t:"pre",ok:()=>false,n:"シーシャの大会に招待",tx:"「シーシャバトルに出てみませんか？」",ef:"6・9・12・3月の月末に開催（休業なし）。技術が高いほど優勝しやすい。優勝¥200,000／準優勝¥50,000、3位以下は賞金なし",go:()=>null},
 /* ---- ★5 ---- */
 
 {id:41,r:5,t:"pre",n:"海外からのお土産",tx:"「ドバイ旅行のお土産！現地のフレーバーだよ」",ef:"レア3以上の未解禁フレーバーを1種類解禁",ok:()=>flPick(5,3)>=0,go:()=>{flUnlock(flPick(5,3),"ドバイのお土産")}},
@@ -15109,7 +15109,7 @@ if(R.dark&&!R.dark.done&&R.speed&&performance.now()-R.dark.t>3500){R.dark.done=1
 catTick(dm)}
 /* 閉店処理（endDay の前） */
 function evEnd(s){if(R.acM0!=null&&s.miss>R.acM0){s.miss=R.acM0+(s.miss-R.acM0)*3}}
-function evEndMot(){if(R.oneop){motFloor(40);log("😵 ワンオペ地獄の疲れが…（やる気−40）")}}
+function evEndMot(){return;if(R.oneop){motFloor(40);log("😵 ワンオペ地獄の疲れが…（やる気−40）")}}
 /* ===== 図鑑 ===== */
 function rev(){$("#dg").classList.remove("dxg");const D=G.evDex||{},n=EV.filter(e=>D[e.id]).length;
 $("#dc").innerHTML=dxTabs()+`<div style="margin-top:6px">発生したイベント ${n}/${EVN}種類</div><div style="font-size:12px;margin-top:2px">イベントは2ヶ月目から、開店前や営業中にランダムで起こります。レアほど起こりにくい</div>`;
@@ -15202,7 +15202,7 @@ return`<div style="font-weight:800;font-size:16px;margin-bottom:4px">🎉 「${s
 function battleRoll(fo){if(admTake("bat"))return true;if(fo)return false;const m=MN[G.month%12];if(!G.ow||![6,9,12,3].includes(m)||G.batM===G.month)return false;G.batM=G.month;return Math.random()<(G.batW?.1:.5)}
 function battleRank(){const s=G.ow.skill||0,w=Math.max(.1,Math.min(.8,.1+(s-10)/80*.7));if(Math.random()<w)return 1;if(Math.random()<Math.min(.9,s/100))return 2;return 3+Math.floor(Math.random()*7)}
 function battleApply(rk){const o=G.ow,big=o.fol>=10000;let m="";if(rk===1){evMoney(200000,"大会の賞金");const f=big?4000:2000;o.fol+=f;G.batW=(G.batW||0)+1;m=`賞金 <b>${moneyTxt(200000)}</b><br>フォロワー <b>+${f.toLocaleString()}</b>`}
-else if(rk===2){evMoney(50000,"大会の賞金");const f=big?650:500;o.fol+=f;m=`賞金 <b>${moneyTxt(50000)}</b><br>フォロワー <b>+${f}</b>`}else{motAdd(-40,"大会で負けた");m="やる気 <b>−40</b>"}
+else if(rk===2){evMoney(50000,"大会の賞金");const f=big?650:500;o.fol+=f;m=`賞金 <b>${moneyTxt(50000)}</b><br>フォロワー <b>+${f}</b>`}else{m="賞金なし…次こそ優勝を目指そう"}
 o.star=starOf(o);G.evDex=G.evDex||{};G.evDex[40]=(G.evDex[40]||0)+1;save();hud();return m}
 function battleScene(done){const rk=battleRank(),rest=[1,2,3,4,5,6,7,8,9].filter(r=>r!==rk),must=rest.filter(r=>r<rk).slice(0,2),pool=rest.filter(r=>!must.includes(r)).sort(()=>Math.random()-.5),oth=[...must,...pool].slice(0,4).sort(()=>Math.random()-.5);
 const ranks=[oth[0],oth[1],rk,oth[2],oth[3]],lens=ranks.map(r=>Math.max(1,9-r)),rivals=clubRivals(),host=[rivals[0],rivals[1],null,rivals[2],rivals[3]],win=ranks.indexOf(1);
@@ -15284,7 +15284,7 @@ const SEEN={"t:deco":["🪴 装飾","空いているマスをタップすると�
 "d-log":["📝 ログ","お店で起きたことが新しい順に記録されます。来店・注文・味の評価・解禁などを確認できます"],
 "d-fin":["📊 経営・天気","今週の売上や天気、借入の残り、家賃などが見られます。<br>7日目の営業後に1か月分の精算があり、所持金がマイナスになると廃業です"],
 "d-frc":["🥤 ドリンクメニュー","冷蔵庫に置くドリンクを<b>6種類まで</b>選べます。補充はいりません。<br>飲まれた分の原価は月末にまとめて払います。<br>お客さんの好きなドリンクがないと、少し不満がたまります（営業中は変更できません）"],
-"d-set":["⚙️ 営業時間・その他","開店・閉店の時刻を決められます（営業中は変更できません）。<br>閉店の1時間前に入店が止まり、閉店時刻で全員帰ります。<br>平日は夜、金曜の夜と土日は特にお客さんが来やすくなります。<br><br><b>営業時間が長いほど…</b><br>💡 光熱費が増えます（10時間を基準に、1時間ごとに±10%）<br>🔥 やる気が減りやすくなります（10時間を超えると1時間ごとに−1、14時間を超えると−2ずつ）<br>🌙 0時を過ぎると店長が疲れて、美味しい一本が出にくくなります<br><br>8時間以下にすると、やる気が少し回復します（1日+1）"]};
+"d-set":["⚙️ 営業時間・その他","開店・閉店の時刻を決められます（営業中は変更できません）。<br>閉店の1時間前に入店が止まり、閉店時刻で全員帰ります。<br>平日は夜、金曜の夜と土日は特にお客さんが来やすくなります。<br><br><b>営業時間が長いほど…</b><br>💡 光熱費が増えます（10時間を基準に、1時間ごとに±10%）<br>🌙 0時を過ぎると店長が疲れて、美味しい一本が出にくくなります"]};
 function seenEl(k){return k.startsWith("t:")?document.querySelector('[data-t="'+k.slice(2)+'"]'):document.querySelector("#"+k+" > summary")}
 function warnTick(){if(!G.setup)return;G.seen=G.seen||{};const on=G.tut>=3;let any=false;for(const k in SEEN){const e=seenEl(k);if(!e)continue;const w=on&&!G.seen[k];e.classList.toggle("warnm",w);if(w)any=true}const m=$("#menu");if(m)m.classList.toggle("warnm",any);
 const ar=$("#tutarw"),need=G.tut>=3&&!G.arw&&R.phase==="prep"&&!G.decor.length&&!(($("#sheet")||{}).classList||{contains:()=>0}).contains("open")&&$("#ov").hidden&&!TUT;
@@ -16025,7 +16025,7 @@ if(b.dataset.gt){try{await aapi({a:"a_gift_toggle",id:b.dataset.gt});admGifts()}
 });
 
 /* ===== 更新チェック：起動時・アプリに戻ったとき・30分ごと。新しい版があればお知らせを出して選んでもらう ===== */
-const GVER="1.0.90";
+const GVER="1.0.91";
 let updV=null,updLater=null,updBusy=0;
 async function updCheck(){if(updBusy||!/^https?:/.test(location.protocol))return;updBusy=1;try{const r=await fetch("version.txt?"+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.text()).trim();if(!v||v===GVER)return;updV=v;updShow()}catch(e){}finally{updBusy=0}}
 function updShow(){if(!updV||updLater===updV||document.getElementById("updm"))return;if(R.phase==="run"||!$("#ov").hidden||document.getElementById("sysm")){setTimeout(updShow,5000);return}
@@ -16072,7 +16072,7 @@ function giOpts(c){return giList(c).map(([v,n])=>`<option value="${esc(v)}">${es
 function giName(it){if(it.c==="d"){const x=DEC.find(q=>q.id===it.id);return x?x.n:it.id}if(it.c==="w"){const x=WP.find(q=>q.id===it.id);return x?x.n:it.id}if(it.c==="bb"){const b=BBS.find(q=>q.id===it.id);return"ビーズクッション（"+(b?b.n:it.id)+"）"}const[k,sr]=it.id.split(":"),S=SSER.find(q=>q.id===sr);return(SDEF[k]?SDEF[k].nm:k)+"（"+(S?S.n:sr)+"）"}
 let GIL=[];
 function giDraw(){const el=document.getElementById("gil");if(!el)return;el.innerHTML=GIL.length?GIL.map((it,i)=>`<span style="display:inline-block;background:#f4effb;border-radius:12px;padding:2px 8px;margin:2px">${esc(giName(it))}×${it.q} <a href="#" data-gid="${i}" style="color:#e5484d;text-decoration:none">✕</a></span>`).join(""):"<span class='m'>（アイテムなし）</span>"}
-function rwText(rw){if(!rw)return[];const o=[];(rw.items||[]).forEach(it=>o.push(giName(it)+"×"+it.q));if(rw.mot)o.push("🔥やる気全回復");if(rw.gacha)o.push("🎰ガチャもう1回");if(rw.fol)o.push("📱フォロワー+"+rw.fol);if(rw.fame)o.push("⭐知名度+"+rw.fame);return o}
+function rwText(rw){if(!rw)return[];const o=[];(rw.items||[]).forEach(it=>o.push(giName(it)+"×"+it.q));if(rw.gacha)o.push("🎰ガチャもう1回");if(rw.fol)o.push("📱フォロワー+"+rw.fol);if(rw.fame)o.push("⭐知名度+"+rw.fame);return o}
 function rwApply(rw){if(!rw)return[];let pend=0;(rw.items||[]).forEach(it=>{const q=Math.max(1,Math.min(99,+it.q||1));for(let i=0;i<q;i++){let r;if(it.c==="d"||it.c==="w")r=ivAdd({t:it.c,id:it.id});else if(it.c==="bb")r=ivAdd({t:"f",k:"bb",sr:it.id});else{const[k,sr]=it.id.split(":");if(sr==="tg")G.tigerU=1;r=ivAdd({t:"f",k,sr})}if(!r)pend++}});
 if(rw.mot)G.mot=100;if(rw.gacha)G.gaD=-1;if(G.ow){if(rw.fol)G.ow.fol=(G.ow.fol||0)+(+rw.fol||0);if(rw.fame)G.ow.fame=Math.min(100,(G.ow.fame||0)+(+rw.fame||0))}
 save();try{rdeco();hud()}catch(e){}const t=rwText(rw);if(pend)t.push("（持ち物がいっぱいの分は受け取り待ちへ）");return t}
