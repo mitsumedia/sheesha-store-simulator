@@ -156,7 +156,7 @@ body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,
 <div class="row">営業時間 <select id="op"></select>〜<select id="cl"></select></div>
 <div id="hrsi" class="m" style="font-size:12px;margin:4px 0"></div><div class="m" style="font-size:12px">シーシャ3500円／おかわり2000円／ドリンクはフリー。閉店1時間前に入店停止、閉店時刻で全員退店。</div>
 <div class="row"><button id="devreset">🛠 開発用：最初からやり直す</button></div></div></details>
-<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.126</div></div></details>
+<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.127</div></div></details>
 <span id="smk"></span>
 </div>
 <div id="p-deco" hidden><div class="card"><div class="dcat"><button data-dc="obj">🪴 置物</button><button data-dc="wp">🖼 壁アイテム</button><button data-dc="fl">🟫 床</button><button data-dc="wl">🧱 壁紙</button><button data-dc="seat" id="dcseat" class="dcw" hidden>🛋 客席</button><button data-dc="inv" class="dcw">📦 持ち物</button><button id="rm" class="dcw">🔧 模様替え（移動・回転・しまう）</button></div><div class="m" id="plc" style="font-size:12px;margin-top:6px"></div></div><div class="card" id="sec-obj"><div class="m" style="margin-bottom:6px">アイテムを選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。</div><div class="grid" id="dl"></div></div><div class="card" id="sec-seat" hidden><div class="m" style="margin-bottom:6px;font-size:12px">席を選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。席の前の1列はシーシャ台を置く場所として使います。</div><div class="m" id="spc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="sl"></div></div><div class="card" id="sec-wp" hidden><div class="m" style="font-size:12px;margin:2px 0 6px">選んでから、店内の壁をタップして貼ります（1区画に1枚）。見えている壁にだけ貼れるので、視点を回すと反対側にも貼れます。</div><div class="m" id="wc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="wl"></div></div><div class="card" id="sec-inv" hidden><div id="ivl"></div></div><div class="card" id="sec-clr" hidden><div class="m" style="font-size:12px">選ぶと店内でお試し表示されます。「購入する」で購入（¥5,000〜）。店の雰囲気には影響しません。</div><div id="clr"></div></div></div>
@@ -14218,9 +14218,9 @@ else{H(0,0,6,8,6,2,sk);H(2,1,7,2,2,1,"#fff3dc");H(0,0,2,2,5,3,hr);H(6,0,2,2,5,3,
 const ac=c.acc||0,ak=c.accC||"#333333";
 if(ac===2){H(0,0,6,8,6,2,ak);H(-1,-1,5,10,8,1,ak);H(0,6,5,8,3,1,ak)}
 else if(ac===3){H(-1,-1,5,10,8,3,ak);H(1,1,8,6,4,2,ak);H(3,2,10,2,2,1,ak)}
-else if(ac===4){H(2,5,1,4,1,1,"#2b1d14");H(0,5,0,2,1,1,"#2b1d14");H(6,5,0,2,1,1,"#2b1d14");H(1,4,-1,6,2,1,"#2b1d14")}
+else if(ac===4){const bc=c.akU&&c.accC?c.accC:"#2b1d14";H(2,5,1,4,1,1,bc);H(0,5,0,2,1,1,bc);H(6,5,0,2,1,1,bc);H(1,4,-1,6,2,1,bc)}
 else if(ac===5){H(-2,1,0,2,4,4,ak);H(8,1,0,2,4,4,ak);H(-1,2,6,1,2,2,ak);H(8,2,6,1,2,2,ak);H(0,2,8,8,2,1,ak)}
-else if(ac===6){H(0,5,0,8,1,3,"#eeeeee");H(-1,3,1,1,2,1,"#eeeeee");H(8,3,1,1,2,1,"#eeeeee")}
+else if(ac===6){const mc=c.akU&&c.accC?c.accC:"#eeeeee";H(0,5,0,8,1,3,mc);H(-1,3,1,1,2,1,mc);H(8,3,1,1,2,1,mc)}
 else if(ac===8){for(let x=-1;x<=8;x++)for(let y=-1;y<=6;y++)for(let z=-1;z<=7;z++){const ex=x===-1||x===8,ey=y===-1||y===6,ez=z===-1||z===7;if(ex&&ey&&ez)continue;if(z===7&&(ex||ey))continue;let col=ak;if(x>=3&&x<=4&&(z===7||(y===-1&&z>=0)))col="#f5f5f5";if(y===6&&x>=0&&x<=7&&z>=1&&z<=4)col=z===4&&x>=1&&x<=2?"#6b7a99":"#1a1d24";H(x,y,z,1,1,1,col)}}
 else if(ac===9){H(0,1,8,2,2,1,ak);H(0,1,9,1,2,1,ak);H(6,1,8,2,2,1,ak);H(7,1,9,1,2,1,ak);H(1,2,8,1,1,1,"#ff9ab0");H(6,2,8,1,1,1,"#ff9ab0");H(0,2,7,8,1,1,ak)}else if(ac===17){const dk=dkHex(ak,.8);H(-1,-1,6,10,8,1,ak);H(0,0,7,8,7,1,ak);H(1,7,6,6,1,1,dk)}else if(ac===18){const dk=dkHex(ak,.82);H(0,0,6,8,6,1,dk);H(0,0,7,8,6,2,ak);H(-2,-2,5,12,10,1,ak)}else if(ac===19){const lt=dkHex(ak,1.18);H(-1,-1,5,10,8,2,ak);H(0,0,7,8,6,1,lt);H(1,1,8,6,4,1,ak);H(3,7,5,2,1,1,"#f1c40f")}else if(ac===20){H(-1,-1,4,10,8,1,"#ffffff");H(3,6,4,2,1,1,ak);H(3,-2,4,2,1,1,"#ffffff");H(3,-2,2,1,1,2,"#ffffff");H(4,-2,1,1,1,2,"#ffffff")}else if(ac===21){H(-1,-1,6,10,8,1,ak);H(-2,0,7,10,6,1,ak);H(3,2,8,1,1,1,ak)}else if(ac===22){const g="#f1c40f",g2="#f5d34a";H(1,1,7,6,1,1,g);H(1,4,7,6,1,1,g);H(1,1,7,1,4,1,g);H(6,1,7,1,4,1,g);[[1,1],[6,1],[1,4],[6,4],[3,4],[4,1]].forEach(([x,y])=>H(x,y,8,1,1,1,g2));H(3,4,7,2,1,1,ak)}
 if(c.sp&&typeof SPF!=="undefined"&&SPF[c.sp]){const Q4=(x,y,z,col,sz)=>{sz=sz||.25;const[X,Y]=map(x,y,sz,sz);a.push([ox+X,Y0+Y,z,col,undefined,sz])};SPF[c.sp]({H:c.pump?()=>{}:H,B,Qv,Q4,c,hr,sk,sh,sit});if(!SPF[c.sp].ownEye&&!c.pump)EYE()}
@@ -16026,7 +16026,7 @@ if(b.dataset.gt){try{await aapi({a:"a_gift_toggle",id:b.dataset.gt});admGifts()}
 });
 
 /* ===== 更新チェック：起動時・アプリに戻ったとき・30分ごと。新しい版があればお知らせを出して選んでもらう ===== */
-const GVER="1.0.126";
+const GVER="1.0.127";
 let updV=null,updLater=null,updBusy=0;
 async function updCheck(){if(updBusy||!/^https?:/.test(location.protocol))return;updBusy=1;try{const r=await fetch("version.txt?"+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.text()).trim();if(!v||v===GVER)return;updV=v;updShow()}catch(e){}finally{updBusy=0}}
 function updShow(){if(!updV||updLater===updV||document.getElementById("updm"))return;if(R.phase==="run"||!$("#ov").hidden||document.getElementById("sysm")){setTimeout(updShow,5000);return}
@@ -17304,8 +17304,8 @@ function owAccSync(){const o=G.ow;if(!o)return;owAccInit(o);const L=owAccLook(o)
 try{["accCE","accCH","accCM"].forEach(k=>{OWPAL[k]=OWPAL.accC})}catch(e){}
 /* ブロックの装飾品を2つ重ねる：1つ目で描いて、2つ目は「付けた時に増える／消える（帽子で隠れる髪など）」ブロックだけ足し引きする */
 {const _pv2=pv;pv=function(a,ox,Y0,f,c){if(!c||!c.accV||!c.accV.length)return _pv2.apply(this,arguments);const rest=[].slice.call(arguments,5),V=c.accV,K=v=>v[0]+","+v[1]+","+v[2]+","+(v[5]||1);
- const base=[],r=_pv2.call(this,base,ox,Y0,f,Object.assign({},c,{acc:V[0][0],accC:V[0][1],accV:null}),...rest);let out=base;
- for(const[ac,col]of V.slice(1)){const A=[],B=[];_pv2.call(this,A,ox,Y0,f,Object.assign({},c,{acc:ac,accC:col,accV:null}),...rest);_pv2.call(this,B,ox,Y0,f,Object.assign({},c,{acc:0,accV:null}),...rest);
+ const base=[],r=_pv2.call(this,base,ox,Y0,f,Object.assign({},c,{acc:V[0][0],accC:V[0][1],accV:null,akU:1}),...rest);let out=base;
+ for(const[ac,col]of V.slice(1)){const A=[],B=[];_pv2.call(this,A,ox,Y0,f,Object.assign({},c,{acc:ac,accC:col,accV:null,akU:1}),...rest);_pv2.call(this,B,ox,Y0,f,Object.assign({},c,{acc:0,accV:null}),...rest);
   const kb=new Map(B.map(v=>[K(v),v[3]])),ka=new Map(A.map(v=>[K(v),v[3]]));const rm=new Set(B.filter(v=>ka.get(K(v))!==v[3]).map(K)),add=A.filter(v=>kb.get(K(v))!==v[3]);out=out.filter(v=>!rm.has(K(v))).concat(add)}
  out.forEach(v=>a.push(v));return r}}
 {const _al=applyOwLook;applyOwLook=function(){const r=_al.apply(this,arguments);try{owAccSync()}catch(e){}return r}}
@@ -17590,6 +17590,27 @@ kgRow=function(){return""};
   for(let i=1;i<KGL.length;i++){const v=99+i;h+=kgOwn(i)?`<button class="kgc kg2 ${OWPV===v||(OWPV==null&&cur===v)?"on":""}" data-owv="${v}"><canvas data-kgc="${i}" width="160" height="200"></canvas><b>${KGL[i].e} ${KGL[i].n}</b>${cur===v?`<i>着用中</i>`:""}</button>`:`<button class="kgc kg2 lk" data-kgl="${i}"><canvas data-kgc="${i}" data-sil="1" width="160" height="200"></canvas><b>？？？</b><i>${esc(KGL[i].q)}</i></button>`}
   L.innerHTML=`<div class="kgg">${h}</div><div style="font-size:11px;color:#8a8a8a;margin:10px 4px 2px;line-height:1.6">タップで試着、「着がえる」で着ます。着ぐるみの時は、目元（メガネなど）以外の装飾品は外れます。シルエットのものは、条件を達成するとお店に届きます。</div>`;kgPaint()}}}catch(e){}return r}}
 (function(){const st=document.createElement("style");st.textContent=`#owlist button.kgc.kg2{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:flex-start;gap:2px!important;width:auto!important;min-height:130px!important;padding:6px 2px 8px!important;border:2px solid #cfd8d4!important;border-radius:12px!important;background:#fff!important;text-align:center!important;font-size:12px!important}#owlist button.kgc.kg2.on{border-color:#6658a6!important;background:#f1eefb!important;box-shadow:0 0 0 2px #6658a6 inset!important}#owlist button.kgc.kg2.lk{background:#f4f2ec!important}#owlist .kgc.kg2 canvas{width:72px;height:90px}#owlist .kgc.kg2 i{font-style:normal;font-size:10.5px;color:#6658a6;font-weight:900}#owlist .kgc.kg2.lk i{color:#8a8a8a;font-weight:700}#owlist .kgg{gap:8px}`;document.head.appendChild(st)})();
+
+/* 口元の色：選んだことがある時だけ使う（今までの人はヒゲ焦げ茶・マスク白のまま） */
+{const _al5=owAccLook;owAccLook=function(o){const L=_al5.apply(this,arguments);try{if(L.accV&&!(o&&o.accCMv)){const m=+o.accM||0;L.accV=L.accV.map(v=>v[0]===m&&(m===4||m===6)?[v[0],""]:v)}}catch(e){}return L}}
+{const _es5=owEdSave;owEdSave=function(){try{if(OWD&&G.ow&&OWD.accCM&&OWD.accCM!==G.ow.accCM)G.ow.accCMv=1}catch(e){}return _es5.apply(this,arguments)}}
+/* 着せ替えの見本：右上の数値は下のカードへ。かわりに今のタブの色を見本の横で選べる */
+hcRow=function(){return""};
+function stgCols(){const o=G.ow||{},h=OWPV!=null&&OWK==="hs"?(OWPV>=100?OWPV-99:0):(o.h2|0);
+ if(OWK==="hs")return[["hair","髪の色",OWPAL.hair]].concat(HC2.includes(h)?[["hc2","2色目",OWPAL.hc2]]:[]);if(OWK==="top")return[["shirt","服の色",OWPAL.shirt]];if(OWK==="bot")return[["pants","ズボンの色",OWPAL.pants]];return[]}
+function stgPanel(){const o=G.ow||{};return stgCols().map(([k,l,P])=>{const v=String(o[k]||OW.c[k]||(k==="hc2"?"#ff5c8a":"")).toLowerCase();return`<div class="scg"><div class="scl">${l}</div><div class="scp">${P.map(c=>`<span data-scs="${k}" data-v="${c}" class="scs ${c.toLowerCase()===v?"on":""}" style="background:${c}"></span>`).join("")}</div></div>`}).join("")}
+{const _os=owStage;owStage=function(){const r=_os.apply(this,arguments);try{const tr=document.querySelector("#fms .info .tr");const fm=$("#fms");if(tr&&$("#p-own2")&&!OWD){const h=stgPanel();tr.innerHTML=h;tr.classList.add("stgc");if(fm)fm.classList.toggle("hasc",!!h)}else if(fm)fm.classList.remove("hasc")}catch(e){}return r}}
+function fmStats(){const h=$("#fmh");if(!h)return;let el=$("#fmst");if(!el){el=document.createElement("div");el.id="fmst";h.appendChild(el)}if(FMTAB!=="owner"){el.hidden=true;return}const o=G.ow||{},st=Math.round(typeof starOf==="function"?starOf(o):0),fm=Math.round(o.fame||0),sk=(o.skill||0);el.hidden=false;el.innerHTML=`<div>👀 知名度 <b>${fm}</b></div><div>⭐ スター性 <b>${st}</b></div><div>💨 技術 <b>${sk.toFixed(1)}</b></div>`}
+{const _or6=owRender;owRender=function(){const r=_or6.apply(this,arguments);try{fmStats()}catch(e){}return r}}
+{const _ft6=fmTab;fmTab=function(){const r=_ft6.apply(this,arguments);try{fmStats()}catch(e){}return r}}
+document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-scs]");if(!b)return;e.stopPropagation();e.preventDefault();if(!G.ow)return;G.ow[b.dataset.scs]=b.dataset.v;try{applyOwLook();owAccSync()}catch(_){}OW._pc=null;save();const keep=FMS.ang;owStage();FMS.ang=keep},true);
+(function(){const st=document.createElement("style");st.textContent=`
+#fms .tr.stgc{width:auto!important;pointer-events:auto;z-index:3;text-align:left;top:8px!important;right:10px!important}#fms.hasc canvas{transform:translateX(-26px)}#fms.hasc .hint{display:none}
+.scg{margin-bottom:6px}.scl{font-size:10.5px;font-weight:900;color:#cfe9e2;margin-bottom:4px}
+.scp{display:grid;grid-template-columns:repeat(4,19px);gap:5px}
+.scs{display:block;width:19px;height:19px;border-radius:50%;border:1.5px solid rgba(255,255,255,.35);box-sizing:border-box;cursor:pointer}
+.scs.on{outline:2.5px solid #ffd84a;outline-offset:1px}
+#fmst{position:absolute;left:138px;top:calc(env(safe-area-inset-top,0px) + 13px);font-size:10.5px;line-height:1.45;font-weight:700;color:#8fc9bc}#fmst b{color:#fff;margin-left:3px}`;document.head.appendChild(st)})();
 ;(function(){const app=$("#app"),sh=document.createElement("div");sh.id="sheet";sh.innerHTML='<div class="grab"></div>';
 const top=$("#top"),cvw=$(".cvw"),atm=$("#atm");[...app.children].forEach(el=>{if(el.classList.contains("tabs")||/^p-/.test(el.id))sh.appendChild(el)});app.appendChild(sh);{const dd=$("#dd");if(dd)document.body.appendChild(dd)}
 const setv=()=>{document.documentElement.style.setProperty("--th",top.offsetHeight+"px");document.documentElement.style.setProperty("--bh",$("#bar").offsetHeight+"px")};setv();setTimeout(setv,300);setTimeout(setv,1200);window.addEventListener("resize",setv);
