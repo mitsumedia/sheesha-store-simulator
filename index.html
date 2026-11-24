@@ -156,7 +156,7 @@ body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,
 <div class="row">営業時間 <select id="op"></select>〜<select id="cl"></select></div>
 <div id="hrsi" class="m" style="font-size:12px;margin:4px 0"></div><div class="m" style="font-size:12px">シーシャ3500円／おかわり2000円／ドリンクはフリー。閉店1時間前に入店停止、閉店時刻で全員退店。</div>
 <div class="row"><button id="devreset">🛠 開発用：最初からやり直す</button></div></div></details>
-<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.116</div></div></details>
+<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.117</div></div></details>
 <span id="smk"></span>
 </div>
 <div id="p-deco" hidden><div class="card"><div class="dcat"><button data-dc="obj">🪴 置物</button><button data-dc="wp">🖼 壁アイテム</button><button data-dc="fl">🟫 床</button><button data-dc="wl">🧱 壁紙</button><button data-dc="seat" id="dcseat" class="dcw" hidden>🛋 客席</button><button data-dc="inv" class="dcw">📦 持ち物</button><button id="rm" class="dcw">🔧 模様替え（移動・回転・しまう）</button></div><div class="m" id="plc" style="font-size:12px;margin-top:6px"></div></div><div class="card" id="sec-obj"><div class="m" style="margin-bottom:6px">アイテムを選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。</div><div class="grid" id="dl"></div></div><div class="card" id="sec-seat" hidden><div class="m" style="margin-bottom:6px;font-size:12px">席を選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。席の前の1列はシーシャ台を置く場所として使います。</div><div class="m" id="spc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="sl"></div></div><div class="card" id="sec-wp" hidden><div class="m" style="font-size:12px;margin:2px 0 6px">選んでから、店内の壁をタップして貼ります（1区画に1枚）。見えている壁にだけ貼れるので、視点を回すと反対側にも貼れます。</div><div class="m" id="wc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="wl"></div></div><div class="card" id="sec-inv" hidden><div id="ivl"></div></div><div class="card" id="sec-clr" hidden><div class="m" style="font-size:12px">選ぶと店内でお試し表示されます。「購入する」で購入（¥5,000〜）。店の雰囲気には影響しません。</div><div id="clr"></div></div></div>
@@ -15501,7 +15501,7 @@ d.querySelector(".xin").innerHTML=`<div class="xh">📸 チェキ</div><div clas
 const cv=$("#ckc");chekiDraw(cv,c,0);
 ckSpLbl();d.onclick=e=>{const sp=e.target.closest("[data-sp]");if(sp){R.ckSp=(R.ckSp||0)+(+sp.dataset.sp);chekiDraw(cv,c,pi);ckSpLbl();return}const dl=e.target.closest("[data-dkl]");if(dl){const q=CKD.find(x=>x[0]===dl.dataset.dkl);toast("🔒 "+(q[3].g?"ガチャで出る":q[3].t+"で解禁"));return}const dk=e.target.closest("[data-dk]");if(dk){const[t,id]=dk.dataset.dk.split(":");if(t==="e")R.ckEf=id;else R.ckSt=id;$(t==="e"?"#ckde":"#ckds").innerHTML=ckDBtns(t);chekiDraw(cv,c,pi);return}const z=e.target.closest("[data-pz]");if(z){pi=+z.dataset.pz;d.querySelectorAll("[data-pz]").forEach(b=>b.classList.toggle("on",b===z));chekiDraw(cv,c,pi);return}const b=e.target.closest("[data-sh]");if(!b)return;if(b.dataset.sh==="b"){d.remove();chekiPanel();return}
 if(G.ckD===G.day){toast("今日はもう撮りました");return}G.ckD=G.day;G.ckN=(G.ckN||0)+1;save();xrow();log("📸 "+nm(c)+" とチェキを撮った");try{motAdd(2)}catch(_){}
-const out=document.createElement("canvas"),PW=600,PH=760,g=out.getContext("2d");out.width=PW;out.height=PH;g.fillStyle="#fffefa";g.fillRect(0,0,PW,PH);g.drawImage(cv,40,40,520,560);g.fillStyle="#333";g.textAlign="center";g.font="bold 30px 'Hiragino Maru Gothic ProN','Hiragino Sans',sans-serif";g.fillText(((G.ow||{}).name||"店長")+" × "+nm(c),PW/2,665,PW-60);g.fillStyle="#888";g.font="20px 'Hiragino Sans',sans-serif";g.fillText(shop+"　"+ckDate(),PW/2,705,PW-60);
+const out=document.createElement("canvas"),PW=600,PH=760,g=out.getContext("2d");out.width=PW;out.height=PH;g.fillStyle="#fffefa";g.fillRect(0,0,PW,PH);g.drawImage(cv,40,40,520,560);try{kgStamp(g,PW)}catch(_){}g.fillStyle="#333";g.textAlign="center";g.font="bold 30px 'Hiragino Maru Gothic ProN','Hiragino Sans',sans-serif";g.fillText(((G.ow||{}).name||"店長")+" × "+nm(c),PW/2,665,PW-60);g.fillStyle="#888";g.font="20px 'Hiragino Sans',sans-serif";g.fillText(shop+"　"+ckDate(),PW/2,705,PW-60);
 const url=out.toDataURL("image/png"),txt="「"+shop+"」で "+nm(c)+" さんとチェキ📸 #シーシャ屋さん経営";
 d.querySelector(".xin").innerHTML=`<div class="xh">📸 撮れた！</div><img src="${url}" alt="チェキ" style="width:100%;max-width:300px;align-self:center;transform:rotate(-1.5deg);box-shadow:0 8px 20px rgba(0,0,0,.35);margin:10px 0"><div class="xb" style="flex-direction:column;gap:6px">${CKX?`<button data-fin="xp" class="ckx" style="width:100%;font-size:16px;padding:12px;background:#111 !important;color:#fff !important;border:none">𝕏 にこのチェキを投稿</button><div class="xs" style="text-align:center;margin:0">📱 スマホは出てきたメニューから「X」を選んでね</div>`:""}<button data-fin="sh" style="width:100%">💾 画像を保存</button><div class="xs" style="text-align:center;margin:0">画像を長押しでも保存できます</div></div><div class="xb" style="margin-top:6px"><button data-fin="x" style="flex:1">閉じる</button></div>`;
 d.onclick=async e=>{const q=e.target.closest("[data-fin]");if(!q)return;if(q.dataset.fin==="x"){d.remove();return}
@@ -16026,7 +16026,7 @@ if(b.dataset.gt){try{await aapi({a:"a_gift_toggle",id:b.dataset.gt});admGifts()}
 });
 
 /* ===== 更新チェック：起動時・アプリに戻ったとき・30分ごと。新しい版があればお知らせを出して選んでもらう ===== */
-const GVER="1.0.116";
+const GVER="1.0.117";
 let updV=null,updLater=null,updBusy=0;
 async function updCheck(){if(updBusy||!/^https?:/.test(location.protocol))return;updBusy=1;try{const r=await fetch("version.txt?"+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.text()).trim();if(!v||v===GVER)return;updV=v;updShow()}catch(e){}finally{updBusy=0}}
 function updShow(){if(!updV||updLater===updV||document.getElementById("updm"))return;if(R.phase==="run"||!$("#ov").hidden||document.getElementById("sysm")){setTimeout(updShow,5000);return}
@@ -16912,7 +16912,7 @@ po.innerHTML=`<div id="owcat">${Object.entries(OWCAT).map(([k,c])=>`<button data
 <div id="owed"><div class="owr"><div class="owl">名前</div><input type="text" data-owt="name" maxlength="8" value="${esc(d.name)}" placeholder="店長"></div>
 <div class="owr"><div class="owl">店名</div><input type="text" data-owt="shop" maxlength="14" value="${esc(d.shop)}" placeholder="シーシャ屋さん"></div>
 <div class="owr"><div class="owl">年齢</div><input type="number" data-owt="age" min="18" max="80" value="${d.age}"></div>
-<div class="owr"><div class="owl">性別</div><div class="owpl">${["男性","女性"].map(x=>`<button data-owsx="${x}" class="${d.sex===x?"on":""}">${x}</button>`).join("")}</div>${sw("hair","髪の色")}${sw("skin","肌の色")}${sw("shirt","服の色")}${sw("pants","ズボンの色")}${pl("eye","目",EYN)}${pa("accE","目元",ACC_E)}${d.accE?sw("accCE","目元の色"):""}${pa("accH","頭",ACC_H)}${d.accH?sw("accCH","頭の色"):""}${pa("accM","口元",ACC_M)}${d.accM?sw("accCM","口元の色"):""}${+d.accH===8?`<div class="owr" style="font-size:11px;color:#8a8a8a">フルフェイスヘルメットの時は目元を付けられません</div>`:""}
+<div class="owr"><div class="owl">性別</div><div class="owpl">${["男性","女性"].map(x=>`<button data-owsx="${x}" class="${d.sex===x?"on":""}">${x}</button>`).join("")}</div>${sw("hair","髪の色")}${sw("skin","肌の色")}${sw("shirt","服の色")}${sw("pants","ズボンの色")}${pl("eye","目",EYN)}${pa("accE","目元",ACC_E)}${d.accE?sw("accCE","目元の色"):""}${pa("accH","頭",ACC_H)}${d.accH?sw("accCH","頭の色"):""}${pa("accM","口元",ACC_M)}${d.accM?sw("accCM","口元の色"):""}${+d.accH===8?`<div class="owr" style="font-size:11px;color:#8a8a8a">フルフェイスヘルメットの時は目元を付けられません</div>`:""}${kgRow(d)}
 </div></div>`;
 po.onclick=e=>{const k=e.target.closest("[data-owk]");if(k){e.stopPropagation();if(k.dataset.owk!=="edit"){OWD=null;OWK=k.dataset.owk;OWPV=null;owRender();owStage();fmBtn(null)}return}
 const s2=e.target.closest("[data-ows]");if(s2){e.stopPropagation();OWD[s2.dataset.ows]=s2.dataset.v;owEdRender();owEdStage();return}
@@ -17400,6 +17400,102 @@ function gachaPanel(){const old=$("#gap");if(old)old.remove();const done=G.gaD==
   if(k==="ad"&&G.gaD!==G.day&&ok){st="ad";G.gaD=G.day;save();btns();let n=5;const box=document.createElement("div");box.style.cssText="position:absolute;inset:0;z-index:5;background:rgba(10,8,16,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#cfc6dc";d.appendChild(box);
    const tk=()=>{box.innerHTML=`<div style="font-size:12px;opacity:.7">広告（テスト用のダミー）</div><div style="font-size:40px;margin:8px 0">📺</div><div style="font-size:14px">あと <b>${n}</b> 秒</div>`;if(n--<=0){clearInterval(iv);box.remove();start()}};const iv=setInterval(tk,1000);tk()}};
  window.addEventListener("resize",fit);btns();raf=requestAnimationFrame(draw)}
+
+/* ===== 着ぐるみ（店長だけ）：体ぜんぶの着せ替え。目元（メガネなど）だけ一緒に付けられる ===== */
+const KGL=[0,
+ {n:"トラ",e:"🐯",q:"プレイ1年",f:()=>kgYr()>=12,c:"#f08a24",stripe:"#2a1a10",belly:"#fff3dc",paw:"#fff3dc",
+  x:b=>{b(.25,1,1,1.75,12,12.75,"#f08a24");b(3,3.75,1,1.75,12,12.75,"#f08a24");b(.5,.75,1.75,1.85,12,12.5,"#fff3dc");b(3.25,3.5,1.75,1.85,12,12.5,"#fff3dc");for(let i=0;i<10;i++)b(1.75,2.25,.75-i*.25,1-i*.25,3.5+i*.12,4+i*.12,i%3===0?"#2a1a10":"#f08a24")}},
+ {n:"くま",e:"🐻",q:"図鑑100人",f:()=>G.cs.filter(c=>c.met).length>=100,c:"#8b5a2b",belly:"#e8c99a",paw:"#5c3a1b",
+  x:b=>{b(0,1,1,2,12,13,"#8b5a2b");b(3,4,1,2,12,13,"#8b5a2b");b(.25,.75,2,2.1,12.25,12.75,"#e8c99a");b(3.25,3.75,2,2.1,12.25,12.75,"#e8c99a");b(1.5,2.5,.5,1,3.5,4.5,"#8b5a2b")}},
+ {n:"ねこ",e:"🐱",q:"チェキを50回撮る",f:()=>(G.ckN||0)>=50,c:"#9a9a9a",belly:"#e8e8e8",paw:"#e8e8e8",
+  x:b=>{for(let i=0;i<4;i++){b(.25+i*.125,1.25-i*.125,1,1.5,12+i*.25,12.25+i*.25,"#9a9a9a");b(2.75+i*.125,3.75-i*.125,1,1.5,12+i*.25,12.25+i*.25,"#9a9a9a")}b(.5,1,1.5,1.6,12.25,12.5,"#ffb3c6");b(3,3.5,1.5,1.6,12.25,12.5,"#ffb3c6");for(let i=0;i<14;i++)b(1.75,2.25,.75-i*.2,.95-i*.2,3.5+Math.sin(i*.4)*1.2+i*.2,3.75+Math.sin(i*.4)*1.2+i*.2,"#9a9a9a")}},
+ {n:"うさぎ",e:"🐰",q:"フォロワー10,000人",f:()=>((G.ow||{}).fol||0)>=10000,c:"#f4f4f4",belly:"#ffffff",paw:"#ffd6e0",
+  x:b=>{b(.75,1.5,1,1.5,12,14.75,"#f4f4f4");b(2.5,3.25,1,1.5,12,14.75,"#f4f4f4");b(1,1.25,1.5,1.6,12.25,14.5,"#ffb3c6");b(2.75,3,1.5,1.6,12.25,14.5,"#ffb3c6");b(1.5,2.5,.25,1,3.75,4.75,"#ffffff")}},
+ {n:"パンダ",e:"🐼",q:"バトルで3回優勝",f:()=>(G.batW||0)>=3,c:"#f4f4f4",arm:"#1e1e1e",leg:"#1e1e1e",paw:"#1e1e1e",belly:"#ffffff",
+  x:b=>{b(0,1,1,2,12,13,"#1e1e1e");b(3,4,1,2,12,13,"#1e1e1e")}},
+ {n:"ペンギン",e:"🐧",q:"冬（12〜2月）に通算30日営業",f:()=>(G.kgWin||0)>=30,c:"#22252c",belly:"#ffffff",paw:"#f5a623",
+  x:b=>{b(1.5,2.5,3,3.5,10.75,11.25,"#f5a623")}},
+ {n:"カエル",e:"🐸",q:"雨の日に通算20日営業",f:()=>(G.kgRain||0)>=20,c:"#7ac943",belly:"#e6f5c8",paw:"#5aa02c",
+  x:b=>{b(.25,1.5,1.5,2.75,12,13,"#ffffff");b(2.5,3.75,1.5,2.75,12,13,"#ffffff");b(.75,1.25,2.75,2.9,12.25,12.75,"#111111");b(2.75,3.25,2.75,2.9,12.25,12.75,"#111111");b(.25,1.5,1.5,2.75,13,13.25,"#7ac943");b(2.5,3.75,1.5,2.75,13,13.25,"#7ac943")}},
+ {n:"きょうりゅう",e:"🦖",q:"プレイ3年",f:()=>kgYr()>=36,c:"#5cb85c",belly:"#f2e6a6",paw:"#3d8b3d",
+  x:b=>{for(let i=0;i<7;i++){const z=11.75-i*1.2,y=z>=8?-.25:.75;b(1.75,2.25,y,y+.25,z,z+.5,"#f5d34a")};b(1.75,2.25,.75,1.25,12,12.5,"#f5d34a");b(1.75,2.25,1.75,2.25,12,12.5,"#f5d34a");for(let i=0;i<12;i++)b(1.25+i*.04,2.75-i*.04,.75-i*.25,1-i*.25,1.5+i*.1,2.5,"#5cb85c")}}];
+function kgYr(){return Math.max(G.month||0,Math.floor(((G.day||1)-1)/7))}
+const kgOwn=id=>(G.kgH||[]).includes(+id);
+/* 条件を満たしたら「届く予定」に並べる（届くのは1日1個） */
+function kgChk(){if(!G.setup||!G.ow)return;G.kgQ=G.kgQ||[];for(let i=1;i<KGL.length;i++){if(kgOwn(i)||G.kgQ.includes(i))continue;let ok=0;try{ok=KGL[i].f()}catch(e){}if(ok){G.kgQ.push(i);save()}}}
+{const _hk=hud;hud=function(){_hk.apply(this,arguments);try{kgChk()}catch(e){}}}
+/* 冬・雨の日の営業日数を数える（このアップデートから） */
+{const _sk=start;start=function(){const r=_sk.apply(this,arguments);try{if(R.phase==="run"&&G.kgCD!==G.day){G.kgCD=G.day;if([12,1,2].includes(MN[(G.month||0)%12]))G.kgWin=(G.kgWin||0)+1;if(G.wx&&G.wx[G.wd]==="rain")G.kgRain=(G.kgRain||0)+1;save()}}catch(e){}return r}}
+/* ブロックを作る：顔まわり以外を動物の色に塗りかえて、耳・しっぽなどを足す */
+{const _pvk=pv;pv=function(a,ox,Y0,f,c,sit,dr,hd,nh){const id=c&&+c.kg,A=id&&KGL[id];if(!A||c.sp)return _pvk.apply(this,arguments);
+ const c2=Object.assign({},c,{kg:0,accV:null,acc:isGl(c.acc)?c.acc:0,shirt:A.c,top:0,t2:0,pants:A.leg||A.c,bot:0,b2:0,shoe:A.paw||A.c,hair:A.c,hs:0,h2:0});
+ const T=[],r=_pvk.call(this,T,ox,Y0,f,c2,sit,dr,hd,nh),FT=c.fat|0,aL=FT===2?0:FT?.5:1,aR=FT===2?4:FT?3.5:3,yF=FT===2?4.5:FT?4:3,sk=String(c.skin).toLowerCase();
+ const inv=(X,Y,s)=>{X-=ox;Y-=Y0;if(sit)return[X,f>0?Y:6-Y-s];if(dr===2)return[4-X-s,3-Y-s];if(dr===1)return[4-Y-s,X];if(dr===3)return[Y,3-X-s];return[X,Y]};
+ const fw=(x,y,s)=>{if(sit)return[x,f>0?y:6-y-s];if(dr===2)return[4-x-s,3-y-s];if(dr===1)return[y,4-x-s];if(dr===3)return[3-y-s,x];return[x,y]};
+ T.forEach(q=>{const s=q[5]||1,[x,y]=inv(q[0],q[1],s),z=q[2];let col=A.c;
+  if(z>=8){const face=y+s>=2.99&&z>=8.5&&z<10.75&&x>=.5&&x<3.5;if(face){a.push(q);return}}
+  else if(z<.5&&!sit)col=A.paw||A.c;else if(z<4)col=A.leg||A.c;
+  else{const arm=x<aL||x>=aR;if(arm)col=String(q[3]).toLowerCase()===sk?(A.paw||A.c):(A.arm||A.c);else if(y+s>=yF-.01&&x>=1.25&&x<2.75&&z>=4.5&&z<7.5)col=A.belly||A.c}
+  if(A.stripe&&z>=1&&z<12&&col===A.c&&Math.floor(z*2)%3===0)col=A.stripe;
+  a.push([q[0],q[1],q[2],col,q[4],q[5]])});
+ const S=.25,b=(x0,x1,y0,y1,z0,z1,col)=>{for(let x=x0;x<x1-1e-6;x+=S)for(let y=y0;y<y1-1e-6;y+=S){const[X,Y]=fw(x,y,S);for(let z=z0;z<z1-1e-6;z+=S)a.push([ox+X,Y0+Y,z,col,undefined,S])}};
+ /* 顔のまわりのフードのふち */
+ const hc=A.hood||A.c;b(.25,3.75,3,3.25,10.75,11,hc);b(.25,3.75,3,3.25,8.25,8.5,hc);b(.25,.5,3,3.25,8.5,10.75,hc);b(3.5,3.75,3,3.25,8.5,10.75,hc);
+ try{A.x(b)}catch(e){}return r}}
+/* 装飾品の見た目：着ぐるみの時は目元だけ */
+{const _al2=owAccLook;owAccLook=function(o){const L=_al2.apply(this,arguments),k=+(o&&o.kg)||0;L.kg=kgOwn(k)?k:0;if(L.kg)L.accV=null;return L}}
+{const _ad=owAccD;owAccD=function(){const r=_ad.apply(this,arguments);r.kg=+((G.ow||{}).kg)||0;return r}}
+{const _es2=owEdSave;owEdSave=function(){const k=OWD?+OWD.kg||0:null;const r=_es2.apply(this,arguments);if(k!==null&&G.ow){G.ow.kg=kgOwn(k)?k:0;owAccSync();save();OWD=null;try{owEdRender();owEdStage()}catch(e){}}return r}}
+/* 着せ替え画面の着ぐるみ欄（持っていないものはシルエットで、届く条件を出す） */
+function kgRow(d){const cur=+d.kg||0;let h=`<button class="kgc ${cur?"":"on"}" data-owp="kg" data-v="0"><div class="kgx">なし</div><b>着ない</b></button>`;
+ for(let i=1;i<KGL.length;i++){const own=kgOwn(i);h+=own?`<button class="kgc ${cur===i?"on":""}" data-owp="kg" data-v="${i}"><canvas data-kgc="${i}" width="120" height="150"></canvas><b>${KGL[i].e} ${KGL[i].n}</b></button>`:`<button class="kgc lk" data-kgl="${i}"><canvas data-kgc="${i}" data-sil="1" width="120" height="150"></canvas><b>？？？</b><i>${esc(KGL[i].q)}</i></button>`}
+ return`<div class="owr"><div class="owl">着ぐるみ <span style="font-size:10.5px;color:#8a8a8a;font-weight:700">${(G.kgH||[]).length}/${KGL.length-1}</span></div><div class="kgg">${h}</div>${cur?`<div style="font-size:11px;color:#8a8a8a;margin-top:6px">着ぐるみの時は、目元（メガネなど）以外の装飾品は外れます</div>`:""}</div>`}
+const KGVC={};
+function kgVox(i,sil){const k=i+(sil?"s":"");if(KGVC[k])return KGVC[k];let v=fmsVox("p",Object.assign({},OW.c,{kg:i,acc:0,accV:null}));if(sil)v=v.map(q=>[q[0],q[1],q[2],"#3a3640",q[4],q[5]]);return KGVC[k]=v}
+function kgPaint(){document.querySelectorAll("canvas[data-kgc]").forEach(cv=>{try{vRender(cv,kgVox(+cv.dataset.kgc,!!cv.dataset.sil),5.6)}catch(e){}})}
+{const _er=owEdRender;owEdRender=function(){const r=_er.apply(this,arguments);try{kgPaint()}catch(e){}return r}}
+document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-kgl]");if(!b)return;e.stopPropagation();e.preventDefault();const A=KGL[+b.dataset.kgl];toast("🔒 「"+A.q+"」を達成すると、お店に届きます")},true);
+/* 届く演出：朝の行動を選ぶ画面の直前に、1日1個だけ */
+const kgDue=()=>{try{kgChk()}catch(e){}return!!(G.kgQ&&G.kgQ.length&&G.kgDD!==G.day&&!$("#kgov")&&!$("#gap"))};
+{const _smk=showMorning;showMorning=function(){if(canAct()&&kgDue()){kgDeliver(()=>showMorning());return}return _smk.apply(this,arguments)}}
+function kgBoxVox(){const v=[],S=.5,K="#c8a165",T="#b08850",P="#e8d9a8";for(let x=0;x<6;x+=S)for(let y=0;y<6;y+=S)for(let z=0;z<5;z+=S){const ed=x===0||x===5.5||y===0||y===5.5||z===0||z===4.5;if(!ed)continue;let c=z===4.5?T:K;if(z===4.5&&(x===2.5||x===3))c=P;if((y===5.5||y===0)&&(x===2.5||x===3)&&z>=3.5)c=P;if(z===4.5&&(y===3||y===2.5)&&c===T)c=dkHex(T,.85);v.push([x,y,z,c,undefined,S])}return v}
+function kgDeliver(next){const id=G.kgQ.shift(),A=KGL[id];G.kgH=G.kgH||[];if(!kgOwn(id))G.kgH.push(id);G.kgDD=G.day;save();try{log("📦 着ぐるみ「"+A.n+"」が届いた（"+A.q+"）")}catch(e){}for(const k in KGVC)delete KGVC[k];
+ const o=document.createElement("div");o.id="kgov";o.innerHTML=`<div class="kgin"><div class="kgt">📦 お店に大きな箱が届いた！</div><div class="kgst"><canvas id="kgcv" width="560" height="620"></canvas><div class="kgfl"></div></div><div class="kgs">なにが入っているんだろう…</div><div class="kgb"><button id="kgop" class="kgbt">あける</button></div></div>`;document.body.appendChild(o);
+ const cv=o.querySelector("#kgcv"),st=o.querySelector(".kgst");let vox=kgBoxVox(),ang=.55,t0=performance.now(),mode=0,raf=0;
+ const loop=t=>{if(!o.isConnected)return;if(mode===0)ang=.55+Math.sin((t-t0)/900)*.12;else if(mode===1){ang=.55;cv.style.transform=`translate(${(Math.random()-.5)*14}px,${(Math.random()-.5)*8}px) rotate(${(Math.random()-.5)*6}deg)`}else ang+=.012;vRender(cv,vox,ang);raf=requestAnimationFrame(loop)};raf=requestAnimationFrame(loop);
+ const close=()=>{cancelAnimationFrame(raf);o.remove();try{next&&next()}catch(e){}};
+ o.querySelector("#kgop").onclick=()=>{if(mode)return;mode=1;o.querySelector(".kgs").textContent="ガタガタ…！";o.querySelector(".kgb").style.visibility="hidden";
+  setTimeout(()=>{mode=2;ang=5.6;cv.style.transform="";st.classList.add("pop");vox=fmsVox("p",Object.assign({},OW.c,{kg:id,acc:OW.c.acc||0,accV:null}));
+   o.querySelector(".kgt").innerHTML=`${A.e} ${esc(A.n)}の着ぐるみが入っていた！`;
+   o.querySelector(".kgs").innerHTML=`「${esc(A.q)}」のごほうび<br><span style="font-size:11.5px;opacity:.8">着せ替え（店主の見た目）からいつでも着られます${G.kgQ.length?"<br>明日もなにか届くかも…？":""}</span>`;
+   const bb=o.querySelector(".kgb");bb.style.visibility="";bb.innerHTML=`<button class="kgbt" id="kgwr">着てみる</button><button class="kgbt sub" id="kgcl">あとで</button>`;
+   bb.querySelector("#kgwr").onclick=()=>{G.ow.kg=id;owAccSync();save();try{toast(A.e+" "+A.n+"の着ぐるみを着た！")}catch(e){}close()};bb.querySelector("#kgcl").onclick=close},1100)}}
+/* お客さんの反応（その日はじめて話しかけた時） */
+const KGR0=["えっ、着ぐるみ!?","今日どうしたんですか？その格好","かわいい…あとで写真いいですか？","暑くないんですか？それ","その格好でシーシャ作るの器用すぎる","中の人、いつもの店長ですよね？","今日はなにかのイベントですか？"];
+const KGR={1:["がおーって言ってください"],2:["クマさんのお店だ…"],3:["にゃーって言ってみてください"],4:["耳がぴょこぴょこしてる"],5:["笹とか吸うんですか？"],6:["よちよち歩いてる…"],7:["ケロケロしてる…"],8:["食べられる〜！"]};
+{const _tk=talk;talk=function(p){const r=_tk.apply(this,arguments);try{const k=+((G.ow||{}).kg)||0,c=p&&p.c;if(k&&c&&!c.moto&&!spx(c)&&p.bub&&c._kgD!==G.day&&R.phase==="run"){c._kgD=G.day;say(p,rnd(KGR0.concat(KGR[k]||[],KGR[k]||[])))}}catch(e){}return r}}
+/* チェキのスタンプ */
+function kgStamp(g,PW){const k=+((G.ow||{}).kg)||0,A=k&&KGL[k];if(!A)return;g.save();g.translate(PW-92,96);g.rotate(.18);g.beginPath();g.arc(0,0,58,0,Math.PI*2);g.fillStyle=A.c;g.fill();g.lineWidth=6;g.strokeStyle="#fff";g.stroke();g.textAlign="center";g.textBaseline="middle";g.font="44px sans-serif";g.fillText(A.e,0,-10);g.font="bold 15px 'Hiragino Maru Gothic ProN','Hiragino Sans',sans-serif";g.fillStyle="#fff";g.strokeStyle="rgba(0,0,0,.35)";g.lineWidth=3;g.strokeText("きぐるみDAY",0,30);g.fillText("きぐるみDAY",0,30);g.restore()}
+(function(){const st=document.createElement("style");st.textContent=`
+.kgg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.kgc{display:flex!important;flex-direction:column;align-items:center;gap:2px;padding:4px 2px 6px!important;border-radius:12px!important;background:#fff!important;border:2px solid #cfd8d4!important;color:#123a33!important;font-size:11.5px!important;min-height:96px}
+.kgc.on{border-color:#6658a6!important;background:#f1eefb!important}
+.kgc canvas{width:56px;height:70px;background:transparent!important;box-shadow:none!important;border-radius:0!important}
+.kgc i{font-style:normal;font-size:9.5px;color:#8a8a8a;line-height:1.25;text-align:center}
+.kgc.lk{background:#f4f2ec!important}
+.kgx{width:56px;height:70px;display:grid;place-items:center;color:#b0b0b0;font-size:12px}
+#kgov{position:fixed;inset:0;z-index:320;background:radial-gradient(circle at 50% 40%,#3a2f55,#14101f 75%);display:flex;align-items:center;justify-content:center;font-family:inherit}
+.kgin{display:flex;flex-direction:column;align-items:center;gap:10px;width:min(92vw,420px);color:#fff;text-align:center}
+.kgt{font-size:20px;font-weight:900;letter-spacing:.02em;text-shadow:0 2px 0 rgba(0,0,0,.35)}
+.kgst{position:relative;width:min(80vw,300px);aspect-ratio:560/620}
+.kgst canvas{width:100%;height:100%;background:transparent!important;box-shadow:none!important}
+.kgfl{position:absolute;inset:-20%;border-radius:50%;background:radial-gradient(circle,rgba(255,240,180,.9),rgba(255,240,180,0) 60%);opacity:0;pointer-events:none}
+.kgst.pop .kgfl{animation:kgfl 1.1s ease-out}
+@keyframes kgfl{0%{opacity:1;transform:scale(.4)}100%{opacity:0;transform:scale(1.4)}}
+.kgs{font-size:14px;font-weight:700;line-height:1.6;min-height:2.6em}
+.kgb{display:flex;gap:10px;justify-content:center}
+.kgbt{padding:12px 26px;border-radius:999px;border:0;background:#f5d34a;color:#3a2a00;font-weight:900;font-size:16px;box-shadow:0 4px 0 #b8941a}
+.kgbt.sub{background:#fff;color:#444;box-shadow:0 4px 0 #bbb}`;document.head.appendChild(st)})();
 ;(function(){const app=$("#app"),sh=document.createElement("div");sh.id="sheet";sh.innerHTML='<div class="grab"></div>';
 const top=$("#top"),cvw=$(".cvw"),atm=$("#atm");[...app.children].forEach(el=>{if(el.classList.contains("tabs")||/^p-/.test(el.id))sh.appendChild(el)});app.appendChild(sh);{const dd=$("#dd");if(dd)document.body.appendChild(dd)}
 const setv=()=>{document.documentElement.style.setProperty("--th",top.offsetHeight+"px");document.documentElement.style.setProperty("--bh",$("#bar").offsetHeight+"px")};setv();setTimeout(setv,300);setTimeout(setv,1200);window.addEventListener("resize",setv);
