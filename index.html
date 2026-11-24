@@ -156,7 +156,7 @@ body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,
 <div class="row">営業時間 <select id="op"></select>〜<select id="cl"></select></div>
 <div id="hrsi" class="m" style="font-size:12px;margin:4px 0"></div><div class="m" style="font-size:12px">シーシャ3500円／おかわり2000円／ドリンクはフリー。閉店1時間前に入店停止、閉店時刻で全員退店。</div>
 <div class="row"><button id="devreset">🛠 開発用：最初からやり直す</button></div></div></details>
-<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.120</div></div></details>
+<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.121</div></div></details>
 <span id="smk"></span>
 </div>
 <div id="p-deco" hidden><div class="card"><div class="dcat"><button data-dc="obj">🪴 置物</button><button data-dc="wp">🖼 壁アイテム</button><button data-dc="fl">🟫 床</button><button data-dc="wl">🧱 壁紙</button><button data-dc="seat" id="dcseat" class="dcw" hidden>🛋 客席</button><button data-dc="inv" class="dcw">📦 持ち物</button><button id="rm" class="dcw">🔧 模様替え（移動・回転・しまう）</button></div><div class="m" id="plc" style="font-size:12px;margin-top:6px"></div></div><div class="card" id="sec-obj"><div class="m" style="margin-bottom:6px">アイテムを選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。</div><div class="grid" id="dl"></div></div><div class="card" id="sec-seat" hidden><div class="m" style="margin-bottom:6px;font-size:12px">席を選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。席の前の1列はシーシャ台を置く場所として使います。</div><div class="m" id="spc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="sl"></div></div><div class="card" id="sec-wp" hidden><div class="m" style="font-size:12px;margin:2px 0 6px">選んでから、店内の壁をタップして貼ります（1区画に1枚）。見えている壁にだけ貼れるので、視点を回すと反対側にも貼れます。</div><div class="m" id="wc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="wl"></div></div><div class="card" id="sec-inv" hidden><div id="ivl"></div></div><div class="card" id="sec-clr" hidden><div class="m" style="font-size:12px">選ぶと店内でお試し表示されます。「購入する」で購入（¥5,000〜）。店の雰囲気には影響しません。</div><div id="clr"></div></div></div>
@@ -15053,7 +15053,7 @@ const EV=[
 {id:36,r:4,t:"run",n:"常連が友達を連れてきた",tx:"「ここ、私の行きつけなの！」",ef:"レア3〜4のお客さんが来店",ok:()=>evIn().some(p=>p.c.met)&&evFree().length>0&&evCands().some(c=>c.rar===3||c.rar===4),go:()=>{const L=evCands().filter(c=>c.rar===3||c.rar===4),U=L.filter(c=>!c.met),c=rnd(U.length?U:L);c.act=1;arrive([c]);return"（"+nm(c)+"が来店）"}},
 {id:37,r:4,t:"pre",n:"水道管が破裂",tx:"「床が水浸し…！」",ef:"修理代 −¥100,000、今日は強制休業",go:()=>{evMoney(-100000,"水道管修理");return{close:"🚰 水道管の修理で休業…"}}},
 {id:38,r:4,t:"pre",n:"花火大会",tx:"「今日は花火大会！帰りに寄る人が多そう」",ef:"今日の客足+40%（ただし20時までは誰も来ない）",cond:"8月",ok:()=>evMo()===8&&G.close>=22&&G.open<20,go:()=>{const t=td();t.dm=(t.dm||1)*1.4;t.minAt=20*60}},
-{id:39,r:4,t:"pre",n:"税務署からの手紙",tx:"「…申告漏れ？」",ef:"追徴課税で先月の売上の20%を支払う、次の日は行動できない",ok:()=>G.last&&G.last.est>0,go:()=>{evMoney(-Math.round(G.last.est*.2),"追徴課税");evNoAct("税務署の手紙")}},
+{id:39,r:4,t:"pre",n:"税務署からの手紙",tx:"「…申告漏れ？」",ef:"追徴課税で先月の売上の20%を支払う、次の日は行動できない（1回目の確定申告のあとから起こる）",ok:()=>G.last&&G.last.est>0&&!!(G.tax&&G.tax.n>=1),go:()=>{evMoney(-Math.round(G.last.est*.2),"追徴課税");evNoAct("税務署の手紙")}},
 {id:40,r:4,t:"pre",ok:()=>false,n:"シーシャの大会に招待",tx:"「シーシャバトルに出てみませんか？」",ef:"6・9・12・3月の月末に開催（休業なし）。技術が高いほど優勝しやすい。優勝¥200,000／準優勝¥50,000、3位以下は賞金なし",go:()=>null},
 /* ---- ★5 ---- */
 
@@ -16026,7 +16026,7 @@ if(b.dataset.gt){try{await aapi({a:"a_gift_toggle",id:b.dataset.gt});admGifts()}
 });
 
 /* ===== 更新チェック：起動時・アプリに戻ったとき・30分ごと。新しい版があればお知らせを出して選んでもらう ===== */
-const GVER="1.0.120";
+const GVER="1.0.121";
 let updV=null,updLater=null,updBusy=0;
 async function updCheck(){if(updBusy||!/^https?:/.test(location.protocol))return;updBusy=1;try{const r=await fetch("version.txt?"+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.text()).trim();if(!v||v===GVER)return;updV=v;updShow()}catch(e){}finally{updBusy=0}}
 function updShow(){if(!updV||updLater===updV||document.getElementById("updm"))return;if(R.phase==="run"||!$("#ov").hidden||document.getElementById("sysm")){setTimeout(updShow,5000);return}
