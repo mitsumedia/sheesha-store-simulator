@@ -156,7 +156,7 @@ body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,
 <div class="row">営業時間 <select id="op"></select>〜<select id="cl"></select></div>
 <div id="hrsi" class="m" style="font-size:12px;margin:4px 0"></div><div class="m" style="font-size:12px">シーシャ3500円／おかわり2000円／ドリンクはフリー。閉店1時間前に入店停止、閉店時刻で全員退店。</div>
 <div class="row"><button id="devreset">🛠 開発用：最初からやり直す</button></div></div></details>
-<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.121</div></div></details>
+<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.122</div></div></details>
 <span id="smk"></span>
 </div>
 <div id="p-deco" hidden><div class="card"><div class="dcat"><button data-dc="obj">🪴 置物</button><button data-dc="wp">🖼 壁アイテム</button><button data-dc="fl">🟫 床</button><button data-dc="wl">🧱 壁紙</button><button data-dc="seat" id="dcseat" class="dcw" hidden>🛋 客席</button><button data-dc="inv" class="dcw">📦 持ち物</button><button id="rm" class="dcw">🔧 模様替え（移動・回転・しまう）</button></div><div class="m" id="plc" style="font-size:12px;margin-top:6px"></div></div><div class="card" id="sec-obj"><div class="m" style="margin-bottom:6px">アイテムを選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。</div><div class="grid" id="dl"></div></div><div class="card" id="sec-seat" hidden><div class="m" style="margin-bottom:6px;font-size:12px">席を選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。席の前の1列はシーシャ台を置く場所として使います。</div><div class="m" id="spc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="sl"></div></div><div class="card" id="sec-wp" hidden><div class="m" style="font-size:12px;margin:2px 0 6px">選んでから、店内の壁をタップして貼ります（1区画に1枚）。見えている壁にだけ貼れるので、視点を回すと反対側にも貼れます。</div><div class="m" id="wc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="wl"></div></div><div class="card" id="sec-inv" hidden><div id="ivl"></div></div><div class="card" id="sec-clr" hidden><div class="m" style="font-size:12px">選ぶと店内でお試し表示されます。「購入する」で購入（¥5,000〜）。店の雰囲気には影響しません。</div><div id="clr"></div></div></div>
@@ -16026,7 +16026,7 @@ if(b.dataset.gt){try{await aapi({a:"a_gift_toggle",id:b.dataset.gt});admGifts()}
 });
 
 /* ===== 更新チェック：起動時・アプリに戻ったとき・30分ごと。新しい版があればお知らせを出して選んでもらう ===== */
-const GVER="1.0.121";
+const GVER="1.0.122";
 let updV=null,updLater=null,updBusy=0;
 async function updCheck(){if(updBusy||!/^https?:/.test(location.protocol))return;updBusy=1;try{const r=await fetch("version.txt?"+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.text()).trim();if(!v||v===GVER)return;updV=v;updShow()}catch(e){}finally{updBusy=0}}
 function updShow(){if(!updV||updLater===updV||document.getElementById("updm"))return;if(R.phase==="run"||!$("#ov").hidden||document.getElementById("sysm")){setTimeout(updShow,5000);return}
@@ -16540,7 +16540,7 @@ d.onclick=e=>{const b=e.target.closest("[data-vp],[data-vgo],[data-vdel]");if(!b
 if(b.dataset.vdel){G.vsh=(G.vsh||[]).filter(x=>x.u!==b.dataset.vdel);save();visPanel();return}if(b.dataset.vgo){const x=(G.vsh||[]).find(q=>q.u===b.dataset.vgo);if(!x||!visOk(x)){toast("時間切れです。また会った時にQRを読んでね");visPanel();return}d.remove();visEnter(x)}}}
 async function visShow(){const d=visPan(`<div class="xh">📱 自分のお店のQR</div><div id="visq" class="xs" style="text-align:center;margin:20px 0">作成中…</div><div class="xb"><button data-vp="b" style="flex:1">戻る</button></div>`);d.onclick=e=>{if(e.target.closest("[data-vp=b]"))visPanel()};
 let c=null,lv=0;for(;lv<3&&!c;lv++){try{c=visQR(await visEnc(lv))}catch(e){c=null}}const q=d.querySelector("#visq");if(!q)return;if(!c){q.textContent="お店のデータが大きすぎてQRにできませんでした";return}
-q.innerHTML=`<div>会った相手に、ゲームの「🏪 お店めぐり → 📷 QRを読み取る」で読んでもらってね。読んでから<b>15分</b>、あなたのお店に遊びに来られます</div>${lv>1?`<div class="xw" style="margin-top:6px">お店の飾りが多いので、${lv>2?"置物と壁アイテム":"壁アイテム"}は省いています</div>`:""}`;q.prepend(c);q.style.margin="6px 0"}
+q.innerHTML=`<div>会った相手に、ゲームの「🏪 お店めぐり → 📷 QRを読み取る」で読んでもらってね。読んでから<b>15分</b>、あなたのお店に遊びに来られます。QRは<b>1分ごと</b>に変わるので、その場で読んでもらってね</div>${lv>1?`<div class="xw" style="margin-top:6px">お店の飾りが多いので、${lv>2?"置物と壁アイテム":"壁アイテム"}は省いています</div>`:""}`;q.prepend(c);q.style.margin="6px 0"}
 function visScan(){const d=visPan(`<div class="xh">📷 QRを読み取る</div><div class="xs">相手の「自分のQRを見せる」画面を枠の中に映してね</div><div style="position:relative;background:#000;border-radius:12px;overflow:hidden;aspect-ratio:1;width:100%;max-width:340px;margin:6px auto"><video id="visv" playsinline muted autoplay style="width:100%;height:100%;object-fit:cover"></video><div style="position:absolute;inset:8%;border:3px solid rgba(255,255,255,.85);border-radius:14px"></div></div><div id="vism" class="xs" style="text-align:center;min-height:20px">カメラを起動中…</div><div class="xb"><button data-vp="b" style="flex:1">戻る</button></div>`);
 let st=null,done=0,tm=0;const v=d.querySelector("#visv"),m=d.querySelector("#vism"),cv2=document.createElement("canvas"),g2=cv2.getContext("2d",{willReadFrequently:true});
 const stop=()=>{done=1;clearTimeout(tm);try{st&&st.getTracks().forEach(t=>t.stop())}catch(e){}};d._stop=stop;d.onclick=e=>{if(e.target.closest("[data-vp=b]")){stop();visPanel()}};
@@ -17550,6 +17550,17 @@ else if(t===18){sleeve((x,z)=>z<6.5?W:sh);front(1,3,4,8,(x,z)=>(Math.abs(x-2+ (8
 else if(t===19){const F=(x,z)=>((z*4)%4===0)?shd:null;all(F);sleeve((x,z)=>((z*4)%4===0)?shd:sh);for(let x=1;x<3;x+=.25)for(let z=4;z<8;z+=.25)if((z*4)%4===2)Q4(x,FY+.06,z,shl);front(1.94,2.06,4,8,()=>"#c0c0c8",FY+.08);front(1.25,2.75,7.75,8.25,()=>sh,FY+.1)}
 else if(t===20){sleeve((x,z,k)=>(Math.floor(k)%4===1)?W:sh);front(1.94,2.06,4,8,()=>W,FY+.02);front(1.5,2.5,7.5,8,()=>shd);sidef((y,z)=>(y>=1.75&&y<2.25)?W:null)}
 }}
+
+/* ===== お店めぐりQR：作ってから1分だけ有効（時計のずれ30秒まで許す）。見せる画面は1分ごとに作り直す ===== */
+const VQR_MS=60000,VQR_SK=30000;
+{const _sn=visSnap;visSnap=function(){const d=_sn.apply(this,arguments);d.qt=Date.now();return d}}
+{const _dc=visDec;visDec=async function(){const o=await _dc.apply(this,arguments);if(!o.qt)throw new Error("古いQRです。相手のゲームを最新版にして、新しいQRを見せてもらってね");const age=Date.now()-o.qt;if(age>VQR_MS+VQR_SK||age<-VQR_SK)throw new Error("このQRは期限切れです（作ってから1分まで）。相手に、今表示されているQRを見せてもらってね");return o}}
+{const _vs=visShow;visShow=async function(){const r=await _vs.apply(this,arguments);try{const d=$("#visp"),q=d&&d.querySelector("#visq");if(!q||!q.querySelector("canvas"))return r;
+ const ct=document.createElement("div");ct.id="visct";ct.style.cssText="text-align:center;font-weight:900;font-size:14px;margin:2px 0 8px";q.querySelector("canvas").after(ct);
+ let t0=Date.now(),busy=0;const tick=async()=>{if(!d.isConnected){clearInterval(iv);return}let left=Math.ceil((VQR_MS-(Date.now()-t0))/1000);
+  if(left<=0&&!busy){busy=1;let c=null;for(let lv=0;lv<3&&!c;lv++){try{c=visQR(await visEnc(lv))}catch(e){c=null}}if(c&&d.isConnected){const old=q.querySelector("canvas");if(old)old.replaceWith(c);t0=Date.now();left=60}busy=0}
+  ct.innerHTML=`⏱ このQRはあと <b>${Math.max(0,left)}秒</b> 有効<br><span style="font-size:11px;font-weight:700;color:var(--mut)">自動で新しいQRに変わります</span>`};
+ const iv=setInterval(tick,1000);tick();const st=d._stop;d._stop=()=>{clearInterval(iv);if(st)st()}}catch(e){}return r}}
 ;(function(){const app=$("#app"),sh=document.createElement("div");sh.id="sheet";sh.innerHTML='<div class="grab"></div>';
 const top=$("#top"),cvw=$(".cvw"),atm=$("#atm");[...app.children].forEach(el=>{if(el.classList.contains("tabs")||/^p-/.test(el.id))sh.appendChild(el)});app.appendChild(sh);{const dd=$("#dd");if(dd)document.body.appendChild(dd)}
 const setv=()=>{document.documentElement.style.setProperty("--th",top.offsetHeight+"px");document.documentElement.style.setProperty("--bh",$("#bar").offsetHeight+"px")};setv();setTimeout(setv,300);setTimeout(setv,1200);window.addEventListener("resize",setv);
