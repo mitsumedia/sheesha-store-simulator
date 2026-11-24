@@ -156,7 +156,7 @@ body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,
 <div class="row">営業時間 <select id="op"></select>〜<select id="cl"></select></div>
 <div id="hrsi" class="m" style="font-size:12px;margin:4px 0"></div><div class="m" style="font-size:12px">シーシャ3500円／おかわり2000円／ドリンクはフリー。閉店1時間前に入店停止、閉店時刻で全員退店。</div>
 <div class="row"><button id="devreset">🛠 開発用：最初からやり直す</button></div></div></details>
-<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.111</div></div></details>
+<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.112</div></div></details>
 <span id="smk"></span>
 </div>
 <div id="p-deco" hidden><div class="card"><div class="dcat"><button data-dc="obj">🪴 置物</button><button data-dc="wp">🖼 壁アイテム</button><button data-dc="fl">🟫 床</button><button data-dc="wl">🧱 壁紙</button><button data-dc="seat" id="dcseat" class="dcw" hidden>🛋 客席</button><button data-dc="inv" class="dcw">📦 持ち物</button><button id="rm" class="dcw">🔧 模様替え（移動・回転・しまう）</button></div><div class="m" id="plc" style="font-size:12px;margin-top:6px"></div></div><div class="card" id="sec-obj"><div class="m" style="margin-bottom:6px">アイテムを選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。</div><div class="grid" id="dl"></div></div><div class="card" id="sec-seat" hidden><div class="m" style="margin-bottom:6px;font-size:12px">席を選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。席の前の1列はシーシャ台を置く場所として使います。</div><div class="m" id="spc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="sl"></div></div><div class="card" id="sec-wp" hidden><div class="m" style="font-size:12px;margin:2px 0 6px">選んでから、店内の壁をタップして貼ります（1区画に1枚）。見えている壁にだけ貼れるので、視点を回すと反対側にも貼れます。</div><div class="m" id="wc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="wl"></div></div><div class="card" id="sec-inv" hidden><div id="ivl"></div></div><div class="card" id="sec-clr" hidden><div class="m" style="font-size:12px">選ぶと店内でお試し表示されます。「購入する」で購入（¥5,000〜）。店の雰囲気には影響しません。</div><div id="clr"></div></div></div>
@@ -16026,7 +16026,7 @@ if(b.dataset.gt){try{await aapi({a:"a_gift_toggle",id:b.dataset.gt});admGifts()}
 });
 
 /* ===== 更新チェック：起動時・アプリに戻ったとき・30分ごと。新しい版があればお知らせを出して選んでもらう ===== */
-const GVER="1.0.111";
+const GVER="1.0.112";
 let updV=null,updLater=null,updBusy=0;
 async function updCheck(){if(updBusy||!/^https?:/.test(location.protocol))return;updBusy=1;try{const r=await fetch("version.txt?"+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.text()).trim();if(!v||v===GVER)return;updV=v;updShow()}catch(e){}finally{updBusy=0}}
 function updShow(){if(!updV||updLater===updV||document.getElementById("updm"))return;if(R.phase==="run"||!$("#ov").hidden||document.getElementById("sysm")){setTimeout(updShow,5000);return}
@@ -16902,23 +16902,24 @@ html body #sheet.open #owed .owpl button.on{background:#6658a6!important;border-
 </style>`)}catch(e){}
 const OWPAL={hair:["#161616","#3b2a1e","#6b4a2b","#a8743c","#e0c068","#c9c9c9","#ffffff","#b03a3a","#e86aa6","#7a4fd0","#2f6fd6","#2a9a7c"],skin:["#ffe0c4","#f1c7a0","#e0aa7e","#c58a5c","#9b6440","#6b4129"],shirt:["#2b2b3a","#ffffff","#c0392b","#e67e22","#f1c40f","#27ae60","#2980b9","#8e44ad","#e86aa6","#7f8c8d","#005d4d","#6658a6"],pants:["#3b3b4a","#1e1e1e","#2c3e66","#5b4a33","#7f8c8d","#c8b38a","#ffffff","#8e2c2c"],accC:["#333333","#ffffff","#c0392b","#f1c40f","#2980b9","#e86aa6","#27ae60","#8e44ad"]};
 let OWD=null;
-function owDraft(){const o=G.ow||{};return{name:o.name||"",shop:o.shop||"",age:o.age||28,sex:o.sex||"男性",hair:OW.c.hair,skin:OW.c.skin,shirt:OW.c.shirt,pants:OW.c.pants||"#3b3b4a",eye:OW.c.eye||0,acc:OW.c.acc||0,accC:OW.c.accC||"#333333"}}
+function owDraft(){const o=G.ow||{};return{name:o.name||"",shop:o.shop||"",age:o.age||28,sex:o.sex||"男性",hair:OW.c.hair,skin:OW.c.skin,shirt:OW.c.shirt,pants:OW.c.pants||"#3b3b4a",eye:OW.c.eye||0,acc:OW.c.acc||0,accC:OW.c.accC||"#333333",...owAccD()}}
 const owDirty=()=>{if(!OWD)return false;const b=owDraft();return Object.keys(OWD).some(k=>String(OWD[k])!==String(b[k]))};
 function owEdRender(){const po=$("#p-own2");if(!po)return;if(!OWD)OWD=owDraft();const d=OWD;
 const sw=(k,l)=>`<div class="owr"><div class="owl">${l}<input type="color" data-owc="${k}" value="${d[k]}"></div><div class="owsw">${OWPAL[k].map(c=>`<button data-ows="${k}" data-v="${c}" class="${String(d[k]).toLowerCase()===c?"on":""}" style="background:${c}" aria-label="${c}"></button>`).join("")}</div></div>`;
+const pa=(k,l,ids)=>`<div class="owr"><div class="owl">${l}</div><div class="owpl">${ids.map(i=>`<button data-owp="${k}" data-v="${i}" class="${+d[k]===i?"on":""}" ${k==="accE"&&+d.accH===8&&i?"disabled style=\"opacity:.35\"":""}>${esc(i?ACCN[i]:"なし")}</button>`).join("")}</div></div>`;
 const pl=(k,l,arr)=>`<div class="owr"><div class="owl">${l}</div><div class="owpl">${arr.map((n,i)=>`<button data-owp="${k}" data-v="${i}" class="${+d[k]===i?"on":""}">${esc(n)}</button>`).join("")}</div></div>`;
 po.innerHTML=`<div id="owcat">${Object.entries(OWCAT).map(([k,c])=>`<button data-owk="${k}">${c[4]} ${c[0]}</button>`).join("")}<button data-owk="edit" class="on">🎨 色・名前</button></div>
 <div id="owed"><div class="owr"><div class="owl">名前</div><input type="text" data-owt="name" maxlength="8" value="${esc(d.name)}" placeholder="店長"></div>
 <div class="owr"><div class="owl">店名</div><input type="text" data-owt="shop" maxlength="14" value="${esc(d.shop)}" placeholder="シーシャ屋さん"></div>
 <div class="owr"><div class="owl">年齢</div><input type="number" data-owt="age" min="18" max="80" value="${d.age}"></div>
-<div class="owr"><div class="owl">性別</div><div class="owpl">${["男性","女性"].map(x=>`<button data-owsx="${x}" class="${d.sex===x?"on":""}">${x}</button>`).join("")}</div>${sw("hair","髪の色")}${sw("skin","肌の色")}${sw("shirt","服の色")}${sw("pants","ズボンの色")}${pl("eye","目",EYN)}${pl("acc","装飾品",ACCN)}${sw("accC","装飾品の色")}
+<div class="owr"><div class="owl">性別</div><div class="owpl">${["男性","女性"].map(x=>`<button data-owsx="${x}" class="${d.sex===x?"on":""}">${x}</button>`).join("")}</div>${sw("hair","髪の色")}${sw("skin","肌の色")}${sw("shirt","服の色")}${sw("pants","ズボンの色")}${pl("eye","目",EYN)}${pa("accE","目元",ACC_E)}${d.accE?sw("accCE","目元の色"):""}${pa("accH","頭",ACC_H)}${d.accH?sw("accCH","頭の色"):""}${pa("accM","口元",ACC_M)}${d.accM?sw("accCM","口元の色"):""}${+d.accH===8?`<div class="owr" style="font-size:11px;color:#8a8a8a">フルフェイスヘルメットの時は目元を付けられません</div>`:""}
 </div></div>`;
 po.onclick=e=>{const k=e.target.closest("[data-owk]");if(k){e.stopPropagation();if(k.dataset.owk!=="edit"){OWD=null;OWK=k.dataset.owk;OWPV=null;owRender();owStage();fmBtn(null)}return}
 const s2=e.target.closest("[data-ows]");if(s2){e.stopPropagation();OWD[s2.dataset.ows]=s2.dataset.v;owEdRender();owEdStage();return}
 const p2=e.target.closest("[data-owp]");if(p2){e.stopPropagation();OWD[p2.dataset.owp]=+p2.dataset.v;owEdRender();owEdStage();return}
 const x2=e.target.closest("[data-owsx]");if(x2){e.stopPropagation();OWD.sex=x2.dataset.owsx;owEdRender();owEdStage();return}};
 po.oninput=e=>{const t=e.target;if(t.dataset.owc){OWD[t.dataset.owc]=t.value;owEdStage();po.querySelectorAll(`[data-ows="${t.dataset.owc}"]`).forEach(b=>b.classList.remove("on"))}else if(t.dataset.owt){OWD[t.dataset.owt]=t.dataset.owt==="age"?(+t.value||28):t.value;owEdStage(1)}}}
-function owEdStage(noStage){if(!noStage){const L=Object.assign({},OW.c,{hair:OWD.hair,skin:OWD.skin,shirt:OWD.shirt,pants:OWD.pants,eye:OWD.eye,acc:OWD.acc,accC:OWD.accC});const keep=FMS.ang;fmsSet("p",L,`<div class="tl" style="background:none;padding:0;font-size:15px">${esc(OWD.name||"店長")}<div style="font-size:10.5px;color:#8fc9bc;font-weight:700">${owDirty()?"変更中…（まだ保存していません）":esc(OWD.shop||shopNm())+" の店主"}</div></div>`);FMS.ang=keep}fmBtn(owDirty()?"保存する ▶":null)}
+function owEdStage(noStage){if(!noStage){const L=Object.assign({},OW.c,{hair:OWD.hair,skin:OWD.skin,shirt:OWD.shirt,pants:OWD.pants,eye:OWD.eye},owAccLook(OWD));const keep=FMS.ang;fmsSet("p",L,`<div class="tl" style="background:none;padding:0;font-size:15px">${esc(OWD.name||"店長")}<div style="font-size:10.5px;color:#8fc9bc;font-weight:700">${owDirty()?"変更中…（まだ保存していません）":esc(OWD.shop||shopNm())+" の店主"}</div></div>`);FMS.ang=keep}fmBtn(owDirty()?"保存する ▶":null)}
 function owEdSave(){const o=G.ow;if(!o||!OWD)return;const d=OWD;o.name=(d.name||"").trim()||o.name||"店長";o.shop=(d.shop||"").trim();o.age=Math.max(18,Math.min(80,+d.age||28));o.sex=d.sex;Object.assign(o,{hair:d.hair,skin:d.skin,shirt:d.shirt,pants:d.pants,eye:+d.eye,acc:+d.acc,accC:d.accC});applyOwLook();save();OWD=null;owEdRender();owEdStage();try{shopLine();hud()}catch(e){}try{toast("🎨 店主の見た目を保存しました")}catch(e){}}
 /* 「色・名前」タブを開いたら前の画面ではなく、この場の編集を出す */
 {const _or=owRender;owRender=function(){const r=_or.apply(this,arguments);const po=$("#p-own2");if(po){const old=po.onclick;po.onclick=e=>{const k=e.target.closest("[data-owk]");if(k&&k.dataset.owk==="edit"){e.stopPropagation();OWD=owDraft();OWPV=null;owEdRender();owEdStage();return}return old&&old(e)}}return r}}
@@ -17293,6 +17294,24 @@ try{document.head.insertAdjacentHTML("beforeend",`<style>#sheet #dg .dxt.on .dxi
 /* ===== 話しかけた回数を「その日・そのお客さん」で数える（席を立って戻った時などに0に戻って「あまり話せなかった」と言わないように） ===== */
 {const _tk=talk;talk=function(p){const b=p&&p.tp||0;const r=_tk.apply(this,arguments);try{if(p&&p.c&&(p.tp||0)>b){const c=p.c;if(c._tdD!==G.day){c._tdD=G.day;c._tdN=0}c._tdN+=1;p.tp=Math.max(p.tp,c._tdN)}}catch(e){}return r}}
 {const _ev=endVisit;endVisit=function(c,p){try{if(p&&c&&c._tdD===G.day)p.tp=Math.max(p.tp||0,c._tdN||0)}catch(e){}return _ev.apply(this,arguments)}}
+
+const ACC_E=[0,1,7,10],ACC_H=[0,2,3,5,9,8],ACC_M=[0,4,6];
+function owAccInit(o){if(!o||o.accE!==undefined)return;const a=+o.acc||0,c=o.accC||"#333333";o.accE=ACC_E.includes(a)?a:0;o.accH=ACC_H.includes(a)?a:0;o.accM=ACC_M.includes(a)?a:0;o.accCE=o.accCH=o.accCM=c}
+/* 描くためのデータ：目元（メガネ）は上から線で重ねるので acc に、頭・口元はブロックで描くので accV に */
+function owAccLook(o){const e=+o.accH===8?0:(+o.accE||0),V=[[+o.accH||0,o.accCH||"#333333"],[+o.accM||0,o.accCM||"#333333"]].filter(v=>v[0]);return{acc:e,accC:o.accCE||"#333333",accV:V.length?V:null}}
+function owAccD(){const o=G.ow||{};owAccInit(o);return{accE:+o.accE||0,accH:+o.accH||0,accM:+o.accM||0,accCE:o.accCE||"#333333",accCH:o.accCH||"#333333",accCM:o.accCM||"#333333"}}
+function owAccSync(){const o=G.ow;if(!o)return;owAccInit(o);const L=owAccLook(o);Object.assign(o,{acc:L.acc,accC:L.accC});o.accV=L.accV;if(typeof OW!=="undefined"&&OW.c){Object.assign(OW.c,L);OW._pc=null}}
+try{["accCE","accCH","accCM"].forEach(k=>{OWPAL[k]=OWPAL.accC})}catch(e){}
+/* ブロックの装飾品を2つ重ねる：1つ目で描いて、2つ目は「付けた時に増える／消える（帽子で隠れる髪など）」ブロックだけ足し引きする */
+{const _pv2=pv;pv=function(a,ox,Y0,f,c){if(!c||!c.accV||!c.accV.length)return _pv2.apply(this,arguments);const rest=[].slice.call(arguments,5),V=c.accV,K=v=>v[0]+","+v[1]+","+v[2]+","+(v[5]||1);
+ const base=[],r=_pv2.call(this,base,ox,Y0,f,Object.assign({},c,{acc:V[0][0],accC:V[0][1],accV:null}),...rest);let out=base;
+ for(const[ac,col]of V.slice(1)){const A=[],B=[];_pv2.call(this,A,ox,Y0,f,Object.assign({},c,{acc:ac,accC:col,accV:null}),...rest);_pv2.call(this,B,ox,Y0,f,Object.assign({},c,{acc:0,accV:null}),...rest);
+  const kb=new Map(B.map(v=>[K(v),v[3]])),ka=new Map(A.map(v=>[K(v),v[3]]));const rm=new Set(B.filter(v=>ka.get(K(v))!==v[3]).map(K)),add=A.filter(v=>kb.get(K(v))!==v[3]);out=out.filter(v=>!rm.has(K(v))).concat(add)}
+ out.forEach(v=>a.push(v));return r}}
+{const _al=applyOwLook;applyOwLook=function(){const r=_al.apply(this,arguments);try{owAccSync()}catch(e){}return r}}
+{const _es=owEdSave;owEdSave=function(){let ex=null;if(OWD){if(+OWD.accH===8)OWD.accE=0;ex={accE:+OWD.accE||0,accH:+OWD.accH||0,accM:+OWD.accM||0,accCE:OWD.accCE,accCH:OWD.accCH,accCM:OWD.accCM};const L=owAccLook(OWD);OWD.acc=L.acc;OWD.accC=L.accC}
+ const r=_es.apply(this,arguments);if(ex&&G.ow){Object.assign(G.ow,ex);owAccSync();save();OWD=null;try{owEdRender();owEdStage()}catch(e){}}return r}}
+try{owAccSync()}catch(e){}setTimeout(()=>{try{owAccSync()}catch(e){}},1200);
 ;(function(){const app=$("#app"),sh=document.createElement("div");sh.id="sheet";sh.innerHTML='<div class="grab"></div>';
 const top=$("#top"),cvw=$(".cvw"),atm=$("#atm");[...app.children].forEach(el=>{if(el.classList.contains("tabs")||/^p-/.test(el.id))sh.appendChild(el)});app.appendChild(sh);{const dd=$("#dd");if(dd)document.body.appendChild(dd)}
 const setv=()=>{document.documentElement.style.setProperty("--th",top.offsetHeight+"px");document.documentElement.style.setProperty("--bh",$("#bar").offsetHeight+"px")};setv();setTimeout(setv,300);setTimeout(setv,1200);window.addEventListener("resize",setv);
