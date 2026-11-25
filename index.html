@@ -156,7 +156,7 @@ body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,
 <div class="row">営業時間 <select id="op"></select>〜<select id="cl"></select></div>
 <div id="hrsi" class="m" style="font-size:12px;margin:4px 0"></div><div class="m" style="font-size:12px">シーシャ3500円／おかわり2000円／ドリンクはフリー。閉店1時間前に入店停止、閉店時刻で全員退店。</div>
 <div class="row"><button id="devreset">🛠 開発用：最初からやり直す</button></div></div></details>
-<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.143</div></div></details>
+<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.144</div></div></details>
 <span id="smk"></span>
 </div>
 <div id="p-deco" hidden><div class="card"><div class="dcat"><button data-dc="obj">🪴 置物</button><button data-dc="wp">🖼 壁アイテム</button><button data-dc="fl">🟫 床</button><button data-dc="wl">🧱 壁紙</button><button data-dc="seat" id="dcseat" class="dcw" hidden>🛋 客席</button><button data-dc="inv" class="dcw">📦 持ち物</button><button id="rm" class="dcw">🔧 模様替え（移動・回転・しまう）</button></div><div class="m" id="plc" style="font-size:12px;margin-top:6px"></div></div><div class="card" id="sec-obj"><div class="m" style="margin-bottom:6px">アイテムを選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。</div><div class="grid" id="dl"></div></div><div class="card" id="sec-seat" hidden><div class="m" style="margin-bottom:6px;font-size:12px">席を選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。席の前の1列はシーシャ台を置く場所として使います。</div><div class="m" id="spc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="sl"></div></div><div class="card" id="sec-wp" hidden><div class="m" style="font-size:12px;margin:2px 0 6px">選んでから、店内の壁をタップして貼ります（1区画に1枚）。見えている壁にだけ貼れるので、視点を回すと反対側にも貼れます。</div><div class="m" id="wc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="wl"></div></div><div class="card" id="sec-inv" hidden><div id="ivl"></div></div><div class="card" id="sec-clr" hidden><div class="m" style="font-size:12px">選ぶと店内でお試し表示されます。「購入する」で購入（¥5,000〜）。店の雰囲気には影響しません。</div><div id="clr"></div></div></div>
@@ -15424,7 +15424,7 @@ function shutterDown(cb,ms){const d=shutterEl(),sh=d.querySelector(".sh");d.clas
 function shutterUp(){const d=$("#shut");if(!d||d.dataset.go)return;d.dataset.go=1;const sh=d.querySelector(".sh");sh.style.transition="height .9s cubic-bezier(.3,0,.45,1)";sh.style.height="0";setTimeout(()=>d.remove(),950)}
 /* ===== 閉店：店長がひとこと → シャッター → 今日の結果 → 今日のログ ===== */
 const CLL=["今日もおつかれ、自分","よし、炭の火を落とすか","また明日も来てくれるといいな","本日の営業、これにて終了！","ふう…いい一日だった","ありがとうございました〜…って誰もいないか","今日の煙も、いい煙だった","片付けて、帰ってシャワー浴びよ"];
-{const _ed=endDay;endDay=function(){if(R.clA)return;R.clA=1;R.clT=R.t;R.clL=rnd(CLL);try{say(OW,R.clL)}catch(e){}setTimeout(()=>shutterDown(()=>{R.clA=0;_ed()}),2300)}}
+{const _ed=endDay;endDay=function(){if(R.clA)return;R.clA=1;R.clT=R.t;R.clL=rnd(CLL);try{say(OW,R.clL)}catch(e){}cineClose(()=>{R.clA=0;_ed()})}}
 {const _sdl=showDayLog;showDayLog=function(dl,s){_sdl(dl,s);const o=$("#ov"),cd=o&&o.querySelector(".card");if(!cd)return;const k=[...cd.children],li=k.findIndex(x=>/^今日のログ/.test(x.textContent||"")),bt=cd.querySelector("#dlok");if(li<0||!bt)return;const lt=k[li],lb=k[li+1],before=k.slice(0,li);
 lt.hidden=true;lb.hidden=true;bt.hidden=true;const nb=document.createElement("button");nb.className="on";nb.style.cssText="width:100%;margin-top:10px";nb.textContent="📝 今日のログを見る（"+dl.length+"件）";cd.appendChild(nb);
 nb.onclick=()=>{before.forEach(x=>{x.hidden=true});nb.remove();const h=document.createElement("b");h.textContent="📝 今日のログ（"+dl.length+"件）";h.style.cssText="display:block;margin-bottom:6px";cd.insertBefore(h,lt);lb.hidden=false;lb.style.maxHeight="58vh";bt.hidden=false;o.scrollTop=0}}}
@@ -16026,7 +16026,7 @@ if(b.dataset.gt){try{await aapi({a:"a_gift_toggle",id:b.dataset.gt});admGifts()}
 });
 
 /* ===== 更新チェック：起動時・アプリに戻ったとき・30分ごと。新しい版があればお知らせを出して選んでもらう ===== */
-const GVER="1.0.143";
+const GVER="1.0.144";
 let updV=null,updLater=null,updBusy=0;
 async function updCheck(){if(updBusy||!/^https?:/.test(location.protocol))return;updBusy=1;try{const r=await fetch("version.txt?"+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.text()).trim();if(!v||v===GVER)return;updV=v;updShow()}catch(e){}finally{updBusy=0}}
 function updShow(){if(!updV||updLater===updV||document.getElementById("updm"))return;if(R.phase==="run"||!$("#ov").hidden||document.getElementById("sysm")){setTimeout(updShow,5000);return}
@@ -18037,6 +18037,54 @@ function umbVox(P,ox,oy,col){const cx0=ox+2,cy0=oy+1.5,dk=dkHex(col,.78),put=(x,
  for(let z=7;z<13.5;z+=.25)put(cx0-.125,cy0-.125,z,"#616161",.25);
  const R=[[13,3],[13.5,2.5],[14,1.75],[14.5,1]];R.forEach(([z,r],li)=>{const rin=li<R.length-1?R[li+1][1]-.5:-1;for(let x=-r;x<r;x+=.5)for(let y=-r;y<r;y+=.5){const d=Math.hypot(x+.25,y+.25);if(d>r||d<rin)continue;const rib=li===0&&(Math.abs(x+.25)<.3||Math.abs(y+.25)<.3);put(cx0+x,cy0+y,z,rib?dk:col,.5)}});
  put(cx0-.125,cy0-.125,15,"#9e9e9e",.25);put(cx0-.125,cy0-.125,15.25,"#9e9e9e",.25)}
+
+/* ===== 店のシャッター：閉店で店長が外から閉め、営業開始で店長が来て開ける ===== */
+const CINE_Y=1.3,CINE_P=.5;
+function shutLv(){if(R.cine)return R.cine.lv;if(R.tab==="deco"||R.pvS!=null||R.pvG!=null)return 0;return R.phase==="run"?0:1}
+function shutDraw(k){const lv=shutLv();if(lv<=.001)return;const L=typeof LTN!=="undefined"&&LTN||{oa:0},tn=c=>L.oa>.05&&typeof mixc==="function"?mixc(c,L.ov,Math.min(.6,L.oa*.65)):c,z0=24-23.5*lv;
+ FLT.forEach(([tx,ty])=>{if(FLS.has((tx-1)+","+ty))return;const X=tx*6-1.05,Y=ty*6,q=(y,z)=>P3(X,y,z,k),pl=(pts,c)=>{cx.beginPath();pts.forEach((p,i)=>i?cx.lineTo(p[0],p[1]):cx.moveTo(p[0],p[1]));cx.closePath();cx.fillStyle=c;cx.fill()};
+  pl([q(Y,z0),q(Y+6,z0),q(Y+6,24),q(Y,24)],tn("#a7adb3"));
+  cx.lineWidth=Math.max(1,k.s*.06);for(let z=24-.75;z>z0+.3;z-=.75){const a=q(Y,z),b=q(Y+6,z);cx.beginPath();cx.moveTo(a[0],a[1]);cx.lineTo(b[0],b[1]);cx.strokeStyle=tn("#7d848b");cx.stroke()}
+  pl([q(Y,z0),q(Y+6,z0),q(Y+6,z0+.6),q(Y,z0+.6)],tn("#5f666c"));
+  pl([q(Y,22.6),q(Y+6,22.6),q(Y+6,24),q(Y,24)],tn("#8a9097"));
+  const a=q(Y+3,z0+.3),b=q(Y+3.6,z0+.3);cx.beginPath();cx.moveTo(a[0],a[1]);cx.lineTo(b[0],b[1]);cx.strokeStyle=tn("#3d4246");cx.lineWidth=Math.max(1.5,k.s*.15);cx.stroke()})}
+/* 店の中から見る時：ガラスの奥に描く */
+{const _gd=glassDraw;glassDraw=function(k){try{if(wallVis(2,k))shutDraw(k)}catch(e){}return _gd.apply(this,arguments)}}
+/* 道の側から見る時：店の中の人より手前、外を歩く人より奥に描く */
+{const _au3=auraDraw;auraDraw=function(k,fg){if(fg)try{if(!wallVis(2,k))shutDraw(k)}catch(e){}return _au3.apply(this,arguments)}}
+/* 店の中のシャッターが閉まっている時（営業中以外）、通行人がいないのでガラスの奥に描く処理が呼ばれない場合の保険 */
+{const _db3=drawBG;drawBG=function(k){const r=_db3.apply(this,arguments);try{if(R.cine&&!mbOn()&&wallVis(2,k))shutDraw(k)}catch(e){}return r}}
+/* 店長を外に出す（外では通行人と同じ描き方） */
+function cineOut(on,x,y,face,s){if(on){let m=MB.L.find(q=>q.own);if(!m){m={T:MBG,c:OW.c,s:1,x,y,a:1,t:0,sp:0,tag:1,seen:1,own:1};MB.L.push(m)}m.x=x;m.y=y;m.face=face?1:0;m.s=s||1;if(OW.x>-500){R.cine.ox=OW.x;R.cine.oy=OW.y}OW.x=-999;OW.y=-999}else{MB.L=MB.L.filter(q=>!q.own)}}
+function cineCam(t){const c=R.cine;if(!c.cam0)return;const e=t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;let dy=c.ty-c.cam0.yaw;dy=((dy+Math.PI)%(2*Math.PI)+2*Math.PI)%(2*Math.PI)-Math.PI;R.cam.yaw=c.cam0.yaw+dy*e;R.cam.pit=c.cam0.pit+(c.tp-c.cam0.pit)*e;R.camVer++}
+function cineBack(){const c=R.cine;if(c&&c.cam0){R.cam.yaw=c.cam0.yaw;R.cam.pit=c.cam0.pit;R.camVer++}}
+function walkTo(o,pts,v,dt){let st=v*dt;while(st>0&&pts.length){const t=pts[0],dx=t[0]-o.x,dy=t[1]-o.y,d=Math.hypot(dx,dy);if(d>.01)o.dir=Math.abs(dx)>Math.abs(dy)?(dx>0?1:3):(dy>0?0:2);if(d<=st){o.x=t[0];o.y=t[1];pts.shift();st-=d}else{o.x+=dx/d*st;o.y+=dy/d*st;st=0}}return!pts.length}
+function cineSkipOn(){const f=e=>{if(!R.cine)return;e.stopPropagation();e.preventDefault();R.cine.skip=1};R.cine.sk=f;setTimeout(()=>{if(R.cine&&R.cine.sk===f)document.addEventListener("pointerdown",f,true)},300)}
+function cineEnd(){const c=R.cine;if(!c)return;if(c.sk)document.removeEventListener("pointerdown",c.sk,true);cineOut(0);cineBack();R.cine=null;BGK=""}
+function cineClose(done){if(!mbOn()){done();return}const ip=(()=>{try{return drPath(OW.x,OW.y,2,15)}catch(e){return null}})()||[[OW.x,15],[2,15]];
+ R.cine={k:"close",lv:0,t:0,ph:0,cam0:{yaw:R.cam.yaw,pit:R.cam.pit},ty:CINE_Y,tp:CINE_P,path:ip.concat([[-1,15],[-4.5,15]]),done,pos:{x:OW.x,y:OW.y,dir:OW.dir}};OW.sitting=0;OW.seat=null;OW.idleSmk=0;OW.mode="";OW.path=[];cineSkipOn()}
+{const _st=start;start=function(){const r=_st.apply(this,arguments);try{if(R.phase==="run"&&mbOn()&&!R.cine){const hx=OW.x,hy=OW.y;R.cine={k:"open",lv:1,t:0,ph:0,cam0:{yaw:R.cam.yaw,pit:R.cam.pit},ty:CINE_Y,tp:CINE_P,hx,hy,p:{x:-6,y:15-30},t0:R.t};cineOut(1,-6,-15,0,1);cineSkipOn()}}catch(e){R.cine=null}return r}}
+function cineTick(dt){const c=R.cine;if(!c)return;c.t+=dt;if(c.k==="open")R.t=c.t0;
+ if(c.k==="close"){
+  if(c.skip){c.lv=1;const d=c.done;cineEnd();d();return}
+  cineCam(Math.min(1,c.t/1.4));
+  if(c.ph===0){const o=c.pos;const fin=walkTo(o,c.path,13,dt);if(o.x<0){cineOut(1,o.x,o.y,0,1)}else{OW.x=o.x;OW.y=o.y;OW.dir=o.dir}if(fin){c.ph=1;c.pt=c.t;cineOut(1,-4.5,15,1,1)}}
+  else if(c.ph===1){if(c.t-c.pt>.35){c.ph=2;c.pt=c.t}}
+  else if(c.ph===2){c.lv=Math.min(1,(c.t-c.pt)/1.8);if(c.lv>=1){c.ph=3;c.pt=c.t}}
+  else if(c.ph===3){const m=MB.L.find(q=>q.own);if(m){m.face=0;m.s=-1;m.y-=11*dt;m.x+=(-6-m.x)*Math.min(1,dt*3)}if(c.t-c.pt>2.4){const d=c.done;c.lv=1;cineEnd();d()}}
+  if(c.t>14&&R.cine===c){const d=c.done;cineEnd();d()}}
+ else{
+  if(c.skip){c.lv=0;OW.x=c.hx;OW.y=c.hy;OW.dir=1;cineEnd();return}
+  cineCam(Math.min(1,c.t/1.3));
+  if(c.ph===0){const fin=walkTo(c.p,[[-4.5,15]],12,dt);cineOut(1,c.p.x,c.p.y,0,1);if(fin){c.ph=1;c.pt=c.t;cineOut(1,-4.5,15,1,1)}}
+  else if(c.ph===1){if(c.t-c.pt>.35){c.ph=2;c.pt=c.t}}
+  else if(c.ph===2){c.lv=Math.max(0,1-(c.t-c.pt)/1.6);if(c.lv<=0){c.ph=3;c.pt=c.t;c.k2=1;cineOut(0);const ip=(()=>{try{return drPath(2,15,c.hx,c.hy)}catch(e){return null}})()||[[c.hx,15],[c.hx,c.hy]];c.wp=[[-1,15],[2,15]].concat(ip);OW.x=-3.5;OW.y=15;R.cine.t0=null}}
+  if(c.ph>=3){c.k="openw";}
+  if(c.t>14&&R.cine===c){OW.x=c.hx;OW.y=c.hy;cineEnd()}}
+ if(c.k==="openw"){const o={x:OW.x,y:OW.y,dir:OW.dir};const fin=walkTo(o,c.wp,13,dt);OW.x=o.x;OW.y=o.y;OW.dir=o.dir;if(fin||c.skip){OW.x=c.hx;OW.y=c.hy;OW.dir=1;const back=c.t-c.pt;cineEnd()}}}
+/* 開店の演出中は時計を止める（シャッターが開いたらスタート）・店長はこちらで動かす */
+{const _tk=tick;tick=function(now){const c=R.cine,fr=c&&c.k==="open",t0=R.t;try{if(c){const n=performance.now(),dt=Math.min(.1,(n-(c.lastN||n))/1000);c.lastN=n;cineTick(dt)}}catch(e){try{cineEnd()}catch(_){}}const r=_tk.apply(this,arguments);if(fr&&R.cine&&R.cine.k==="open")R.t=t0;return r}}
+{const _ot=owTick;owTick=function(){if(R.cine)return;return _ot.apply(this,arguments)}}
 ;(function(){const app=$("#app"),sh=document.createElement("div");sh.id="sheet";sh.innerHTML='<div class="grab"></div>';
 const top=$("#top"),cvw=$(".cvw"),atm=$("#atm");[...app.children].forEach(el=>{if(el.classList.contains("tabs")||/^p-/.test(el.id))sh.appendChild(el)});app.appendChild(sh);{const dd=$("#dd");if(dd)document.body.appendChild(dd)}
 const setv=()=>{document.documentElement.style.setProperty("--th",top.offsetHeight+"px");document.documentElement.style.setProperty("--bh",$("#bar").offsetHeight+"px")};setv();setTimeout(setv,300);setTimeout(setv,1200);window.addEventListener("resize",setv);
