@@ -151,7 +151,7 @@ function cineTick(dt){const c=R.cine;if(!c)return;c.t+=dt;if(c.k==="open")R.t=c.
 /* 開店の演出中は時計を止める（シャッターが開いたらスタート）・店長はこちらで動かす */
 {const _tk=tick;tick=function(now){const c=R.cine,fr=c&&c.k==="open",t0=R.t;try{if(c){const n=performance.now(),dt=Math.min(.1,(n-(c.lastN||n))/1000);c.lastN=n;cineTick(dt)}}catch(e){try{cineEnd()}catch(_){}}const r=_tk.apply(this,arguments);if(fr&&R.cine&&R.cine.k==="open")R.t=t0;return r}}
 /* 朝（営業前）は店主はまだ来ていない */
-{const _hu=hud;hud=function(){const r=_hu.apply(this,arguments);try{if(R.phase==='prep'&&G.setup&&!R.cine&&!R.vis&&!R.clA&&OW.x>-100){OW.x=-999;OW.y=-999;OW.path=[];OW.mode=''}}catch(e){}return r}}
+{const _hu=hud;hud=function(){const r=_hu.apply(this,arguments);try{if(R.phase==='prep'&&G.setup&&!R.cine&&!R.vis&&!R.clA&&!R.cleaning&&OW.x>-100){OW.x=-999;OW.y=-999;OW.path=[];OW.mode=''}}catch(e){}return r}}
 {const _ot=owTick;owTick=function(){if(R.cine)return;return _ot.apply(this,arguments)}}
 
 /* ===== 街で見たもの：追加60種と、店の前にとどまる特殊イベント50種 ===== */
