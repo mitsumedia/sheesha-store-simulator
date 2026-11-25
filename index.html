@@ -156,7 +156,7 @@ body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,
 <div class="row">営業時間 <select id="op"></select>〜<select id="cl"></select></div>
 <div id="hrsi" class="m" style="font-size:12px;margin:4px 0"></div><div class="m" style="font-size:12px">シーシャ3500円／おかわり2000円／ドリンクはフリー。閉店1時間前に入店停止、閉店時刻で全員退店。</div>
 <div class="row"><button id="devreset">🛠 開発用：最初からやり直す</button></div></div></details>
-<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.140</div></div></details>
+<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.141</div></div></details>
 <span id="smk"></span>
 </div>
 <div id="p-deco" hidden><div class="card"><div class="dcat"><button data-dc="obj">🪴 置物</button><button data-dc="wp">🖼 壁アイテム</button><button data-dc="fl">🟫 床</button><button data-dc="wl">🧱 壁紙</button><button data-dc="seat" id="dcseat" class="dcw" hidden>🛋 客席</button><button data-dc="inv" class="dcw">📦 持ち物</button><button id="rm" class="dcw">🔧 模様替え（移動・回転・しまう）</button></div><div class="m" id="plc" style="font-size:12px;margin-top:6px"></div></div><div class="card" id="sec-obj"><div class="m" style="margin-bottom:6px">アイテムを選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。</div><div class="grid" id="dl"></div></div><div class="card" id="sec-seat" hidden><div class="m" style="margin-bottom:6px;font-size:12px">席を選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。席の前の1列はシーシャ台を置く場所として使います。</div><div class="m" id="spc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="sl"></div></div><div class="card" id="sec-wp" hidden><div class="m" style="font-size:12px;margin:2px 0 6px">選んでから、店内の壁をタップして貼ります（1区画に1枚）。見えている壁にだけ貼れるので、視点を回すと反対側にも貼れます。</div><div class="m" id="wc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="wl"></div></div><div class="card" id="sec-inv" hidden><div id="ivl"></div></div><div class="card" id="sec-clr" hidden><div class="m" style="font-size:12px">選ぶと店内でお試し表示されます。「購入する」で購入（¥5,000〜）。店の雰囲気には影響しません。</div><div id="clr"></div></div></div>
@@ -16026,7 +16026,7 @@ if(b.dataset.gt){try{await aapi({a:"a_gift_toggle",id:b.dataset.gt});admGifts()}
 });
 
 /* ===== 更新チェック：起動時・アプリに戻ったとき・30分ごと。新しい版があればお知らせを出して選んでもらう ===== */
-const GVER="1.0.140";
+const GVER="1.0.141";
 let updV=null,updLater=null,updBusy=0;
 async function updCheck(){if(updBusy||!/^https?:/.test(location.protocol))return;updBusy=1;try{const r=await fetch("version.txt?"+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.text()).trim();if(!v||v===GVER)return;updV=v;updShow()}catch(e){}finally{updBusy=0}}
 function updShow(){if(!updV||updLater===updV||document.getElementById("updm"))return;if(R.phase==="run"||!$("#ov").hidden||document.getElementById("sysm")){setTimeout(updShow,5000);return}
@@ -18008,6 +18008,26 @@ function glassDraw(k){if(!glassOn()||(!R.ext&&!wallVis(2,k)))return;const segs=[
 {const _db2=drawBG;drawBG=function(k){const r=_db2.apply(this,arguments);try{if(!mbOn()&&!R.ext)glassDraw(k)}catch(e){}return r}}
 
 setTimeout(()=>{try{build();BGK=""}catch(e){}},0);
+
+/* ===== フリードリンク：家具をよけて一番近い道で冷蔵庫へ行き、席に戻る ===== */
+function drGrid(){const xs=FLT.map(t=>t[0]),ys=FLT.map(t=>t[1]),X0=Math.min(...xs)*6,Y0=Math.min(...ys)*6,W2=(Math.max(...xs)+1)*6-X0,H2=(Math.max(...ys)+1)*6-Y0;
+ const key=R.stV+"|"+X0+","+Y0+","+W2+","+H2;if(drGrid.c&&drGrid.c.key===key)return drGrid.c;
+ const b=new Uint8Array(W2*H2).fill(1);FLT.forEach(([tx,ty])=>{for(let x=0;x<6;x++)for(let y=0;y<6;y++)b[(ty*6+y-Y0)*W2+(tx*6+x-X0)]=0});
+ (R.stat||[]).forEach(v=>{if(v[2]>=5||v[2]+(v[5]||1)<=0)return;const s2=v[5]||1;for(let x=Math.floor(v[0]);x<v[0]+s2-1e-6;x++)for(let y=Math.floor(v[1]);y<v[1]+s2-1e-6;y++){const i=x-X0,j=y-Y0;if(i>=0&&j>=0&&i<W2&&j<H2)b[j*W2+i]=1}});
+ const ok=new Uint8Array(W2*H2);for(let j=0;j<H2;j++)for(let i=0;i<W2;i++){let f=1;for(let dj=-1;dj<=1&&f;dj++)for(let di=-1;di<=1;di++){const a=i+di,c=j+dj;if(a<0||c<0||a>=W2||c>=H2||b[c*W2+a]){f=0;break}}ok[j*W2+i]=f}
+ return drGrid.c={key,X0,Y0,W:W2,H:H2,ok}}
+function drPath(x0,y0,x1,y1){try{const g=drGrid(),{X0,Y0,W,H,ok}=g,cl=(v,m)=>Math.max(0,Math.min(m-1,Math.floor(v))),si=cl(x0-X0,W),sj=cl(y0-Y0,H),gi=cl(x1-X0,W),gj=cl(y1-Y0,H);
+ const near=(i,j,a,c,r)=>Math.abs(i-a)<=r&&Math.abs(j-c)<=r,pass=(i,j)=>i>=0&&j>=0&&i<W&&j<H&&(ok[j*W+i]||near(i,j,si,sj,3)||near(i,j,gi,gj,2));
+ const N=W*H,dist=new Float64Array(N).fill(1e9),prev=new Int32Array(N).fill(-1),s0=sj*W+si,g0=gj*W+gi;dist[s0]=0;
+ const Q=[[0,s0]];const D=[[1,0,1],[-1,0,1],[0,1,1],[0,-1,1],[1,1,1.414],[1,-1,1.414],[-1,1,1.414],[-1,-1,1.414]];
+ while(Q.length){let bi=0;for(let q=1;q<Q.length;q++)if(Q[q][0]<Q[bi][0])bi=q;const[d,u]=Q[bi];Q[bi]=Q[Q.length-1];Q.pop();if(d>dist[u])continue;if(u===g0)break;const ui=u%W,uj=(u/W)|0;
+  for(const[di,dj,w]of D){const a=ui+di,c=uj+dj;if(!pass(a,c))continue;if(di&&dj&&(!pass(ui+di,uj)||!pass(ui,uj+dj)))continue;const v=c*W+a,nd=d+w;if(nd<dist[v]){dist[v]=nd;prev[v]=u;Q.push([nd,v])}}}
+ if(prev[g0]<0&&g0!==s0)return null;const cells=[];for(let u=g0;u>=0;u=prev[u]){cells.push(u);if(u===s0)break}cells.reverse();
+ const pt=u=>[X0+(u%W)+.5,Y0+((u/W)|0)+.5],los=(a,b)=>{const[ax,ay]=pt(a),[bx,by]=pt(b),n=Math.ceil(Math.hypot(bx-ax,by-ay)*4);for(let k=0;k<=n;k++){const x=ax+(bx-ax)*k/n,y=ay+(by-ay)*k/n,i=Math.floor(x-X0),j=Math.floor(y-Y0);if(!pass(i,j))return false;if(!ok[j*W+i]&&!near(i,j,si,sj,3)&&!near(i,j,gi,gj,2))return false}return true};
+ const out=[];let a=0;while(a<cells.length-1){let b=cells.length-1;while(b>a+1&&!los(cells[a],cells[b]))b--;out.push(pt(cells[b]));a=b}
+ if(out.length)out.pop();out.push([x1,y1]);return out}catch(e){return null}}
+{const _sd=startDrink;startDrink=function(p){_sd.apply(this,arguments);const r=drPath(p.x,p.y,FX,FY);if(r)p.path=r}}
+{const _rd=resolveDrink;resolveDrink=function(p,nw){const r=_rd.apply(this,arguments);if(!nw&&p.st==="ret"&&p.seat){const sx=p.seat.px+2,q=drPath(p.x,p.y,sx,p.seat.Y0+3);if(q)p.path=q}return r}}
 ;(function(){const app=$("#app"),sh=document.createElement("div");sh.id="sheet";sh.innerHTML='<div class="grab"></div>';
 const top=$("#top"),cvw=$(".cvw"),atm=$("#atm");[...app.children].forEach(el=>{if(el.classList.contains("tabs")||/^p-/.test(el.id))sh.appendChild(el)});app.appendChild(sh);{const dd=$("#dd");if(dd)document.body.appendChild(dd)}
 const setv=()=>{document.documentElement.style.setProperty("--th",top.offsetHeight+"px");document.documentElement.style.setProperty("--bh",$("#bar").offsetHeight+"px")};setv();setTimeout(setv,300);setTimeout(setv,1200);window.addEventListener("resize",setv);
