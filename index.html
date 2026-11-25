@@ -156,7 +156,7 @@ body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,
 <div class="row">営業時間 <select id="op"></select>〜<select id="cl"></select></div>
 <div id="hrsi" class="m" style="font-size:12px;margin:4px 0"></div><div class="m" style="font-size:12px">シーシャ3500円／おかわり2000円／ドリンクはフリー。閉店1時間前に入店停止、閉店時刻で全員退店。</div>
 <div class="row"><button id="devreset">🛠 開発用：最初からやり直す</button></div></div></details>
-<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.156</div></div></details>
+<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.157</div></div></details>
 <span id="smk"></span>
 </div>
 <div id="p-deco" hidden><div class="card"><div class="dcat"><button data-dc="obj">🪴 置物</button><button data-dc="wp">🖼 壁アイテム</button><button data-dc="fl">🟫 床</button><button data-dc="wl">🧱 壁紙</button><button data-dc="seat" id="dcseat" class="dcw" hidden>🛋 客席</button><button data-dc="inv" class="dcw">📦 持ち物</button><button id="rm" class="dcw">🔧 模様替え（移動・回転・しまう）</button></div><div class="m" id="plc" style="font-size:12px;margin-top:6px"></div></div><div class="card" id="sec-obj"><div class="m" style="margin-bottom:6px">アイテムを選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。</div><div class="grid" id="dl"></div></div><div class="card" id="sec-seat" hidden><div class="m" style="margin-bottom:6px;font-size:12px">席を選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。席の前の1列はシーシャ台を置く場所として使います。</div><div class="m" id="spc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="sl"></div></div><div class="card" id="sec-wp" hidden><div class="m" style="font-size:12px;margin:2px 0 6px">選んでから、店内の壁をタップして貼ります（1区画に1枚）。見えている壁にだけ貼れるので、視点を回すと反対側にも貼れます。</div><div class="m" id="wc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="wl"></div></div><div class="card" id="sec-inv" hidden><div id="ivl"></div></div><div class="card" id="sec-clr" hidden><div class="m" style="font-size:12px">選ぶと店内でお試し表示されます。「購入する」で購入（¥5,000〜）。店の雰囲気には影響しません。</div><div id="clr"></div></div></div>
@@ -16026,7 +16026,7 @@ if(b.dataset.gt){try{await aapi({a:"a_gift_toggle",id:b.dataset.gt});admGifts()}
 });
 
 /* ===== 更新チェック：起動時・アプリに戻ったとき・30分ごと。新しい版があればお知らせを出して選んでもらう ===== */
-const GVER="1.0.156";
+const GVER="1.0.157";
 let updV=null,updLater=null,updBusy=0;
 async function updCheck(){if(updBusy||!/^https?:/.test(location.protocol))return;updBusy=1;try{const r=await fetch("version.txt?"+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.text()).trim();if(!v||v===GVER)return;updV=v;updShow()}catch(e){}finally{updBusy=0}}
 function updShow(){if(!updV||updLater===updV||document.getElementById("updm"))return;if(R.phase==="run"||!$("#ov").hidden||document.getElementById("sysm")){setTimeout(updShow,5000);return}
@@ -18500,6 +18500,20 @@ function xsStatic(a){const L=Math.min(...FLT.map(t=>t[0]))*6,ys=FLT.map(t=>t[1])
 
 /* ===== イベントは良いもの7割・悪いもの3割 ===== */
 {const _ep=evPick;evPick=function(tp){try{const L=EV.filter(e=>e.t===tp&&e.id!==31&&!(e.once&&(G.evDex||{})[e.id])&&(!e.ok||e.ok()));if(!L.length)return null;const good=L.filter(e=>GA_GOOD.includes(e.id)),bad=L.filter(e=>!GA_GOOD.includes(e.id));let P=Math.random()<.7?good:bad;if(!P.length)P=good.length?good:bad;let s=P.reduce((a,e)=>a+EVW[e.r],0)*Math.random();for(const e of P){s-=EVW[e.r];if(s<=0)return e}return P[P.length-1]}catch(e){return _ep.apply(this,arguments)}}}
+
+/* ===== 雪の日は街が白くなる（大雪イベントの日はさらに） ===== */
+function snowLv(){if(R.snowF!=null)return R.snowF;try{if(R.vis)return 0;const w=(G.wx&&G.wx[G.wd])||"";const big=(td().evs||[]).includes(32);if(big)return 1;return w==="snow"?.78:0}catch(e){return 0}}
+const SNW="#f3f6fa";
+{const _dv=dvb;dvb=function(b,k){const r=_dv.apply(this,arguments);try{const lv=snowLv();if(lv>0&&b.h>.3&&b.z+b.h>.5){const o=P3(b.x,b.y,b.z,k),EX=[k.exx*b.w,k.exy*b.w],EY=[k.eyx*b.d,k.eyy*b.d],EZ=[0,k.ezy*b.h],p=[o[0]+EZ[0],o[1]+EZ[1]];cx.save();cx.globalAlpha=Math.min(1,.55+lv*.45);poly([[p[0],p[1]],[p[0]+EX[0],p[1]+EX[1]],[p[0]+EX[0]+EY[0],p[1]+EX[1]+EY[1]],[p[0]+EY[0],p[1]+EY[1]]],SNW);cx.restore()}}catch(e){}return r}}
+{const _d0=drawScn0;drawScn0=function(k){const lv=snowLv();if(!lv)return _d0.apply(this,arguments);const sv=GRD.map(g=>g.c),sb=GRD.base;try{const road=c=>{const n=parseInt(String(c).slice(1),16);if(isNaN(n))return false;return((n>>16)+(n>>8&255)+(n&255))/3<110};GRD.forEach(g=>{g.c=mixc(g.c,SNW,road(g.c)?(lv>=1?.82:.5):(lv>=1?.95:.85))});GRD.base=mixc(GRD.base||"#8d8d8d",SNW,lv>=1?.95:.85);
+ const r=_d0.apply(this,arguments);
+ /* タイヤの跡 */const gg=mbGeo();cx.save();cx.globalAlpha=lv>=1?.35:.55;[gg.L-28,gg.L-20].forEach(xc=>[-2.4,1.6].forEach(dx=>{poly([P3(xc+dx,gg.Y0-200,0,k),P3(xc+dx+.9,gg.Y0-200,0,k),P3(xc+dx+.9,gg.Y1+200,0,k),P3(xc+dx,gg.Y1+200,0,k)],"#6b7078")}));cx.restore();return r}finally{GRD.forEach((g,i)=>{g.c=sv[i]});GRD.base=sb}}}
+/* 外観モードの屋上も白く・大雪の日は歩道のふちに雪の山 */
+{const _xm=extMod;extMod=function(a){const r=_xm.apply(this,arguments);try{if(R.ext&&snowLv()>0)a.forEach(v=>{if(v[2]>=24&&!v[4])v[3]=SNW})}catch(e){}return r}}
+{const _xst=xsStatic;xsStatic=function(a){const r=_xst.apply(this,arguments);try{if(snowLv()>=1){const g=mbGeo(),P=(x,y,z,s)=>a.push([x,y,z,SNW,undefined,s]);for(const xc of[g.L-16,g.L-34.5])for(let y=Math.floor(g.Y0/2)*2;y<g.Y1;y+=2){const hh=(Math.sin(y*.9+xc)+1)/2;P(xc,y,0,2);if(hh>.45)P(xc+.5,y+.5,1,1);if(hh>.8)P(xc+.75,y+.75,2,.5)}}}catch(e){}return r}}
+
+/* 大雪の日は吹雪っぽく：粒を増やして斜めに、うっすら白くかすむ */
+{const _dr3=draw;draw=function(){const r=_dr3.apply(this,arguments);try{if(R.vis)return r;const t=td();if(!(t.snow||(t.evs||[]).includes(32)))return r;const T=performance.now()/1000;cx.save();cx.setTransform(dpr,0,0,dpr,0,0);cx.fillStyle="rgba(240,244,250,.16)";cx.fillRect(0,0,W,CH);cx.fillStyle="rgba(255,255,255,.9)";for(let i=0;i<140;i++){const sz=.9+(i%5)*.55,sp=40+(i%7)*9,x=((i*53+T*(60+(i%4)*15))%(W+60))-30,y=(i*97+T*sp)%(CH+20)-10;cx.beginPath();cx.arc(x,y,sz,0,7);cx.fill()}cx.restore()}catch(e){}return r}}
 ;(function(){const app=$("#app"),sh=document.createElement("div");sh.id="sheet";sh.innerHTML='<div class="grab"></div>';
 const top=$("#top"),cvw=$(".cvw"),atm=$("#atm");[...app.children].forEach(el=>{if(el.classList.contains("tabs")||/^p-/.test(el.id))sh.appendChild(el)});app.appendChild(sh);{const dd=$("#dd");if(dd)document.body.appendChild(dd)}
 const setv=()=>{document.documentElement.style.setProperty("--th",top.offsetHeight+"px");document.documentElement.style.setProperty("--bh",$("#bar").offsetHeight+"px")};setv();setTimeout(setv,300);setTimeout(setv,1200);window.addEventListener("resize",setv);
