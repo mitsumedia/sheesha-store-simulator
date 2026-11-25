@@ -320,7 +320,7 @@ function mbProps(m,ox,oy,dir){const P=[],f=dir===0?1:-1,px=(x,y,z,w,d,h,c,s)=>{s
  if(id==="kyakuhiki")px(3.6,1.5,6,.5,.5,5,"#9e9e9e"),px(3.1,1.3,10.5,1.5,.5,2,"#ffeb3b");if(id==="surfer")px(-.6,1,2,.5,2,10,"#ffeb3b");if(id==="yopparai")px(.5,.8,12,3,.5,.5,"#d32f2f",.5);
  if(id==="kigurumi"){px(3.5,1.5,6,.25,.25,9,"#9e9e9e",.25);px(3,1,15,1.5,1.5,1.5,"#ff1744")}if(id==="kaimono"||id==="kaisha")px(3.6,1.4,4,.5,1.5,2,id==="kaimono"?"#fafafa":"#3e2723");return P}
 {const _dy=dyn;dyn=function(){const a=_dy.apply(this,arguments);try{if(MB.v2)return a;if(!mbOn()||!R.cv||!wallVis(2,R.cv))return a;const inS=new Set((R.people||[]).map(p=>p.c));
- MB.L.forEach(m=>{if(m.T.k!=="ped"||m.T.cat)return;if(!m.c){if(!m.tag&&!m.T.ni&&Math.random()<.12&&["kaisha","gakusei","kaimono","sumaho","couple","jog"].includes(m.T.id)){const met=G.cs.filter(c=>c.met&&!c.sp&&!(typeof spx==="function"&&spx(c))&&!inS.has(c));if(met.length){m.c=met[Math.floor(Math.random()*met.length)];m.dex=1}}if(!m.c)m.c=mbLook(m.T,m.a)}
+ MB.L.forEach(m=>{if(m.T.k!=="ped"||m.T.cat)return;if(!m.c){if(!m.tag&&!m.T.ni&&Math.random()<.12&&["kaisha","gakusei","kaimono","sumaho","couple","jog"].includes(m.T.id)){const tdS=typeof todaySet==="function"?todaySet():new Set(),met=G.cs.filter(c=>c.met&&!c.sp&&!(typeof spx==="function"&&spx(c))&&!inS.has(c)&&!tdS.has(c)&&c.i!==52&&c.i!==94);if(met.length){m.c=met[Math.floor(Math.random()*met.length)];m.dex=1}}if(!m.c)m.c=mbLook(m.T,m.a)}
   const d=m.face?1:(m.s>0?0:2),ox=m.x-2,oy=m.y-1.5+(!m.face&&Math.sin(m.t*10)>0?.15:0);if(!walkSpr(a,m.c,d,ox,oy))pv(a,ox,oy,1,m.c,0,d);mbProps(m,ox,oy,d).forEach(v=>a.push(v));
   if(m.dex&&!m.dexL&&m.seen){m.dexL=1;G.mbDx=G.mbDx||{};if(G.mbDx[m.c.i]!==G.day){G.mbDx[m.c.i]=G.day;try{const t="👀 "+nm(m.c)+" が店の前を通りすぎた";log(t);if(typeof mbBand==="function")mbBand(t)}catch(e){}}}})}catch(e){}return a}}
 /* 街で見たもの */
@@ -340,9 +340,9 @@ function wkV(){return 9+Math.random()*6}
 function mbSpd(){return R.phase==="run"?(R.speed||0):0}
 /* 来店予定の少し前から、入口に着く時刻に合わせて歩き始める */
 function wkGhosts(){if(!mbOn())return;const v0=12;for(const e of R.sched){const dtm=e.at-R.t;if(dtm>WK_D/(v0/6)+2)break;if(e._g||!e.m||!e.m.length)continue;e._g=1;const side=Math.random()<.5?1:-1;
-  e.m.forEach((c,i)=>{const v=wkV(),d=Math.min(WK_D,Math.max(0,dtm)*(v/6))+i*4;MB.L.push({T:MBG,gh:{e,c},c,s:side,x:WK_X-(i%2)*1.6,y:15-side*d,a:Math.random()*9,t:0,sp:v,tag:1,seen:1})})}}
+  e.m.forEach((c,i)=>{if(e.m.length===1&&typeof VEH!=="undefined"&&VEH[c.i])return;const v=wkV(),d=Math.min(WK_D,Math.max(0,dtm)*(v/6))+i*4;MB.L.push({T:MBG,gh:{e,c},c,s:side,x:WK_X-(i%2)*1.6,y:15-side*d,a:Math.random()*9,t:0,sp:v,tag:1,seen:1})})}}
 /* 店を出たお客さんは、そのまま通行人として歩いて帰る */
-{const _mv=move;move=function(p,dt){try{if(p.st==="out"&&!p.path.length&&p.x<-3&&!p.vis&&(!p.mob||p.c.mobC)&&p.c&&mbOn()){const side=Math.random()<.5?1:-1;MB.L.push({T:MBG,c:p.c,s:side,x:WK_X,y:p.y,a:Math.random()*9,t:0,sp:wkV(),tag:1,seen:1,ex:1});p.gone=1;return}}catch(e){}return _mv.apply(this,arguments)}}
+{const _mv=move;move=function(p,dt){try{if(p.st==="out"&&!p.path.length&&p.x<-3&&!p.vis&&(!p.mob||p.c.mobC)&&p.c&&mbOn()&&!(typeof vehRider==="function"&&vehRider(p))){const side=Math.random()<.5?1:-1;MB.L.push({T:MBG,c:p.c,s:side,x:WK_X,y:p.y,a:Math.random()*9,t:0,sp:wkV(),tag:1,seen:1,ex:1});p.gone=1;return}}catch(e){}return _mv.apply(this,arguments)}}
 /* ===== 通行人のお知らせ：店の前を通りすぎた後に、ボタンの上の帯で出す ===== */
 const MBQ=[];let mbBusy=0;
 function mbBand(t){MBQ.push(t);if(MBQ.length>4)MBQ.shift();if(!mbBusy)mbBandNext()}
