@@ -1,0 +1,4 @@
+dev/tests/*.png
+dev/tests/wk/
+dev/tests/__pycache__/
+__pycache__/

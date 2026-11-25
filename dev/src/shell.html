@@ -1,0 +1,171 @@
+<!doctype html><html lang="ja"><head><meta charset=utf8>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5065977714064066" crossorigin="anonymous"></script>
+<script>/*@@00_s0_ads.js@@*/</script>
+<meta name="description" content="お店を育てて、常連さんとチェキ📸 ブラウザですぐ遊べるシーシャ屋の経営ゲーム">
+<meta property="og:type" content="website"><meta property="og:url" content="https://toratorasuienten.info/sheeshastoresimulator/"><meta property="og:title" content="シーシャ屋さん経営"><meta property="og:description" content="お店を育てて、常連さんとチェキ📸 ブラウザですぐ遊べるシーシャ屋の経営ゲーム"><meta property="og:image" content="https://raw.githubusercontent.com/mitsumedia/sheesha-store-simulator/main/ogp2.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="675"><meta property="og:site_name" content="シーシャ屋さん経営">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="シーシャ屋さん経営"><meta name="twitter:description" content="お店を育てて、常連さんとチェキ📸 ブラウザですぐ遊べるシーシャ屋の経営ゲーム"><meta name="twitter:image" content="https://raw.githubusercontent.com/mitsumedia/sheesha-store-simulator/main/ogp2.png"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><style>.ivr{display:flex;align-items:center;gap:6px;padding:5px 4px;border-bottom:1px solid rgba(128,128,128,.2);font-size:13px}.ivr>span{flex:1}.ivr img{width:30px;height:30px;object-fit:contain}.ivr .ivn{flex:0 0 30px;text-align:center}.ivr button{font-size:12px;padding:4px 8px}.ivr.on{background:rgba(60,200,100,.15)}@supports (-webkit-touch-callout:none){input,select,textarea{font-size:16px!important}}html,body{touch-action:manipulation;-webkit-text-size-adjust:100%}</style></head><body>
+<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>シーシャ屋さん経営（3D版）</title>
+<style>
+:root{--bg:#f3eef8;--fg:#261f33;--card:#fff;--ac:#7b4fd0;--mut:#776d88;--bd:#d9cfe6;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17121f;--fg:#efe9f7;--card:#241c31;--ac:#a98bf0;--mut:#a79bba;--bd:#3a2f4d;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#17121f;--fg:#efe9f7;--card:#241c31;--ac:#a98bf0;--mut:#a79bba;--bd:#3a2f4d;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 -apple-system,"Hiragino Sans","Noto Sans JP",sans-serif}
+#app{max-width:560px;margin:0 auto;padding:8px}
+.hud{display:flex;justify-content:space-between;align-items:center;padding:4px 2px;font-size:15px}
+canvas{width:100%;height:auto;display:block;border-radius:12px;background:#e6dccf;touch-action:none;user-select:none;-webkit-user-select:none}
+.row{display:flex;gap:6px;align-items:center;margin:6px 0;flex-wrap:wrap}
+button,select,input{font:inherit;color:var(--fg);background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:7px 11px}
+button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+button:disabled{opacity:.45}
+.tabs{display:flex;gap:6px;margin:8px 0}.tabs button{flex:1}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:10px;margin-bottom:8px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.it{text-align:left;padding:8px}.it small{display:block;color:var(--mut)}.dgh{grid-column:1/-1;font-size:12px;font-weight:700;color:var(--mut);margin:8px 0 0}.dit{display:flex;gap:6px;align-items:center}.dit img{width:42px;height:42px;flex:none}.dit.lock{opacity:.55}.dit.lock img{filter:grayscale(1) brightness(.6)}.nw{display:inline-block;background:#e53935;color:#fff;font-size:10px;border-radius:6px;padding:0 4px;margin-right:4px}.nwdot{position:relative}.nwdot::after{content:"";position:absolute;top:4px;right:6px;width:8px;height:8px;border-radius:50%;background:#e53935}
+.it.on small{color:#eee}
+#log{max-height:150px;overflow:auto;font-size:13px;color:var(--mut)}#log div{padding:1px 0}
+.sw{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-2px;margin-right:6px}
+.f{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--bd);padding:3px 0}
+.dr{display:flex;justify-content:space-between;align-items:center;gap:8px;border-bottom:1px solid var(--bd);padding:4px 0}
+.dr button{padding:3px 11px}.dr b{display:inline-block;min-width:26px;text-align:center}
+#dd{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(92vw,400px);max-height:82vh;overflow:auto;z-index:20;margin:0;box-shadow:0 0 0 100vmax rgba(20,10,35,.65)}
+#ov{position:fixed;inset:0;background:rgba(20,10,35,.75);overflow:auto;padding:16px;z-index:10}#ov .card{max-width:420px;margin:0 auto}
+@keyframes pop{0%{transform:scale(.3)}60%{transform:scale(1.25)}100%{transform:scale(1)}}
+.neg{color:#d64545}.pos{color:#2e9e5b}
+.m{color:var(--mut)}#mk label,.ed label{display:flex;justify-content:space-between;align-items:center;gap:8px;border-bottom:1px solid var(--bd);padding:3px 0}#mk input[type=color],.ed input[type=color]{padding:0;width:44px;height:28px}#mk input[type=range]{padding:0;width:55%}#mk input[type=text],#mk input[type=number],.ed input[type=text],.ed input[type=number]{width:55%;min-width:0}[hidden]{display:none!important}
+
+:root{--bg:#f4efe8;--fg:#2a2233;--card:#fffdf9;--ac:#7b4fd0;--ac2:#e0a03a;--mut:#7a6f86;--bd:#e3d9cc;--bar:#2a2036;--barfg:#f6efe4;--sh:0 2px 8px rgba(60,40,80,.08)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15111c;--fg:#efe9f7;--card:#211a2c;--ac:#a98bf0;--ac2:#f0b85a;--mut:#a79bba;--bd:#362c47;--bar:#0d0a12;--barfg:#f6efe4;--sh:none}}
+:root[data-theme="dark"]{--bg:#15111c;--fg:#efe9f7;--card:#211a2c;--ac:#a98bf0;--ac2:#f0b85a;--mut:#a79bba;--bd:#362c47;--bar:#0d0a12;--barfg:#f6efe4;--sh:none}
+#app{padding:0 10px 96px}
+.card{box-shadow:var(--sh);border-radius:14px}
+#top{position:sticky;top:0;z-index:6;background:var(--bar);color:var(--barfg);margin:0 -10px 8px;padding:8px 12px 9px;border-radius:0 0 16px 16px}
+#top .hud{padding:0}#money{font-size:20px;color:var(--ac2)}#day,#clock{font-size:13px;opacity:.9}
+.mt{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-top:6px}
+.mt div{background:rgba(255,255,255,.08);border-radius:10px;padding:4px 6px;font-size:11px;line-height:1.3}
+.mt b{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mt i{display:block;height:4px;border-radius:2px;background:rgba(255,255,255,.15);margin-top:3px;overflow:hidden}
+.mt i u{display:block;height:100%;width:0;background:#7bd389;transition:width .4s}
+.cvw{position:relative}#cr{position:absolute;right:8px;top:8px;padding:4px 9px;font-size:12px;background:rgba(255,255,255,.85);color:#2a2233;border:0}
+.hint{position:absolute;left:8px;bottom:6px;font-size:10px;color:#5a4a3a;opacity:.7;pointer-events:none}
+#atm{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0}#atm span{background:var(--card);border:1px solid var(--bd);border-radius:999px;padding:1px 8px;font-size:11px}
+.tabs{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:4px;gap:4px;box-shadow:var(--sh)}
+.tabs button{border:0;background:transparent;border-radius:10px;padding:8px 4px;font-size:13px}
+.tabs button.on{background:var(--ac);color:#fff}
+details.cd{background:var(--card);border:1px solid var(--bd);border-radius:14px;margin-bottom:8px;box-shadow:var(--sh);overflow:hidden}
+details.cd>summary{list-style:none;padding:10px 12px;font-weight:600;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+details.cd>summary::-webkit-details-marker{display:none}
+details.cd>summary:after{content:"▾";color:var(--mut);transition:transform .2s}
+details.cd[open]>summary:after{transform:rotate(180deg)}
+details.cd>summary small{font-weight:400;color:var(--mut);margin-left:auto;margin-right:8px;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:60%}
+details.cd>.card{border:0;box-shadow:none;margin:0;padding-top:0;border-radius:0}
+#fin>b:first-child,#frh{display:none}
+#bar{position:fixed;left:0;right:0;bottom:0;z-index:7;background:var(--bar);padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px));display:flex;gap:6px;align-items:center;justify-content:center}
+#bar .in{display:flex;gap:6px;align-items:center;width:100%;max-width:540px}
+#bar button{border:0;border-radius:12px;padding:10px 10px;font-weight:600}
+#go{flex:1.4;background:var(--ac2);color:#2a1d05}
+#vent{background:#3b8bd9;color:#fff}
+.spd{display:flex;background:rgba(255,255,255,.1);border-radius:12px;padding:2px}
+.spd button{background:transparent!important;color:var(--barfg)!important;padding:8px 9px!important;border-radius:10px!important}
+.spd button.on{background:rgba(255,255,255,.25)!important}
+#smk{display:none}
+#log{max-height:none}
+body.fs #app{padding:0;max-width:none}
+.fs #top{position:fixed;left:0;right:0;top:0;margin:0;border-radius:0 0 14px 14px}
+.fs .cvw{position:fixed;left:0;right:0;top:var(--th);bottom:0;z-index:1}
+.fs .cvw canvas{width:100%;height:100%;border-radius:0}
+.fs .cvw .hint{display:none}.fs #cr{top:8px;right:8px}
+.fs #atm{position:fixed;left:8px;right:84px;top:calc(var(--th) + 8px);z-index:2;display:flex;flex-direction:row;flex-wrap:nowrap;gap:3px}.fs #atm span{padding:1px 5px!important;font-size:10px!important;white-space:nowrap}
+.fs #sheet{position:fixed;left:0;right:0;bottom:var(--bh);z-index:6;max-height:66vh;overflow:auto;background:var(--bg);border-radius:18px 18px 0 0;padding:4px 10px 12px;transform:translateY(100%);transition:transform .25s;box-shadow:0 -8px 24px rgba(0,0,0,.28)}
+.fs #sheet.open{transform:none}
+.fs #sheet .grab{width:44px;height:5px;border-radius:3px;background:#bbb;margin:6px auto 8px}
+#menu{font-size:15px}
+.fs #sheet .it:not(.on),.fs #sheet select,.fs #sheet input,.fs #sheet .card button:not(.on){background:rgba(255,255,255,.1);color:#f1ecf8;border-color:rgba(255,255,255,.18)}
+.fs #sheet .card,.fs #sheet details,.fs #sheet summary,.fs #sheet .tabs{background:rgba(255,255,255,.07)!important;border-color:rgba(255,255,255,.12)!important}
+.fs #sheet{color:#f1ecf8;--mut:#b9b0c8;--fg:#f1ecf8}.fs #sheet summary,.fs #sheet .tabs button:not(.on){color:#f1ecf8}.fs #sheet .tabs button:not(.on){background:transparent}
+.fs #bar{background:transparent;pointer-events:none;padding:0 10px calc(12px + env(safe-area-inset-bottom,0px))}
+.fs #bar .in{pointer-events:none}
+.fs #bar button,.fs #bar .spd{pointer-events:auto;box-shadow:0 4px 14px rgba(20,10,35,.35)}
+.fs #bar .spd{background:rgba(38,28,52,.88);border-radius:14px}
+.fs #bar .spd button{box-shadow:none}
+.fs #sheet{background:rgba(12,8,20,.78)!important;padding-bottom:calc(var(--bh) + 10px);bottom:0}
+#tut{position:fixed;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;padding:0 16px;background:rgba(20,10,35,.45)}
+#tut .tc{position:relative;max-width:360px;width:100%;margin-top:-6vh}
+#tut .tsv{position:absolute;pointer-events:none;overflow:visible}
+#tut .twisp{animation:twf 3.5s ease-in-out infinite alternate}@keyframes twf{to{transform:translateY(-6px)}}
+#tut .tin{position:relative;background:rgba(32,22,48,.86);color:#f1ecf7;border-radius:26px;padding:18px 18px 12px;font-size:14px;line-height:1.75;backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);box-shadow:0 0 30px rgba(244,241,250,.18)}
+#tut .tt{font-size:17px;font-weight:800;color:#ffcf5a;margin-bottom:6px}
+#tut .tx b{color:#ffcf5a}
+#tut .tdot{display:flex;gap:6px;justify-content:center;margin-top:10px}#tut .tdot i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.22)}#tut .tdot i.on{background:#ffcf5a}
+#tut .trow{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+#tut #tutok{background:rgba(255,255,255,.93);color:#2a2233;border:0;border-radius:20px;padding:8px 24px;font-weight:800;font-size:14px}
+#tut .tsk{background:none;border:0;color:#a99bbd;font-size:12px;padding:6px}
+#tut button{font-size:13px}
+.tuthl{outline:3px solid #ffb300!important;outline-offset:2px;animation:tutp 1s ease-in-out infinite}
+@keyframes tutp{50%{outline-color:#fff176}}
+.tutin{background:#fff6d8;border:1px solid #ffcc66;border-radius:10px;padding:8px 10px;margin-bottom:8px;font-size:13px;color:#4a3a10}
+.warnm{position:relative}
+.warnm::after{content:"⚠️";position:absolute;top:-6px;right:-4px;font-size:13px;line-height:1;filter:drop-shadow(0 1px 1px rgba(0,0,0,.4))}
+details.cd > summary.warnm::after{content:none}details.cd > summary.warnm{padding-left:34px!important}details.cd > summary.warnm::before{content:"⚠️";position:absolute;left:10px;top:50%;transform:translateY(-50%)}
+#tutarw{position:fixed;z-index:35;transform:translate(0,-100%);pointer-events:none;text-align:left;animation:tutb 1s ease-in-out infinite}
+#tutarw .b{background:#ffb300;color:#2a2233;font-weight:700;font-size:13px;padding:5px 10px;border-radius:12px;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.3)}
+#tutarw .a{width:44px;text-align:center;font-size:24px;color:#ffb300;line-height:1;text-shadow:0 2px 3px rgba(0,0,0,.4)}
+@keyframes tutb{50%{transform:translate(0,calc(-100% - 6px))}}
+[data-t="mk"]{display:none!important}
+.warnm::after,details.cd > summary.warnm::before{animation:wblink .9s steps(1) infinite}
+@keyframes wblink{50%{opacity:0}}
+#clrbar{position:fixed;left:0;right:0;bottom:calc(var(--bh,70px) + 12px);z-index:30;display:flex;justify-content:center;padding:0 12px}
+#rm{display:none!important}
+#mvbtn{position:absolute;right:8px;top:42px;padding:7px 12px;font-size:13px;font-weight:700;background:rgba(255,255,255,.92);color:#2a2233;border:2px solid #7b4fd0;border-radius:12px;box-shadow:0 3px 10px rgba(0,0,0,.25);z-index:3}
+body.mvmode #bar button,body.mvmode #menu{pointer-events:none;opacity:.35;filter:grayscale(.6)}
+#mvbtn.on{background:#7b4fd0;color:#fff}
+#mvbar{position:fixed;left:0;right:0;bottom:calc(var(--bh,70px) + 12px);z-index:30;display:flex;justify-content:center;padding:0 12px}#mvbar .tc{max-width:420px;width:100%;background:#fffdf6;color:#2a2233;border:2px solid #7b4fd0;border-radius:14px;padding:10px 12px;font-size:14px;box-shadow:0 8px 24px rgba(0,0,0,.35)}#mvbar .row{display:flex;gap:6px;margin-top:8px}#mvbar .row button{flex:1;padding:9px 4px;font-weight:700}
+#clrbar .tc{max-width:420px;width:100%;background:#fffdf6;color:#2a2233;border:2px solid #7b4fd0;border-radius:14px;padding:10px 12px;font-size:14px;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+#clr .it{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+#clr .sw{display:block;width:100%!important;height:34px!important;border-radius:8px!important;margin:0!important}
+.dcat{display:grid;grid-template-columns:1fr 1fr;gap:6px}.dcat button{padding:10px 8px;font-size:14px;font-weight:600}.dcat .dcw{grid-column:1/-1}
+#clr[data-m="fl"] .wlpart,#clr[data-m="wl"] .flpart{display:none}
+#ov{display:flex;flex-direction:column}#ov[hidden]{display:none!important}#ov>*{margin-top:auto!important;margin-bottom:auto!important}
+body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,textarea,select{-webkit-user-select:text;user-select:text}.it.lock .sw{display:flex!important;align-items:center;justify-content:center;opacity:.55}#evp{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(40,0,0,.55);animation:evbg 1.2s ease-in-out infinite alternate}
+@keyframes evbg{from{background:rgba(40,0,0,.45)}to{background:rgba(120,0,0,.6)}}
+#evp .evb{width:100%;max-width:360px;background:#fffaf0;border-radius:12px;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.5);color:#2b2236}
+#evp .evh{background:repeating-linear-gradient(45deg,#f5c400 0 14px,#1a1a1a 14px 28px);color:#fff;font-weight:900;letter-spacing:4px;text-align:center;padding:6px 0;font-size:15px;text-shadow:0 0 4px #000,0 0 2px #000}
+#evp .evf{height:10px;padding:0}
+#evp .evs{display:inline-block;color:#ff3b30;animation:evbl .5s steps(2) infinite}
+@keyframes evbl{50%{opacity:0}}
+#evp .evc{padding:12px 14px 14px}
+#evp .evn{font-size:19px;font-weight:800;margin:2px 0 6px}
+#evp .evt{font-size:14px;line-height:1.5;margin-bottom:8px}
+#evp .eve{font-size:13px;background:#ffe9e6;border-left:4px solid #e53935;padding:6px 8px;border-radius:4px;margin-top:6px}
+@supports (-webkit-touch-callout:none){input,select,textarea{font-size:16px!important}}html,body{touch-action:manipulation;-webkit-text-size-adjust:100%}</style></head><body class="fs"><div id="app">
+<div id="top"><div class="hud"><b id="money"></b><span id="day"></span><span id="clock"></span></div>
+<div class="mt"><div>👥 客<b id="mtc">0</b></div><div>💴 売上<b id="mts">¥0</b></div><div>😊 満足度<b id="mth">—</b><i><u id="mthb"></u></i></div><div>💨 煙たさ<b id="mtk">—</b><i><u id="mtkb"></u></i></div><div>🔥 やる気<b id="mtm">—</b><i><u id="mtmb"></u></i></div></div></div>
+<div class="cvw"><canvas id="cv"></canvas><button id="cr">↺ 視点</button><button id="mvbtn" hidden>🔧 模様替え</button><span class="hint">ドラッグ回転・ピンチ拡大・客をタップで会話</span></div>
+<div id="atm" class="m"></div>
+<div class="tabs"><button data-t="shop" class="on">🏪 営業</button><button data-t="deco">🪴 装飾</button><button data-t="dex">📖 図鑑</button><button data-t="mk">🛠 作成</button></div>
+<div id="p-shop" style="margin-top:8px">
+<details class="cd" id="d-own"><summary>🧑‍🍳 店主の行動<small id="s-own"></small></summary><div class="card" id="own"></div></details>
+<details class="cd" id="d-log" open><summary>📝 ログ</summary><div class="card" id="log" style="max-height:160px;overflow:auto"></div></details>
+<details class="cd" id="d-fin"><summary>📊 経営・天気<small id="s-fin"></small></summary><div class="card" id="fin"></div></details>
+<details class="cd" id="d-grf"><summary>📈 売上グラフ<small id="s-grf"></small></summary><div class="card" id="grf"><div class="dcat" style="margin-bottom:6px"><button data-gm="d" class="on">日別</button><button data-gm="m">月別</button></div><canvas id="grfc" style="width:100%;height:190px;display:block"></canvas><div id="grfs" class="m" style="font-size:12px;margin-top:6px;line-height:1.6"></div></div></details>
+<details class="cd" id="d-frc"><summary>🥤 ドリンクメニュー<small id="s-frc"></small></summary><div class="card" id="frc"><b id="frh"></b>
+<div class="m" style="font-size:12px;margin:2px 0 6px">最大6種類まで選べます（補充不要）。飲まれた分の原価は月末に支払います。</div><div id="frl"></div></div></details>
+<details class="cd" id="d-set"><summary>⚙️ 営業時間・その他<small id="s-set"></small></summary><div class="card">
+<div class="row">営業時間 <select id="op"></select>〜<select id="cl"></select></div>
+<div id="hrsi" class="m" style="font-size:12px;margin:4px 0"></div><div class="m" style="font-size:12px">シーシャ3500円／おかわり2000円／ドリンクはフリー。閉店1時間前に入店停止、閉店時刻で全員退店。</div>
+<div class="row"><button id="devreset">🛠 開発用：最初からやり直す</button></div></div></details>
+<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver __GVER__</div></div></details>
+<span id="smk"></span>
+</div>
+<div id="p-deco" hidden><div class="card"><div class="dcat"><button data-dc="obj">🪴 置物</button><button data-dc="wp">🖼 壁アイテム</button><button data-dc="fl">🟫 床</button><button data-dc="wl">🧱 壁紙</button><button data-dc="seat" id="dcseat" class="dcw" hidden>🛋 客席</button><button data-dc="inv" class="dcw">📦 持ち物</button><button id="rm" class="dcw">🔧 模様替え（移動・回転・しまう）</button></div><div class="m" id="plc" style="font-size:12px;margin-top:6px"></div></div><div class="card" id="sec-obj"><div class="m" style="margin-bottom:6px">アイテムを選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。</div><div class="grid" id="dl"></div></div><div class="card" id="sec-seat" hidden><div class="m" style="margin-bottom:6px;font-size:12px">席を選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。席の前の1列はシーシャ台を置く場所として使います。</div><div class="m" id="spc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="sl"></div></div><div class="card" id="sec-wp" hidden><div class="m" style="font-size:12px;margin:2px 0 6px">選んでから、店内の壁をタップして貼ります（1区画に1枚）。見えている壁にだけ貼れるので、視点を回すと反対側にも貼れます。</div><div class="m" id="wc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="wl"></div></div><div class="card" id="sec-inv" hidden><div id="ivl"></div></div><div class="card" id="sec-clr" hidden><div class="m" style="font-size:12px">選ぶと店内でお試し表示されます。「購入する」で購入（¥5,000〜）。店の雰囲気には影響しません。</div><div id="clr"></div></div></div>
+<div id="p-mk" hidden><div class="card" id="mk"></div></div>
+<div id="p-dex" hidden><div class="card"><div id="dc" class="m"></div><div class="grid" id="dg" style="margin-top:6px"></div></div><div class="card" id="dd" hidden></div></div>
+</div>
+<div id="bar"><div class="in"><button id="menu">☰</button><button id="go">営業開始</button><button id="vent">🌀 換気</button><div class="spd"><button data-s="0">⏸</button><button data-s="1" class="on">×1</button><button data-s="2">×2</button><button data-s="4">×4</button></div></div></div>
+<div id="ov" hidden></div>
+<script>/*@@01_s1_error_report.js@@*/</script>
+<script>/*@@02_s2_qr_library.js@@*/</script><script>/*@@03_s3_text_fix.js@@*/</script><script>/*@@10_データ_置物とお客さん.js@@*//*@@11_フレーバー_やる気.js@@*//*@@12_床と壁の柄.js@@*//*@@13_壁アイテム_お客さんの見た目.js@@*//*@@14_見た目修正_会話とセリフ.js@@*//*@@15_3D描画_客席_置物.js@@*//*@@16_シミュレーション_経営_増築.js@@*//*@@17_UI_模様替え_イベント_図鑑.js@@*//*@@18_チュートリアル_チケット_ガチャ.js@@*//*@@19_模様替え_2号店.js@@*//*@@20_確定申告_引き継ぎ_管理ページ.js@@*//*@@21_バトル_フェス_着せ替え.js@@*//*@@22_全画面メニュー_口コミ.js@@*//*@@23_高速化_掃除.js@@*//*@@24_髪型_服_街の動き.js@@*//*@@25_通行人_ガラス_シャッター_特殊イベント.js@@*//*@@26_外観_イベント連動_吹き出し_換気扇.js@@*/</script></body></html>
+
+</body></html>

@@ -1,0 +1,1 @@
+window.adsbygoogle=window.adsbygoogle||[];var adBreak=adConfig=function(o){adsbygoogle.push(o);};
