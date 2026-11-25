@@ -156,7 +156,7 @@ body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,
 <div class="row">営業時間 <select id="op"></select>〜<select id="cl"></select></div>
 <div id="hrsi" class="m" style="font-size:12px;margin:4px 0"></div><div class="m" style="font-size:12px">シーシャ3500円／おかわり2000円／ドリンクはフリー。閉店1時間前に入店停止、閉店時刻で全員退店。</div>
 <div class="row"><button id="devreset">🛠 開発用：最初からやり直す</button></div></div></details>
-<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.141</div></div></details>
+<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.142</div></div></details>
 <span id="smk"></span>
 </div>
 <div id="p-deco" hidden><div class="card"><div class="dcat"><button data-dc="obj">🪴 置物</button><button data-dc="wp">🖼 壁アイテム</button><button data-dc="fl">🟫 床</button><button data-dc="wl">🧱 壁紙</button><button data-dc="seat" id="dcseat" class="dcw" hidden>🛋 客席</button><button data-dc="inv" class="dcw">📦 持ち物</button><button id="rm" class="dcw">🔧 模様替え（移動・回転・しまう）</button></div><div class="m" id="plc" style="font-size:12px;margin-top:6px"></div></div><div class="card" id="sec-obj"><div class="m" style="margin-bottom:6px">アイテムを選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。</div><div class="grid" id="dl"></div></div><div class="card" id="sec-seat" hidden><div class="m" style="margin-bottom:6px;font-size:12px">席を選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。席の前の1列はシーシャ台を置く場所として使います。</div><div class="m" id="spc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="sl"></div></div><div class="card" id="sec-wp" hidden><div class="m" style="font-size:12px;margin:2px 0 6px">選んでから、店内の壁をタップして貼ります（1区画に1枚）。見えている壁にだけ貼れるので、視点を回すと反対側にも貼れます。</div><div class="m" id="wc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="wl"></div></div><div class="card" id="sec-inv" hidden><div id="ivl"></div></div><div class="card" id="sec-clr" hidden><div class="m" style="font-size:12px">選ぶと店内でお試し表示されます。「購入する」で購入（¥5,000〜）。店の雰囲気には影響しません。</div><div id="clr"></div></div></div>
@@ -16026,7 +16026,7 @@ if(b.dataset.gt){try{await aapi({a:"a_gift_toggle",id:b.dataset.gt});admGifts()}
 });
 
 /* ===== 更新チェック：起動時・アプリに戻ったとき・30分ごと。新しい版があればお知らせを出して選んでもらう ===== */
-const GVER="1.0.141";
+const GVER="1.0.142";
 let updV=null,updLater=null,updBusy=0;
 async function updCheck(){if(updBusy||!/^https?:/.test(location.protocol))return;updBusy=1;try{const r=await fetch("version.txt?"+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.text()).trim();if(!v||v===GVER)return;updV=v;updShow()}catch(e){}finally{updBusy=0}}
 function updShow(){if(!updV||updLater===updV||document.getElementById("updm"))return;if(R.phase==="run"||!$("#ov").hidden||document.getElementById("sysm")){setTimeout(updShow,5000);return}
@@ -17962,7 +17962,7 @@ mbDraw=function(k,fg){if(!mbOn()||(fg?wallVis(2,k):!wallVis(2,k))){return}const 
  const occ=fg?[]:mbOcc(k,g);
  const drawIt=it=>{it.parts.sort((p,q)=>p.d-q.d).forEach(o=>dvb(o.b,k));if(it.vox&&it.vox.length)it.vox.forEach(v=>{try{dv(v,k)}catch(e){}});if(it.spr)it.spr.forEach(q=>{try{q.fn(k)}catch(e){}})};
  const L2=items.slice(),used=new Set();items.forEach(it=>{if(it.m.tr)return;const m=it.m,r=(m.T.l||10)*.6+3,zt=(m.T.fly||0)+14;let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;for(const[dx,dy,z]of[[-r,-r,0],[r,r,0],[-r,r,0],[r,-r,0],[-r,-r,zt],[r,r,zt],[-r,r,zt],[r,-r,zt]]){const q=P3(m.x+dx,m.y+dy,z,k);x0=Math.min(x0,q[0]);x1=Math.max(x1,q[0]);y0=Math.min(y0,q[1]);y1=Math.max(y1,q[1])}
-  occ.forEach(o=>{if(o.d>it.d&&!used.has(o)&&!(o.bb[2]<x0||o.bb[0]>x1||o.bb[3]<y0||o.bb[1]>y1)){used.add(o);L2.push({oc:o,d:o.d})}})});
+  occ.forEach(o=>{if(o.bb[2]<x0||o.bb[0]>x1||o.bb[3]<y0||o.bb[1]>y1)return;const B=o.b,px=Math.max(B.x,Math.min(B.x+B.w,m.x)),py=Math.max(B.y,Math.min(B.y+B.d,m.y)),pd=px*k.cx+py*k.cy+4*k.cz;if(pd>it.d+.05){L2.push({oc:o,d:Math.max(o.d,it.d+.001)})}})});
  L2.sort((a,b)=>a.d-b.d);const A=typeof scnA==="function"?scnA():.3,LT=LTN||{oa:0},tc=c=>LT.oa>.02&&/^#/.test(c)?mixc(c,LT.ov,LT.oa):c;
  L2.forEach(e=>{if(!e.oc){drawIt(e);return}const h=e.oc.h;cx.save();cx.beginPath();h.forEach((p,i)=>i?cx.lineTo(p[0],p[1]):cx.moveTo(p[0],p[1]));cx.closePath();cx.clip();cx.setTransform(1,0,0,1,0,0);try{cx.drawImage(BGC,0,0)}catch(_){}cx.restore()})};
 /* 道が手前に来る向きでは、店の中より手前に描く */
