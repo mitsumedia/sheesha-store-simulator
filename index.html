@@ -156,7 +156,7 @@ body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,
 <div class="row">営業時間 <select id="op"></select>〜<select id="cl"></select></div>
 <div id="hrsi" class="m" style="font-size:12px;margin:4px 0"></div><div class="m" style="font-size:12px">シーシャ3500円／おかわり2000円／ドリンクはフリー。閉店1時間前に入店停止、閉店時刻で全員退店。</div>
 <div class="row"><button id="devreset">🛠 開発用：最初からやり直す</button></div></div></details>
-<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.154</div></div></details>
+<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.155</div></div></details>
 <span id="smk"></span>
 </div>
 <div id="p-deco" hidden><div class="card"><div class="dcat"><button data-dc="obj">🪴 置物</button><button data-dc="wp">🖼 壁アイテム</button><button data-dc="fl">🟫 床</button><button data-dc="wl">🧱 壁紙</button><button data-dc="seat" id="dcseat" class="dcw" hidden>🛋 客席</button><button data-dc="inv" class="dcw">📦 持ち物</button><button id="rm" class="dcw">🔧 模様替え（移動・回転・しまう）</button></div><div class="m" id="plc" style="font-size:12px;margin-top:6px"></div></div><div class="card" id="sec-obj"><div class="m" style="margin-bottom:6px">アイテムを選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。</div><div class="grid" id="dl"></div></div><div class="card" id="sec-seat" hidden><div class="m" style="margin-bottom:6px;font-size:12px">席を選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。席の前の1列はシーシャ台を置く場所として使います。</div><div class="m" id="spc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="sl"></div></div><div class="card" id="sec-wp" hidden><div class="m" style="font-size:12px;margin:2px 0 6px">選んでから、店内の壁をタップして貼ります（1区画に1枚）。見えている壁にだけ貼れるので、視点を回すと反対側にも貼れます。</div><div class="m" id="wc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="wl"></div></div><div class="card" id="sec-inv" hidden><div id="ivl"></div></div><div class="card" id="sec-clr" hidden><div class="m" style="font-size:12px">選ぶと店内でお試し表示されます。「購入する」で購入（¥5,000〜）。店の雰囲気には影響しません。</div><div id="clr"></div></div></div>
@@ -14135,7 +14135,7 @@ const p=s===1?[X+1+c*.5,Y,z]:s===3?[X+4.5-c*.5,Y+5.5,z]:s===2?[X,Y+4.5-c*.5,z]:[
 furnDraw(a);
 /* フリードリンク冷蔵庫（最奥列の右端に自動配置）。扉の中身は dyn() で在庫に応じて描く */
 const fb="#e9eef1",F=FR.x,Y=FR.y;box(a,F,Y,0,5,4,17,fb);box(a,F,Y+4,0,5,1,3,"#90a4ae");box(a,F,Y+4,15,5,1,1,"#2ecc71");box(a,F,Y+4,16,5,1,1,fb);box(a,F,Y+4,3,1,1,12,fb);box(a,F+4,Y+4,3,1,1,12,fb);box(a,F+4,Y+5,7,1,1,3,"#90a4ae");
-genScn();try{if(typeof glassMod==="function")glassMod(a)}catch(e){}try{if(typeof extMod==="function")extMod(a)}catch(e){}R.stat=cull(a);R.stV++}
+genScn();try{if(typeof xsStatic==="function")xsStatic(a)}catch(e){}try{if(typeof glassMod==="function")glassMod(a)}catch(e){}try{if(typeof extMod==="function")extMod(a)}catch(e){}R.stat=cull(a);R.stV++}
 const wallVis0=(t,k)=>!t||(t===1?k.cy>0:t===2?k.cx>0:t===3?k.cy<0:k.cx<0);let WS=[];const wallVis=(t,k)=>!t||(R.ext?t!==2:(t===1?k.cy>0:t===2?k.cx>0:t===3?k.cy<0:k.cx<0));
 let SC={key:"",list:[]};
 function statList(k){const key=R.camVer+"|"+R.stV;if(SC.key!==key){SC.key=key;SC.list=R.stat.filter(v=>(R.ext&&v[4]&&v[5]&&v[5]<1)?wallVis0(v[4],k):wallVis(v[4],k)).map(v=>({v,d:dep(v,k)})).sort((p,q)=>p.d-q.d)}return SC.list}
@@ -15050,7 +15050,7 @@ const EV=[
 {id:33,r:4,t:"pre",n:"空き巣",tx:"「…あれ？店のカギが開いてる」",ef:"所持金の10%を失う、次の日は行動できない",go:()=>{const v=G.money>0?Math.round(G.money*.1):0;if(v)evMoney(-v,"空き巣");evNoAct("空き巣")}},
 {id:34,r:4,t:"pre",n:"めちゃくちゃバズった",tx:"「昨日の投稿、通知が止まらない…！？」",ef:"フォロワー3倍",go:()=>{const o=G.ow;o.fol=Math.max(10,o.fol*3);o.star=starOf(o);G.buzzN=(G.buzzN||0)+1}},
 {id:35,r:4,t:"pre",n:"近所から煙の苦情",tx:"「煙と匂い、なんとかしてもらえます？」",ef:"換気扇工事（¥100,000）か、断るか",ch:[["pay","🔧 工事する（−¥100,000）",()=>G.money>=100000],["no","🙅 断る（7日間、嫌がらせの騒音で客足−20%・来たお客さんは不満+3）",()=>1]],go:(k)=>{if(k==="pay"){evMoney(-100000,"換気扇工事");return"換気扇を付け替えた。これで文句は言われないはず"}evx().noise=G.day+7;return"…その夜から、隣で謎の工事音が鳴り始めた"}},
-{id:36,r:4,t:"run",n:"常連が友達を連れてきた",tx:"「ここ、私の行きつけなの！」",ef:"レア3〜4のお客さんが来店",ok:()=>evIn().some(p=>p.c.met)&&evFree().length>0&&evCands().some(c=>c.rar===3||c.rar===4),go:()=>{const L=evCands().filter(c=>c.rar===3||c.rar===4),U=L.filter(c=>!c.met),c=rnd(U.length?U:L);c.act=1;arrive([c]);return"（"+nm(c)+"が来店）"}},
+{id:36,r:4,t:"run",n:"常連が友達を連れてきた",tx:"「ここ、私の行きつけなの！」",ef:"レア3〜4のお客さんが来店",ok:()=>evIn().some(p=>p.c.met)&&evFree().length>0&&evCands().some(c=>c.rar===3||c.rar===4),go:()=>{const L=evCands().filter(c=>c.rar===3||c.rar===4),U=L.filter(c=>!c.met),c=rnd(U.length?U:L);c.act=1;if(typeof mbOn==="function"&&mbOn()){R.sched.push({at:R.t+5,m:[c],force:1});R.sched.sort((a,b)=>a.at-b.at)}else arrive([c]);return"（"+nm(c)+"が来店）"}},
 {id:37,r:4,t:"pre",n:"水道管が破裂",tx:"「床が水浸し…！」",ef:"修理代 −¥100,000、今日は強制休業",go:()=>{evMoney(-100000,"水道管修理");return{close:"🚰 水道管の修理で休業…"}}},
 {id:38,r:4,t:"pre",n:"花火大会",tx:"「今日は花火大会！帰りに寄る人が多そう」",ef:"今日の客足+40%（ただし20時までは誰も来ない）",cond:"8月",ok:()=>evMo()===8&&G.close>=22&&G.open<20,go:()=>{const t=td();t.dm=(t.dm||1)*1.4;t.minAt=20*60}},
 {id:39,r:4,t:"pre",n:"税務署からの手紙",tx:"「…申告漏れ？」",ef:"追徴課税で先月の売上の20%を支払う、次の日は行動できない（1回目の確定申告のあとから起こる）",ok:()=>G.last&&G.last.est>0&&!!(G.tax&&G.tax.n>=1),go:()=>{evMoney(-Math.round(G.last.est*.2),"追徴課税");evNoAct("税務署の手紙")}},
@@ -15337,7 +15337,7 @@ const draw=()=>{const qq=($("#tixq").value||"").trim(),L=G.cs.filter(c=>c.met&&(
 d.onclick=e=>{const t=e.target.closest("[data-ti]");if(t){pick=+t.dataset.ti;draw();return}const b=e.target.closest("[data-tx]");if(!b)return;if(b.dataset.tx==="x"){d.remove();return}
 if(why||pick==null)return;const c=G.cs[pick];G.tix--;G.invD=G.day;G.fcall=(G.fcall||[]).concat(fcGroups([pick]).map(g=>({g,why:"🎟 招待した "+tixNm(c)+" が来てくれた！",tix:1})));c.act=1;save();log("🎟 招待チケットを使った："+tixNm(c)+"（営業開始と同時に来店）");toast("🎟 "+esc(tixNm(c))+" を招待しました<br>営業開始と同時に来てくれます");d.remove();xrow()}}
 /* ===== 広告ガチャ（今はダミー広告。1営業日1回） ===== */
-function gaEvList(){return EV.filter(e=>![31,40,42,50].includes(e.id)&&(e.t==="pre"||e.t==="run")&&!(e.once&&(G.evDex||{})[e.id]))}
+const GA_GOOD=[2,6,8,10,13,14,20,22,27,34,36,38,41,43,45,46,48,49];function gaEvList(){return EV.filter(e=>GA_GOOD.includes(e.id)&&(e.t==="pre"||e.t==="run")&&!(e.once&&(G.evDex||{})[e.id])&&(!e.ok||e.t==="run"||(()=>{try{return e.ok()}catch(_){return true}})()))}
 function gaEvMove(){const g=G.gaEv;if(!g||G.day<=g.day)return;G.admF=G.admF||{};G.admF[g.t]=g.id;G.gaEv=null;save()}
 const GACHA=[["fol",22.5],["ev",22.5],["tix",16.5],["flv",16.5],["deco",7.5],["dex",7.5],["ow",7]];
 function gachaOk(k){if(k==="ow")return OWG.some(x=>!owHas(x));if(k==="deco")return CKD.some(d=>d[3]&&d[3].g&&!ckDOk(d));if(k==="money")return !G.lotto&&G.money>0;if(k==="dex")return G.cs.some(c=>!c.met&&!c.ex);if(k==="flv")return flPick(5)>=0;if(k==="fol")return !!G.ow;if(k==="ev")return !G.gaEv&&gaEvList().length>0;return true}
@@ -16026,7 +16026,7 @@ if(b.dataset.gt){try{await aapi({a:"a_gift_toggle",id:b.dataset.gt});admGifts()}
 });
 
 /* ===== 更新チェック：起動時・アプリに戻ったとき・30分ごと。新しい版があればお知らせを出して選んでもらう ===== */
-const GVER="1.0.154";
+const GVER="1.0.155";
 let updV=null,updLater=null,updBusy=0;
 async function updCheck(){if(updBusy||!/^https?:/.test(location.protocol))return;updBusy=1;try{const r=await fetch("version.txt?"+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.text()).trim();if(!v||v===GVER)return;updV=v;updShow()}catch(e){}finally{updBusy=0}}
 function updShow(){if(!updV||updLater===updV||document.getElementById("updm"))return;if(R.phase==="run"||!$("#ov").hidden||document.getElementById("sysm")){setTimeout(updShow,5000);return}
@@ -18435,6 +18435,68 @@ function darkHull(k){if(!R.dark||!k)return;R.dark._fr=R.frN;cx.save();cx.fillSty
 {const _dr=draw;draw=function(){R.frN=(R.frN||0)+1;return _dr.apply(this,arguments)}}
 /* 道の側から見る時は、外を歩く人より先に暗くする（外の人は暗くならない） */
 {const _au7=auraDraw;auraDraw=function(k,fg){if(fg&&R.dark)try{darkHull(k)}catch(e){}return _au7.apply(this,arguments)}}
+
+/* ===== ゲームのイベントと店の外の景色を連動 ===== */
+/* 起きたイベントをその日の記録に */
+{const _er=evRec;evRec=function(e){const r=_er.apply(this,arguments);try{const t=td();t.evs=t.evs||[];t.evs.push(e.id);if(e.t==="run")xsRun(e.id)}catch(err){}return r}}
+/* 場面（いくつでも同時に出せる） */
+MB.xs=MB.xs||[];
+function xsEnt(q,i){const g=mbGeo(),L=g.L,Ym=15;let m=null;
+ if(q.c){const base=xvT(q.c);if(!base)return null;const T=q.fl?xFlash(base):base,s=q.lane;m={T,s,lane:s,x:s>0?L-28:L-20,y:Ym+q.y,a:3+i,t:Math.random()*3,sp:0,tag:1,seen:1,ev:1,q}}
+ else if(q.o){m={T:xObjT(q.o,q.col),s:1,x:L+q.x,y:Ym+q.y,a:1,t:Math.random()*3,sp:0,tag:1,seen:1,ev:1,q}}
+ else if(q.p){m={T:Object.assign({},XEVT.per,{pp:q.pp}),c:xLook(q.lk),s:1,x:L+q.x,y:Ym+q.y,a:1,t:0,sp:0,tag:1,seen:1,ev:1,dd:q.dd,q,face:1}}
+ return m}
+function xsStart(sc){if(!mbOn())return;const S={sc,t0:R.t,ents:[]};sc.parts.forEach((q,i)=>{const m=xsEnt(q,i);if(m){S.ents.push(m);MB.L.push(m)}});MB.xs.push(S)}
+function xsTick(){if(!MB.xs.length)return;MB.xs=MB.xs.filter(S=>{const f=(R.t-S.t0)/S.sc.dur;S.ents.forEach(m=>{if(!MB.L.includes(m)&&!m.gone)MB.L.push(m)});if(f>=1||R.phase!=="run"){S.ents.forEach(m=>{if(!m.gone)xLeave(m)});return false}return true})}
+/* 歩いて来て入口で少し止まり、帰っていく人（家主さん・営業さんなど） */
+MB.vw=MB.vw||[];
+function xsVisit(lk,pp,stay,talk){if(!mbOn())return;const side=Math.random()<.5?1:-1,m={T:Object.assign({},XEVT.per,{pp}),c:xLook(lk),s:side,x:WK_X,y:15-side*55,a:1,t:0,sp:10,tag:1,seen:1,ev:1,vw:{ph:0,stay:stay||4,talk}};MB.L.push(m);MB.vw.push(m)}
+function xsVisitTick(dt){if(!MB.vw.length)return;MB.vw=MB.vw.filter(m=>{if(R.phase!=="run"){MB.L=MB.L.filter(o=>o!==m);return false}if(!MB.L.includes(m))MB.L.push(m);const v=m.vw;
+ if(v.ph===0){if(m.s>0?m.y>=15:m.y<=15){m.y=15;m.sp=0;m.dd=1;v.ph=1;v.t=0;if(v.talk)try{say(OW,v.talk)}catch(e){}}}
+ else if(v.ph===1){v.t+=dt;if(v.t>=v.stay){v.ph=2;m.dd=null;m.ev=0;m.sp=10;m.face=0;return false}}
+ return true})}
+/* 歩道から入口に入っていく動物（子猫） */
+function xsWalkIn(T){if(!mbOn())return;const side=Math.random()<.5?1:-1,m={T,s:side,x:WK_X+2,y:15-side*45,a:1,t:0,sp:4,tag:1,seen:1,ev:1,wi:1};MB.L.push(m);MB.wi=(MB.wi||[]).concat([m])}
+function xsWalkInTick(dt){const W=MB.wi;if(!W||!W.length)return;MB.wi=W.filter(m=>{if(!MB.L.includes(m))return false;if(m.wi===1&&(m.s>0?m.y>=15:m.y<=15)){m.wi=2;m.y=15;m.sp=0}if(m.wi===2){m.x+=dt*5;if(m.x>=-1){MB.L=MB.L.filter(o=>o!==m);return false}}return true})}
+/* セミ：道の上から飛んできて店に入る */
+const XSEMI={id:"__semi",n:"",k:"ped",cat:1,sp0:1,l:4,mk:(a,t)=>{const f=Math.sin((t||0)*40)>0;return[[-.4,1,0,.8,1.6,.6,"#5d4037"],[-.2,2.4,.2,.4,.4,.4,"#3e2723"],[-1.2,1.2,.6,.8,1.2,.1,f?"#cfd8dc":"#90a4ae"],[.4,1.2,.6,.8,1.2,.1,f?"#cfd8dc":"#90a4ae"]]}};
+function xsSemi(){if(!mbOn())return;const g=mbGeo(),m={T:XSEMI,s:1,ax:1,zo:9,x:g.L-30,y:15,a:1,t:0,sp:9,tag:1,seen:1,ev:1,x0:g.L-60,x1:g.L+4,semi:1};MB.L.push(m);MB.sm=m}
+function xsSemiTick(){const m=MB.sm;if(!m)return;if(!MB.L.includes(m)){MB.sm=null;return}m.zo=9+Math.sin(m.t*6)*1.2;if(m.x>=-1){MB.L=MB.L.filter(o=>o!==m);MB.sm=null}}
+/* 場面の中身 */
+const XSC={
+ sumi:{dur:40,parts:[XC("ktr",-1,-6),XPp(-12,-2,1,LK("男性",["#455a64"],5,["#455a64"],{acc:2}),["box"]),XOb("dbox",-4,-6)]},
+ shuzai:{dur:60,parts:[XPp(-16,-4,1,LK(null,["#455a64"],5,["#3b3b4a"],{acc:2}),["cam"]),XPp(-12,4,1,LK(null,["#fafafa"],2,["#263238"]),["clip"])]},
+ shobo:{dur:40,parts:[XC("fire",-1,-8,{fl:1}),XPp(-11,-2,1,fff,["helm:#fafafa","clip"]),XPp(-11,4,1,fff,["helm:#fafafa"])]},
+ akisu:{dur:60,parts:[XC("police",-1,-4,{fl:1}),XPp(-11,0,1,pol,["clip"])]},
+ shuri:{dur:90,parts:[XC("wagon",-1,-6),XPp(-12,-2,1,LK("男性",["#1565c0"],0,["#1565c0"],{acc:2}),["box2"])]},
+ bazu:{dur:180,parts:onl(5,-11,-8).map((p,i)=>Object.assign(p,{dd:1,pp:["phone"]}))}};
+/* 営業中のイベント */
+function xsRun(id){if(id===16)xsSemi();else if(id===12)setTimeout(()=>{try{if(R.phase==="run")xsStart(XSC.shuri)}catch(e){}},4000);else if(id===46){td().mixT=R.t+90}}
+/* 開店前のイベント：シャッターが開いたら外で見せる */
+function xsOpen(){const t=td(),E=t.evs||[];if(t.xsDone)return;t.xsDone=1;
+ E.forEach(id=>{if(id===1||id===28)xsStart(XSC.sumi);else if(id===8)xsVisit(LK(null,["#8d6e63"],5,["#5d4037"],{acc:17}),["bag:#fafafa"],5,"いつもありがとうございます〜");else if(id===13)xsVisit(LK(null,["#263238"],2,["#263238"]),["suitcase"],5,"新作ですか？見せてください！");
+  else if(id===41)xsVisit(null,["box2"],4,"お土産！ありがとう！");else if(id===14)xsStart(XSC.shuzai);else if(id===23)xsStart(XSC.shobo);else if(id===33)xsStart(XSC.akisu);else if(id===34)xsStart(XSC.bazu);
+  else if(id===45)xsWalkIn(xvT("neko")?Object.assign({},xvT("neko"),{sp0:1,id:"__kitten"}):XSEMI)})}
+{const _ce2=cineEnd;cineEnd=function(){const k=R.cine&&R.cine.k;const r=_ce2.apply(this,arguments);try{if(R.phase==="run")xsOpen()}catch(e){}return r}}
+{const _st8=start;start=function(){const r=_st8.apply(this,arguments);try{build();BGK="";if(R.phase==="run"&&!R.cine)xsOpen()}catch(e){}return r};$("#go").onclick=start}
+{const _tk8=tick;tick=function(now){try{const n=performance.now(),dt=Math.min(.1,(n-(MB.xsN||n))/1000);MB.xsN=n;xsTick();xsVisitTick(dt);xsWalkInTick(dt);xsSemiTick()}catch(e){}return _tk8.apply(this,arguments)}}
+/* 常連が友達を連れてきた：友達は歩道を歩いてくる */
+/* ミックス大当たり：通る人が匂いにつられて立ち止まる／寒波・大雪：人が少なく、みんな上着 */
+{const _sp9=mbSpawn;mbSpawn=function(){const t=td(),cold=(t.evs||[]).some(i=>i===18||i===32);if(cold&&Math.random()<.5)return;const n0=MB.L.length;const r=_sp9.apply(this,arguments);try{const mix=t.mixT&&R.t<t.mixT;for(let i=n0;i<MB.L.length;i++){const m=MB.L[i];if(m.T.k==="ped"&&!m.T.cat&&m.x>mbGeo().L-14){if(mix&&Math.random()<.6)m.pk=true;if(cold)m.cold=1}}}catch(e){}return r}}
+{const _ml2=mbLook;mbLook=function(t,a){const c=_ml2.apply(this,arguments);try{const ev=td().evs||[];if(ev.includes(18)||ev.includes(32)){c.top=5;c.shirt=["#263238","#4e342e","#37474f","#1a237e","#212121"][Math.floor(Math.random()*5)];c.bot=c.bot===1?0:c.bot;if(Math.random()<.5)c.acc=3}}catch(e){}return c}}
+/* ずっと置いておくもの（花・花輪・足場・雪）：建物と一緒に作る */
+function xsStatic(a){const L=Math.min(...FLT.map(t=>t[0]))*6,ys=FLT.map(t=>t[1]),B=(Math.max(...ys)+1)*6,T0=Math.min(...ys)*6,P=(x,y,z,c,s)=>a.push([x,y,z,c,undefined,s||.5]);
+ const stand=(x,y,c1,c2)=>{for(let z=0;z<6;z+=.5){P(x,y,z,"#8d6e63");P(x+1.5,y,z,"#8d6e63")}for(let yy=-1.5;yy<=1.5;yy+=.5)for(let z=6;z<10;z+=.5){const d=Math.hypot(yy,z-8);if(d<=2)P(x+.75,y+yy,z,d<.8?"#fff59d":((yy*2+z*2)%3<1?c2:c1))}for(let z=5;z<7;z+=.5)P(x+.75,y,z,"#fafafa")};
+ if((G.flw||0)>=G.day){stand(L-3.2,9.5,"#f48fb1","#fafafa");stand(L-3.2,20.5,"#ce93d8","#fff59d")}
+ if((G.rvl||0)>=G.day){for(let i=0;i<4;i++)stand(L-41,T0+2+i*5,["#f48fb1","#fff59d","#90caf9","#ce93d8"][i],"#fafafa")}
+ const nz=(evx().noise||0)>G.day;if(nz){const y0=B+.5;for(let x=L-1;x<L+12;x+=3)for(let z=0;z<24;z+=.5)P(x,y0,z,"#9e9e9e");for(let z=4;z<24;z+=6)for(let x=L-1;x<L+12;x+=.5){P(x,y0,z,"#9e9e9e");P(x,y0+.5,z-.5,"#c8a165")}}
+}
+
+/* お花・花輪・苦情の工事は数日続く */
+{const _er2=evRec;evRec=function(e){const r=_er2.apply(this,arguments);try{if(e.id===20)G.flw=G.day+2;if(e.id===26)G.rvl=G.day+4;setTimeout(()=>{try{build();BGK=""}catch(_){}},50)}catch(err){}return r}}
+/* 花火大会：夜空に花火 */
+{const _db4=drawBG;drawBG=function(k){const r=_db4.apply(this,arguments);try{if(R.phase==="run"&&(td().evs||[]).includes(38)&&mbHr()>=19&&mbHr()<23.5){const T=performance.now()/1000,g=mbGeo();cx.save();cx.globalCompositeOperation="lighter";for(let i=0;i<4;i++){const ph=(T*.45+i*.27)%1,sd=Math.floor(T*.45+i*.27)*7+i*13,cxp=P3(g.L-90-(sd%5)*12,15+((sd*37)%90)-45,70+(sd%4)*10,k),cl=["#ff5252","#ffd740","#40c4ff","#e040fb","#69f0ae"][sd%5],rad=k.s*(4+ph*16);cx.globalAlpha=Math.max(0,1-ph*1.1);cx.fillStyle=cl;for(let j=0;j<18;j++){const a=j/18*Math.PI*2;cx.beginPath();cx.arc(cxp[0]+Math.cos(a)*rad,cxp[1]+Math.sin(a)*rad,Math.max(1.2,k.s*.45),0,7);cx.fill()}}cx.restore()}}catch(e){}return r}}
+
 ;(function(){const app=$("#app"),sh=document.createElement("div");sh.id="sheet";sh.innerHTML='<div class="grab"></div>';
 const top=$("#top"),cvw=$(".cvw"),atm=$("#atm");[...app.children].forEach(el=>{if(el.classList.contains("tabs")||/^p-/.test(el.id))sh.appendChild(el)});app.appendChild(sh);{const dd=$("#dd");if(dd)document.body.appendChild(dd)}
 const setv=()=>{document.documentElement.style.setProperty("--th",top.offsetHeight+"px");document.documentElement.style.setProperty("--bh",$("#bar").offsetHeight+"px")};setv();setTimeout(setv,300);setTimeout(setv,1200);window.addEventListener("resize",setv);
