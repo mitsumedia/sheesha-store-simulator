@@ -156,7 +156,7 @@ body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,
 <div class="row">営業時間 <select id="op"></select>〜<select id="cl"></select></div>
 <div id="hrsi" class="m" style="font-size:12px;margin:4px 0"></div><div class="m" style="font-size:12px">シーシャ3500円／おかわり2000円／ドリンクはフリー。閉店1時間前に入店停止、閉店時刻で全員退店。</div>
 <div class="row"><button id="devreset">🛠 開発用：最初からやり直す</button></div></div></details>
-<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.138</div></div></details>
+<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.139</div></div></details>
 <span id="smk"></span>
 </div>
 <div id="p-deco" hidden><div class="card"><div class="dcat"><button data-dc="obj">🪴 置物</button><button data-dc="wp">🖼 壁アイテム</button><button data-dc="fl">🟫 床</button><button data-dc="wl">🧱 壁紙</button><button data-dc="seat" id="dcseat" class="dcw" hidden>🛋 客席</button><button data-dc="inv" class="dcw">📦 持ち物</button><button id="rm" class="dcw">🔧 模様替え（移動・回転・しまう）</button></div><div class="m" id="plc" style="font-size:12px;margin-top:6px"></div></div><div class="card" id="sec-obj"><div class="m" style="margin-bottom:6px">アイテムを選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。</div><div class="grid" id="dl"></div></div><div class="card" id="sec-seat" hidden><div class="m" style="margin-bottom:6px;font-size:12px">席を選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。席の前の1列はシーシャ台を置く場所として使います。</div><div class="m" id="spc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="sl"></div></div><div class="card" id="sec-wp" hidden><div class="m" style="font-size:12px;margin:2px 0 6px">選んでから、店内の壁をタップして貼ります（1区画に1枚）。見えている壁にだけ貼れるので、視点を回すと反対側にも貼れます。</div><div class="m" id="wc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="wl"></div></div><div class="card" id="sec-inv" hidden><div id="ivl"></div></div><div class="card" id="sec-clr" hidden><div class="m" style="font-size:12px">選ぶと店内でお試し表示されます。「購入する」で購入（¥5,000〜）。店の雰囲気には影響しません。</div><div id="clr"></div></div></div>
@@ -16026,7 +16026,7 @@ if(b.dataset.gt){try{await aapi({a:"a_gift_toggle",id:b.dataset.gt});admGifts()}
 });
 
 /* ===== 更新チェック：起動時・アプリに戻ったとき・30分ごと。新しい版があればお知らせを出して選んでもらう ===== */
-const GVER="1.0.138";
+const GVER="1.0.139";
 let updV=null,updLater=null,updBusy=0;
 async function updCheck(){if(updBusy||!/^https?:/.test(location.protocol))return;updBusy=1;try{const r=await fetch("version.txt?"+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.text()).trim();if(!v||v===GVER)return;updV=v;updShow()}catch(e){}finally{updBusy=0}}
 function updShow(){if(!updV||updLater===updV||document.getElementById("updm"))return;if(R.phase==="run"||!$("#ov").hidden||document.getElementById("sysm")){setTimeout(updShow,5000);return}
@@ -17986,10 +17986,10 @@ const GSTY=[{n:"ふつうのガラス（初期）",p:0},{n:"すりガラス",p:3
 function glsCur(){return R.pvS!=null?R.pvS:(G.gls||0)}
 function glsPrev(i){R.pvS=null;const bar=$("#clrbar");if(bar)bar.remove();if(i!=null){R.pvS=i;const sh=$("#sheet");if(sh)sh.classList.remove("open");const d=document.createElement("div");d.id="clrbar";d.innerHTML=`<div class="tc"><div>ガラスを「<b>${esc(GSTY[i].n)}</b>」にしますか？　¥${GSTY[i].p.toLocaleString()}</div><div class="row" style="justify-content:flex-end;margin-top:8px"><button id="glsno">やめる</button><button id="glsok" class="on">購入する</button></div></div>`;document.body.appendChild(d)}build();BGK="";try{rdeco()}catch(e){}}
 document.addEventListener("click",e=>{if(!e.target.closest)return;const g=e.target.closest("[data-gls]");if(g){e.stopPropagation();const i=+g.dataset.gls;if(i===(G.gls||0))return;glsPrev(i);return}const b=e.target.closest("#glsok,#glsno");if(!b)return;e.stopPropagation();const i=R.pvS;if(b.id==="glsok"&&i!=null){const pr=GSTY[i].p;if(G.money<pr){log("お金が足りません")}else{G.money-=pr;G.gls=i;log("🪟 ガラスを「"+GSTY[i].n+"」に変更（-¥"+pr.toLocaleString()+"）");save();hud()}}glsPrev(null)},true);
-function glassDraw(k){if(!glassOn()||!wallVis(2,k))return;const segs=[];FLT.forEach(([tx,ty])=>{if(FLS.has((tx-1)+","+ty)||(tx===0&&ty===2))return;segs.push([tx*6-.5,ty*6])});
+function glassDraw(k){if(!glassOn()||(!R.ext&&!wallVis(2,k)))return;const segs=[];FLT.forEach(([tx,ty])=>{if(FLS.has((tx-1)+","+ty)||(tx===0&&ty===2))return;segs.push([tx*6-.5,ty*6])});
  const night=LTN&&LTN.glow>.2,st=glsCur(),fc=gfcCur().c;cx.save();
  segs.forEach(([X0,y0],si)=>{const Q=(u,v)=>P3(X0,y0+1+u*5,1+v*21,k),poly=(pts,fill,stroke,lw)=>{cx.beginPath();pts.forEach(([u,v],i)=>{const p=Q(u,v);i?cx.lineTo(p[0],p[1]):cx.moveTo(p[0],p[1])});cx.closePath();if(fill){cx.fillStyle=fill;cx.fill()}if(stroke){cx.strokeStyle=stroke;cx.lineWidth=lw||1;cx.stroke()}},rect=(u0,v0,u1,v1,f,s2,lw)=>poly([[u0,v0],[u1,v0],[u1,v1],[u0,v1]],f,s2,lw),line=(u0,v0,u1,v1,c,lw)=>{const a=Q(u0,v0),b=Q(u1,v1);cx.beginPath();cx.moveTo(a[0],a[1]);cx.lineTo(b[0],b[1]);cx.strokeStyle=c;cx.lineWidth=lw||1;cx.stroke()};
-  const plane=fn=>{const o=Q(1,1),ex=Q(0,1),ey=Q(1,0);cx.save();cx.transform(ex[0]-o[0],ex[1]-o[1],ey[0]-o[0],ey[1]-o[1],o[0],o[1]);fn();cx.restore()};
+  const plane=fn=>{const o=R.ext?Q(0,1):Q(1,1),ex=R.ext?Q(1,1):Q(0,1),ey=R.ext?Q(0,0):Q(1,0);cx.save();cx.transform(ex[0]-o[0],ex[1]-o[1],ey[0]-o[0],ey[1]-o[1],o[0],o[1]);fn();cx.restore()};
   const base=()=>rect(0,0,1,1,night?"rgba(255,226,170,.16)":"rgba(170,215,240,.22)"),streak=()=>{for(const[f0,f1]of[[.15,.45],[.3,.55]])line(f0,.9,f1,.15,"rgba(255,255,255,.35)",1.2)};
   if(st===0){base();streak()}
   else if(st===1){rect(0,0,1,1,night?"rgba(255,240,215,.62)":"rgba(240,244,246,.68)");streak()}
@@ -18003,9 +18003,11 @@ function glassDraw(k){if(!glassOn()||!wallVis(2,k))return;const segs=[];FLT.forE
   else if(st===9){for(let i=0;i<4;i++)for(let j=0;j<12;j++){const u0=i/4,v0=j/12,du=1/4,dv=1/12;rect(u0,v0,u0+du,v0+dv,night?"rgba(255,232,190,.55)":"rgba(200,230,240,.6)","rgba(255,255,255,.75)",1.2);rect(u0+du*.25,v0+dv*.25,u0+du*.75,v0+dv*.75,"rgba(255,255,255,.18)")}}
   else if(st===10){base();streak()}
  });cx.restore()}
-{const _md=mbDraw;mbDraw=function(k,fg){const r=_md.apply(this,arguments);try{if(!fg)glassDraw(k)}catch(e){}return r}}
+{const _md=mbDraw;mbDraw=function(k,fg){const r=_md.apply(this,arguments);try{if(R.ext?fg:!fg)glassDraw(k)}catch(e){}return r}}
 /* 営業中以外（通行人がいない時）もガラスは描く */
-{const _db2=drawBG;drawBG=function(k){const r=_db2.apply(this,arguments);try{if(!mbOn())glassDraw(k)}catch(e){}return r}}
+{const _db2=drawBG;drawBG=function(k){const r=_db2.apply(this,arguments);try{if(!mbOn()&&!R.ext)glassDraw(k)}catch(e){}return r}}
+
+setTimeout(()=>{try{build();BGK=""}catch(e){}},0);
 ;(function(){const app=$("#app"),sh=document.createElement("div");sh.id="sheet";sh.innerHTML='<div class="grab"></div>';
 const top=$("#top"),cvw=$(".cvw"),atm=$("#atm");[...app.children].forEach(el=>{if(el.classList.contains("tabs")||/^p-/.test(el.id))sh.appendChild(el)});app.appendChild(sh);{const dd=$("#dd");if(dd)document.body.appendChild(dd)}
 const setv=()=>{document.documentElement.style.setProperty("--th",top.offsetHeight+"px");document.documentElement.style.setProperty("--bh",$("#bar").offsetHeight+"px")};setv();setTimeout(setv,300);setTimeout(setv,1200);window.addEventListener("resize",setv);
