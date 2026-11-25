@@ -202,14 +202,14 @@ const OIDL=["ボトル、磨いておこうかな","新しいミックス、考�
 {const _ot=ownThought;ownThought=function(){if(R.phase==="run"&&inStore()===0&&Math.random()<.6)return rnd(OIDL);return _ot()}}
 {const _hi=hud;hud=function(){_hi();try{if(R.phase==="run"&&!R.closed&&!R.clA&&G.ow&&R.speed&&inStore()===0&&!(OW.bt>0)&&!OW.mode){if(R.idT==null)R.idT=R.t+20+Math.random()*30;if(R.t>=R.idT){say(OW,rnd(OIDL));R.idT=R.t+50+Math.random()*60}}else if(inStore()>0)R.idT=null}catch(e){}}}
 /* ===== 廃業画面：シャッターが下りて、まとめを出す ===== */
-function showOver(why){if($("#gov"))return;ovOff();const o=G.ow||{},met=G.cs.filter(c=>c.met).length,comp=G.cs.filter(c=>lv(c)>=NL).length,days=G.day||0,
+function showOver(why){if($("#gov"))return;ovOff();const o=G.ow||{},met=G.cs.filter(c=>c.met&&!c.ex).length,csN=G.cs.filter(c=>!c.ex).length,comp=G.cs.filter(c=>lv(c)>=NL).length,days=G.day||0,
 best=G.cs.filter(c=>c.met&&!spx(c)).sort((a,b)=>((b.vt||0)-(a.vt||0))||(b.fp-a.fp))[0],tv=(G.tvis||0),bs=Math.max(G.bestS||0,...(G.week||[]).map(d=>d.sales||0)),
 st=(k,v)=>`<div class="gs"><div>${k}</div><b>${v}</b></div>`,mo=Math.floor(days/7),dd=days%7,per=(mo?mo+"か月":"")+(dd||!mo?dd+"日":"");
 const head=why==="mot"?["🥀 やる気が尽きて廃業…","お客さんも少なく、話す相手もいない日が続き、心が折れてしまいました"]:["💸 資金が尽きて廃業…","所持金が "+yen(G.money)+" になり、お店を続けられなくなりました"];
 const BYE=["また、どこかで店やってくださいね","店長のシーシャ、忘れません","次のお店ができたら、一番に行きます","ここ、好きだったんだけどな…"];
 const d=document.createElement("div");d.id="gov";d.innerHTML=`<div class="sh"><div class="hd"></div></div><div class="pp"><div style="font-size:12px">お知らせ</div><div style="font-size:16px;margin:4px 0">「${esc(shopNm())}」は<br>閉店いたしました</div><div style="font-size:11px;font-weight:400">長い間ご愛顧いただき<br>ありがとうございました　店主 ${esc(o.name||"")}</div></div>
 <div class="cd"><div style="font-weight:800;font-size:16px;margin-bottom:2px">${head[0]}</div><div style="font-size:12px;color:#b9b0c8;margin-bottom:10px">${head[1]}</div>
-<div class="gg">${st("営業した期間",per)}${st("のべ来店数",tv.toLocaleString()+"人")}${st("出会ったお客さん",met+" / "+G.cs.length+"人")}${st("図鑑コンプリート",comp+"人")}${st("最高の売上（1日）",yen(bs))}${st("最終の借入残高",yen(G.loan?G.loan.bal:0))}</div>
+<div class="gg">${st("営業した期間",per)}${st("のべ来店数",tv.toLocaleString()+"人")}${st("出会ったお客さん",met+" / "+csN+"人")}${st("図鑑コンプリート",comp+"人")}${st("最高の売上（1日）",yen(bs))}${st("最終の借入残高",yen(G.loan?G.loan.bal:0))}</div>
 ${best?`<div class="gb"><img class="xf" data-fi="${best.i}" ${FACEC[best.i]?`src="${FACEC[best.i]}"`:""} alt=""><div style="font-size:12px"><div style="color:#ffcf5a;font-weight:700">いちばんの常連さん</div><div>${esc(nm(best))}${best.vt?"（来店 "+best.vt+"回）":""}</div><div style="color:#b9b0c8;font-size:11px">「${rnd(BYE)}」</div></div></div>`:""}
 <button id="reset0" class="on" style="width:100%;margin-top:12px;padding:11px;font-weight:800">最初からやり直す</button></div>`;document.body.appendChild(d);faceFill(d);
 const sh=d.querySelector(".sh");requestAnimationFrame(()=>{sh.style.height="100%"});setTimeout(()=>d.classList.add("in"),1500)}
