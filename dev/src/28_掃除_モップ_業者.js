@@ -8,5 +8,8 @@ function cleanFurnKey(clx,cly){const r=cv.getBoundingClientRect(),X=(clx-r.left)
  (G.decor||[]).forEach(d0=>{const x0=d0.tx*6,y0=d0.ty*6;if(mvIn(mvBox(x0+.5,x0+5.5,y0+.5,y0+5.5,8,k),X,Y)){const d=(x0+3)*k.cx+(y0+3)*k.cy+4*k.cz;if(d>bd){bd=d;best=d0.tx+","+d0.ty}}});return best}
 /* 掃除中は、汚れが残っているマスの床をほんのり色づける */
 {const _db5=drawBG;drawBG=function(k){const r=_db5.apply(this,arguments);try{if(R.cleaning){const D=G.dirt||{};cx.save();FLT.forEach(([tx,ty])=>{const v=D[tx+","+ty]||0;if(v<=0)return;const X=tx*6,Y=ty*6,P4=[P3(X+.4,Y+.4,.05,k),P3(X+5.6,Y+.4,.05,k),P3(X+5.6,Y+5.6,.05,k),P3(X+.4,Y+5.6,.05,k)];cx.globalAlpha=.18+Math.min(.32,v/220);cx.fillStyle="#ffb300";cx.beginPath();P4.forEach((p,i)=>i?cx.lineTo(p[0],p[1]):cx.moveTo(p[0],p[1]));cx.closePath();cx.fill()});cx.restore()}}catch(e){}return r}}
-/* 店長がモップを持って掃除する */
-{const _dy2=dyn;dyn=function(){const a=_dy2.apply(this,arguments);try{if(R.cleaning&&OW.x>-100){const t=performance.now()/1000,sw=Math.sin(t*14)*1.2,hx=OW.x+1.6,hy=OW.y-.4;for(let i=0;i<14;i++){const f=i/13;a.push([hx+sw*(1-f)*.6-f*.2,hy-1.2*(1-f),.4+f*7.4,"#a1887f",undefined,.5])}for(let dx=-1.25;dx<1.25;dx+=.5)for(let dy=-.5;dy<.5;dy+=.5)a.push([hx+sw*.6+dx,hy-1.4+dy,0,dx>-1&&dx<.75?"#e0f2f1":"#90a4ae",undefined,.5])}}catch(e){}return a}}
+/* 店長がモップを持って掃除する（大きめ） */
+{const _dy2=dyn;dyn=function(){const a=_dy2.apply(this,arguments);try{if(R.cleaning&&OW.x>-100){const t=performance.now()/1000,sw=Math.sin(t*12)*2,hx=OW.x+2.4,hy=OW.y-1;
+ for(let i=0;i<20;i++){const f=i/19;a.push([hx+sw*(1-f)*.7-f*.6,hy-2.2*(1-f),1+f*10,"#8d6e63",undefined,.75])}
+ const mx=hx+sw*.7,my=hy-2.6;for(let dx=-2.5;dx<2.5;dx+=1)a.push([mx+dx,my,1,"#9e9e9e",undefined,1]);
+ for(let dx=-3;dx<3;dx+=.75)for(let dy=-1;dy<1.5;dy+=.75)a.push([mx+dx,my+dy,0,((dx*4+dy*4)|0)%2?"#e0f7fa":"#b2ebf2",undefined,.75])}}catch(e){}return a}}
