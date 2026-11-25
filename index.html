@@ -156,7 +156,7 @@ body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,
 <div class="row">営業時間 <select id="op"></select>〜<select id="cl"></select></div>
 <div id="hrsi" class="m" style="font-size:12px;margin:4px 0"></div><div class="m" style="font-size:12px">シーシャ3500円／おかわり2000円／ドリンクはフリー。閉店1時間前に入店停止、閉店時刻で全員退店。</div>
 <div class="row"><button id="devreset">🛠 開発用：最初からやり直す</button></div></div></details>
-<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.152</div></div></details>
+<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.153</div></div></details>
 <span id="smk"></span>
 </div>
 <div id="p-deco" hidden><div class="card"><div class="dcat"><button data-dc="obj">🪴 置物</button><button data-dc="wp">🖼 壁アイテム</button><button data-dc="fl">🟫 床</button><button data-dc="wl">🧱 壁紙</button><button data-dc="seat" id="dcseat" class="dcw" hidden>🛋 客席</button><button data-dc="inv" class="dcw">📦 持ち物</button><button id="rm" class="dcw">🔧 模様替え（移動・回転・しまう）</button></div><div class="m" id="plc" style="font-size:12px;margin-top:6px"></div></div><div class="card" id="sec-obj"><div class="m" style="margin-bottom:6px">アイテムを選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。</div><div class="grid" id="dl"></div></div><div class="card" id="sec-seat" hidden><div class="m" style="margin-bottom:6px;font-size:12px">席を選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。席の前の1列はシーシャ台を置く場所として使います。</div><div class="m" id="spc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="sl"></div></div><div class="card" id="sec-wp" hidden><div class="m" style="font-size:12px;margin:2px 0 6px">選んでから、店内の壁をタップして貼ります（1区画に1枚）。見えている壁にだけ貼れるので、視点を回すと反対側にも貼れます。</div><div class="m" id="wc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="wl"></div></div><div class="card" id="sec-inv" hidden><div id="ivl"></div></div><div class="card" id="sec-clr" hidden><div class="m" style="font-size:12px">選ぶと店内でお試し表示されます。「購入する」で購入（¥5,000〜）。店の雰囲気には影響しません。</div><div id="clr"></div></div></div>
@@ -14268,12 +14268,12 @@ function wrap(t,w){const o=[];let l="";for(const ch of t){if(cx.measureText(l+ch
 function poly(p,c){cx.fillStyle=c;cx.beginPath();cx.moveTo(p[0][0],p[0][1]);for(let i=1;i<p.length;i++)cx.lineTo(p[i][0],p[i][1]);cx.closePath();cx.fill()}
 /* 背景（外の景色・床・奥の壁とポスター）はカメラと時間帯が変わった時だけ描き直す */
 let BGC=null,BGK="";
-function bgDraw(k){drawScn(k);const fo=FLC[R.pvF!=null?R.pvF:(G.fcl||0)]||FLC[0],fc=fo.c;FLT.forEach(([tx,ty])=>{const x=tx*6,y=ty*6;if(fo.pt&&flTile(fo.pt,tx,ty,k))return;poly([P3(x,y,0,k),P3(x+6,y,0,k),P3(x+6,y+6,0,k),P3(x,y+6,0,k)],(tx+ty)%2?fc[0]:fc[1])});try{dirtDraw(k)}catch(e){}statList(k).forEach(o=>{if(o.v[4])dv(o.v,k)});if(typeof wallImgs==="function")wallImgs(k)}
+function bgDraw(k){drawScn(k);const fo=FLC[R.pvF!=null?R.pvF:(G.fcl||0)]||FLC[0],fc=fo.c;FLT.forEach(([tx,ty])=>{const x=tx*6,y=ty*6;if(fo.pt&&flTile(fo.pt,tx,ty,k))return;poly([P3(x,y,0,k),P3(x+6,y,0,k),P3(x+6,y+6,0,k),P3(x,y+6,0,k)],(tx+ty)%2?fc[0]:fc[1])});try{dirtDraw(k)}catch(e){}statList(k).forEach(o=>{if(o.v[4]&&(!R.ext||wallVis0(o.v[4],k)))dv(o.v,k)});if(typeof wallImgs==="function")wallImgs(k)}
 function drawBG(k){if(typeof document==="undefined"||!document.createElement){bgDraw(k);return}const hr=(R.phase==="run"?R.t:G.open*60)/60,key=[k.s.toFixed(3),k.rx.toFixed(4),k.ry.toFixed(4),k.ux.toFixed(4),k.uy.toFixed(4),k.uz.toFixed(4),k.ox,k.oy,R.stV,(G.dv||0),bgLK(hr),R.pvF!=null?"p"+R.pvF:(G.fcl||0),W,CH,dpr,SCA].join();
 if(!BGC)BGC=document.createElement("canvas");if(BGC.width!==cv.width||BGC.height!==cv.height){BGC.width=cv.width;BGC.height=cv.height;BGK=""}
 const g=BGC.getContext&&BGC.getContext("2d");if(!g){bgDraw(k);return}if(BGK!==key){const oc=cx;cx=g;cx.setTransform(dpr,0,0,dpr,0,0);cx.clearRect(0,0,W,CH);try{bgDraw(k)}finally{cx=oc}BGK=key}
 cx.save();cx.setTransform(1,0,0,1,0,0);cx.drawImage(BGC,0,0);cx.restore()}
-function statFG(k){const L=statList(k);if(SC.fgFor!==SC.key){SC.fg=L.filter(o=>!o.v[4]);SC.fgFor=SC.key}return SC.fg}
+function statFG(k){const L=statList(k);if(SC.fgFor!==SC.key){SC.fg=L.filter(o=>!o.v[4]||(R.ext&&!wallVis0(o.v[4],k)));SC.fgFor=SC.key}return SC.fg}
 /* 煙たさの演出：うっすら→もくもく。最大でほぼ真っ白 */
 let PUF=null;function puff(){if(PUF||typeof document==="undefined"||!document.createElement)return PUF;const c=document.createElement("canvas");c.width=c.height=128;const g=c.getContext&&c.getContext("2d");if(!g)return null;const r=g.createRadialGradient&&g.createRadialGradient(64,64,4,64,64,62);if(!r||!r.addColorStop)return null;r.addColorStop(0,"rgba(236,236,244,1)");r.addColorStop(.55,"rgba(226,226,236,.6)");r.addColorStop(1,"rgba(220,220,232,0)");g.fillStyle=r;g.fillRect(0,0,128,128);return PUF=c}
 function drawSmoke(T){const s=Math.max(0,Math.min(1,(R.smoke||0)/100));if(s<.12)return;const h=Math.pow((s-.12)/.88,1.4);
@@ -16026,7 +16026,7 @@ if(b.dataset.gt){try{await aapi({a:"a_gift_toggle",id:b.dataset.gt});admGifts()}
 });
 
 /* ===== 更新チェック：起動時・アプリに戻ったとき・30分ごと。新しい版があればお知らせを出して選んでもらう ===== */
-const GVER="1.0.152";
+const GVER="1.0.153";
 let updV=null,updLater=null,updBusy=0;
 async function updCheck(){if(updBusy||!/^https?:/.test(location.protocol))return;updBusy=1;try{const r=await fetch("version.txt?"+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.text()).trim();if(!v||v===GVER)return;updV=v;updShow()}catch(e){}finally{updBusy=0}}
 function updShow(){if(!updV||updLater===updV||document.getElementById("updm"))return;if(R.phase==="run"||!$("#ov").hidden||document.getElementById("sysm")){setTimeout(updShow,5000);return}
