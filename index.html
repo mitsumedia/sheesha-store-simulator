@@ -156,7 +156,7 @@ body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,
 <div class="row">営業時間 <select id="op"></select>〜<select id="cl"></select></div>
 <div id="hrsi" class="m" style="font-size:12px;margin:4px 0"></div><div class="m" style="font-size:12px">シーシャ3500円／おかわり2000円／ドリンクはフリー。閉店1時間前に入店停止、閉店時刻で全員退店。</div>
 <div class="row"><button id="devreset">🛠 開発用：最初からやり直す</button></div></div></details>
-<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.150</div></div></details>
+<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.151</div></div></details>
 <span id="smk"></span>
 </div>
 <div id="p-deco" hidden><div class="card"><div class="dcat"><button data-dc="obj">🪴 置物</button><button data-dc="wp">🖼 壁アイテム</button><button data-dc="fl">🟫 床</button><button data-dc="wl">🧱 壁紙</button><button data-dc="seat" id="dcseat" class="dcw" hidden>🛋 客席</button><button data-dc="inv" class="dcw">📦 持ち物</button><button id="rm" class="dcw">🔧 模様替え（移動・回転・しまう）</button></div><div class="m" id="plc" style="font-size:12px;margin-top:6px"></div></div><div class="card" id="sec-obj"><div class="m" style="margin-bottom:6px">アイテムを選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。</div><div class="grid" id="dl"></div></div><div class="card" id="sec-seat" hidden><div class="m" style="margin-bottom:6px;font-size:12px">席を選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。席の前の1列はシーシャ台を置く場所として使います。</div><div class="m" id="spc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="sl"></div></div><div class="card" id="sec-wp" hidden><div class="m" style="font-size:12px;margin:2px 0 6px">選んでから、店内の壁をタップして貼ります（1区画に1枚）。見えている壁にだけ貼れるので、視点を回すと反対側にも貼れます。</div><div class="m" id="wc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="wl"></div></div><div class="card" id="sec-inv" hidden><div id="ivl"></div></div><div class="card" id="sec-clr" hidden><div class="m" style="font-size:12px">選ぶと店内でお試し表示されます。「購入する」で購入（¥5,000〜）。店の雰囲気には影響しません。</div><div id="clr"></div></div></div>
@@ -14732,7 +14732,7 @@ if(t==="text")return`<label><span>${l}</span><input type="text" data-ok="${k}" m
 if(t==="num")return`<label><span>${l}</span><input type="number" data-ok="${k}" min="18" max="80" value="${c[k]}"></label>`;
 if(t==="col")return`<label><span>${l}</span><input type="color" data-ok="${k}" value="${c[k]}"></label>`;
 if(k==="hs"||k==="top"||k==="bot")return owSel(k,l,o,c);const v=k==="sex"?(c.sex==="男性"?0:1):c[k];return`<label><span>${l}</span><select data-ok="${k}">${o.map((n,i)=>`<option value="${i}" ${i===v?"selected":""}>${esc(n)}</option>`).join("")}</select></label>`}).join("")+`</div>`};
-const mkOwFromForm=()=>{const c=R.od||OWD0();return Object.assign(mkOw(c.name.trim(),c.age,c.sex),{shop:(c.shop||"").trim(),eye:c.eye||0,hs:c.hs,hair:c.hair,skin:c.skin,shirt:c.shirt,top:c.top|0,bot:c.bot|0,pants:c.pants,acc:c.acc,accC:c.accC,h2:c.h2|0,t2:c.t2|0,b2:c.b2|0})};
+const mkOwFromForm=()=>{const c=R.od||OWD0();return Object.assign(mkOw(c.name.trim(),c.age,c.sex),{shop:[...(c.shop||"").trim()].slice(0,10).join(""),eye:c.eye||0,hs:c.hs,hair:c.hair,skin:c.skin,shirt:c.shirt,top:c.top|0,bot:c.bot|0,pants:c.pants,acc:c.acc,accC:c.accC,h2:c.h2|0,t2:c.t2|0,b2:c.b2|0})};
 function applyOwLook(){const o=G.ow;if(!o)return;Object.assign(OW.c,{eye:o.eye||0,hs:o.hs,hair:o.hair,skin:o.skin,shirt:o.shirt,acc:o.acc,accC:o.accC},o.top!=null?{top:o.top}:{},o.bot!=null?{bot:o.bot}:{},o.pants?{pants:o.pants}:{},{h2:o.h2|0,t2:o.t2|0,b2:o.b2|0});OW._pc=null}
 function showOwEdit(){const o=G.ow;R.od={shop:o.shop||"",name:o.name,age:o.age,sex:o.sex,eye:o.eye||0,hs:o.hs,hair:o.hair,skin:o.skin,shirt:o.shirt,top:o.top!=null?o.top:OW.c.top,bot:o.bot!=null?o.bot:OW.c.bot,pants:o.pants||OW.c.pants,acc:o.acc,accC:o.accC,h2:o.h2|0,t2:o.t2|0,b2:o.b2|0};ov(`<div class="card"><b>店主の見た目</b>${ownForm2()}<button id="owok" class="on" style="width:100%;margin-top:8px">決定</button></div>`);prevO()}
 function showOwner(){ov(`<div class="card"><b>店主の登録</b><div class="m" style="margin:6px 0">あなた自身（店主）を作ります。見た目と名前を決めてください。お客さんが会話の中で名前を呼んでくれます。知名度・スター性・技術は10から始まります。</div>${ownForm2()}<button id="own0" class="on">登録する</button></div>`);prevO()}
@@ -16026,7 +16026,7 @@ if(b.dataset.gt){try{await aapi({a:"a_gift_toggle",id:b.dataset.gt});admGifts()}
 });
 
 /* ===== 更新チェック：起動時・アプリに戻ったとき・30分ごと。新しい版があればお知らせを出して選んでもらう ===== */
-const GVER="1.0.150";
+const GVER="1.0.151";
 let updV=null,updLater=null,updBusy=0;
 async function updCheck(){if(updBusy||!/^https?:/.test(location.protocol))return;updBusy=1;try{const r=await fetch("version.txt?"+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.text()).trim();if(!v||v===GVER)return;updV=v;updShow()}catch(e){}finally{updBusy=0}}
 function updShow(){if(!updV||updLater===updV||document.getElementById("updm"))return;if(R.phase==="run"||!$("#ov").hidden||document.getElementById("sysm")){setTimeout(updShow,5000);return}
@@ -16910,7 +16910,7 @@ const pa=(k,l,ids)=>`<div class="owr"><div class="owl">${l}</div><div class="owp
 const pl=(k,l,arr)=>`<div class="owr"><div class="owl">${l}</div><div class="owpl">${arr.map((n,i)=>`<button data-owp="${k}" data-v="${i}" class="${+d[k]===i?"on":""}">${esc(n)}</button>`).join("")}</div></div>`;
 po.innerHTML=`<div id="owcat">${Object.entries(OWCAT).map(([k,c])=>`<button data-owk="${k}">${c[4]} ${c[0]}</button>`).join("")}<button data-owk="edit" class="on">🎨 色・名前</button></div>
 <div id="owed"><div class="owr"><div class="owl">名前</div><input type="text" data-owt="name" maxlength="8" value="${esc(d.name)}" placeholder="店長"></div>
-<div class="owr"><div class="owl">店名</div><input type="text" data-owt="shop" maxlength="14" value="${esc(d.shop)}" placeholder="シーシャ屋さん"></div>
+<div class="owr"><div class="owl">店名</div><input type="text" data-owt="shop" maxlength="10" value="${esc(d.shop)}" placeholder="シーシャ屋さん"></div>
 <div class="owr"><div class="owl">年齢</div><input type="number" data-owt="age" min="18" max="80" value="${d.age}"></div>
 <div class="owr"><div class="owl">性別</div><div class="owpl">${["男性","女性"].map(x=>`<button data-owsx="${x}" class="${d.sex===x?"on":""}">${x}</button>`).join("")}</div>${sw("hair","髪の色")}${HC2.includes(OW.c.h2|0)?sw("hc2","髪の2色目"):""}${sw("skin","肌の色")}${sw("shirt","服の色")}${sw("pants","ズボンの色")}${pl("eye","目",EYN)}${pa("accE","目元",ACC_E)}${d.accE?sw("accCE","目元の色"):""}${pa("accH","頭",ACC_H)}${d.accH?sw("accCH","頭の色"):""}${pa("accM","口元",ACC_M)}${d.accM?sw("accCM","口元の色"):""}${+d.accH===8?`<div class="owr" style="font-size:11px;color:#8a8a8a">フルフェイスヘルメットの時は目元を付けられません</div>`:""}${kgRow(d)}
 </div></div>`;
@@ -16920,7 +16920,7 @@ const p2=e.target.closest("[data-owp]");if(p2){e.stopPropagation();OWD[p2.datase
 const x2=e.target.closest("[data-owsx]");if(x2){e.stopPropagation();OWD.sex=x2.dataset.owsx;owEdRender();owEdStage();return}};
 po.oninput=e=>{const t=e.target;if(t.dataset.owc){OWD[t.dataset.owc]=t.value;owEdStage();po.querySelectorAll(`[data-ows="${t.dataset.owc}"]`).forEach(b=>b.classList.remove("on"))}else if(t.dataset.owt){OWD[t.dataset.owt]=t.dataset.owt==="age"?(+t.value||28):t.value;owEdStage(1)}}}
 function owEdStage(noStage){if(!noStage){const L=Object.assign({},OW.c,{hair:OWD.hair,skin:OWD.skin,shirt:OWD.shirt,pants:OWD.pants,eye:OWD.eye},owAccLook(OWD));const keep=FMS.ang;fmsSet("p",L,`<div class="tl" style="background:none;padding:0;font-size:15px">${esc(OWD.name||"店長")}<div style="font-size:10.5px;color:#8fc9bc;font-weight:700">${owDirty()?"変更中…（まだ保存していません）":esc(OWD.shop||shopNm())+" の店主"}</div></div>`);FMS.ang=keep}fmBtn(owDirty()?"保存する ▶":null)}
-function owEdSave(){const o=G.ow;if(!o||!OWD)return;const d=OWD;o.name=(d.name||"").trim()||o.name||"店長";o.shop=(d.shop||"").trim();o.age=Math.max(18,Math.min(80,+d.age||28));o.sex=d.sex;Object.assign(o,{hair:d.hair,skin:d.skin,shirt:d.shirt,pants:d.pants,eye:+d.eye,acc:+d.acc,accC:d.accC});applyOwLook();save();OWD=null;owEdRender();owEdStage();try{shopLine();hud()}catch(e){}try{toast("🎨 店主の見た目を保存しました")}catch(e){}}
+function owEdSave(){const o=G.ow;if(!o||!OWD)return;const d=OWD;o.name=(d.name||"").trim()||o.name||"店長";o.shop=[...(d.shop||"").trim()].slice(0,10).join("");o.age=Math.max(18,Math.min(80,+d.age||28));o.sex=d.sex;Object.assign(o,{hair:d.hair,skin:d.skin,shirt:d.shirt,pants:d.pants,eye:+d.eye,acc:+d.acc,accC:d.accC});applyOwLook();save();OWD=null;owEdRender();owEdStage();try{shopLine();hud()}catch(e){}try{toast("🎨 店主の見た目を保存しました")}catch(e){}}
 /* 「色・名前」タブを開いたら前の画面ではなく、この場の編集を出す */
 {const _or=owRender;owRender=function(){const r=_or.apply(this,arguments);const po=$("#p-own2");if(po){const old=po.onclick;po.onclick=e=>{const k=e.target.closest("[data-owk]");if(k&&k.dataset.owk==="edit"){e.stopPropagation();OWD=owDraft();OWPV=null;owEdRender();owEdStage();return}return old&&old(e)}}return r}}
 {const _fg3=fmGo;fmGo=function(){if(FMTAB==="owner"&&OWD){owEdSave();return}return _fg3.apply(this,arguments)}}
@@ -17022,7 +17022,7 @@ function ownForm2(){R.od=R.od||OWD0();const c=R.od;
 const sw=(k,l)=>`<div class="ofrw"><div class="oflb">${l}<input type="color" data-ok="${k}" value="${c[k]||"#333333"}"></div><div class="ofsw">${(OWPAL[k]||[]).map(x=>`<button type="button" data-oksw="${k}" data-v="${x}" class="${String(c[k]||"").toLowerCase()===x?"on":""}" style="background:${x}"></button>`).join("")}</div></div>`;
 const pl=(k,l,arr,cur)=>`<div class="ofrw"><div class="oflb">${l}</div><input type="hidden" data-ok="${k}" value="${cur}"><div class="ofpl">${arr.map((n,i)=>`<button type="button" data-okp="${k}" data-v="${i}" class="${+cur===i?"on":""}">${esc(n)}</button>`).join("")}</div></div>`;
 return`<div class="owf2"><div class="ofstg"><canvas id="owcv" width="160" height="170"></canvas><button type="button" data-ow="L">◀</button><button type="button" data-ow="R">▶</button></div>
-<div class="ofsec"><div class="ofrw"><div class="oflb">店名</div><input type="text" data-ok="shop" maxlength="14" placeholder="シーシャ屋さん" value="${esc(c.shop||"")}"></div>
+<div class="ofsec"><div class="ofrw"><div class="oflb">店名</div><input type="text" data-ok="shop" maxlength="10" placeholder="シーシャ屋さん" value="${esc(c.shop||"")}"></div>
 <div class="ofrw"><div class="oflb">名前</div><input type="text" data-ok="name" maxlength="8" placeholder="店長" value="${esc(c.name||"")}"></div>
 <div class="ofrw"><div class="oflb">年齢</div><input type="number" data-ok="age" min="18" max="80" value="${c.age}"></div>
 ${pl("sex","性別",["男性","女性"],c.sex==="女性"?1:0)}</div>
@@ -18392,11 +18392,12 @@ function extMod(a){if(!R.ext)return;const xs=FLT.map(t=>t[0]),ys=FLT.map(t=>t[1]
  box(a,x0+8,y0+4,25,5,4,4,"#cfd8dc");box(a,x0+8.3,y0+4.3,29,4.4,3.4,.4,"#b0bec5");box(a,x0+16,y1-9,25,4,4,7,"#90a4ae");box(a,x0+15.7,y1-9.3,32,4.6,4.6,.6,"#78909c");
  }
 let EXT_SV=null;
-function extSet(on){if(!!R.ext===!!on)return;if(on){EXT_SV={yaw:R.cam.yaw,pit:R.cam.pit,zoom:R.cam.zoom};R.ext=1;R.cam.yaw=EXT_Y;R.cam.pit=.22;R.cam.zoom=Math.max(1.05,R.cam.zoom*1.1)}else{R.ext=0;if(EXT_SV)Object.assign(R.cam,EXT_SV)}build();R.camVer++;BGK="";const b=$("#extb");if(b){b.classList.toggle("on",!!R.ext);b.textContent=R.ext?"🏪 店内":"🏠 外観"}document.body.classList.toggle("extv",!!R.ext)}
+function extSet(on){if(!!R.ext===!!on)return;if(on){EXT_SV={yaw:R.cam.yaw,pit:R.cam.pit,zoom:R.cam.zoom};R.ext=1;R.cam.yaw=EXT_Y;R.cam.pit=.22;R.cam.zoom=Math.max(1.05,R.cam.zoom*1.1)}else{R.ext=0;if(EXT_SV)Object.assign(R.cam,EXT_SV)}build();R.camVer++;BGK="";try{xrow()}catch(e){}document.body.classList.toggle("extv",!!R.ext)}
 {const _ot=onTap;onTap=function(){if(R.ext)return;return _ot.apply(this,arguments)}}
 {const _bd=build;build=function(){const r=_bd.apply(this,arguments);try{if(R.ext){TX-=7;TY+=0}}catch(e){}return r}}
-(function(){const cr=$("#cr");if(!cr)return;const b=document.createElement("button");b.id="extb";b.textContent="🏠 外観";cr.parentNode.insertBefore(b,cr);b.onclick=e=>{e.stopPropagation();extSet(!R.ext)};
- const st=document.createElement("style");st.textContent=`#extb{position:absolute;right:76px;top:8px;padding:4px 9px;font-size:12px;background:rgba(255,255,255,.85);color:#2a2233;border:0;border-radius:999px;z-index:3}#extb.on{background:#6658a6;color:#fff}body.extv #mvbtn,body.extv .cvw .hint{display:none!important}`;document.head.appendChild(st)})();
+{const _xe=xrow;xrow=function(){const r=_xe.apply(this,arguments);try{const x=$("#xrow");if(x){let b=$("#extb");if(!b){b=document.createElement("button");b.id="extb";b.onclick=e=>{e.stopPropagation();extSet(!R.ext)}}const ck=$("#chekib");if(ck&&ck.nextSibling!==b)ck.after(b);else if(!b.parentNode)x.appendChild(b);b.textContent=R.ext?"🏪 店内":"🏠 外観";b.dataset.l=R.ext?"店内":"外観";b.classList.toggle("on",!!R.ext)}}catch(e){}return r}}
+try{xrow()}catch(e){}
+(function(){const st=document.createElement("style");st.textContent=`body.extv #mvbtn,body.extv .cvw .hint{display:none!important}`;document.head.appendChild(st)})();
 
 /* ===== 外観モードとほかの機能の合わせ方 ===== */
 /* シャッター演出の間は外観モードを外し、終わったら戻す */
@@ -18408,6 +18409,9 @@ function extSet(on){if(!!R.ext===!!on)return;if(on){EXT_SV={yaw:R.cam.yaw,pit:R.
 /* 模様替え・装飾のタブに行く時も外す */
 {const _stb=setTab;setTab=function(t){if(R.ext&&t==="deco")try{extSet(0)}catch(e){}return _stb.apply(this,arguments)}}
 try{document.head.insertAdjacentHTML("beforeend","<style>body.vis #extb{display:none!important}</style>")}catch(e){}
+
+/* ===== 店名は10文字まで（今のセーブで長い店名は10文字に） ===== */
+try{if(G&&G.ow&&G.ow.shop&&[...G.ow.shop].length>10){const o=G.ow.shop;G.ow.shop=[...o].slice(0,10).join("");save();setTimeout(()=>{try{toast("店名は10文字までになりました（「"+G.ow.shop+"」）。店主の見た目から変えられます")}catch(e){}},2500)}}catch(e){}
 ;(function(){const app=$("#app"),sh=document.createElement("div");sh.id="sheet";sh.innerHTML='<div class="grab"></div>';
 const top=$("#top"),cvw=$(".cvw"),atm=$("#atm");[...app.children].forEach(el=>{if(el.classList.contains("tabs")||/^p-/.test(el.id))sh.appendChild(el)});app.appendChild(sh);{const dd=$("#dd");if(dd)document.body.appendChild(dd)}
 const setv=()=>{document.documentElement.style.setProperty("--th",top.offsetHeight+"px");document.documentElement.style.setProperty("--bh",$("#bar").offsetHeight+"px")};setv();setTimeout(setv,300);setTimeout(setv,1200);window.addEventListener("resize",setv);
