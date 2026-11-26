@@ -16,3 +16,9 @@ function roofDraw(k){const key=scnKey(k)+"|"+R.ext;if(!ROOFC.c)ROOFC.c=document.
  const _ce=cleanEnd;cleanEnd=function(){const r=_ce.apply(this,arguments);if(CLX){CLX=0;try{if(!R.ext&&!R.vis)extSet(1)}catch(e){}}return r}}
 /* 図鑑：まだ会っていない（街にいる）お客さんは真っ黒なシルエット */
 try{const st=document.createElement("style");st.textContent=".dxt img.xf.sil{filter:brightness(0)!important;opacity:1!important;-webkit-user-drag:none;pointer-events:none}";document.head.appendChild(st)}catch(e){}
+/* QRコードの部品（qr.js）は、お店めぐりでQRを使う時だけ読み込む。サーバーに無ければGitHub経由（jsDelivr）から */
+let QRP=null;function qrLoad(){if(typeof qrcode==="function"&&typeof jsQR==="function")return Promise.resolve(1);if(QRP)return QRP;
+ const one=u=>new Promise((ok,ng)=>{const s=document.createElement("script");s.src=u;s.async=true;s.onload=()=>(typeof qrcode==="function"&&typeof jsQR==="function")?ok(1):ng();s.onerror=ng;document.head.appendChild(s)});
+ QRP=one("qr.js?v=1").catch(()=>one("https://cdn.jsdelivr.net/gh/mitsumedia/sheesha-store-simulator@main/qr.js")).catch(e=>{QRP=null;throw e});return QRP}
+{const qw=fn=>async function(){try{await qrLoad()}catch(e){try{toast("QRの部品を読み込めませんでした。通信を確認してね")}catch(_){}return}return fn.apply(this,arguments)};visShow=qw(visShow);visScan=qw(visScan);
+ const _vp=visPanel;visPanel=function(){const r=_vp.apply(this,arguments);qrLoad().catch(()=>{});return r}}
