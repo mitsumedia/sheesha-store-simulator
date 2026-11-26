@@ -227,7 +227,7 @@ if(R.vent>0){cx.strokeStyle="rgba(255,255,255,.7)";cx.lineWidth=2;cx.beginPath()
 cx.font="10px sans-serif";cx.textAlign="center";R.people.forEach(p=>{if(!p.c||p.st==="out")return;const t=nm(p.c);if(t==="？？？")return;const[X,Y]=P(p.x,p.y,13),w=cx.measureText(t).width+8;cx.fillStyle="rgba(30,20,45,.62)";cx.beginPath();cx.roundRect?cx.roundRect(X-w/2,Y-7,w,13,6):cx.rect(X-w/2,Y-7,w,13);cx.fill();cx.fillStyle=p.c.nick?"#ffe08a":"#fff";cx.fillText(t,X,Y+3)});cx.textAlign="left";
 cx.font="10.5px sans-serif";const bs=[];(R.mvOn?[]:R.people.concat(R.cat?[OW,R.cat]:[OW])).forEach(p=>{if(!(p.bt>0)&&p.bq){const t=p.bq;p.bq=null;sayX(p,t)}if(p.bt>0){p.bt-=1/60;const[X,Y]=P(p.x,p.y,15),fc=bubFace(p),FW=fc?18:0,ls=wrap(p.bub,105),w=Math.min(115,Math.max(...ls.map(l=>cx.measureText(l).width))+10)+FW,h=Math.max(ls.length*13+6,fc?22:0);bs.push({p,X,Y,ls,w,h,fc,FW,pr:(p===OW?3:/^❤|♥/.test(p.bub||"")?2:p.bk?2:0)+Math.min(.99,(p.bt||0)/10)})}});
 /* 同時に出すのは6個まで（店長との会話・♥を優先、あとは新しい順） */
-const MX=6;let show=bs;if(bs.length>MX){show=bs.slice().sort((a,b)=>b.pr-a.pr).slice(0,MX)}
+const MX=6;let show=bs;if(bs.length>MX){show=bs.slice().sort((a,b)=>b.pr-a.pr).slice(0,MX)}try{bfMark(show)}catch(e){}
 const pl=[];show.sort((a,b)=>b.Y-a.Y).forEach(b=>{const bx=clamp(b.X-b.w/2,4,W-b.w-4);let by=b.Y-b.h-8,n=0;const hit=()=>pl.some(r=>bx<r.x+r.w+3&&bx+b.w+3>r.x&&by<r.y+r.h+3&&by+b.h+3>r.y);while(n<10&&hit()){by-=b.h+4;n++}
 const moved=n>0;by=Math.max(2,by);pl.push({x:bx,y:by,w:b.w,h:b.h});const m=b.p.c?b.p.c.hp-b.p.c.up:0,fill=b.p.bk?"#e4f6ec":m<=-15?"#e8e6f3":m>=25?"#fff3f6":"#fffdf5",line=b.p.bk?"#2f9a6b":m<=-15?"#5b4f8a":m>=25?"#d9638c":"#6b5a80";
 cx.fillStyle=fill;cx.strokeStyle=line;cx.lineWidth=1.2;

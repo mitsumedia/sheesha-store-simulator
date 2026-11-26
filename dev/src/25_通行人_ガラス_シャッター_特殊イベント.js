@@ -36,6 +36,8 @@ mbDraw=function(k,fg){if(!mbOn()||(fg?wallVis(2,k):!wallVis(2,k))){return}const 
 
 /* 軽量モード中の表示と解除 */
 {const _mc2=mvCard;mvCard=function(){_mc2.apply(this,arguments);const c=$("#mvcard");if(!c||!R.lite)return;c.insertAdjacentHTML("beforeend",`<div style="display:flex;align-items:center;gap:8px;margin-top:8px;font-size:12.5px"><div style="flex:1;color:var(--mut)">⚡ 軽量モード中（動きを少なめにしています）</div><button id="litoff" style="flex:none">解除する</button></div>`)}}
+{const _mc3=mvCard;mvCard=function(){_mc3.apply(this,arguments);const c=$("#mvcard");if(!c||$("#bftg"))return;c.insertAdjacentHTML("beforeend",`<div style="display:flex;align-items:center;gap:8px;margin-top:8px;font-size:12.5px"><div style="flex:1">💬 吹き出しに顔を出す${R.lite?'<span style="color:var(--mut)">（軽量モード中は出しません）</span>':""}</div><button id="bftg" class="${G.bfOff?"":"on"}" style="flex:none">${G.bfOff?"OFF":"ON"}</button></div>`)}}
+document.addEventListener("click",e=>{if(e.target.closest&&e.target.closest("#bftg")){e.stopPropagation();G.bfOff=G.bfOff?0:1;save();const c=$("#mvcard");if(c){const t=$("#bftg");if(t&&t.parentNode)t.parentNode.remove()}mvCard();toast(G.bfOff?"吹き出しの顔をOFFにしました":"吹き出しの顔をONにしました")}},true);
 document.addEventListener("click",e=>{if(e.target.closest&&e.target.closest("#litoff")){e.stopPropagation();R.lite=0;G.liteNo=1;try{LITE.bad=0;fitCv()}catch(_){}save();mvCard();toast("軽量モードを解除しました")}},true);
 
 /* ===== 道に面した壁をガラス張りに（見本） ===== */

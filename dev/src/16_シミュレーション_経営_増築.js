@@ -197,7 +197,7 @@ $("#frl").innerHTML=DR.map(d=>{const on=G.menu.includes(d.id);return`<div class=
 function toggleMenu(id){if(R.phase==="run")return;const i=G.menu.indexOf(id);if(i>=0)G.menu.splice(i,1);else if(G.menu.length>=FTYPES){log("選べるのは"+FTYPES+"種類までです");return}else G.menu.push(id);save();rfr()}
 function drawFace(sel,c){const cv2=$(sel);if(!cv2||!c)return;const c2=cv2.getContext("2d"),oc=cx,ocam=R.cam,otx=TX,oty=TY,ob=BASE;
 cx=c2;TX=2;TY=1.5;BASE=19;R.cam={yaw:0,pit:.12,zoom:1};const k=camVec();k.ox=60;k.oy=62+BASE*(10-TZ);
-c2.clearRect(0,0,120,120);c2.fillStyle="#efe6da";c2.fillRect(0,0,120,120);
+c2.clearRect(0,0,120,120);if(!FACE_TR){c2.fillStyle="#efe6da";c2.fillRect(0,0,120,120)}
 const a=[];pv(a,0,0,1,Object.assign({},c),0,0);a.filter(v=>v[2]>=7.4).map(v=>({v,d:dep(v,k)})).sort((p,q)=>p.d-q.d).forEach(o=>dv(o.v,k));if(isGl(c.acc))glFx(0,0,1,0,0,c.acc,c.accC||"#333333",3.04).fn(k);
 cx=oc;R.cam=ocam;TX=otx;TY=oty;BASE=ob}
 function rflv(){$("#dg").classList.remove("dxg");const n=(G.flu||[]).length,st=r=>"★".repeat(r),nx=[20,30,40,50].find(m=>m>n);

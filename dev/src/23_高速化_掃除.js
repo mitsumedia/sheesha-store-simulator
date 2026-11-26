@@ -35,7 +35,7 @@ while(i<S.length||j<Bn.length){const o=(j>=Bn.length||(i<S.length&&IT[S[i]].d<=B
 catch(e){SCNC.off=1;try{console.error(e)}catch(_){}return false}}
 
 const WSPR=new WeakMap();
-function walkSpr(a,c,d,ox,oy){if(window.SCN_OFF||typeof document==="undefined"||!document.createElement||typeof sprPush!=="function")return false;try{let m=WSPR.get(c);if(!m){m={};WSPR.set(c,m)}const key=d+"|"+[c.hs,c.acc,c.hair,c.skin,c.shirt,c.accC,c.eye,c.top,c.bot,c.pants,c.pump,c.h2,c.t2,c.b2,c.sp].join();let pc=m[key];if(!pc){const t=[];pv(t,0,0,1,c,0,d);pc=m[key]={l:t}}
+function walkSpr(a,c,d,ox,oy){if(window.SCN_OFF||typeof document==="undefined"||!document.createElement||typeof sprPush!=="function")return false;try{let m=WSPR.get(c);if(!m){m={};WSPR.set(c,m)}const key=d+"|"+[c.hs,c.acc,c.hair,c.skin,c.shirt,c.accC,c.eye,c.top,c.bot,c.pants,c.pump,c.h2,c.t2,c.b2,c.sp,c.kg,c.fat,c.hc2,JSON.stringify(c.accV||0)].join();let pc=m[key];if(!pc){const t=[];pv(t,0,0,1,c,0,d);pc=m[key]={l:t}}
 const n0=GLS.length;sprPush(pc,a,[ox+2,oy+1.5,5]);if(GLS.length!==n0+1)return true;const g=GLS.pop(),inner=g.fn;GLS.push({pos:[ox+2,oy+1.5,5],fn:k=>{const p0=P3(0,0,0,k),p1=P3(ox,oy,0,k);cx.save();cx.translate(Math.round((p1[0]-p0[0])*dpr)/dpr,Math.round((p1[1]-p0[1])*dpr)/dpr);try{inner(k)}finally{cx.restore()}}});return true}catch(e){return false}}
 
 /* ===== カメラを回している間は軽く描く（置物の絵は角度を少し刻んで使い回す） ===== */

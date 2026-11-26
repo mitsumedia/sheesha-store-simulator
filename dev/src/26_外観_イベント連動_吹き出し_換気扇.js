@@ -163,10 +163,19 @@ const SNW="#f3f6fa";
 {const _dr3=draw;draw=function(){const r=_dr3.apply(this,arguments);try{if(R.vis)return r;const t=td();if(!(t.snow||(t.evs||[]).includes(32)))return r;const T=performance.now()/1000;cx.save();cx.setTransform(dpr,0,0,dpr,0,0);cx.fillStyle="rgba(240,244,250,.16)";cx.fillRect(0,0,W,CH);cx.fillStyle="rgba(255,255,255,.9)";for(let i=0;i<140;i++){const sz=.9+(i%5)*.55,sp=40+(i%7)*9,x=((i*53+T*(60+(i%4)*15))%(W+60))-30,y=(i*97+T*sp)%(CH+20)-10;cx.beginPath();cx.arc(x,y,sz,0,7);cx.fill()}cx.restore()}catch(e){}return r}}
 
 /* ===== 吹き出しの顔（図鑑の顔を小さく） ===== */
-const BFC={};let BFN=0;
-function bubFace(p){try{const c=p===OW?OW.c:p.c;if(!c||p===R.cat)return null;if(p!==OW&&(c.mob||c.i==null||c.i>=9000||!c.met))return null;const k=p===OW?"ow":c.i;if(BFC[k]!==undefined)return BFC[k]||null;if(BFN>=2)return null;BFN++;
- let cv=document.getElementById("fcache");if(!cv){cv=document.createElement("canvas");cv.id="fcache";cv.width=cv.height=120;cv.style.display="none";document.body.appendChild(cv)}drawFace("#fcache",c);const g=cv.getContext("2d"),im=g.getImageData(0,0,120,120),a=im.data;for(let q=0;q<a.length;q+=4)if(Math.abs(a[q]-239)<3&&Math.abs(a[q+1]-230)<3&&Math.abs(a[q+2]-218)<3)a[q+3]=0;g.putImageData(im,0,0);const o=document.createElement("canvas");o.width=o.height=60;o.getContext("2d").drawImage(cv,0,0,60,60);BFC[k]=o;return o}catch(e){BFC[p===OW?"ow":(p.c&&p.c.i)]=0;return null}}
-{const _dr4=draw;draw=function(){BFN=0;return _dr4.apply(this,arguments)}}
+var FACE_TR=0;const BFC={},BFQ=new Map();
+function bfOn(){return!G.bfOff&&!R.lite}
+function bfKey(p){const c=p===OW?OW.c:p.c;if(!c||p===R.cat)return null;if(p!==OW&&(c.mob||c.i==null||c.i>=9000||!c.met))return null;return p===OW?"ow":c.i}
+/* 描画中は作らない：できている顔だけ返す */
+function bubFace(p){if(!bfOn())return null;const k=bfKey(p);if(k==null)return null;return BFC[k]||null}
+/* 表示する吹き出し（最大6個）のうち、顔がまだのものだけ予約 */
+function bfMark(show){if(!bfOn())return;for(const b of show){const k=bfKey(b.p);if(k!=null&&BFC[k]===undefined&&!BFQ.has(k))BFQ.set(k,b.p===OW?OW.c:b.p.c)}}
+/* 空いた時間に1人ずつ作る（背景は最初から透明） */
+function bfMake(k,c){try{let cv=document.getElementById("fcache");if(!cv){cv=document.createElement("canvas");cv.id="fcache";cv.width=cv.height=120;cv.style.display="none";document.body.appendChild(cv)}
+ FACE_TR=1;try{drawFace("#fcache",c)}finally{FACE_TR=0}const o=document.createElement("canvas");o.width=o.height=60;o.getContext("2d").drawImage(cv,0,0,60,60);BFC[k]=o}catch(e){BFC[k]=0}}
+function bfTick(){try{if(BFQ.size&&bfOn()){const [k,c]=BFQ.entries().next().value;BFQ.delete(k);if(BFC[k]===undefined)bfMake(k,c)}else if(!bfOn())BFQ.clear()}catch(e){}
+ const nx=()=>setTimeout(bfTick,120);if(window.requestIdleCallback)requestIdleCallback(nx,{timeout:400});else nx()}
+setTimeout(bfTick,1000);
 
 /* ===== 換気扇を買い足す（最大4台）：台数で煙の抜け方と換気ボタンが強くなる ===== */
 const FANP=[0,0,300000,800000,2000000],FAND=[0,.012,.03,.05,.08],FANS=[0,.1,.12,.14,.16],FANV=[0,30,30,35,40],FANC=[0,20,15,12,10],FANN=[0,4,10,16,26];
