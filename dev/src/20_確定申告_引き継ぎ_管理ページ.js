@@ -248,7 +248,7 @@ setTimeout(updCheck,1500);setInterval(updCheck,30*60*1000);
 
 /* ===== 画面サイズに合わせてキャンバスの解像度を合わせる（PCで横に伸びる・スマホで比率がずれるのを防ぐ） ===== */
 function fitCv(){try{const r=cv.getBoundingClientRect(),w=Math.round(r.width),h=Math.round(r.height);if(w<80||h<80)return;
-const d=Math.max(1,Math.min(R.lite?1.5:2,window.devicePixelRatio||1,Math.sqrt(2600000/(w*h))));if(w===W&&h===CH&&Math.abs(d-dpr)<.01&&cv.width===Math.round(w*d))return;
+let d=Math.max(1,Math.min(R.lite?1.5:2,window.devicePixelRatio||1,Math.sqrt(1300000/(w*h))));{const dv=Math.min(2,window.devicePixelRatio||1);d=d>=1.8?dv:d>=1.3?Math.min(1.5,dv):1}if(w===W&&h===CH&&Math.abs(d-dpr)<.01&&cv.width===Math.round(w*d))return;
 W=w;CH=h;dpr=d;cv.width=Math.round(W*dpr);cv.height=Math.round(CH*dpr);cv.style.aspectRatio=W+" / "+CH;if(typeof BGK!=="undefined")BGK="";R.camVer++;try{if(typeof LITE!=="undefined")LITE.lastD=0;draw()}catch(_){}}catch(e){}}
 {let t=0;const go=()=>{clearTimeout(t);t=setTimeout(fitCv,80)};window.addEventListener("resize",go);window.addEventListener("orientationchange",go);if(window.ResizeObserver)new ResizeObserver(go).observe(cv);[0,300,1300].forEach(ms=>setTimeout(fitCv,ms))}
 
