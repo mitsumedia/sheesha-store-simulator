@@ -156,7 +156,7 @@ body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,
 <div class="row">営業時間 <select id="op"></select>〜<select id="cl"></select></div>
 <div id="hrsi" class="m" style="font-size:12px;margin:4px 0"></div><div class="m" style="font-size:12px">シーシャ3500円／おかわり2000円／ドリンクはフリー。閉店1時間前に入店停止、閉店時刻で全員退店。</div>
 <div class="row"><button id="devreset">🛠 開発用：最初からやり直す</button></div></div></details>
-<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.182</div></div></details>
+<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.183</div></div></details>
 <span id="smk"></span>
 </div>
 <div id="p-deco" hidden><div class="card"><div class="dcat"><button data-dc="obj">🪴 置物</button><button data-dc="wp">🖼 壁アイテム</button><button data-dc="fl">🟫 床</button><button data-dc="wl">🧱 壁紙</button><button data-dc="seat" id="dcseat" class="dcw" hidden>🛋 客席</button><button data-dc="inv" class="dcw">📦 持ち物</button><button id="rm" class="dcw">🔧 模様替え（移動・回転・しまう）</button></div><div class="m" id="plc" style="font-size:12px;margin-top:6px"></div></div><div class="card" id="sec-obj"><div class="m" style="margin-bottom:6px">アイテムを選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。</div><div class="grid" id="dl"></div></div><div class="card" id="sec-seat" hidden><div class="m" style="margin-bottom:6px;font-size:12px">席を選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。席の前の1列はシーシャ台を置く場所として使います。</div><div class="m" id="spc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="sl"></div></div><div class="card" id="sec-wp" hidden><div class="m" style="font-size:12px;margin:2px 0 6px">選んでから、店内の壁をタップして貼ります（1区画に1枚）。見えている壁にだけ貼れるので、視点を回すと反対側にも貼れます。</div><div class="m" id="wc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="wl"></div></div><div class="card" id="sec-inv" hidden><div id="ivl"></div></div><div class="card" id="sec-clr" hidden><div class="m" style="font-size:12px">選ぶと店内でお試し表示されます。「購入する」で購入（¥5,000〜）。店の雰囲気には影響しません。</div><div id="clr"></div></div></div>
@@ -3624,7 +3624,7 @@ if(b.dataset.gt){try{await aapi({a:"a_gift_toggle",id:b.dataset.gt});admGifts()}
 });
 
 /* ===== 更新チェック：起動時・アプリに戻ったとき・30分ごと。新しい版があればお知らせを出して選んでもらう ===== */
-const GVER="1.0.182";
+const GVER="1.0.183";
 let updV=null,updLater=null,updBusy=0;
 async function updCheck(){if(updBusy||!/^https?:/.test(location.protocol))return;updBusy=1;try{const r=await fetch("version.txt?"+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.text()).trim();if(!v||v===GVER)return;updV=v;updShow()}catch(e){}finally{updBusy=0}}
 function updShow(){if(!updV||updLater===updV||document.getElementById("updm"))return;if(R.phase==="run"||!$("#ov").hidden||document.getElementById("sysm")){setTimeout(updShow,5000);return}
@@ -5249,9 +5249,9 @@ function areaScn(z){const xs=FLT.map(t=>t[0]),ys=FLT.map(t=>t[1]),L=Math.min(...
   road("#2b2730","#e040fb");GRD.base="#26222c"}
  else if(z===2){/* 駅前：店の裏に高架の線路（電車が走る）、道の向かいに駅前広場と駅舎 */clr();
   for(let i=SCN.length-1;i>=0;i--){const b=SCN[i];if(b.y+b.d>T-40&&b.y<T-1&&b.t!==2)SCN.splice(i,1)}
-  const VY=T-17,VX0=L-160,VX1=Rr+160;for(let x=VX0;x<VX1;x+=14){bx(x,VY+1,0,1.6,6,13,"#b0aaa2",0)}
+  const VY=T-17,VX0=L-160,VX1=Rr+160,vn0=SCN.length;for(let x=VX0;x<VX1;x+=14){bx(x,VY+1,0,1.6,6,13,"#b0aaa2",0)}
   for(let x=VX0;x<VX1;x+=14){bx(x,VY,13,14,8,1.4,"#c9c3bb",0);for(const ry of[VY+1.6,VY+3.2,VY+4.8,VY+6.4])bx(x,ry,14.4,14,.3,.25,"#9e9e9e",0);bx(x,VY-.3,14.4,14,.3,1.4,"#d7d2cb",0);bx(x,VY+8,14.4,14,.3,1.4,"#d7d2cb",0)}
-  for(let x=VX0;x<VX1;x+=28){bx(x,VY+.2,15.8,.3,.3,5,"#78909c",0);bx(x,VY+.2,20.6,.3,7.6,.3,"#78909c",0)}
+  for(let x=VX0;x<VX1;x+=28){bx(x,VY+.2,15.8,.3,.3,5,"#78909c",0);bx(x,VY+.2,20.6,.3,7.6,.3,"#78909c",0)}SCN.slice(vn0).forEach(b=>b.keep=1);
   gr(L-58,Y0,23,Y1-Y0,"#d6d2cc");for(let y=Y0;y<Y1;y+=4)gr(L-58,y,23,.3,"#c4bfb8");gr(L-54,MY-14,13,28,"#9e9e9e");gr(L-51,MY-11,7,22,"#81c784");
   bx(L-84,T-12,0,24,36,13,"#efebe9",2,"#9fc3d9");bx(L-85,T-13,13,26,38,1.5,"#37474f",2);bx(L-76,T+2,14.5,4,4,9,"#efebe9",2);bx(L-72.2,T+3,18,.4,2,2,"#ffffff",2);bx(L-72.1,T+3.6,18.4,.4,.8,.8,"#212121",2);bx(L-60.4,T-2,8,.4,16,2.6,"#1565c0",2,0,1);
   for(let y=B;y<B+40;y+=10){bx(L-38,y,0,.5,.5,4.5,"#757575",2);bx(L-38.8,y-.4,4.5,2,1.6,1.4,"#f9a825",2)}GRD.base="#8a8178"}
@@ -5382,7 +5382,7 @@ function mbPick(k){const z=typeof areaZ==="function"?areaZ():0,h=mbHr(),night=h>
 const MB={L:[],last:0,nc:0,np:0};
 /* 道ぞいの隣の建物が歩道や車道にはみ出さないように、店の正面の線でそろえる */
 {const _gs2=genScn;genScn=function(){const r=_gs2.apply(this,arguments);try{const L=mbGeo().L;for(let i=SCN.length-1;i>=0;i--){const b=SCN[i];if((b.t===1||b.t===3||b.t===4)&&b.x<L-.5){if(b.x+b.w<=L-.5)SCN.splice(i,1);else{b.w-=(L-.5-b.x);b.x=L-.5}}}
- /* 店の前の歩道を広げる：道路から向こうを6マス分ずらす */const SH=6;SCN.forEach(b=>{if(b.x+b.w<=L-8.6)b.x-=SH});GRD.forEach(g=>{if(g.x+g.w<=L-8.6||g.x<L-9.5)g.x-=SH;else if(Math.abs(g.x-(L-9))<.01&&g.w>=8.9){g.x-=SH;g.w+=SH}})}catch(e){}MB.L=[];return r}}
+ /* 店の前の歩道を広げる：道路から向こうを6マス分ずらす */const SH=6;SCN.forEach(b=>{if(b.x+b.w<=L-8.6&&!b.keep)b.x-=SH});GRD.forEach(g=>{if(g.x+g.w<=L-8.6||g.x<L-9.5)g.x-=SH;else if(Math.abs(g.x-(L-9))<.01&&g.w>=8.9){g.x-=SH;g.w+=SH}})}catch(e){}MB.L=[];return r}}
 function mbGeo(){const xs=FLT.map(t=>t[0]),ys=FLT.map(t=>t[1]),L=Math.min(...xs)*6,T=Math.min(...ys)*6,B=(Math.max(...ys)+1)*6;return{L,Y0:T-70,Y1:B+60}}
 function mbSpawn(){const g=mbGeo(),z=typeof areaZ==="function"?areaZ():0,h=mbHr(),busy=[1.2,1.3,1.6,1,.8,.45,.7][z]||1,tm=h>=1&&h<6?.35:h>=17&&h<21?1.25:1;
  const cw=(R.people||[]).filter(p=>p.st!=="out").length>=15,nc=MB.L.filter(m=>m.T.k==="car"||m.T.k==="bike").length,np=MB.L.filter(m=>m.T.k==="ped").length;

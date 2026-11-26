@@ -154,9 +154,9 @@ function areaScn(z){const xs=FLT.map(t=>t[0]),ys=FLT.map(t=>t[1]),L=Math.min(...
   road("#2b2730","#e040fb");GRD.base="#26222c"}
  else if(z===2){/* 駅前：店の裏に高架の線路（電車が走る）、道の向かいに駅前広場と駅舎 */clr();
   for(let i=SCN.length-1;i>=0;i--){const b=SCN[i];if(b.y+b.d>T-40&&b.y<T-1&&b.t!==2)SCN.splice(i,1)}
-  const VY=T-17,VX0=L-160,VX1=Rr+160;for(let x=VX0;x<VX1;x+=14){bx(x,VY+1,0,1.6,6,13,"#b0aaa2",0)}
+  const VY=T-17,VX0=L-160,VX1=Rr+160,vn0=SCN.length;for(let x=VX0;x<VX1;x+=14){bx(x,VY+1,0,1.6,6,13,"#b0aaa2",0)}
   for(let x=VX0;x<VX1;x+=14){bx(x,VY,13,14,8,1.4,"#c9c3bb",0);for(const ry of[VY+1.6,VY+3.2,VY+4.8,VY+6.4])bx(x,ry,14.4,14,.3,.25,"#9e9e9e",0);bx(x,VY-.3,14.4,14,.3,1.4,"#d7d2cb",0);bx(x,VY+8,14.4,14,.3,1.4,"#d7d2cb",0)}
-  for(let x=VX0;x<VX1;x+=28){bx(x,VY+.2,15.8,.3,.3,5,"#78909c",0);bx(x,VY+.2,20.6,.3,7.6,.3,"#78909c",0)}
+  for(let x=VX0;x<VX1;x+=28){bx(x,VY+.2,15.8,.3,.3,5,"#78909c",0);bx(x,VY+.2,20.6,.3,7.6,.3,"#78909c",0)}SCN.slice(vn0).forEach(b=>b.keep=1);
   gr(L-58,Y0,23,Y1-Y0,"#d6d2cc");for(let y=Y0;y<Y1;y+=4)gr(L-58,y,23,.3,"#c4bfb8");gr(L-54,MY-14,13,28,"#9e9e9e");gr(L-51,MY-11,7,22,"#81c784");
   bx(L-84,T-12,0,24,36,13,"#efebe9",2,"#9fc3d9");bx(L-85,T-13,13,26,38,1.5,"#37474f",2);bx(L-76,T+2,14.5,4,4,9,"#efebe9",2);bx(L-72.2,T+3,18,.4,2,2,"#ffffff",2);bx(L-72.1,T+3.6,18.4,.4,.8,.8,"#212121",2);bx(L-60.4,T-2,8,.4,16,2.6,"#1565c0",2,0,1);
   for(let y=B;y<B+40;y+=10){bx(L-38,y,0,.5,.5,4.5,"#757575",2);bx(L-38.8,y-.4,4.5,2,1.6,1.4,"#f9a825",2)}GRD.base="#8a8178"}
@@ -287,7 +287,7 @@ function mbPick(k){const z=typeof areaZ==="function"?areaZ():0,h=mbHr(),night=h>
 const MB={L:[],last:0,nc:0,np:0};
 /* 道ぞいの隣の建物が歩道や車道にはみ出さないように、店の正面の線でそろえる */
 {const _gs2=genScn;genScn=function(){const r=_gs2.apply(this,arguments);try{const L=mbGeo().L;for(let i=SCN.length-1;i>=0;i--){const b=SCN[i];if((b.t===1||b.t===3||b.t===4)&&b.x<L-.5){if(b.x+b.w<=L-.5)SCN.splice(i,1);else{b.w-=(L-.5-b.x);b.x=L-.5}}}
- /* 店の前の歩道を広げる：道路から向こうを6マス分ずらす */const SH=6;SCN.forEach(b=>{if(b.x+b.w<=L-8.6)b.x-=SH});GRD.forEach(g=>{if(g.x+g.w<=L-8.6||g.x<L-9.5)g.x-=SH;else if(Math.abs(g.x-(L-9))<.01&&g.w>=8.9){g.x-=SH;g.w+=SH}})}catch(e){}MB.L=[];return r}}
+ /* 店の前の歩道を広げる：道路から向こうを6マス分ずらす */const SH=6;SCN.forEach(b=>{if(b.x+b.w<=L-8.6&&!b.keep)b.x-=SH});GRD.forEach(g=>{if(g.x+g.w<=L-8.6||g.x<L-9.5)g.x-=SH;else if(Math.abs(g.x-(L-9))<.01&&g.w>=8.9){g.x-=SH;g.w+=SH}})}catch(e){}MB.L=[];return r}}
 function mbGeo(){const xs=FLT.map(t=>t[0]),ys=FLT.map(t=>t[1]),L=Math.min(...xs)*6,T=Math.min(...ys)*6,B=(Math.max(...ys)+1)*6;return{L,Y0:T-70,Y1:B+60}}
 function mbSpawn(){const g=mbGeo(),z=typeof areaZ==="function"?areaZ():0,h=mbHr(),busy=[1.2,1.3,1.6,1,.8,.45,.7][z]||1,tm=h>=1&&h<6?.35:h>=17&&h<21?1.25:1;
  const cw=(R.people||[]).filter(p=>p.st!=="out").length>=15,nc=MB.L.filter(m=>m.T.k==="car"||m.T.k==="bike").length,np=MB.L.filter(m=>m.T.k==="ped").length;
