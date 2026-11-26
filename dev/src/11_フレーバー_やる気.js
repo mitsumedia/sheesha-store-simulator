@@ -105,7 +105,7 @@ const ckRv=c=>c.job==="シーシャ屋"||c.job==="レジェンド"?2:3;const lv=
 const nm=c=>c.nick||(lv(c)>=NL?c.name:"？？？");
 function log(t){if(R.dl)R.dl.push(t);R.log.unshift(t);R.log.length=Math.min(R.log.length,40);$("#log").innerHTML=R.log.map(x=>"<div>"+esc(x)+"</div>").join("")}
 const sayX=(p,t,k)=>{SAYOK=1;say(p,t,k);SAYOK=0};
-const say=(p,t,k)=>{if(p&&p.c&&(p.c.vt||2)>1&&typeof t==="string"){if(t.indexOf("初めてなのに常連")>=0)t="また来ちゃいました、えへへ";else if(t.indexOf("初めて来たんですけど")>=0)t="ここ、いいお店ですよね"}if(p.c&&spx(p.c)&&!SAYOK)return;if(p===OW&&R.snowD&&R.phase==="run")t=rnd(SNOWL);if(p.c&&(p.c.gobi||p.c.vx))t=voice(p.c,t);p.bub=t;p.bt=2.8;p.bk=k?1:0};
+const say=(p,t,k)=>{try{if(p&&p.c&&p.c.sex==="女性"&&typeof t==="string"&&typeof femLine==="function")t=femLine(t,p.c)}catch(_){}if(p&&p.c&&(p.c.vt||2)>1&&typeof t==="string"){if(t.indexOf("初めてなのに常連")>=0)t="また来ちゃいました、えへへ";else if(t.indexOf("初めて来たんですけど")>=0)t="ここ、いいお店ですよね"}if(p.c&&spx(p.c)&&!SAYOK)return;if(p===OW&&R.snowD&&R.phase==="run")t=rnd(SNOWL);if(p.c&&(p.c.gobi||p.c.vx))t=voice(p.c,t);p.bub=t;p.bt=2.8;p.bk=k?1:0};
 
 /* 人外・一部の客の話し方：語尾をつける／？？？しか言わない／丁寧にシーシャの質問ばかりする */
 const ARIMA=["失礼ですが、本日のフレーバーの配合比率をお伺いしてもよろしいでしょうか","炭は何分ほどで交換されているのですか","ボウルはどちらのメーカーのものをお使いでしょうか","このヒートマネジメントの秘訣を、ぜひご教示いただけますと幸いです","ホースの洗浄はどのくらいの頻度でなさっていますか","パッキングはふんわり派でしょうか、それとも詰める派でしょうか","おすすめのミックスがございましたら、お聞かせ願えますか","水の量は、どの程度に調整されていますか","この煙の濃さ、どのように出していらっしゃるのでしょうか","アルミホイルの穴の数には、こだわりがおありですか"];

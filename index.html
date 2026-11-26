@@ -156,7 +156,7 @@ body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,
 <div class="row">営業時間 <select id="op"></select>〜<select id="cl"></select></div>
 <div id="hrsi" class="m" style="font-size:12px;margin:4px 0"></div><div class="m" style="font-size:12px">シーシャ3500円／おかわり2000円／ドリンクはフリー。閉店1時間前に入店停止、閉店時刻で全員退店。</div>
 <div class="row"><button id="devreset">🛠 開発用：最初からやり直す</button></div></div></details>
-<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.165</div></div></details>
+<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.166</div></div></details>
 <span id="smk"></span>
 </div>
 <div id="p-deco" hidden><div class="card"><div class="dcat"><button data-dc="obj">🪴 置物</button><button data-dc="wp">🖼 壁アイテム</button><button data-dc="fl">🟫 床</button><button data-dc="wl">🧱 壁紙</button><button data-dc="seat" id="dcseat" class="dcw" hidden>🛋 客席</button><button data-dc="inv" class="dcw">📦 持ち物</button><button id="rm" class="dcw">🔧 模様替え（移動・回転・しまう）</button></div><div class="m" id="plc" style="font-size:12px;margin-top:6px"></div></div><div class="card" id="sec-obj"><div class="m" style="margin-bottom:6px">アイテムを選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。</div><div class="grid" id="dl"></div></div><div class="card" id="sec-seat" hidden><div class="m" style="margin-bottom:6px;font-size:12px">席を選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。席の前の1列はシーシャ台を置く場所として使います。</div><div class="m" id="spc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="sl"></div></div><div class="card" id="sec-wp" hidden><div class="m" style="font-size:12px;margin:2px 0 6px">選んでから、店内の壁をタップして貼ります（1区画に1枚）。見えている壁にだけ貼れるので、視点を回すと反対側にも貼れます。</div><div class="m" id="wc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="wl"></div></div><div class="card" id="sec-inv" hidden><div id="ivl"></div></div><div class="card" id="sec-clr" hidden><div class="m" style="font-size:12px">選ぶと店内でお試し表示されます。「購入する」で購入（¥5,000〜）。店の雰囲気には影響しません。</div><div id="clr"></div></div></div>
@@ -12755,7 +12755,7 @@ const ckRv=c=>c.job==="シーシャ屋"||c.job==="レジェンド"?2:3;const lv=
 const nm=c=>c.nick||(lv(c)>=NL?c.name:"？？？");
 function log(t){if(R.dl)R.dl.push(t);R.log.unshift(t);R.log.length=Math.min(R.log.length,40);$("#log").innerHTML=R.log.map(x=>"<div>"+esc(x)+"</div>").join("")}
 const sayX=(p,t,k)=>{SAYOK=1;say(p,t,k);SAYOK=0};
-const say=(p,t,k)=>{if(p&&p.c&&(p.c.vt||2)>1&&typeof t==="string"){if(t.indexOf("初めてなのに常連")>=0)t="また来ちゃいました、えへへ";else if(t.indexOf("初めて来たんですけど")>=0)t="ここ、いいお店ですよね"}if(p.c&&spx(p.c)&&!SAYOK)return;if(p===OW&&R.snowD&&R.phase==="run")t=rnd(SNOWL);if(p.c&&(p.c.gobi||p.c.vx))t=voice(p.c,t);p.bub=t;p.bt=2.8;p.bk=k?1:0};
+const say=(p,t,k)=>{try{if(p&&p.c&&p.c.sex==="女性"&&typeof t==="string"&&typeof femLine==="function")t=femLine(t,p.c)}catch(_){}if(p&&p.c&&(p.c.vt||2)>1&&typeof t==="string"){if(t.indexOf("初めてなのに常連")>=0)t="また来ちゃいました、えへへ";else if(t.indexOf("初めて来たんですけど")>=0)t="ここ、いいお店ですよね"}if(p.c&&spx(p.c)&&!SAYOK)return;if(p===OW&&R.snowD&&R.phase==="run")t=rnd(SNOWL);if(p.c&&(p.c.gobi||p.c.vx))t=voice(p.c,t);p.bub=t;p.bt=2.8;p.bk=k?1:0};
 
 /* 人外・一部の客の話し方：語尾をつける／？？？しか言わない／丁寧にシーシャの質問ばかりする */
 const ARIMA=["失礼ですが、本日のフレーバーの配合比率をお伺いしてもよろしいでしょうか","炭は何分ほどで交換されているのですか","ボウルはどちらのメーカーのものをお使いでしょうか","このヒートマネジメントの秘訣を、ぜひご教示いただけますと幸いです","ホースの洗浄はどのくらいの頻度でなさっていますか","パッキングはふんわり派でしょうか、それとも詰める派でしょうか","おすすめのミックスがございましたら、お聞かせ願えますか","水の量は、どの程度に調整されていますか","この煙の濃さ、どのように出していらっしゃるのでしょうか","アルミホイルの穴の数には、こだわりがおありですか"];
@@ -16029,7 +16029,7 @@ if(b.dataset.gt){try{await aapi({a:"a_gift_toggle",id:b.dataset.gt});admGifts()}
 });
 
 /* ===== 更新チェック：起動時・アプリに戻ったとき・30分ごと。新しい版があればお知らせを出して選んでもらう ===== */
-const GVER="1.0.165";
+const GVER="1.0.166";
 let updV=null,updLater=null,updBusy=0;
 async function updCheck(){if(updBusy||!/^https?:/.test(location.protocol))return;updBusy=1;try{const r=await fetch("version.txt?"+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.text()).trim();if(!v||v===GVER)return;updV=v;updShow()}catch(e){}finally{updBusy=0}}
 function updShow(){if(!updV||updLater===updV||document.getElementById("updm"))return;if(R.phase==="run"||!$("#ov").hidden||document.getElementById("sysm")){setTimeout(updShow,5000);return}
@@ -18581,6 +18581,40 @@ function cleanFurnKey(clx,cly){const r=cv.getBoundingClientRect(),X=(clx-r.left)
  for(let i=0;i<20;i++){const f=i/19;a.push([hx+(fx*2.2+fy*sw*.35)*(1-f),hy+(fy*2.2-fx*sw*.35)*(1-f),1+f*10,"#8d6e63",undefined,.75])}
  const mx=hx+fx*2.6+fy*sw*.35,my=hy+fy*2.6-fx*sw*.35;for(let dx=-2.5;dx<2.5;dx+=1)a.push([mx+dx,my,1,"#9e9e9e",undefined,1]);
  for(let dx=-3;dx<3;dx+=.75)for(let dy=-1;dy<1.5;dy+=.75)a.push([mx+dx,my+dy,0,((dx*4+dy*4)|0)%2?"#e0f7fa":"#b2ebf2",undefined,.75])}}catch(e){}return a}}
+
+/* ===== 共通セリフの女性用の言い方（兄貴・姉御肌は「あたし」、それ以外は「私」） ===== */
+const FEM_L=[
+ ["よっ、店長！今日も盛り上げてこうぜ","やっほー店長！今日も盛り上げていこうね"],
+ ["初めての子がいたら、俺に任せな","初めての子がいたら、{I}に任せて"],
+ ["って呼ばれるのは嫌いじゃねえな","って呼ばれるのは嫌いじゃないよ"],
+ ["今日は俺のおごり…って言いたいけど割り勘で","今日は{I}のおごり…って言いたいけど割り勘で"],
+ ["わかってますね。ま、僕もですが","わかってますね。ま、{I}もですけど"],
+ ["期待した僕がバカでした","期待した{I}がバカでした"],
+ ["ここは僕の聖地です","ここは{I}の聖地です"],
+ ["いやぁ、いい夜ですなあ","いやぁ、いい夜ですねえ"],
+ ["俺に吸われるために生まれてきたようなもんです","{I}に吸われるために生まれてきたようなものです"],
+ ["会員番号1番は俺ですよね？","会員番号1番は{I}ですよね？"],
+ ["今日の俺、キマってます？","今日の{I}、キマってます？"],
+ ["吸ってる俺、映画のワンシーンじゃない？","吸ってる{I}、映画のワンシーンじゃない？"],
+ ["隣の人、俺のファンになりそう","隣の人、{I}のファンになりそう"],
+ ["この店の看板、俺にしません？","この店の看板、{I}にしません？"],
+ ["店長と俺でコンビ組めますよ","店長と{I}でコンビ組めますよ"],
+ ["今日の俺、絶好調！","今日の{I}、絶好調！"],
+ ["誰か俺を笑ってくれ…","誰か{I}を笑って…"],
+ ["俺の笑いのセンス、伝わらなかった？","{I}の笑いのセンス、伝わらなかった？"],
+ ["店長！俺をテレビに出してくれ！","店長！{I}をテレビに出して！"],
+ ["よっしゃ、今日はみんなで最高の夜にしようぜ！","よーし、今日はみんなで最高の夜にしようね！"],
+ ["いい店だな。胸張っていいぞ","いいお店だね。胸張っていいよ"],
+ ["今日は気分がいい！俺が保証する！","今日は気分がいい！{I}が保証する！"],
+ ["おう、今日も来たぜ","やっほー、今日も来たよ"],
+ ["この店は俺が守る…なんてな","このお店は{I}が守る…なんてね"],
+ ["おい、ちょっといいか？今日はなんか違うぞ","ねえ、ちょっといい？今日はなんか違うよ"],
+ ["俺は構わねえが、ほかの客が見てるぞ","{I}はいいけど、ほかのお客さんが見てるよ"],
+ ["うーん、気に入らねえな","うーん、気に入らないなあ"],
+ ["今日はちょっと、ガッカリだな","今日はちょっと、ガッカリかも"],
+ ["俺が言うのもなんだが、何かあったか？","{I}が言うのもなんだけど、何かあった？"]];
+function femLine(t,c){let r=t;for(const[a,b]of FEM_L){if(r.indexOf(a)>=0){r=r.split(a).join(b.split("{I}").join(c.pe===5?"あたし":"私"));}}return r}
+{const _ln=line;line=function(c){const t=_ln.apply(this,arguments);try{return c&&c.sex==="女性"&&typeof t==="string"?femLine(t,c):t}catch(e){return t}}}
 </script></body></html>
 
 </body></html>
