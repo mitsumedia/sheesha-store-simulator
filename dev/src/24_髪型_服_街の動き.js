@@ -202,7 +202,7 @@ document.addEventListener("click",e=>{if(e.target.closest&&e.target.closest("#mv
 (function(){const st=document.createElement("style");st.textContent=`#mvl{display:flex;flex-direction:column;gap:6px;max-height:52vh;overflow:auto}.mvb{text-align:left!important;padding:8px 10px!important}.mvb small{color:var(--mut);font-weight:700}.mvb.cur{opacity:.6}.mvb.arm{outline:3px solid #6658a6}.mvb .cf{color:#6658a6!important;margin-top:4px;font-weight:900}`;document.head.appendChild(st)})();
 try{areaFix()}catch(e){}
 
-/* ===== 街の動き：店の前を人や車が通る（同時に車3・人4まで。軽量モードでは出さない）＋「街で見たもの」 ===== */
+/* ===== 街の動き：店の前を人や車が通る（同時に車3・人4まで。店内15人以上の時は車1・人2まで）＋「街で見たもの」 ===== */
 const MB_SK=["#ffe0c4","#f1c7a0","#e0aa7e","#c58a5c","#9b6440"],MB_HR=["#161616","#3b2a1e","#6b4a2b","#a8743c","#e0c068","#c9c9c9"],MB_CL=["#2b2b3a","#ffffff","#c0392b","#e67e22","#f1c40f","#27ae60","#2980b9","#8e44ad","#e86aa6","#7f8c8d","#455a64","#6d4c41"];
 const mbP=(o,a)=>o[(a*7919|0)%o.length];
 /* 部品：[横x(中心0),前後y(後ろ0),高さz,幅,長さ,高さ,色,光る] */
@@ -290,9 +290,9 @@ const MB={L:[],last:0,nc:0,np:0};
  /* 店の前の歩道を広げる：道路から向こうを6マス分ずらす */const SH=6;SCN.forEach(b=>{if(b.x+b.w<=L-8.6)b.x-=SH});GRD.forEach(g=>{if(g.x+g.w<=L-8.6||g.x<L-9.5)g.x-=SH;else if(Math.abs(g.x-(L-9))<.01&&g.w>=8.9){g.x-=SH;g.w+=SH}})}catch(e){}MB.L=[];return r}}
 function mbGeo(){const xs=FLT.map(t=>t[0]),ys=FLT.map(t=>t[1]),L=Math.min(...xs)*6,T=Math.min(...ys)*6,B=(Math.max(...ys)+1)*6;return{L,Y0:T-70,Y1:B+60}}
 function mbSpawn(){const g=mbGeo(),z=typeof areaZ==="function"?areaZ():0,h=mbHr(),busy=[1.2,1.3,1.6,1,.8,.45,.7][z]||1,tm=h>=1&&h<6?.35:h>=17&&h<21?1.25:1;
- const nc=MB.L.filter(m=>m.T.k==="car"||m.T.k==="bike").length,np=MB.L.filter(m=>m.T.k==="ped").length;
- if(nc<(R.lite?2:3)&&Math.random()<.5*busy*tm){const t=mbPick("car");if(t){const s=Math.random()<.5?1:-1;if(!MB.L.some(m=>m.s===s&&(m.T.k==="car"||m.T.k==="bike")&&Math.abs(m.y-(s>0?g.Y0-20:g.Y1+20))<40))MB.L.push({T:t,lane:s,s,x:s>0?g.L-28:g.L-20,y:s>0?g.Y0-20:g.Y1+20,a:Math.random()*9+1,t:0,sp:t.sp*(.85+Math.random()*.3)})}}
- if(np<(R.lite?2:4)&&Math.random()<.6*busy*tm){const t=mbPick("ped");if(t){const s=Math.random()<.5?1:-1,far=Math.random()<.45,bike=t.k==="bike";const x=bike?(s>0?g.L-31:g.L-17.5):(far?g.L-37-Math.random()*2:g.L-9.5-Math.random()*3);
+ const cw=(R.people||[]).filter(p=>p.st!=="out").length>=15,nc=MB.L.filter(m=>m.T.k==="car"||m.T.k==="bike").length,np=MB.L.filter(m=>m.T.k==="ped").length;
+ if(nc<(cw?1:R.lite?2:3)&&Math.random()<.5*busy*tm){const t=mbPick("car");if(t){const s=Math.random()<.5?1:-1;if(!MB.L.some(m=>m.s===s&&(m.T.k==="car"||m.T.k==="bike")&&Math.abs(m.y-(s>0?g.Y0-20:g.Y1+20))<40))MB.L.push({T:t,lane:s,s,x:s>0?g.L-28:g.L-20,y:s>0?g.Y0-20:g.Y1+20,a:Math.random()*9+1,t:0,sp:t.sp*(.85+Math.random()*.3)})}}
+ if(np<(cw?2:R.lite?2:4)&&Math.random()<.6*busy*tm){const t=mbPick("ped");if(t){const s=Math.random()<.5?1:-1,far=Math.random()<.45,bike=t.k==="bike";const x=bike?(s>0?g.L-31:g.L-17.5):(far?g.L-37-Math.random()*2:g.L-9.5-Math.random()*3);
   const wsp=bike?t.sp*(.85+Math.random()*.3):({jog:17,hippare:18,sumaho:7,yopparai:6,kyakuhiki:3,kigurumi:7}[t.id]||(9+Math.random()*6))*(.9+Math.random()*.2);MB.L.push({T:t,s,x,y:s>0?g.Y0-10:g.Y1+10,a:Math.random()*9+1,t:0,sp:wsp,pk:!bike&&!far&&!t.cat&&Math.random()<.12,um:(!bike&&G.wx&&/rain/.test(G.wx[G.wd]||""))?mbP(["#1565c0","#e53935","#f5f5f5","#43a047","#fdd835","#8e24aa","#ff7aa8"],Math.random()*9):0});const gn=t.grp||(t.pair?2:1),sp0=MB.L[MB.L.length-1].sp;for(let i=1;i<gn;i++)MB.L.push({T:t,s,x:x+(i%2)*2.6,y:(s>0?g.Y0-10:g.Y1+10)-s*Math.floor(i/2)*4.5+(i%2),a:Math.random()*9+3+i,t:0,sp:sp0,um:0,tag:1})}}try{mbSpecial(g,z)}catch(e){}}
 function mbSeen(t){G.mbS=G.mbS||{};const first=!G.mbS[t.id];G.mbS[t.id]=(G.mbS[t.id]||0)+1;if(first&&t.r>=3){try{toast((["","","","★3","★4 レア！","★5 激レア！"][t.r])+" "+t.n+" が通った！（街で見たものに記録）")}catch(e){}}}
 function mbOn(){return!G.mbOff&&G.setup&&!R.vis&&R.phase==="run"}
