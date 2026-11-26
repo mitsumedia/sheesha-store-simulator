@@ -11,6 +11,6 @@ function roofDraw(k){const key=scnKey(k)+"|"+R.ext;if(!ROOFC.c)ROOFC.c=document.
 
 /* タップした時の返事は、店長の次に優先して必ず出す（♥の吹き出しで埋まっていても） */
 {const _tk=talk;talk=function(p){const b0=p&&p.bub,t0=p&&p.bt;const r=_tk.apply(this,arguments);try{if(p&&p!==OW&&(p.bub!==b0||p.bt!==t0)&&p.bt>0)p.tkT=performance.now()}catch(e){}return r}}
-/* 外観モードで掃除を始めたら店内表示にして、終わったら外観に戻す */
-{let CLX=0;const _cp=cleanPlay;cleanPlay=function(){CLX=0;if(R.ext){CLX=1;try{extSet(0)}catch(e){}}return _cp.apply(this,arguments)};
+/* 外観モードで掃除を始めたら店内表示にして、終わったら外観に戻す。掃除はいつもデフォルトの画角で始める */
+{let CLX=0;const _cp=cleanPlay;cleanPlay=function(){CLX=0;if(R.ext){CLX=1;try{extSet(0)}catch(e){}}try{camReset()}catch(e){}return _cp.apply(this,arguments)};
  const _ce=cleanEnd;cleanEnd=function(){const r=_ce.apply(this,arguments);if(CLX){CLX=0;try{if(!R.ext&&!R.vis)extSet(1)}catch(e){}}return r}}
