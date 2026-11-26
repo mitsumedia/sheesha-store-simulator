@@ -27,3 +27,12 @@ let QRP=null;function qrLoad(){if(typeof qrcode==="function"&&typeof jsQR==="fun
 {const _vg=visGot;visGot=async function(u8){try{if(u8&&u8.length<=16&&String.fromCharCode(u8[0],u8[1],u8[2])==="SV2"){const code=String.fromCharCode(...u8.slice(3));let r;
  try{r=await api({a:"vget",c:code})}catch(e){const d=visPan(`<div class="xh">📷 読み取れませんでした</div><div class="xw">${esc(e.message||"通信できませんでした")}</div><div class="xb"><button data-vp="b" style="flex:1">戻る</button><button data-vp="r" class="on" style="flex:1">もう一度</button></div>`);d.onclick=ev=>{if(ev.target.closest("[data-vp=b]"))visPanel();if(ev.target.closest("[data-vp=r]"))visScan()};return}
  const b=atob(r.d),a=new Uint8Array(b.length);for(let i=0;i<b.length;i++)a[i]=b.charCodeAt(i);return _vg.call(this,a)}}catch(e){}return _vg.apply(this,arguments)}}
+/* シャッターを開ける場面の間に来たお客さんは、入口の横の歩道に並んで待ち、開き切って店主が中に入ったら順に入店
+   （待っている間はシャッターより手前に描くため、店主と同じく街の人として描く） */
+const OPWQ=[];const opCine=()=>!!(R.cine&&/^open/.test(R.cine.k||""));
+{const _ar=arrive;arrive=function(m){const n0=R.people.length;const r=_ar.apply(this,arguments);try{if(opCine())R.people.slice(n0).forEach(p=>{if(p.st!=="in")return;const k=OPWQ.length,wx=-3.6-(k>>2)*1.5,wy=20.5+(k%4)*2.4;
+ const e={T:MBG,c:p.c,s:1,x:wx,y:wy,a:1,t:0,sp:0,tag:1,seen:1,wq:1,face:1};MB.L.push(e);p.wq={path:p.path,e,x:wx,y:wy};p.st="wait";p.path=[];p.x=-999;p.y=-999;p.wt0=performance.now()+Math.random()*1500;OPWQ.push(p)})}catch(e){}return r}}
+function opWaitTick(){if(!OPWQ.length)return;const now=performance.now();
+ if(opCine()){for(const p of OPWQ){const e=p.wq&&p.wq.e;if(e&&!MB.L.includes(e))MB.L.push(e);if(now>p.wt0&&e){p.wt0=now+1200+Math.random()*2200;e.face=Math.random()<.6?1:0;e.s=Math.random()<.5?1:-1;if(Math.random()<.18&&!(p.bt>0)){try{say(p,["開店まだかな〜","そろそろかな","いい匂いしてきた","一番乗り！"][Math.random()*4|0])}catch(_){}}}}return}
+ if(!OPWQ.nx||now>=OPWQ.nx){const p=OPWQ.shift();if(p&&p.wq){MB.L=MB.L.filter(q=>q!==p.wq.e);if(p.st==="wait"&&R.people.includes(p)){p.x=p.wq.x;p.y=p.wq.y;p.st="in";p.path=[[-1,15]].concat(p.wq.path)}p.wq=null}OPWQ.nx=now+650;if(!OPWQ.length)OPWQ.nx=0}}
+{const _tk=tick;tick=function(){try{opWaitTick()}catch(e){}return _tk.apply(this,arguments)}}
