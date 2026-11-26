@@ -156,7 +156,7 @@ body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,
 <div class="row">営業時間 <select id="op"></select>〜<select id="cl"></select></div>
 <div id="hrsi" class="m" style="font-size:12px;margin:4px 0"></div><div class="m" style="font-size:12px">シーシャ3500円／おかわり2000円／ドリンクはフリー。閉店1時間前に入店停止、閉店時刻で全員退店。</div>
 <div class="row"><button id="devreset">🛠 開発用：最初からやり直す</button></div></div></details>
-<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.183</div></div></details>
+<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.184</div></div></details>
 <span id="smk"></span>
 </div>
 <div id="p-deco" hidden><div class="card"><div class="dcat"><button data-dc="obj">🪴 置物</button><button data-dc="wp">🖼 壁アイテム</button><button data-dc="fl">🟫 床</button><button data-dc="wl">🧱 壁紙</button><button data-dc="seat" id="dcseat" class="dcw" hidden>🛋 客席</button><button data-dc="inv" class="dcw">📦 持ち物</button><button id="rm" class="dcw">🔧 模様替え（移動・回転・しまう）</button></div><div class="m" id="plc" style="font-size:12px;margin-top:6px"></div></div><div class="card" id="sec-obj"><div class="m" style="margin-bottom:6px">アイテムを選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。</div><div class="grid" id="dl"></div></div><div class="card" id="sec-seat" hidden><div class="m" style="margin-bottom:6px;font-size:12px">席を選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。席の前の1列はシーシャ台を置く場所として使います。</div><div class="m" id="spc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="sl"></div></div><div class="card" id="sec-wp" hidden><div class="m" style="font-size:12px;margin:2px 0 6px">選んでから、店内の壁をタップして貼ります（1区画に1枚）。見えている壁にだけ貼れるので、視点を回すと反対側にも貼れます。</div><div class="m" id="wc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="wl"></div></div><div class="card" id="sec-inv" hidden><div id="ivl"></div></div><div class="card" id="sec-clr" hidden><div class="m" style="font-size:12px">選ぶと店内でお試し表示されます。「購入する」で購入（¥5,000〜）。店の雰囲気には影響しません。</div><div id="clr"></div></div></div>
@@ -1850,7 +1850,7 @@ else{if(!OW.c.pump&&(isGl(OW.c.acc))){const d=OW.dir,o=d%2,fw=o?3:4,fd=o?4:3;GLS
 {if(OW.idleSmk){const ox=OW.x-2,oy=OW.y-1.5,hc={x:ox+3.5,y:oy+7,rot:0};hkPush(a,hc);if(!OW.eat)hosePush(a,{seat:{px:ox,Y0:oy,f:1}},hc,1)}}
 {const d=OW.dir,o=d%2,fw=o?3:4,fd=o?4:3,ek=OW.eat&&OW.mode!=="go"&&OW.mode!=="smoke"?OW.eat:null,ph=ek||(OW.ph&&!OW.hd&&!OW.mode),key=d+"|"+(OW.eat?0:(OW.hd||0))+"|"+(ek||(ph?1:0))+"|"+OW.x+"|"+OW.y+"|"+OW.c.hair+OW.c.shirt+OW.c.hs+OW.c.acc+OW.c.skin+OW.c.accC+OW.c.eye+OW.c.top+OW.c.bot+OW.c.pants+"|"+(OW.c.h2|0)+(OW.c.t2|0)+(OW.c.b2|0)+(OW.c.hc2||"");if(!OW._pc||OW._pc.k!==key){const t=[];const ox=OW.x-fw/2,oy=OW.y-fd/2;pv(t,ox,oy,1,OW.c,0,d,OW.eat?0:(OW.hd||0),ph?1:0);OW._pc={k:key,l:t,ab:ph?standPhone(t,ox,oy,d,OW.c,ek||"phone"):null}}OW._pc.l.forEach(v=>a.push(v));actDraw({_pc:OW._pc,seed:0})}}
 R.people.forEach(p=>{const c=p.c,s=p.seat;
-if(s.p===p&&p.st!=="in"&&!p.nohk){const hc=hkCenter(p);if(!p.sh||p===p.sh.a)hkPush(a,hc);const hd=hdOf(p);if(hd)hosePush(a,p,hc,hd)}
+if(s.p===p&&p.st!=="in"&&p.st!=="wait"&&!p.nohk){const hc=hkCenter(p);if(!p.sh||p===p.sh.a)hkPush(a,hc);const hd=hdOf(p);if(hd)hosePush(a,p,hc,hd)}
 if(!c.pump&&(isGl(c.acc))){if(p.st==="sit")GLS.push(glFxS(s,c.acc,c.accC||"#333333",3.04,seatZo(s)));else{const d=p.dir||0,o=d%2,fw=o?3:4,fd=o?4:3;GLS.push(glFx(p.x-fw/2,p.y-fd/2,1,0,d,c.acc,c.accC||"#333333",3.04))}}
 if(p.st==="sit"){const hd=hdOf(p),md=actMode(p,hd),key=s.id+"|"+hd+"|"+(md?md.k+md.mir:"")+"|"+[c.hs,c.acc,c.hair,c.skin,c.shirt,c.accC,c.i,c.eye,c.top,c.bot,c.pants,c.pump].join();if(!p._pc||p._pc.k!==key){const t=[];pv(t,s.px,s.Y0,s.f,c,1,0,hd,md?md.nh:0);seatPose(t,s,c);const ab=md?actBuild(t,p,md):null;p._pc={k:key,l:cullS(t),ab}}actDraw(p,1);sprPush(p._pc,a,[s.px+2,s.Y0+3,4.5])}
 else{const d=p.dir||0,o=d%2,fw=o?3:4,fd=o?4:3;if(!walkSpr(a,c,d,p.x-fw/2,p.y-fd/2))pv(a,p.x-fw/2,p.y-fd/2,1,c,0,d)}});
@@ -3624,7 +3624,7 @@ if(b.dataset.gt){try{await aapi({a:"a_gift_toggle",id:b.dataset.gt});admGifts()}
 });
 
 /* ===== 更新チェック：起動時・アプリに戻ったとき・30分ごと。新しい版があればお知らせを出して選んでもらう ===== */
-const GVER="1.0.183";
+const GVER="1.0.184";
 let updV=null,updLater=null,updBusy=0;
 async function updCheck(){if(updBusy||!/^https?:/.test(location.protocol))return;updBusy=1;try{const r=await fetch("version.txt?"+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.text()).trim();if(!v||v===GVER)return;updV=v;updShow()}catch(e){}finally{updBusy=0}}
 function updShow(){if(!updV||updLater===updV||document.getElementById("updm"))return;if(R.phase==="run"||!$("#ov").hidden||document.getElementById("sysm")){setTimeout(updShow,5000);return}
