@@ -8,3 +8,6 @@ function roofDraw(k){const key=scnKey(k)+"|"+R.ext;if(!ROOFC.c)ROOFC.c=document.
   const L=statFG0(k).filter(isRoofV);const oc=cx;cx=g;try{for(const o of L)dv(o.v,k)}finally{cx=oc}ROOFC.key=key;ROOFC.n++}
  cx.save();cx.setTransform(1,0,0,1,0,0);cx.drawImage(c,0,0);cx.restore()}
 {const _sd=scnDraw;scnDraw=function(k){if(!R.ext)return _sd.apply(this,arguments);ROOF_SPLIT=1;let r;try{r=_sd.apply(this,arguments)}finally{ROOF_SPLIT=0}if(r){try{roofDraw(k)}catch(e){}}return r}}
+
+/* タップした時の返事は、店長の次に優先して必ず出す（♥の吹き出しで埋まっていても） */
+{const _tk=talk;talk=function(p){const b0=p&&p.bub,t0=p&&p.bt;const r=_tk.apply(this,arguments);try{if(p&&p!==OW&&(p.bub!==b0||p.bt!==t0)&&p.bt>0)p.tkT=performance.now()}catch(e){}return r}}
