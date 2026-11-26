@@ -116,7 +116,7 @@ const dx=t[0]-p.x,dy=t[1]-p.y,d=Math.hypot(dx,dy),st=24*dt;
 if(d>.01)p.dir=Math.abs(dx)>Math.abs(dy)?(dx>0?1:3):(dy>0?0:2);
 if(d<=st){p.x=t[0];p.y=t[1];p.path.shift()}else{p.x+=dx/d*st;p.y+=dy/d*st}}
 /* 隣席の客同士：初対面は「仲良くなる」「きまずい」で分岐、親密なら会話 */
-function socials(){SEATS.forEach(s=>{const p=s.p;if(!p||p.st!=="sit")return;s.nb.forEach(o=>{const q=o.p;if(!q||q.st!=="sit"||s.id>o.id)return;if(spx(p.c)||spx(q.c)){const[x,y]=spx(q.c)?[p,q]:[q,p];if(!spx(x.c)&&y.c.job==="芸能人"&&!(y.fan||[]).includes(x.c.i)&&Math.random()<.25){(y.fan=y.fan||[]).push(x.c.i);say(x,"もしかして "+y.c.name+" さんですか？",1);sayX(y,"☺️",1)}return}const a=p.c,b=q.c,v=bd(a.i,b.i),lm=.35+.35*(slv(a)+slv(b))/2,chat=()=>{p.tp++;q.tp++;const w=v,[x,y]=Math.random()<.5?[p,q]:[q,p];if(ctier(w)<2&&FAMR[y.c.job]&&Math.random()<.35){say(x,"もしかして "+y.c.name+" さんですか？",1);say(y,rnd(FAMR[y.c.job]),1);return}say(x,callPre(x.c,y.c,w)+pairLine(x.c,y.c,w),1);say(y,pairReply(w),1)};
+function socials(){SEATS.forEach(s=>{const p=s.p;if(!p||p.st!=="sit")return;s.nb.forEach(o=>{const q=o.p;if(!q||q.st!=="sit"||s.id>o.id)return;if(spx(p.c)||spx(q.c)){const[x,y]=spx(q.c)?[p,q]:[q,p];if(!spx(x.c)&&y.c.job==="芸能人"&&!(y.fan||[]).includes(x.c.i)&&Math.random()<.25){(y.fan=y.fan||[]).push(x.c.i);say(x,"もしかして "+y.c.name+" さんですか？",1);sayX(y,"☺️",1)}return}const a=p.c,b=q.c,v=bd(a.i,b.i),lm=.35+.35*(slv(a)+slv(b))/2,chat=()=>{const w=v,[x,y]=Math.random()<.5?[p,q]:[q,p];if(ctier(w)<2&&FAMR[y.c.job]&&Math.random()<.35){say(x,"もしかして "+y.c.name+" さんですか？",1);say(y,rnd(FAMR[y.c.job]),1);return}say(x,callPre(x.c,y.c,w)+pairLine(x.c,y.c,w),1);say(y,pairReply(w),1)};
 if(v<30){const fr=(a.fr+b.fr)/2*.5*lm,aw=(a.aw+b.aw)/2*.5*lm,r=Math.random();
 if(r<fr){const[,n]=addB(a.i,b.i,10);a.hp=Math.min(100,a.hp+3);b.hp=Math.min(100,b.hp+3);chat();log("🤝 "+nm(a)+" と "+nm(b)+" が打ち解けた（親密度"+n+"）")}
 else if(r<fr+aw){addB(a.i,b.i,-3);a.up=Math.min(100,a.up+3);b.up=Math.min(100,b.up+3);say(rnd([p,q]),rnd(LA),1);log("😅 "+nm(a)+" と "+nm(b)+" の間に気まずい空気…")}}
@@ -161,7 +161,7 @@ if(R.smoke>60&&Math.random()<dm*.04){const c=R.people.filter(p=>p.st==="sit"&&!s
 if(!R.closed&&R.t>=G.close*60){R.closed=true;R.sched.length=0;R.people.forEach(p=>leaveNow(p));log("🔔 閉店時間です。お客様に退店してもらいます")}
 if(!R.closed&&R.t>=G.close*60-60&&!R.people.some(p=>p.st!=="out"&&p.st!=="peek"&&p.st!=="peekw")){R.closed=true;R.sched.length=0;log("🔔 ラストオーダーの時点でお客さんがいないので、閉店します")}
 if(R.away==null)owTick(dm,sdt);evTick(dm);
-while(R.sched.length&&R.sched[0].at<=R.t){const e=R.sched.shift();if(e.force&&(R.away!=null||!pickSeats(e.m))){e.at=R.t+10;R.sched.push(e);R.sched.sort((a,b)=>a.at-b.at);continue}if(e.force&&e.why)log(e.why);arrive(e.m)}
+while(R.sched.length&&R.sched[0].at<=R.t){const e=R.sched.shift();if(e.force&&e.why)log(e.why);arrive(e.m)}
 if(R.socT>=10){R.socT-=10;socials()}
 R.people.forEach(p=>{if(p.sh&&p===p.sh.a){p.sh.t-=dm;if(p.sh.t<=0){p.sh.cur^=1;p.sh.t=6+Math.random()*10}}if(p.st==="sit"){actTick(p,dm);p.rem-=dm;p.nd-=dm;if(p.rem<=0)finish(p);else if(p.dl>0&&p.nd<=0&&!p.drk&&inStore()<4)startDrink(p)}})}
 R.people.forEach(p=>{move(p,sdt);if(spx(p.c)){p.c.fp=0;p.c.hp=0;p.c.up=0}});

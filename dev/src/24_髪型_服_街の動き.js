@@ -300,7 +300,7 @@ function mbDraw(k){if(!mbOn()||!wallVis(2,k)){return}const now=performance.now()
  MB.cd=(MB.cd||0)-dt*sp;if(MB.cd<=0){MB.cd=.8+Math.random()*1.6;mbSpawn()}const g=mbGeo();
  const parts=[],L=LTN||{oa:0,ov:"#000000"},tint=c=>L.oa>.05?mixc(c,L.ov,Math.min(.6,L.oa*.65)):c;
  MB.L=MB.L.filter(m=>{m.t+=dt*sp;
-  if(m.gh){const p=R.people.find(q=>q.c===m.gh.c);if(p)return false;const atD=m.s>0?m.y>=15:m.y<=15;if(atD){if(R.sched.includes(m.gh.e)){m.y=15;m.x+=(-5-m.x)*Math.min(1,dt*sp*3);m.wait=(m.wait||0)+dt;m.face=1;if(m.wait<20)return true}m.gh=null;m.face=0}}
+  if(m.gh){const p=R.people.find(q=>q.c===m.gh.c);if(p)return false;const atD=m.s>0?m.y>=15:m.y<=15;if(atD){if(R.sched.includes(m.gh.e)){m.y=15;m.x+=(-5-m.x)*Math.min(1,dt*sp*3);m.wait=(m.wait||0)+dt;m.face=1;if(m.wait<((typeof opCine==="function"&&opCine())?20:3))return true}m.gh=null;m.face=0}}
   if(m.pk&&!m.pkd&&(m.s>0?m.y>=15:m.y<=15)){m.pkt=(m.pkt||0)+dt*sp;m.face=1;if(m.pkt<1.6)return true;m.pkd=1;m.face=0}
   m.y+=m.s*m.sp*sp*dt;if(m.T.wob)m.x+=Math.sin(m.t*3+m.a)*dt*2;if(m.y<g.Y0-(m.tr?110:40)||m.y>g.Y1+(m.tr?110:40))return false;
   const mid=(g.Y0+g.Y1)/2;if(!m.seen&&(m.s>0?m.y>mid+6:m.y<mid-6)){m.seen=1;if(!m.tag)mbSeen(m.T,m)}

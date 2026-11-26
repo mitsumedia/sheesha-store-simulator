@@ -101,10 +101,11 @@ function drPath(x0,y0,x1,y1){try{const g=drGrid(),{X0,Y0,W,H,ok}=g,cl=(v,m)=>Mat
 const MB_HSF=[0,1,1,2,3,3,5,5,6,8,11,12,13,15],MB_HSM=[0,0,0,4,7,9,9,10,12,12,14,15,16,17,17];
 {const _ml=mbLook;mbLook=function(t,a){const c=_ml.apply(this,arguments);try{const o=MBLK[t.id]||{};c.sex=o.sex||(o.hs?"男性":(Math.random()<.5?"女性":"男性"));const L=c.sex==="女性"?MB_HSF:MB_HSM;if(!o.hs||!o.hs.every(h=>L.includes(h)))c.hs=L[Math.floor(Math.random()*L.length)];c.h2=0;if(c.sex==="男性"&&c.bot===2)c.bot=[0,0,1,3][Math.floor(Math.random()*4)]}catch(e){}return c}}
 /* ===== 傘：丸みのある形 ===== */
-function umbVox(P,ox,oy,col){const cx0=ox+2,cy0=oy+1.5,dk=dkHex(col,.78),put=(x,y,z,c,s)=>{const v=[x,y,z,c,undefined,s];v.um=1;P.push(v)};
- for(let z=7;z<13.5;z+=.25)put(cx0-.125,cy0-.125,z,"#616161",.25);
- const R=[[13,3],[13.5,2.5],[14,1.75],[14.5,1]];R.forEach(([z,r],li)=>{const rin=li<R.length-1?R[li+1][1]-.5:-1;for(let x=-r;x<r;x+=.5)for(let y=-r;y<r;y+=.5){const d=Math.hypot(x+.25,y+.25);if(d>r||d<rin)continue;const rib=li===0&&(Math.abs(x+.25)<.3||Math.abs(y+.25)<.3);put(cx0+x,cy0+y,z,rib?dk:col,.5)}});
- put(cx0-.125,cy0-.125,15,"#9e9e9e",.25);put(cx0-.125,cy0-.125,15.25,"#9e9e9e",.25)}
+/* 片手で持つ：柄は体の横（手の位置）からまっすぐ上へ、頭には当たらない位置。傘は大きめにして頭の上を覆う */
+function umbVox(P,ox,oy,col){const hx=ox+4.75,cy0=oy+1.5,cx0=hx,dk=dkHex(col,.78),put=(x,y,z,c,s)=>{const v=[x,y,z,c,undefined,s];v.um=1;P.push(v)};
+ put(hx-.125,cy0-.125,5,"#3e2723",.25);put(hx-.375,cy0-.125,4.75,"#3e2723",.25);put(hx-.625,cy0-.125,5,"#3e2723",.25);for(let z=5.25;z<13.5;z+=.25)put(hx-.125,cy0-.125,z,"#616161",.25);
+ const R=[[13.5,4],[14,3.25],[14.5,2.25],[15,1.25]];R.forEach(([z,r],li)=>{const rin=li<R.length-1?R[li+1][1]-.5:-1;for(let x=-r;x<r;x+=.5)for(let y=-r;y<r;y+=.5){const d=Math.hypot(x+.25,y+.25);if(d>r||d<rin)continue;const rib=li===0&&(Math.abs(x+.25)<.3||Math.abs(y+.25)<.3);put(cx0+x,cy0+y,z,rib?dk:col,.5)}});
+ put(cx0-.125,cy0-.125,15.5,"#9e9e9e",.25);put(cx0-.125,cy0-.125,15.75,"#9e9e9e",.25)}
 
 /* ===== 店のシャッター：閉店で店長が外から閉め、営業開始で店長が来て開ける ===== */
 const CINE_Y=1.3,CINE_P=.5;
