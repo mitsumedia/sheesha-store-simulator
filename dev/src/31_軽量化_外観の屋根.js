@@ -14,3 +14,5 @@ function roofDraw(k){const key=scnKey(k)+"|"+R.ext;if(!ROOFC.c)ROOFC.c=document.
 /* 外観モードで掃除を始めたら店内表示にして、終わったら外観に戻す。掃除はいつもデフォルトの画角で始める */
 {let CLX=0;const _cp=cleanPlay;cleanPlay=function(){CLX=0;if(R.ext){CLX=1;try{extSet(0)}catch(e){}}try{camReset()}catch(e){}return _cp.apply(this,arguments)};
  const _ce=cleanEnd;cleanEnd=function(){const r=_ce.apply(this,arguments);if(CLX){CLX=0;try{if(!R.ext&&!R.vis)extSet(1)}catch(e){}}return r}}
+/* 図鑑：まだ会っていない（街にいる）お客さんは真っ黒なシルエット */
+try{const st=document.createElement("style");st.textContent=".dxt img.xf.sil{filter:brightness(0)!important;opacity:1!important;-webkit-user-drag:none;pointer-events:none}";document.head.appendChild(st)}catch(e){}
