@@ -22,3 +22,8 @@ let QRP=null;function qrLoad(){if(typeof qrcode==="function"&&typeof jsQR==="fun
  QRP=one("qr.js?v=1").catch(()=>one("https://cdn.jsdelivr.net/gh/mitsumedia/sheesha-store-simulator@main/qr.js")).catch(e=>{QRP=null;throw e});return QRP}
 {const qw=fn=>async function(){try{await qrLoad()}catch(e){try{toast("QRの部品を読み込めませんでした。通信を確認してね")}catch(_){}return}return fn.apply(this,arguments)};visShow=qw(visShow);visScan=qw(visScan);
  const _vp=visPanel;visPanel=function(){const r=_vp.apply(this,arguments);qrLoad().catch(()=>{});return r}}
+/* お店めぐりQR：お店のデータはサーバーに預けて、QRには短いコード（SV2＋8文字）だけを入れる。サーバーに届かない時は今まで通りの大きいQR */
+{const _ve=visEnc;visEnc=async function(lv){const s=await _ve.apply(this,arguments);if(lv>0)return s;try{const r=await api({a:"vput",d:btoa(s)});if(r&&r.code)return"SV2"+r.code}catch(e){}return s}}
+{const _vg=visGot;visGot=async function(u8){try{if(u8&&u8.length<=16&&String.fromCharCode(u8[0],u8[1],u8[2])==="SV2"){const code=String.fromCharCode(...u8.slice(3));let r;
+ try{r=await api({a:"vget",c:code})}catch(e){const d=visPan(`<div class="xh">📷 読み取れませんでした</div><div class="xw">${esc(e.message||"通信できませんでした")}</div><div class="xb"><button data-vp="b" style="flex:1">戻る</button><button data-vp="r" class="on" style="flex:1">もう一度</button></div>`);d.onclick=ev=>{if(ev.target.closest("[data-vp=b]"))visPanel();if(ev.target.closest("[data-vp=r]"))visScan()};return}
+ const b=atob(r.d),a=new Uint8Array(b.length);for(let i=0;i<b.length;i++)a[i]=b.charCodeAt(i);return _vg.call(this,a)}}catch(e){}return _vg.apply(this,arguments)}}
