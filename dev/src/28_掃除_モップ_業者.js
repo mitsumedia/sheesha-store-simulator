@@ -1,6 +1,6 @@
 
 /* ===== 掃除：業者の値段は広さで決まる（最初¥3,000 → 最大まで増築すると¥200,000） ===== */
-function clnFee(){const n=FLT.length,n0=48,nM=GXM*GYM;const r=Math.max(0,Math.min(1,(n-n0)/Math.max(1,nM-n0)));return Math.round((3000+r*197000)/1000)*1000}
+function clnFee(){const n=FLT.length,n0=48,nM=GXM*GYM;const r=Math.max(0,Math.min(1,(n-n0)/Math.max(1,nM-n0)));return Math.round((3000+r*12000)/1000)*1000}
 {const _hu9=hud;hud=function(){const r=_hu9.apply(this,arguments);try{const b=document.querySelector("[data-clpro]");if(b){const t="🧹 業者に掃除を頼む "+yen(clnFee());if(b.textContent!==t)b.textContent=t}}catch(e){}return r}}
 /* なぞった所に家具があれば、その家具が置いてあるマスを掃除する */
 function cleanFurnKey(clx,cly){const r=cv.getBoundingClientRect(),X=(clx-r.left)*W/r.width,Y=(cly-r.top)*CH/r.height,k=R.cv||camVec();let best=null,bd=-1e9;
