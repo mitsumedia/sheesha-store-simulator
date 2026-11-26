@@ -448,7 +448,7 @@ else if(r<.65)t=wl();
 else t=rnd(L[tier]);
 {const cl=(c.ls||[]).filter(x=>x&&x.trim());if(m>-15){const r2=Math.random();if(cl.length&&r2<.18)t=rnd(cl);else if(c.hb&&r2<.38){const h=hobbyLine(c.hb);if(h)t=h}}}
 if(o&&m>-15&&tier>=1&&Math.random()<(o.star>=70?.28:.18))t=rnd(o.star>=70?LO.concat(LOS):LO);
-/* あだ名を付けていない人には、あだ名のセリフを出さない */if(!(c.nick&&c.nick.trim())){const ok=x=>x&&!x.includes("{n}");for(let k=0;k<8&&!ok(t);k++)t=rnd(Math.random()<.5?L[tier]:(PN[c.pe]||[])[tier]||L[tier]);if(!ok(t))t="今日もいい煙ですね"}
+/* あだ名を付けていない人には、あだ名のセリフを出さない */if(!(c.nick&&c.nick.trim()&&(c.nickSet||c.nick!==c.name))){const ok=x=>x&&!x.includes("{n}");for(let k=0;k<8&&!ok(t);k++)t=rnd(Math.random()<.5?L[tier]:(PN[c.pe]||[])[tier]||L[tier]);if(!ok(t))t="今日もいい煙ですね"}
 return t.replace(/\{hi\}/g,hiW()).replace(/\{f\}/g,FL[c.fl][0]).replace(/\{n\}/g,c.nick||"私").replace(/\{d\}/g,dn).replace(/\{o\}/g,o?o.name:"店長")}
 
 /* 店主のひとりごと（自分が思っていそうなこと）。状況に合わせて変わる */
