@@ -194,7 +194,7 @@ const EV=[
 {id:7,r:1,t:"pre",n:"フレーバーの発注忘れ",tx:"あっ…発注忘れてた…",ef:"今日使えるフレーバーは5種類だけ",ok:()=>(G.flu||FLU0).length>5,go:()=>{td().fl5=(G.flu||FLU0).slice().sort(()=>Math.random()-.5).slice(0,5)}},
 {id:8,r:1,t:"pre",n:"家主さんが様子見に",tx:"「どう、調子は？これよかったら」家主さんがおそうざいをくれた",ef:"次の日は行動を2回できる",go:()=>{evAct2("家主さんのおそうざい")}},
 {id:9,r:1,t:"run",n:"レジの小銭切れ",tx:"「1万円札しかないんですけど…」お釣りが足りない！",ef:"今日の残りの会計は千円未満を割引（¥3,500→¥3,000）",go:()=>{R.coin=1}},
-{id:10,r:1,t:"run",n:"SNSでシェアされた",tx:"お客さんが店の写真をストーリーに上げてくれたみたい",ef:"フォロワー+10",ok:()=>evIn().length>0,go:()=>{G.ow.fol+=10}},
+{id:10,r:1,t:"run",n:"SNSでシェアされた",tx:"お客さんが店の写真をストーリーに上げてくれたみたい",ef:"フォロワー+2%",ok:()=>evIn().length>0,go:()=>{const o=G.ow;o.fol+=Math.max(10,Math.round(o.fol*.02));o.star=starOf(o)}},
 /* ---- ★2 ---- */
 {id:11,r:2,t:"pre",n:"夜更かししすぎた",tx:"夜更かししすぎた…頭が回らない",ef:"今日は「おいしい」が出ない",go:()=>{td().noGood=1}},
 {id:12,r:2,t:"run",n:"エアコンが壊れた",tx:"「なんか暑くない？…エアコン止まってる！」",ef:"交換代 −¥80,000、今日はこのあと不満が出るたびに+3",go:()=>{evMoney(-80000,"エアコン交換");R.acM0=R.st.miss}},
@@ -374,8 +374,8 @@ return`<div style="font-weight:800;font-size:16px;margin-bottom:4px">🎉 「${s
 /* --- シーシャの大会（バトル）：6・9・12・3月の月末に50%（一度優勝したら10%）。8日目扱い・休業なし --- */
 function battleRoll(fo){if(admTake("bat"))return true;if(fo)return false;const m=MN[G.month%12];if(!G.ow||![6,9,12,3].includes(m)||G.batM===G.month)return false;G.batM=G.month;return Math.random()<(G.batW?.1:.5)}
 function battleRank(){const s=G.ow.skill||0,w=Math.max(.1,Math.min(.8,.1+(s-10)/80*.7));if(Math.random()<w)return 1;if(Math.random()<Math.min(.9,s/100))return 2;return 3+Math.floor(Math.random()*7)}
-function battleApply(rk){const o=G.ow,big=o.fol>=10000;let m="";if(rk===1){evMoney(200000,"大会の賞金");const f=big?4000:2000;o.fol+=f;G.batW=(G.batW||0)+1;m=`賞金 <b>${moneyTxt(200000)}</b><br>フォロワー <b>+${f.toLocaleString()}</b>`}
-else if(rk===2){evMoney(50000,"大会の賞金");const f=big?650:500;o.fol+=f;m=`賞金 <b>${moneyTxt(50000)}</b><br>フォロワー <b>+${f}</b>`}else{m="賞金なし…次こそ優勝を目指そう"}
+function battleApply(rk){const o=G.ow,big=o.fol>=10000;let m="";if(rk===1){evMoney(200000,"大会の賞金");const f=Math.max(2000,Math.round(o.fol*.1));o.fol+=f;G.batW=(G.batW||0)+1;m=`賞金 <b>${moneyTxt(200000)}</b><br>フォロワー <b>+${f.toLocaleString()}</b>`}
+else if(rk===2){evMoney(50000,"大会の賞金");const f=Math.max(500,Math.round(o.fol*.03));o.fol+=f;m=`賞金 <b>${moneyTxt(50000)}</b><br>フォロワー <b>+${f}</b>`}else{m="賞金なし…次こそ優勝を目指そう"}
 o.star=starOf(o);G.evDex=G.evDex||{};G.evDex[40]=(G.evDex[40]||0)+1;save();hud();return m}
 function battleScene(done){const rk=battleRank(),rest=[1,2,3,4,5,6,7,8,9].filter(r=>r!==rk),must=rest.filter(r=>r<rk).slice(0,2),pool=rest.filter(r=>!must.includes(r)).sort(()=>Math.random()-.5),oth=[...must,...pool].slice(0,4).sort(()=>Math.random()-.5);
 const ranks=[oth[0],oth[1],rk,oth[2],oth[3]],lens=ranks.map(r=>Math.max(1,9-r)),rivals=clubRivals(),host=[rivals[0],rivals[1],null,rivals[2],rivals[3]],win=ranks.indexOf(1);

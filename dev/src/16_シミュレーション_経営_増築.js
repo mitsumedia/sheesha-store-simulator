@@ -63,7 +63,7 @@ function arrive(m){const ss=R.away!=null?null:pickSeats(m);if(!ss){R.st.lost+=m.
 const made=[];
 m.forEach((c,i)=>{const s=ss[i],first=!c.met;c.vt=(c.vt||(first?0:1))+1;if(first){c.met=1;c.fp+=2;log("🆕 新しいお客様が来店！図鑑に登録")}if(spx(c)){c.vn=(c.vn||0)+1;c.fp=(c.job==="シーシャ屋"&&(c.vn||0)>=3?100:0);if(c.vn===3)log("📖 "+nm(c)+" の情報がすべて解禁！（図鑑）")}
 const px=s.px+2,p={c,x:-4-i*5,y:15,st:"in",dir:1,seat:s,seed:Math.random()*5,path:[[4,15],[px,15],[px,s.Y0+3]],bt:0,mt:6+Math.random()*8,orders:0,tp:0,rem:0,nd:0,dl:0,dt:0};
-s.p=p;R.people.push(p);made.push(p);R.st.visits++;if(evx().noise>G.day){R.st.miss+=3;c.up=Math.min(100,c.up+6);if(i===0)log("🔊 隣の騒音で "+nm(c)+" は不満そう…")}if(G.ow){G.ow.fol+=1+Math.floor(Math.random()*(1+G.ow.fame/30));if(first)G.ow.fame=Math.min(100,G.ow.fame+FMK*.25*(1-G.ow.fame/100))}if(first)c.ret=Math.random()<Math.min(.9,c.first*mult(c)+.2)?1:0});
+s.p=p;R.people.push(p);made.push(p);R.st.visits++;if(evx().noise>G.day){R.st.miss+=3;c.up=Math.min(100,c.up+6);if(i===0)log("🔊 隣の騒音で "+nm(c)+" は不満そう…")}if(G.ow){G.ow.fol+=1+Math.floor(Math.random()*(1+G.ow.fame/30));try{celebVisit(c)}catch(e){}if(first)G.ow.fame=Math.min(100,G.ow.fame+FMK*.25*(1-G.ow.fame/100))}if(first)c.ret=Math.random()<Math.min(.9,c.first*mult(c)+.2)?1:0});
 if(m.length>1){for(let i=0;i<m.length;i++)for(let j=i+1;j<m.length;j++)addB(m[i].i,m[j].i,5);log("👥 "+m.length+"名で来店")}
 if(made.length>1){const gp={m:made};made.forEach(p=>p.gp=gp)}
 if(made.length===2){const[s0,s1]=ss;if(s0.f===s1.f&&s0.nb.includes(s1)&&Math.random()<.3){const[A,B]=made.slice().sort((u,v)=>u.seat.px-v.seat.px),sh={a:A,b:B,cur:0,t:6+Math.random()*10,paid:0,rem:0};A.sh=B.sh=sh;log("🤝 2人でシェア（シーシャ¥3,500＋シェアチャージ¥1,500）")}}}
@@ -132,7 +132,7 @@ dayDone({sales:s.sales,visits:s.visits,drinks:s.drinks,miss:s.miss,dc:s.dc||0,co
 /* 休業日（台風など）：来たかった客は翌日の来店確率が少し上がる。売上は日平均に含めない */
 function closeDay(msg){sched(true);R.sched.forEach(e=>e.m.forEach(c=>{c.bst=1}));R.sched=[];log(msg||"🌀 台風のため休業。来たかったお客様は、明日に期待…");dayDone({sales:0,visits:0,drinks:0,miss:0,dc:0,closed:true});if($("#ov").hidden&&typeof showMorning==="function")showMorning()}
 function dayDone(en){G.week.push(en);
-if(G.ow){const o=G.ow;if(!o.sns){o.fol=Math.floor(o.fol*.98);if(o.fame>10)o.fame=Math.max(10,o.fame-.3)}if(o.bad)o.fol=Math.floor(o.fol*(1-.03*Math.min(3,o.bad)));if(o.star>20){const dr=1+Math.floor(Math.random()*3);o.fol=Math.floor(o.fol*(1-dr/100))}o.star=starOf(o);o.sns=0;o.bad=0;o.acted=0;G.cs.forEach(c=>{c.mo=Math.round((c.mo||0)*80)/100})}
+if(G.ow){const o=G.ow;folDayEnd(o,en);if(!o.sns&&o.fame>10)o.fame=Math.max(10,o.fame-.3);o.star=starOf(o);o.sns=0;o.bad=0;o.acted=0;G.cs.forEach(c=>{c.mo=Math.round((c.mo||0)*80)/100})}
 G.day++;try{gaEvMove()}catch(e){}appear();G.cs.forEach(c=>{c.hp=Math.round(c.hp*.9);c.up=Math.round(c.up*.9);if(c.quit&&Math.random()<.06){c.quit=0;c.up=Math.min(c.up,40);log("🔔 "+nm(c)+" がまた来てくれるかも")}});
 R.phase="prep";$("#go").disabled=false;$("#go").textContent="営業開始";$("#op").disabled=$("#cl").disabled=false;
 halloOff();if(G.wd>=6){if(!day8(()=>settle()))settle()}else{G.wd++;save();day8(()=>{},1)}rdex();rfr();rfin()}
@@ -233,11 +233,11 @@ function tierTxt(s){const pb=Math.max(0,.35-s/200),pt=Math.min(.7,s/150);return"
 function rown(){const o=G.ow,c=$("#own");if(!c)return;if(!o){c.hidden=true;return}c.hidden=false;
 const can=R.phase==="prep"&&!o.acted&&G.setup&&!G.over&&!(G.last&&!G.last.seen),ty=G.wx[G.wd]==="typhoon";
 c.innerHTML=`<b>店主 ${esc(o.name)}</b> <span class="m">${o.age}歳・${o.sex}</span><div class="f"><span>知名度（客足に影響）</span><span>${Math.round(o.fame)}</span></div><div class="f"><span>スター性（SNSフォロワーで上昇）</span><span>${o.star}</span></div><div class="f"><span>技術</span><span>${sk1(o.skill)}</span></div><div class="m" style="font-size:12px;text-align:right">${tierTxt(o.skill)}</div><div class="f"><span>SNSフォロワー</span><span>${o.fol.toLocaleString()}人</span></div>
-<div class="m" style="font-size:12px;margin:6px 0 4px">1日に1回、開店前に行動できます${o.acted?"（今日は実行済み）":""}。SNSを更新しない日と、まずい提供があった日はフォロワーが減ります。</div>
+<div class="m" style="font-size:12px;margin:6px 0 4px">1日に1回、開店前に行動できます${o.acted?"（今日は実行済み）":""}。SNSを更新しない日と、まずい提供があった日はフォロワーが減ります（更新した日は減りません）。</div>
 <div class="row"><button data-o="sns" ${can?"":"disabled"}>📱 SNS更新</button><button data-o="prac" ${can&&G.money>=500?"":"disabled"}>🔥 練習 ¥500</button><button data-o="refresh" ${can&&G.money>=1000?"":"disabled"}>🧖 リフレッシュ</button><button data-o="visit" ${can&&G.money>=3500&&!ty&&G.vm!==G.month?"":"disabled"}>🚶 他店舗へ ¥3,500${G.vm===G.month?"（今月済）":""}</button><button data-o="focus" ${can?"":"disabled"}>🤝 お店に集中</button></div><div class="row"><button data-owedit="1">✎ 店主の見た目を変える</button></div><div class="m" style="font-size:12px">他店舗へ行くと今日は休業（台風と同じ扱い）。技術と知名度が少し上がります。</div>`}
 function act(k){const o=G.ow;if(!o||R.phase!=="prep"||o.acted||G.over||!G.setup||(G.last&&!G.last.seen))return;const b0={fol:o.fol,fame:o.fame,star:o.star,skill:o.skill,mot:G.mot??100},rs=(md,ic,t,msg)=>{R.actRes={md,ic,t,msg,b0,k}};
-if(k==="sns"){if((evx().sns||0)>G.day)return;o.acted=1;o.sns=1;let g=Math.round(4+o.fame*.4+o.star*.25+Math.random()*6+o.fol*.022),md="good",ic="📱",t="SNSを更新した！",msg="いいねがついた。お店のことが少し広まった";
-if(Math.random()<(o.star>=20&&o.star<30?.03:.05)){const b=Math.round(60+Math.random()*120+o.fol*(.25+Math.random()*.35));g+=b;o.fame=Math.min(100,o.fame+FMK*2*(1-o.fame/100));md="great";ic="🎉";G.buzzN=(G.buzzN||0)+1;t="投稿がバズった！！";msg="通知が鳴りやまない…！フォロワーが一気に増えた";log("🔥 投稿がバズった！フォロワー+"+b)}
+if(k==="sns"){if((evx().sns||0)>G.day)return;o.acted=1;o.sns=1;let g=Math.round((4+o.fame*.4+o.star*.25+Math.random()*6+o.fol*FOLK*folSat())*haeM()),md="good",ic="📱",t="SNSを更新した！",msg="いいねがついた。お店のことが少し広まった";
+if(Math.random()<(o.star>=20&&o.star<30?.03:.05)){const b=Math.round(60+Math.random()*120+o.fol*(.25+Math.random()*.35)*folSat());g+=b;o.fame=Math.min(100,o.fame+FMK*2*(1-o.fame/100));md="great";ic="🎉";G.buzzN=(G.buzzN||0)+1;t="投稿がバズった！！";msg="通知が鳴りやまない…！フォロワーが一気に増えた";log("🔥 投稿がバズった！フォロワー+"+b)}
 else if(Math.random()<.15){g=Math.max(1,Math.round(g*.2));md="bad";ic="😢";t="投稿がスベった…";msg="反応がうすい…。写真がブレてたかも"}
 o.fol+=g;o.fame=Math.min(100,o.fame+FMK*(md==="bad"?.1:.45)*(1-o.fame/100));motAdd(md==="bad"?0:md==="great"?8:5);o.star=starOf(o);log("📱 SNSを更新（フォロワー+"+g+"）");rs(md,ic,t,msg)}
 else if(k==="prac"){if(G.money<500)return;G.money-=500;o.acted=1;const r=Math.random();
