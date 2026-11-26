@@ -55,7 +55,7 @@ CAMMV=!window.LOW_OFF&&n-_camT<200;return _dw.apply(this,arguments)}}
 const put=()=>{if(d.querySelector("[data-adnl]"))return;const call=d.querySelector('[data-ad="call"]');if(!call)return;const b=document.createElement("button");b.dataset.adnl="1";b.style.cssText="display:block;width:100%;margin:0 0 8px;padding:9px 10px;border-radius:10px;font-weight:700;font-size:14px;border:1.5px solid #7b4fd6;"+(G.admNL?"background:#efe6ff;color:#4a2a99":"background:#fff;color:#4a2a99");b.textContent=(G.admNL?"✅ ":"")+"🪴 置物無制限（1ヶ月の設置数の上限なし）";call.after(b)};put();
 d.addEventListener("click",e=>{const b=e.target.closest("[data-adnl]");if(b){e.stopPropagation();G.admNL=G.admNL?0:1;save();b.remove();put();try{rdeco();rseat&&rseat()}catch(_){}log("🛠 管理者モード：置物無制限 "+(G.admNL?"ON":"OFF"));return}setTimeout(put,0)},true);return r}}
 
-/* ===== 上のステータスに項目名を戻す（客・売上・満足度・煙たさ・やる気） ===== */
+/* ===== 上のステータスに項目名を戻す（客・売上・満足度・煙たさ・きれいさ） ===== */
 try{document.head.insertAdjacentHTML("beforeend",`<style>
 html body #top .mt>div{font-size:10px!important;flex-direction:column!important;align-items:flex-start!important;justify-content:center!important;gap:1px!important;padding:4px 7px 5px!important;line-height:1.25!important;white-space:nowrap;overflow:hidden}
 html body #top .mt>div::before{content:none!important;display:none!important}
@@ -87,8 +87,7 @@ const v=Math.max(0,visits||0);FLT.forEach(([tx,ty])=>{const key=tx+","+ty;let ad
 /* 汚いと口コミが下がる・不満がたまる */
 {const _ra=revAdd;revAdd=function(c,p){_ra.apply(this,arguments);try{const cp=cleanPct(),r=G.rev&&G.rev[c.i];if(r&&cp<60&&Math.random()<(cp<35?.8:.45)){r.s=Math.max(1,r.s-1);r.t=rnd(["床が汚かった…","ちょっと店が汚れてたかも","掃除してほしいな","足元が気になった"])}if(G.pika===G.day&&r&&Math.random()<.5)r.s=Math.min(5,r.s+1)}catch(e){}}}
 {const _ev2=endVisit;endVisit=function(c,p){try{const cp=cleanPct();if(c&&cp<50)c.up=Math.min(100,(c.up||0)+(cp<35?8:4))}catch(e){}return _ev2.apply(this,arguments)}}
-/* やる気の枠を「きれいさ」に。やる気で廃業はしない */
-{const _ma=motAdd;motAdd=function(){const r=_ma.apply(this,arguments);if(G.mot!=null&&G.mot<5)G.mot=5;return r}}
+/* 上部の枠は「きれいさ」 */
 {const _hv4=hud;hud=function(){const r=_hv4.apply(this,arguments);try{const b=document.getElementById("mtm");if(b){const d=b.parentNode,t=d.firstChild;if(t&&t.nodeType===3&&t.textContent!=="🧹 きれいさ")t.textContent="🧹 きれいさ";const p=cleanPct(),v=p+"%";if(b.textContent!==v)b.textContent=v;const bar=document.getElementById("mtmb");if(bar){bar.style.width=p+"%";bar.style.background=p>=70?"#7bd389":p>=45?"#e0c34a":"#e06a5a"}}}catch(e){}return r}}
 /* ===== 今日の行動に「🧹 掃除」 ===== */
 MNA.clean=["🧹","掃除"];
@@ -125,10 +124,9 @@ const c=document.querySelector("#ov .clc");if(c)c.onclick=e=>{if(e.target.closes
 {const _fa=fmAct;fmAct=function(){const r=_fa.apply(this,arguments);try{const d=$("#fmst2");if(d&&R.phase==="prep"&&!d.querySelector("[data-clpro]")){const b=document.createElement("button");b.dataset.clpro="1";b.textContent="🧹 業者に掃除を頼む "+yen(clnFee());b.style.cssText="margin-top:8px;width:100%";d.style.flexWrap="wrap";d.appendChild(b);b.onclick=e=>{e.stopPropagation();const fee=clnFee();if(G.money<fee){toast("💸 お金が足りません");return}if(cleanPct()>=98){toast("もう十分きれいです");return}G.money-=fee;FLT.forEach(([tx,ty])=>dirtSet(tx+","+ty,0));G.dv=(G.dv||0)+1;save();hud();toast("🧹 業者さんがピカピカにしてくれました");log("🧹 清掃業者に頼んだ（"+yen(fee)+"）")}}}catch(e){}return r}}
 if(!G.dirt)G.dirt={};
 
-/* ===== リフレッシュを行動から外す（掃除を練習の次に並べ、5つ目は横いっぱい） ===== */
-try{document.head.insertAdjacentHTML("beforeend",`<style>#ov .mnc .mg>[data-mo="refresh"],[data-o="refresh"]{display:none!important}#ov .mnc .mg>button:last-child:nth-child(odd){grid-column:1/-1}</style>`)}catch(e){}
-{const _sm3=showMorning;showMorning=function(){const r=_sm3.apply(this,arguments);try{const g=document.querySelector("#ov .mnc .mg");if(g){const rf=g.querySelector('[data-mo="refresh"]'),cl=g.querySelector('[data-mo="clean"]');if(rf){if(cl)g.insertBefore(cl,rf);rf.remove()}}}catch(e){}return r}}
-{const _ac3=act;act=function(k){if(k==="refresh")return;return _ac3.apply(this,arguments)}}
+/* ===== 掃除を練習の次に並べ、5つ目は横いっぱい ===== */
+try{document.head.insertAdjacentHTML("beforeend",`<style>#ov .mnc .mg>button:last-child:nth-child(odd){grid-column:1/-1}</style>`)}catch(e){}
+{const _sm3=showMorning;showMorning=function(){const r=_sm3.apply(this,arguments);try{const g=document.querySelector("#ov .mnc .mg");if(g){const pr=g.querySelector('[data-mo="prac"]'),cl=g.querySelector('[data-mo="clean"]');if(pr&&cl)pr.after(cl)}}catch(e){}return r}}
 
 /* ===== 次の日の行動：2回できる日／できない日 ===== */
 function evAct2(why){G.act2D=G.day+1;G.act2W=why}

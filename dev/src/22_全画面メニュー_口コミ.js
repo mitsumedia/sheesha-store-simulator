@@ -219,7 +219,7 @@ html body #sheet.open #dl .dit.fmsel{background:#6658a6!important;border-radius:
 html body #sheet.open #dl .dit.lock{opacity:.55}
 html body #sheet #fms .hint{top:36px!important}
 </style>`)}catch(e){}
-const FMACT={sns:["📱","SNS更新","無料・👀知名度アップ"],prac:["🔥","シーシャの練習","¥500・💨技術アップ"],refresh:["🧖","リフレッシュ","¥1,000〜・🔥やる気回復"],visit:["🚶","他店舗へ視察","¥3,500・今日は休業"],focus:["🤝","お店に集中","その日の親密度アップ"]};
+const FMACT={sns:["📱","SNS更新","無料・👀知名度アップ"],prac:["🔥","シーシャの練習","¥500・💨技術アップ"],visit:["🚶","他店舗へ視察","¥3,500・今日は休業"],focus:["🤝","お店に集中","その日の親密度アップ"]};
 let FMASEL=null;
 function fmStat(){const p=$("#p-shop");if(!p)return;let c=$("#fmstat");if(!c){c=document.createElement("div");c.id="fmstat";p.prepend(c)}
 let w=["",""],m=1;try{const k=G.wx[G.wd];w=WXI[k]||w;m=(WXI[k]||[0,0,1])[2];const e=G.ev&&G.ev[G.wd];if(e)m=m*(e.m||1)}catch(e){}
@@ -367,16 +367,16 @@ try{document.head.insertAdjacentHTML("beforeend",`<style>
 html body #sheet.open #fmst2 button{background:#6658a6!important;color:#fff!important;border:none!important;border-radius:12px!important;padding:9px 14px!important;font-weight:900!important;font-size:13.5px!important;white-space:nowrap}
 html body #sheet.open #fmact,html body #sheet.open #fmdone{display:none!important}
 </style>`)}catch(e){}
-const MNA={sns:["📱","SNS更新"],prac:["🔥","シーシャの練習"],refresh:["🧖","リフレッシュ"],visit:["🚶","他店舗へ視察"],focus:["🤝","お店に集中"]};
-showMorning=function(){if(!canAct())return;if(typeof evMorning==="function"&&evMorning())return;const snsL=(evx().sns||0)>G.day;const o=G.ow,w=WXI[G.wx[G.wd]],e=G.ev[G.wd],ty=G.wx[G.wd]==="typhoon",mot=Math.round(G.mot??100);
+const MNA={sns:["📱","SNS更新"],prac:["🔥","シーシャの練習"],visit:["🚶","他店舗へ視察"],focus:["🤝","お店に集中"]};
+showMorning=function(){if(!canAct())return;if(typeof evMorning==="function"&&evMorning())return;const snsL=(evx().sns||0)>G.day;const o=G.ow,w=WXI[G.wx[G.wd]],e=G.ev[G.wd],ty=G.wx[G.wd]==="typhoon";
 const L=[["sns","無料・知名度とフォロワーが上がる。たまにバズる",snsL?"スマホが壊れていて更新できない（あと"+((evx().sns)-G.day)+"日）":"",!snsL],
 ["prac","¥500・技術アップ（"+tierTxt(o.skill)+"）","",G.money>=500],
-["refresh","¥1,000〜5,000・やる気が回復（温泉／サウナ／スパ）","",G.money>=1000],
+
 ["visit","¥3,500・今日は休業・月1回。技術と知名度が少し上がる",G.vm===G.month?"今月はもう視察しました":"",G.money>=3500&&!ty&&G.vm!==G.month],
 ["focus","無料・話しかけの親密度1.5倍（SNSは更新しない）","",true]];
 ov(`<div class="card mnc"><div class="mh"><div class="t">TODAY<small>開店前：今日の行動を選ぼう</small></div><div class="w"><span>${MN[G.month%12]}月 ${WD[G.wd]}曜　${w[0]} ${w[1]}${e?"／"+esc(e.n):""}</span><span class="pu">${G.money===Infinity?"∞":Math.round(G.money).toLocaleString()}</span></div></div>
-<div class="ms"><div><small>👀 知名度</small><b>${Math.round(o.fame)}</b></div><div><small>⭐ スター性</small><b>${o.star}</b></div><div><small>💨 技術</small><b>${sk1(o.skill)}</b></div><div><small>📱 フォロワー</small><b>${o.fol.toLocaleString()}</b></div><div><small>🔥 やる気</small><b style="color:${mot>=30?"inherit":"#e53935"}">${mot}</b></div></div>
-${mot<30?`<div class="mw">やる気が少なくなっています。0になると廃業です。行動したり、お客さんと話したりしよう</div>`:""}
+<div class="ms"><div><small>👀 知名度</small><b>${Math.round(o.fame)}</b></div><div><small>⭐ スター性</small><b>${o.star}</b></div><div><small>💨 技術</small><b>${sk1(o.skill)}</b></div><div><small>📱 フォロワー</small><b>${o.fol.toLocaleString()}</b></div></div>
+
 <div class="mq">今日の行動を1つ選んでください</div>
 <div class="mg">${L.map(([k,d,why,ok])=>`<button data-mo="${k}" ${ok?"":"disabled"}><span class="e">${MNA[k][0]}</span><b>${MNA[k][1]}</b><small>${esc(why||d)}</small></button>`).join("")}</div>
 <div class="mn">行動は1日1回。SNSを更新しない日はフォロワーが減ります。</div>
