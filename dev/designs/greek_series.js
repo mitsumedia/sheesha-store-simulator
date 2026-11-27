@@ -40,3 +40,37 @@ const GREEK={
   for(let k=0;k<6;k++)box(P,10,1+k*.5,0,11,1.5+k*.5,(k+1)*1,"#f5f5f5",.5);for(const y of[4.5,7.5])box(P,1.75,y,3.5,2,y+1.2,5,"#1e5fb4",.25);box(P,7.5,2.75,3.5,9,3,5,"#1e5fb4",.25);
   ellV(P,6,6.5,7,2.8,2.8,2.6,(x,y,z)=>z<0?null:"#1565c0",.25);box(P,5.75,6.25,9.5,6.25,6.75,10.8,"#fafafa",.25);box(P,5.4,6.25,10.2,6.6,6.75,10.5,"#fafafa",.25);for(let k=0;k<10;k++)P(2.2+k*.4,2.7,7+(k%3)*.3,["#e91e63","#d81b60","#43a047"][k%3],.25)}
 };
+/* ギリシャシリーズ 作り直し分 */
+function shd(v){v=Math.max(0,Math.min(1,v));const g=Math.round(175+v*70);return"#"+[g,g,g-4].map(n=>n.toString(16).padStart(2,"0")).join("")}
+const GREEK2={
+ bust2(P){/* 大理石の胸像（高精細・ひげの哲学者風） */ped(P,4.5,1.4);const st=.125,L=(x,y,z,n)=>shd(.55+(-x*.35-y*.45+z*.6)/n);
+  for(let x=-1.9;x<=1.9;x+=st)for(let y=-1;y<=1;y+=st)for(let z=0;z<=1.6;z+=st){const r=(x/1.9)**2+(y/1)**2+((z-.2)/1.4)**2;if(r>1||r<.8)continue;const fold=Math.sin(x*5+z*3)>.7;P(3+x,3+y,4.5+z,fold?shd(.35):L(x/1.9,y,(z-.2)/1.4,1.2),st)}
+  for(let x=-.45;x<=.45;x+=st)for(let y=-.45;y<=.45;y+=st)if(x*x+y*y<=.2)for(let z=6;z<6.7;z+=st)P(3+x,3+y,z,L(x,y,0,.5),st);
+  for(let x=-.95;x<=.95;x+=st)for(let y=-1.05;y<=1.05;y+=st)for(let z=-1.1;z<=1.15;z+=st){const r=(x/.95)**2+(y/1.05)**2+(z/1.15)**2;if(r>1||r<.75)continue;P(3+x,3+y,7.6+z,L(x/.95,y/1.05,z/1.15,1),st)}
+  for(let x=-1.05;x<=1.05;x+=st)for(let y=-1.1;y<=1.1;y+=st)for(let z=0;z<=1.3;z+=st){const r=(x/1.05)**2+(y/1.1)**2+(z/1.3)**2;if(r>1||r<.7||y<-.55&&z<.55)continue;const curl=Math.sin(x*13)*Math.cos(y*13+z*9);P(3+x,3+y,7.6+z,curl>.35?shd(.25):L(x,y,z,1.1),st)}
+  for(let x=-.85;x<=.85;x+=st)for(let y=-1.3;y<=-.4;y+=st)for(let z=-1.9;z<=-.3;z+=st){const w=.85*(1-(-.3-z)/2.4);if(Math.abs(x)>w)continue;if(y<-1.3+(z+1.9)*.2+Math.abs(x)*.3)continue;if(y>-1.3+(z+1.9)*.2+Math.abs(x)*.3+.25&&y<-.6)continue;const c=Math.sin(x*15+z*5)>.25?shd(.3):L(x,-1,z*.3,1);P(3+x,3+y,7.6+z,c,st)}
+  for(let x=-.6;x<=.6;x+=st)for(let z=0;z<.25;z+=st)P(3+x,1.78-Math.abs(x)*.2,7.3+z-Math.abs(x)*.25,shd(.3),st);
+  for(let z=7.45;z<8.15;z+=st)for(let x=-.14;x<=.14;x+=st)P(3+x,1.86-(z-7.45)*.15,z,shd(.95),st);for(let x=-.14;x<=.14;x+=st)P(3+x,1.95,7.42,shd(.2),st);
+  for(const s of[-1,1]){for(let a=-.2;a<=.2;a+=st)for(let b=-.1;b<=.1;b+=st)P(3+s*.4+a,1.95,8.02+b,"#8a8a86",st);for(let a=-.28;a<=.28;a+=st)P(3+s*.4+a,1.88,8.3-Math.abs(a)*.3,shd(.95),st);P(3+s*.4,1.9,8.02,"#5f5f5c",st)}
+  for(const s of[-1,1])for(let y=-.3;y<=.3;y+=st)for(let z=-.3;z<=.3;z+=st)if(y*y+z*z<.09)P(3+s*.98,3+y,7.6+z,L(s,0,0,1),st)},
+ helmet(P){/* コリント式の兜（台つき） */ped(P,3,1.2);for(let z=3;z<4.2;z+=.25)P(3,3,z,"#5d4037",.25);const st=.125;
+  for(let x=-1;x<=1;x+=st)for(let y=-1.2;y<=1.2;y+=st)for(let z=-1.7;z<=1.2;z+=st){const r=(x/1)**2+(y/1.2)**2+(z/(z>0?1.2:1.7))**2;if(r>1)continue;const inner=r<.72;const fy=y<-.5;let hole=false;
+   if(fy&&z>-.6&&z<-.15&&Math.abs(x)>.12&&Math.abs(x)<.78)hole=true;if(fy&&z<=-.6&&Math.abs(x)<.3)hole=true;if(fy&&Math.abs(x)<.12&&z>-1.05&&z<-.15)hole=false;if(z<-1.4&&y>.2)hole=true;
+   if(hole){continue}const v=.5+(-x*.4-y*.3+z*.5)/1.2;P(3+x,3+y,5.6+z,inner?"#2b1d0e":(v>.75?"#f0c85a":v>.45?"#cf9a33":"#9a6a1c"),st)}
+  for(let x=-1;x<=1;x+=st)for(let z=-.2;z<0;z+=st){const y=-Math.sqrt(Math.max(0,1-(x)**2))*1.2;P(3+x,3+y-.05,5.6+z+.15,"#7a5214",st)}/* 眉の線 */
+  for(let y=-1.3;y<=1.5;y+=st)for(let h=0;h<1.3-Math.abs(y-.1)*.35;h+=st)for(let x=-.2;x<=.2;x+=st)P(3+x,3+y,6.75+h,((y*8|0)+(h*6|0))%3?"#c62828":"#8e1b1b",st)},
+ trojan(P0){/* トロイの木馬の模型（横向き） */const P=(x,y,z,c,st)=>P0(y+.6,x,z,c,st);box(P,.6,.8,.6,5.4,5.2,1.2,"#6d4c41");for(const[x,y]of[[.8,1.2],[5.2,1.2],[.8,4.8],[5.2,4.8]])for(let a=0;a<6.28;a+=.3)for(let r=0;r<.6;r+=.25)P(x,y+Math.cos(a)*r,.6+Math.sin(a)*r,r>.4?"#4e342e":"#8d6e63",.25);
+  const W=(x,y,z)=>((z*4|0)%2?"#a1887f":"#8d6e63");for(const[x,y]of[[2,1.8],[4,1.8],[2,4.2],[4,4.2]])box(P,x-.3,y-.3,1.2,x+.3,y+.3,4,W,.25);box(P,1.5,1.2,4,4.5,4.9,6,W,.25);for(let t=0;t<8;t++)box(P,2.3,1.6-t*.15,6+t*.4,3.7,2.4-t*.15,6.4+t*.4,W,.25);
+  box(P,2.2,-.4,8.5,3.8,1.3,9.6,W,.25);box(P,2.4,-.9,8.4,3.6,-.4,9.3,W,.25);for(let t=0;t<7;t++)box(P,2.8,1.4+t*.25,6.5+t*.35,3.2,1.6+t*.25,6.8+t*.35,"#5d4037",.25);P(2.15,0,9.2,"#212121",.25);P(3.85,0,9.2,"#212121",.25);for(let z=9.6;z<10.4;z+=.25){P(2.4,.9,z,W(0,0,z),.25);P(3.6,.9,z,W(0,0,z),.25)}
+  for(let t=0;t<6;t++)P(3,5+t*.15,5.6-t*.35,"#5d4037",.25);box(P,4.45,2.2,4.5,4.6,3.4,5.5,"#4e342e",.25)},
+ bench(P){/* 大理石のベンチ（獅子の脚） */const st=.25;for(const x of[1,4.5])for(const y of[2,4]){box(P,x,y-.5,0,x+.6,y+.1,.7,MS,st);box(P,x+.05,y-.4,.7,x+.55,y,2.2,MB,st);P(x+.3,y-.6,.2,"#cfd1cc",st)}
+  box(P,.6,1.2,2.2,5.6,4.9,2.9,(x,y,z)=>z>2.6?"#f6f6f2":"#e4e5e0",st);for(let x=.6;x<5.6;x+=st)P(x,1.1,2.5,"#d6d7d1",st);box(P,1.2,1.8,2.9,5,4.3,3.3,"#1e5fb4",st);for(let x=1.2;x<5;x+=1)P(x,1.75,3.1,"#fafafa",st)},
+ door(P){/* 青い扉（壁） */for(let y=.5;y<5.5;y+=.25)for(let z=0;z<11;z+=.25){const iy=y+.125-3,inA=z<8.2?Math.abs(iy)<1.7:Math.hypot(iy,z-8.2)<1.7;const fr=z<8.7?Math.abs(iy)<2.2:Math.hypot(iy,z-8.2)<2.2;if(!fr)continue;P(.25,y,z,inA?"#1565c0":"#fafafa",.25)}
+  for(let z=.3;z<8;z+=.25){P(.5,3,z,"#0d47a1",.25)}for(let y=1.4;y<4.7;y+=.25){P(.5,y,4,"#0d47a1",.25);P(.5,y,7.4,"#0d47a1",.25)}P(.75,3.5,4.6,GD,.25);P(.75,2.5,4.6,GD,.25);
+  for(const y of[-.3,6.3])for(let z=0;z<2.2;z+=.25)for(let a=0;a<6.28;a+=.5)P(1+Math.cos(a)*.55,y+Math.sin(a)*.55,z,z<1.6?"#c8642a":"#43a047",.25);for(const y of[-.3,6.3])for(let k=0;k<8;k++)P(1+Math.cos(k)*.5,y+Math.sin(k)*.5,2.3+(k%3)*.25,["#e91e63","#43a047","#ff4081"][k%3],.25)},
+ pithos(P){/* オリーブオイルの大がめ（3つ） */const jar=(cx,cy,h,R)=>{for(let z=0;z<h;z+=.25){const t=z/h,r=t<.1?R*.55:t<.85?R*(.55+Math.sin((t-.1)/.75*Math.PI)*.45):R*.42;for(let a=0;a<6.28;a+=.1){let c=(t>.42&&t<.47)||(t>.6&&t<.63)?"#5d4037":"#c97b45";if(t>.47&&t<.6&&((a*5|0)%2))c="#d88f58";P(cx+Math.cos(a)*r,cy+Math.sin(a)*r,z,c,.25)}}for(let a=0;a<6.28;a+=.15)P(cx+Math.cos(a)*R*.5,cy+Math.sin(a)*R*.5,h,"#8d5a2b",.25)};
+  jar(2.2,3.6,7,1.6);jar(4.4,2.6,4.5,1.1);jar(1.3,1.5,3,.8);for(let k=0;k<5;k++)P(4.2+k*.2,1.2,.2,"#558b2f",.25);for(const[x,y]of[[4.6,1.1],[4.9,1.3],[4.4,1.4]])P(x,y,.45,"#33691e",.25)},
+ stairs(P){/* 白い階段と植木鉢 */for(let k=0;k<5;k++)box(P,.5,.5+k*1,0,5.5,1.5+k*1,(k+1)*1.2,(x,y,z)=>z>(k+1)*1.2-.3?"#fafafa":"#ececE8",.5);box(P,.5,5,0,5.5,5.5,6,"#fafafa");
+  const pot=(x,y,z,c)=>{for(let h=0;h<.8;h+=.25)for(let a=0;a<6.28;a+=.4)P(x+Math.cos(a)*.4,y+Math.sin(a)*.4,z+h,"#1e88e5",.25);for(let k=0;k<7;k++)P(x+Math.cos(k*.9)*.35,y+Math.sin(k*.9)*.35,z+.9+(k%2)*.25,k%3?c:"#43a047",.25)};
+  pot(1.2,1,1.2,"#e53935");pot(4.8,2,2.4,"#ff4081");pot(1.2,3,3.6,"#fdd835");pot(4.8,4,4.8,"#e53935")}
+};
