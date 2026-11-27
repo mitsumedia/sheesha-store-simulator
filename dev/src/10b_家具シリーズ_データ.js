@@ -24,7 +24,7 @@ const SNEW=[
 const SER=[
  {id:"wa",n:"和風",tag:"asian",it:["maneki","lantern","daruma","bonsai","wagasa","teaset","bamboo","hibachi","toro","koi"],bo:["sb_kare","枯山水の庭","kare.main"],rel:["wp_scroll"]},
  {id:"music",n:"音楽",tag:"party",it:["guitar","speaker","radio","record","wp_s_guitar","mic","amp","gdisc","jukebox","piano"],bo:["sb_turn","ターンテーブル卓","turn.main"],rel:["wp_flyer"]},
- {id:"plant",n:"植物",tag:"luxury",it:["plant","s_sansev","s_pachira","wp_s_pothos","s_rubber","s_monstera","s_umbel","vase","fwall","s_olive"],bo:["sb_palm","ヤシの木","plants.palm"],rel:[]},
+ {id:"plant",n:"植物",tag:"asian",it:["plant","s_sansev","s_pachira","wp_s_pothos","s_rubber","s_monstera","s_umbel","vase","fwall","s_olive"],bo:["sb_palm","ヤシの木","plants.palm"],rel:[]},
  {id:"kinoko",n:"キノコ",tag:"fantasy",it:["mush","s_enoki","s_mbasket","s_kstool","s_klamp","s_beni","s_shiitake","wp_s_kwall","s_kshelf","mushhouse"],bo:["sb_gkinoko","巨大ベニテングタケ","kinoko.giant"],rel:[]},
  {id:"magic",n:"魔法",tag:"fantasy",it:["lamp","hourglass","crystal","mlamp","cage","grimoire","fbook","cauldron","ccluster","skull"],bo:["sb_mahou","光る魔法陣","mahou.main"],rel:["wp_magic"]},
  {id:"gesen",n:"ゲーセン",tag:"subculture",it:["gacha","pixsign","gneon","tvgame","s_medal","arcade","s_punch","s_rhythm","crane","monitor"],bo:["sb_hockey","エアホッケー台","gesen.hockey"],rel:["wp_game"]},
