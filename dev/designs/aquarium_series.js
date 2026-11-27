@@ -25,7 +25,7 @@ const AQUA={
   for(let z=1;z<23.5;z+=.5)for(let a=0;a<6.28;a+=.25){const x=3+Math.cos(a)*2.2,y=3+Math.sin(a)*2.2;if(Math.sin(a)<-.2)continue;P(x-.25,y-.25,z,"#29b6f6")}
   const c=["#ff4081","#ffeb3b","#00e5ff","#ff9100"];for(let k=0;k<10;k++)fish(P,2+(k%3)*.8,2.4+(k%2)*.5,2+k*2,c[k%4],null,k%2?1:-1);for(let z=2;z<23;z+=1.7)P(3+Math.sin(z)*.4,3,z,"#e1f5fe",.25)},
  same(P){/* ボーナスB：サメの大水槽（1×2マス） */stand(P,.5,0,5,12,3,"#212121");tank((x,y,z,c,s)=>{if(x===.5&&c==="#0277bd")return;P(x,y,z,c,s)},.5,0,3,5,12,6,"#0277bd","#212121","#ffe0b2");
-  ellV(P,1.6,5.5,6,.8,2.6,.8,(a,b,c)=>c<-.2?"#eceff1":"#78909c",.25);for(let t=0;t<4;t++)P(1.6,5.5,6.8+t*.3,"#78909c",.25);for(let t=0;t<4;t++){P(1.6,8.2+t*.3,6+t*.3,"#78909c",.25);P(1.6,8.2+t*.3,6-t*.3,"#78909c",.25)}P(1,3.4,6.3,"#111",.25);
+  ellV(P,1.6,5.5,6,.8,2.6,.8,(a,b,c)=>c<-.2?"#eceff1":"#78909c",.25);for(let t=0;t<4;t++)P(1.6,5.5,6.8+t*.3,"#78909c",.25);const SW=(typeof AQ_SW!=="undefined"?AQ_SW:0);/* 尾びれ：SWで左右に振る（-1〜1） */for(let t=0;t<4;t++){const dx=SW*(t+1)*.3;P(1.6+dx,8.2+t*.3,6+t*.3,"#78909c",.25);P(1.6+dx,8.2+t*.3,6-t*.3,"#78909c",.25);P(1.6+dx,8.2+t*.3,6,"#78909c",.25)}P(1,3.4,6.3,"#111",.25);
   for(const[y,z]of[[2,4.5],[9.5,7.5],[10,5]])fish(P,1.2,y,z,"#ffeb3b")},
  arch(P){/* ボーナスC：海底トンネル風の水槽アーチ（1×2マス） */for(let y=0;y<12;y+=.5)for(let x=0;x<6;x+=.5){const r=Math.hypot((y+.25-6)/6,0);}
   for(let y=-.5;y<12.5;y+=.5)for(let z=0;z<12;z+=.5){const cy=y+.25-6,cz=z;const outer=(cy/6)**2+(cz/11)**2<=1,inner=(cy/4)**2+(cz/8.5)**2<=1;if(!outer||inner)continue;for(let x=1;x<5;x+=.5){const edge=x===1||x===4.5;P(x,y,z,edge?"#90caf9":"#29b6f6")}}
