@@ -16,5 +16,5 @@ const KINOKO={
   const bk=["#e53935","#1e88e5","#43a047","#fdd835","#8e24aa","#fb8c00"];for(const z0 of[.5,4])for(let x=1.5;x<4.5;x+=.5){const hh=2.5-((x*2)%3)*.5;for(let z=z0;z<z0+hh;z+=.5)for(let y=2.5;y<4;y+=.5)P(x,y,z,bk[((x*2+z0)|0)%6])}
   capV(P,2.75,3,7,3.1,2.4,"#c62828","#fafafa","#f3e5d0")},
  wall(P){for(const[y,z,r]of[[2,13,2.4],[4.2,10.5,2],[2.6,8,1.6]])for(let a=0;a<r*1.6;a+=.5)for(let b=-r;b<r;b+=.5){if(Math.hypot(a/(r*1.6),b/r)>1)continue;const ed=Math.hypot(a/(r*1.6),b/r)>.75;P(a,y+b,z,ed?"#f3e0b8":"#a0522d");P(a,y+b,z-.5,"#e9d7b0")}},
- giant(P){stalk(P,3,3,0,12,1.3,"#f5f1e6");for(let a=0;a<6.28;a+=.4)for(let t=0;t<.6;t+=.5)P(3+Math.cos(a)*1.6,3+Math.sin(a)*1.6,8.5,"#fffdf5");capV(P,3,3,12,3,5.5,"#d32f2f","#ffffff","#f3e5d0")}
+ giant(P){stalk(P,3,3,0,13.5,1.3,"#f5f1e6");for(let a=0;a<6.28;a+=.4)P(3+Math.cos(a)*1.6,3+Math.sin(a)*1.6,9,"#fffdf5");capV(P,3,3,13.5,5,4,"#d32f2f","#ffffff","#f3e5d0")}
 };
