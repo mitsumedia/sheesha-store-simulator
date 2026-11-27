@@ -37,25 +37,32 @@ const CHINA={
   for(let z=1;z<7;z+=.25)P(4.3,1.6+(z-1)*.05,z,z%1.5<.25?"#558b2f":"#7cb342",.25);for(const[d,z]of[[.4,6.2],[-.4,5.6],[.5,4.8]])for(let t=0;t<4;t++)P(4.3+d*t*.4,1.9,z+t*.1,"#8bc34a",.25)},
  kanpo(P){/* 漢方の引き出し棚：小さな引き出しがびっしり、上に壺 */boxV(P,.5,2,0,5,3,10,"#6d4c41");for(let x=.75;x<5.5;x+=1.1)for(let z=.75;z<9.5;z+=1.2){for(let a=0;a<1;a+=.25)for(let b=0;b<1;b+=.25)P(x+a,1.75,z+b,(a===0||b===0)?"#4e342e":"#a1887f",.25);P(x+.375,1.5,z+.375,"#d4af37",.25);P(x+.25,1.7,z+.6,"#fafafa",.25)}
   for(let x=.5;x<5.5;x+=.5)P(x,2,10,"#4e342e");ellV(P,1.6,3.3,11,.7,.7,.8,"#c62828");ellV(P,4,3.3,10.9,.6,.6,.7,"#1565c0")},
- shishi(P){/* 獅子の像（高精細）：彫刻の台座に正面向きで座る石の獅子。くるくるのたてがみ、大きな目、開いた口、首に赤いリボンと鈴、前足で鞠を押さえる */
-  const S="#a7a7a2",S2="#c4c4bf",S3="#86867f",S4="#6d6d66",st=.25;
-  const E=(cx,cy,cz,rx,ry,rz,c)=>{for(let x=-rx;x<=rx;x+=st)for(let y=-ry;y<=ry;y+=st)for(let z=-rz;z<=rz;z+=st)if((x/rx)**2+(y/ry)**2+(z/rz)**2<=1)P(cx+x,cy+y,cz+z,typeof c==="function"?c(x,y,z):c,st)};
-  for(let x=.5;x<5.5;x+=st)for(let y=.5;y<5.5;y+=st)for(let z=0;z<2.5;z+=st){const e=x<.75||x>=5.25||y<.75||y>=5.25;if(!e&&z<2.25)continue;const trim=z>=2||z<.25;const carve=!trim&&y<.75&&((Math.abs(((x*2)%1.5)-.75)<.2)&&z>.75&&z<1.75);P(x,y,z,trim?S4:(carve?S4:S3),st)}
-  E(3,3.6,3.4,1.8,1.5,1.3,(x,y,z)=>z>.6?S2:S);E(3,2.9,4.6,1.35,1,1.6,(x,y,z)=>y<-.6?S2:S);
-  for(const lx of[2.15,3.85])for(let z=2.5;z<4.6;z+=st)E(lx,2.1,z,.45,.45,.13,S);for(const lx of[2.15,3.85])E(lx,1.85,2.65,.55,.6,.3,S2);for(const lx of[2.15,3.85])for(const d of[-.25,0,.25])P(lx+d,1.25,2.6,S4,st);
-  E(4.4,1.3,2.9,.6,.6,.6,(x,y,z)=>(Math.abs(x)<.1||Math.abs(z)<.1)?S4:S2);
-  E(3,2.6,7.1,1.55,1.25,1.35,S);
-  for(let a=0;a<6.28;a+=.42)for(const rr of[1.55,1.95]){const x=3+Math.cos(a)*rr,z=7.1+Math.sin(a)*rr*.95;if(z<5.9)continue;E(x,2.9+(rr>1.6?.4:0),z,.38,.38,.38,(dx,dy,dz)=>dz>0?S2:S3)}
-  for(let x=1.6;x<=4.4;x+=.7)E(x,3.5,8.6,.4,.4,.4,S2);
-  for(const ex of[2.35,3.65]){E(ex,1.45,7.45,.38,.2,.3,"#e8e8e2");P(ex-.125,1.25,7.4,"#3a3a36",st);E(ex,1.55,7.95,.45,.2,.12,S4)}
-  E(3,1.35,6.95,.6,.3,.3,S4);P(2.75,1.05,6.95,"#3a3a36",st);P(3.25,1.05,6.95,"#3a3a36",st);
-  for(let x=2.25;x<3.8;x+=st)for(let z=6.05;z<6.6;z+=st)P(x,1.3,z,(z>=6.3&&((x*4)|0)%2===0)?"#efefe9":"#4a4a44",st);for(let x=2.25;x<3.8;x+=st)P(x,1.3,5.9,S,st);
-  for(let a=0;a<6.28;a+=.2)P(3+Math.cos(a)*1.3,2.85+Math.sin(a)*.95,5.85,"#c62828",st);E(3,1.75,5.5,.35,.3,.35,"#d4af37");P(2.875,1.45,5.4,"#6d4c41",st);
-  for(let t=0;t<8;t++)E(4.6+Math.sin(t*.6)*.2,4.6,3+t*.45,.3,.3,.3,S3);for(let a=0;a<6.28;a+=.6)E(4.8+Math.cos(a)*.45,4.7,6.7+Math.sin(a)*.45,.28,.28,.28,S2)},
- sensu(P){/* 扇子の壁飾り（壁アイテム・x=0が壁）：大きく開いた赤い扇子に金の模様、黒い骨、下に金のふさ */const cx=3,cz=8.5;
-  for(let y=-.5;y<6.5;y+=.25)for(let z=8;z<14.5;z+=.25){const dy=y+.125-cx,dz=z+.125-cz,r=Math.hypot(dy,dz),a=Math.atan2(dz,dy);if(a<.12||a>3.02||r>5.4||r<1.6)continue;
-   const rib=Math.abs(((a/3.14)*14)%1-.5)>.42;let c=r>5.1?"#d4af37":(rib?"#2b1b17":"#c62828");if(!rib&&r<5.1){const wave=Math.abs(r-3.4-Math.sin(a*8)*.3)<.18;const blossom=Math.hypot(dy-1.2,dz-3)<.45||Math.hypot(dy+1.6,dz-2.6)<.35;if(wave)c="#ffd54f";if(blossom)c="#fff3e0"}P(.25,y,z,c,.25)}
-  for(let z=8;z<9.25;z+=.25)P(.25,2.875,z,"#2b1b17",.25);P(.5,2.875,8.5,"#d4af37",.25);for(let z=5.5;z<8;z+=.25)P(.5,2.875,z,z<6.25?"#ffd54f":"#c62828",.25);for(const d of[-.25,.25])for(let z=5;z<6;z+=.25)P(.5,2.875+d,z,"#ffd54f",.25)},
+ shishi(P){/* 獅子の像（高精細・0.125）：正面向き。四角い台座、胸を張って座る獅子、たてがみは丸いカールの列、大きな丸い目、太い眉、開いた口に歯と舌、首にリボンと鈴、右前足で鞠 */
+  const st=.125,S="#b5b2aa",SL="#cfccc4",SD="#8f8c84",SDD="#6f6c65";
+  const E=(cx,cy,cz,rx,ry,rz,c)=>{for(let x=-rx;x<=rx;x+=st)for(let y=-ry;y<=ry;y+=st)for(let z=-rz;z<=rz;z+=st){const q=(x/rx)**2+(y/ry)**2+(z/rz)**2;if(q<=1&&q>.55)P(cx+x,cy+y,cz+z,typeof c==="function"?c(x,y,z):c,st)}};
+  for(let x=.5;x<5.5;x+=.25)for(let y=.5;y<5.5;y+=.25)for(let z=0;z<2.5;z+=.25){const e=x<.75||x>=5.25||y<.75||y>=5.25||z>=2.25;if(!e)continue;P(x,y,z,(z>=2.25||z<.25)?SDD:((y<.75&&Math.abs((x%1.25)-.6)<.25&&z>.75&&z<1.75)?SD:"#9a978f"),.25)}
+  const shade=(x,y,z)=>z>.3?SL:(y<0?S:SD);
+  E(3,3.7,3.3,1.9,1.4,1.1,shade);E(3,2.95,4.7,1.3,1.0,1.7,shade);
+  for(const lx of[2.2,3.8]){E(lx,2.05,3.5,.42,.42,1.05,shade);E(lx,1.8,2.62,.55,.65,.3,SL);for(const d of[-.25,0,.25])E(lx+d,1.2,2.6,.12,.12,.12,SDD)}
+  E(4.6,1.25,3.05,.62,.62,.62,(x,y,z)=>(Math.abs(x)<.08||Math.abs(z)<.08||Math.abs(x-z)<.08)?SD:SL);
+  E(3,2.55,7.05,1.6,1.25,1.4,shade);
+  E(3,1.5,6.55,1.05,.5,.55,shade);
+  for(const ex of[2.35,3.65]){E(ex,1.35,7.5,.4,.25,.4,"#e9e6de");E(ex,1.15,7.5,.17,.12,.17,"#2f2d29");E(ex,1.4,8.05,.5,.25,.15,SD)}
+  E(3,1.05,7.0,.42,.22,.3,SDD);
+  for(let x=2.2;x<=3.8;x+=st)for(let z=6.05;z<=6.55;z+=st){const lip=z>6.45||z<6.15||x<2.32||x>3.68;const tooth=!lip&&z>6.3&&((x*8)|0)%3!==0;const tongue=!lip&&z<6.3&&Math.abs(x-3)<.45;P(x,1.0,z,lip?SD:(tooth?"#f4f2ec":(tongue?"#c9a3a0":"#3a3834")),st)}
+  for(let a=0.15;a<3.0;a+=.36){for(const[rr,yy,rad]of[[1.62,2.75,.36],[2.0,3.15,.4],[1.25,3.5,.34]]){const x=3+Math.cos(a)*rr,z=7.0+Math.sin(a)*rr;E(x,yy,z,rad,rad,rad,(dx,dy,dz)=>dz>0?SL:SD);E(x,yy-rad*.6,z,rad*.45,.08,rad*.45,SDD)}}
+  for(let a=3.3;a<6.2;a+=.5){const x=3+Math.cos(a)*1.75,z=6.9+Math.sin(a)*1.0;if(z<5.6)continue;E(x,2.9,z,.33,.33,.33,(dx,dy,dz)=>dz>0?SL:SD)}
+  for(let a=0;a<6.28;a+=.08)P(3+Math.cos(a)*1.32,2.9+Math.sin(a)*1.02,5.75,a>4.2&&a<5.2?"#d32f2f":"#b71c1c",st);for(const d of[-.35,.35])for(let t=0;t<5;t++)P(3+d+d*t*.3,1.85,5.65-t*.15,"#d32f2f",st);
+  E(3,1.75,5.35,.32,.28,.32,(x,y,z)=>z>.1?"#f2c94c":"#d4a017");P(2.95,1.45,5.3,"#5d4037",st);
+  for(let t=0;t<10;t++)E(4.7+Math.sin(t*.5)*.25,4.7,3.0+t*.35,.26,.26,.26,shade);for(let a=0;a<6.28;a+=.7)E(4.95+Math.cos(a)*.42,4.75,6.6+Math.sin(a)*.42,.26,.26,.26,SL)},
+ sensu(P){/* 扇子の壁飾り（高精細・0.125）：要（かなめ）から広がる細い骨、赤い地紙に金の霞と梅、外周に金のふち、両端に太い親骨、下に房 */
+  const cx=3,cz=8.2,st=.125,N=18;
+  for(let y=-2.5;y<8.5;y+=st)for(let z=8;z<14.4;z+=st){const dy=y+st/2-cx,dz=z+st/2-cz,r=Math.hypot(dy,dz),a=Math.atan2(dz,dy);if(a<.18||a>2.96||r>5.6)continue;
+   const fa=(a-.18)/(2.78)*N,ribD=Math.abs(fa-Math.round(fa))*(r*2.78/N);const edgeStick=(a<.3||a>2.84);
+   let c=null;if(r<1.9){if(ribD<.07||edgeStick)c="#3e2723"}else{const paper=r<5.35;if(!paper)c="#d4a017";else{c=(r>4.9||r<2.2)?"#d4a017":"#b3261e";const kasumi=Math.abs(r-3.5-Math.sin(a*5)*.35)<.22&&r<4.9&&r>2.2;if(kasumi)c="#e9b949";for(const[bx,bz,br]of[[1.4,3.4,.42],[-1.2,3.9,.36],[2.4,2.0,.3],[-2.6,2.3,.33],[.2,4.4,.3]]){const d=Math.hypot(dy-bx,dz-bz);if(d<br)c=d<br*.35?"#f2c94c":"#fff1e6"}
+     if(ribD<.045&&r<4.9)c=c==="#b3261e"?"#9c2018":c}if(edgeStick)c="#3e2723"}
+   if(c)P(.25,y,z,c,st)}
+  P(.375,2.94,8.2,"#d4a017",.25);for(let z=5.4;z<8.1;z+=st)P(.375,2.94+Math.sin(z*3)*.03,z,z<6.1?"#f2c94c":"#c62828",st);for(const d of[-.25,-.125,0,.125,.25])for(let z=4.7;z<5.6;z+=st)P(.375,2.94+d,z,"#e9b949",st)},
  roundwin(P){/* 丸窓（壁アイテム・x=0が壁）：赤い木の丸枠に格子、向こうに竹 */for(let y=.25;y<6;y+=.25)for(let z=6;z<17;z+=.25){const r=Math.hypot(y+.125-3,z+.125-11.5);if(r>3)continue;let c=null;if(r>2.6)c="#8b1a1a";else{const lat=(Math.abs(((y+.125)%1.2)-.6)<.08)||(Math.abs(((z+.125)%1.2)-.6)<.08);c=lat?"#a0402f":(((y*2)|0)%3===0&&z<15?"#7cb342":"#e8f5e9")}P(.25,y,z,c,.25)}},
  gate(P){/* ボーナス：中華の門（牌楼）1×2マス。赤い柱2本、緑の瓦屋根、金の扁額 */for(const y of[.5,11])for(let z=0;z<14;z+=.5)for(let x=2.5;x<3.5;x+=.5)P(x,y,z,"#c62828");for(const y of[.5,11])boxV(P,2,y-.5,0,2,1.5,1,"#9e9e9e");
   for(let y=0;y<12;y+=.5){P(3,y,11,"#c62828");P(3,y,12.5,"#c62828")}for(let y=3.5;y<8.5;y+=.5)for(let z=11.5;z<12.5;z+=.5)P(2.5,y,z,y<4||y>=8?"#8d6e00":"#1a237e");for(let y=4.5;y<7.5;y+=.5)P(2.25,y,12,"#ffd54f",.5);
