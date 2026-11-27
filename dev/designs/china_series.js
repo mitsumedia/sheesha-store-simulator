@@ -67,5 +67,18 @@ const CHINA={
  gate(P){/* ボーナス：中華の門（牌楼）1×2マス。赤い柱2本、緑の瓦屋根、金の扁額 */for(const y of[.5,11])for(let z=0;z<14;z+=.5)for(let x=2.5;x<3.5;x+=.5)P(x,y,z,"#c62828");for(const y of[.5,11])boxV(P,2,y-.5,0,2,1.5,1,"#9e9e9e");
   for(let y=0;y<12;y+=.5){P(3,y,11,"#c62828");P(3,y,12.5,"#c62828")}for(let y=3.5;y<8.5;y+=.5)for(let z=11.5;z<12.5;z+=.5)P(2.5,y,z,y<4||y>=8?"#8d6e00":"#1a237e");for(let y=4.5;y<7.5;y+=.5)P(2.25,y,12,"#ffd54f",.5);
   for(let y=-1.5;y<13.5;y+=.5){const lift=Math.max(0,Math.abs(y-5.75)-5.5)*.6;for(let x=1+(0);x<5;x+=.5){const e=Math.abs(x-2.75);P(x,y,14+lift+(2-e)*.5,((y*2)|0)%2?"#2e7d32":"#1b5e20")}}
-  for(let y=-1.5;y<13.5;y+=.5)P(2.75,y,15.75+Math.max(0,Math.abs(y-5.75)-5.5)*.6,"#ffd54f",.5)}
+  for(let y=-1.5;y<13.5;y+=.5)P(2.75,y,15.75+Math.max(0,Math.abs(y-5.75)-5.5)*.6,"#ffd54f",.5)},
+ lantern(P){/* 中華ランタン（床置きスタンド）：赤い丸い提灯、金の上下、房 */for(let x=2;x<4;x+=.5)for(let y=2;y<4;y+=.5)P(x,y,0,"#3e2723");for(let z=.5;z<11;z+=.5)P(4.5,2.75,z,"#3e2723");for(let x=2.75;x<5;x+=.5)P(x,2.75,11,"#3e2723");
+  for(let z=5.5;z<10.5;z+=.5){const t=(z-8)/2.5,r=1.9*Math.sqrt(Math.max(0,1-t*t));const gold=z<6||z>=10;for(let x=-2;x<2;x+=.5)for(let y=-2;y<2;y+=.5){const d=Math.hypot(x+.25,y+.25);if(d>(gold?.9:r)||d<(gold?0:r-.6))continue;P(2.75+x,2.75+y,z,gold?"#d4af37":(((Math.atan2(y,x)*4)|0)%2?"#d32f2f":"#c62828"))}}
+  for(let z=3.5;z<5.5;z+=.5)P(2.75,2.75,z,z<4.5?"#ffd54f":"#c62828");P(2.75,2.75,10.5,"#d4af37")},
+ seiro(P){/* せいろの山：竹のせいろが3段、湯気、下に小さな鍋 */for(let x=1;x<5;x+=.5)for(let y=1;y<5;y+=.5)if(Math.hypot(x+.25-3,y+.25-3)<2)for(let z=0;z<1.5;z+=.5)P(x,y,z,"#455a64");
+  for(let k=0;k<3;k++){const z0=1.5+k*1.5;for(let x=.5;x<5.5;x+=.5)for(let y=.5;y<5.5;y+=.5){const d=Math.hypot(x+.25-3,y+.25-3);if(d>2.5)continue;for(let z=z0;z<z0+1.5;z+=.5){if(d<2.1&&z<z0+1)continue;P(x,y,z,d>2.1?(z===z0?"#b08a55":"#d9b77a"):"#c9a56a")}}}
+  for(let x=1;x<5;x+=.5)for(let y=1;y<5;y+=.5)if(Math.hypot(x+.25-3,y+.25-3)<2)P(x,y,6,"#e0c28c");P(2.75,2.75,6.5,"#b08a55");for(const[x,y]of[[2,2],[3.5,3],[2.5,3.8]])for(let t=0;t<4;t++)P(x+Math.sin(t)*.3,y,7+t*.6,"#f5f5f5",.25)},
+ chaset(P){/* 中国茶のセット：木の茶盤に、紫砂の急須と小さな湯のみ、茶海 */for(let x=.5;x<5.5;x+=.5)for(let y=1;y<5;y+=.5){P(x,y,0,"#3e2723");P(x,y,.5,"#4e342e");P(x,y,1,((x*2)|0)%2?"#5d4037":"#6d4c41")}
+  for(let x=1.5;x<3;x+=.5)for(let y=2;y<3.5;y+=.5)for(let z=1.5;z<2.5;z+=.5)P(x,y,z,"#7b4a3a");P(2,2.5,2.5,"#6d3f31");for(let t=0;t<3;t++)P(1-t*.3,2.75,1.75+t*.25,"#7b4a3a",.5);P(2,2.75,3,"#5d3a2e");
+  for(const[x,y]of[[3.6,1.6],[4.4,2.4],[3.6,3.4],[4.4,4.2]]){P(x,y,1.5,"#f5f5f5",.5);P(x,y,1.9,"#a5713a",.25)}for(let z=1.5;z<2.5;z+=.5)P(3,4.2,z,"#e0f2f1")},
+ mahjong(P){/* 麻雀卓：緑のマット、四方に牌の列、真ん中にサイコロ */for(const[x,y]of[[.5,.5],[5,.5],[.5,5],[5,5]])for(let z=0;z<3.5;z+=.5)P(x,y,z,"#3e2723");
+  for(let x=0;x<6;x+=.5)for(let y=0;y<6;y+=.5){const e=x<.5||y<.5||x>=5.5||y>=5.5;P(x,y,3.5,e?"#5d4037":"#1b5e20")}
+  for(let i=0;i<8;i++){const t=1+i*.5;P(t,1,4,"#fafafa",.5);P(t,4.5,4,"#fafafa",.5);P(1,t,4,"#fafafa",.5);P(4.5,t,4,"#fafafa",.5)}for(let i=0;i<8;i++){P(1+i*.5,.75,4.5,"#43a047",.25)}
+  P(2.75,2.5,4,"#fafafa",.25);P(3.25,2.9,4,"#fafafa",.25);P(2.85,2.6,4.25,"#e53935",.125);P(3.35,3,4.25,"#212121",.125)},
 };
