@@ -156,7 +156,7 @@ body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,
 <div class="row">営業時間 <select id="op"></select>〜<select id="cl"></select></div>
 <div id="hrsi" class="m" style="font-size:12px;margin:4px 0"></div><div class="m" style="font-size:12px">シーシャ3500円／おかわり2000円／ドリンクはフリー。閉店1時間前に入店停止、閉店時刻で全員退店。</div>
 <div class="row"><button id="devreset">🛠 開発用：最初からやり直す</button></div></div></details>
-<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.185</div></div></details>
+<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.186</div></div></details>
 <span id="smk"></span>
 </div>
 <div id="p-deco" hidden><div class="card"><div class="dcat"><button data-dc="obj">🪴 置物</button><button data-dc="wp">🖼 壁アイテム</button><button data-dc="fl">🟫 床</button><button data-dc="wl">🧱 壁紙</button><button data-dc="seat" id="dcseat" class="dcw" hidden>🛋 客席</button><button data-dc="inv" class="dcw">📦 持ち物</button><button id="rm" class="dcw">🔧 模様替え（移動・回転・しまう）</button></div><div class="m" id="plc" style="font-size:12px;margin-top:6px"></div></div><div class="card" id="sec-obj"><div class="m" style="margin-bottom:6px">アイテムを選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。</div><div class="grid" id="dl"></div></div><div class="card" id="sec-seat" hidden><div class="m" style="margin-bottom:6px;font-size:12px">席を選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。席の前の1列はシーシャ台を置く場所として使います。</div><div class="m" id="spc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="sl"></div></div><div class="card" id="sec-wp" hidden><div class="m" style="font-size:12px;margin:2px 0 6px">選んでから、店内の壁をタップして貼ります（1区画に1枚）。見えている壁にだけ貼れるので、視点を回すと反対側にも貼れます。</div><div class="m" id="wc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="wl"></div></div><div class="card" id="sec-inv" hidden><div id="ivl"></div></div><div class="card" id="sec-clr" hidden><div class="m" style="font-size:12px">選ぶと店内でお試し表示されます。「購入する」で購入（¥5,000〜）。店の雰囲気には影響しません。</div><div id="clr"></div></div></div>
@@ -2664,7 +2664,7 @@ const EV=[
 {id:47,r:5,t:"run",n:"元恋人が来店",tx:"「…久しぶり。こんな店やってたんだ」",ef:"元恋人の見た目と名前を決めて、図鑑に登録。ときどき来るようになる",once:1,go:()=>"（どんな人だった？）"},
 {id:48,r:5,t:"run",n:"自称インフルエンサーが来店",tx:"「…この店、SNSで紹介していい？」",ef:"フォロワーが2倍か、半分に",go:()=>{const o=G.ow,u=Math.random()<.5;o.fol=Math.max(0,Math.round(o.fol*(u?2:.5)));o.star=starOf(o);return u?"（本物だった！フォロワー2倍）":"（炎上した…フォロワー半分）"}},
 {id:49,r:5,t:"run",n:"フードデリバリーの誤配達",tx:"「ピザLサイズ×10、お届けです！」…頼んでない。お代は払い済みらしい",ef:"お客さんに振る舞って全員の親密度アップ",cond:"お客さんが5人以上いる時",ok:()=>evIn().length>=5,go:()=>{evIn().forEach(p=>{p.c.fp+=3;p.c.hp=Math.min(100,p.c.hp+6);say(p,rnd(["ピザだ！","いいんですか！？","最高の店！"]))})}},
-{id:50,r:5,t:"pre",ok:()=>false,n:"宝くじ1等",tx:"宝くじが1等当たった‼️‼️‼️",ef:"¥100,000,000もらえる。でも今まで通りの生活をする",once:1,go:()=>{evMoney(100000000,"宝くじ")}}];
+{id:50,r:5,t:"pre",ok:()=>false,n:"宝くじ1等",tx:"宝くじが1等当たった‼️‼️‼️",ef:"¥10,000,000もらえる",once:1,go:()=>{evMoney(10000000,"宝くじ")}}];
 const EVN=EV.length;
 /* 「このあと続く」系・来店に効く系は開店後3時間以内に起こす */
 const EVEARLY=[36,44,46,9,12,21,5];
@@ -2737,16 +2737,17 @@ const shopNm=()=>(G.ow&&G.ow.shop)||((G.ow&&G.ow.name||"店長")+"の店");
 const isHallo=()=>MN[G.month%12]===10&&G.wd===6;
 const moneyTxt=v=>G.lotto?"∞":yen(v);
 /* --- 宝くじ1等：毎朝 1/8192 で抽選・1回きり --- */
-function lottoRoll(fr){if(admTake("lotto"))return true;if(fr)return false;return !G.lotto&&G.month>=1&&Math.random()<1/8192}
-function lottoApply(){G.lotto=1;G.money=Math.max(G.money,0)+100000000;G.lottoM=G.money;if(G.loan)G.loan.bal=0;G.evDex=G.evDex||{};G.evDex[50]=(G.evDex[50]||0)+1;log("🎰 宝くじ1等！ ¥100,000,000 を手に入れた。借金はすべて返済、所持金は∞に");save();hud()}
+function lottoRoll(fr){if(admTake("lotto"))return true;if(fr)return false;return !G.lotto&&!G.lottoW&&G.month>=1&&Math.random()<1/8192}
+/* 1000万円が手に入る（1回きり）。借金の返済や所持金∞はなし */
+function lottoApply(){G.lottoW=1;G.money=(G.money||0)+10000000;G.evDex=G.evDex||{};G.evDex[50]=(G.evDex[50]||0)+1;log("🎰 宝くじ1等！ ¥10,000,000 を手に入れた！");save();hud()}
 function lottoScene(done){R.frz=1;const d=document.createElement("div");d.id="lotto";d.style.cssText="position:fixed;inset:0;z-index:80;background:rgba(0,0,0,0);transition:background 1.2s;display:flex;align-items:center;justify-content:center;flex-direction:column;color:#fff;text-align:center;padding:24px;font-weight:700";document.body.appendChild(d);
 const say=(h,ms)=>new Promise(r=>{d.innerHTML=h;setTimeout(r,ms)}),T=(t,cls)=>`<div style="font-size:${cls||18}px;line-height:1.7;animation:ltin .5s ease">${t}</div>`;
 (async()=>{await say("",2200);await say(`<div style="position:absolute;top:38%;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.92);color:#2a2233;border-radius:14px;padding:8px 14px;font-size:15px">ん？おかしいな…</div>`,1600);
 d.style.background="rgba(0,0,0,1)";await say("",1400);R.frz=0;
 await say(T("そういえば宝くじを買ったんだっけ"),2200);await say(T("ガサゴソ…",20),1600);
 await say(`<div style="font-size:24px;animation:ltsh .12s linear infinite">あ、あ、当たってる！？！？</div>`,2300);
-lottoApply();await say(`<div style="font-size:16px;opacity:.85">一等</div><div style="font-size:40px;color:#ffd54a;text-shadow:0 0 18px #ffb300;animation:ltin .6s ease">¥100,000,000</div>`+T("一億円手に入れた！<br>借金はすべて返済、所持金は <b style='color:#ffd54a'>∞</b> に！",17),3200);
-d.innerHTML=T("なお残りの金額は寄付して<br>いつも通りの日常を楽しむことにした",16)+`<button class="on" style="margin-top:22px;padding:10px 34px;font-size:15px">OK</button>`;d.querySelector("button").onclick=()=>{d.remove();done&&done()}})()}
+lottoApply();await say(`<div style="font-size:16px;opacity:.85">一等</div><div style="font-size:40px;color:#ffd54a;text-shadow:0 0 18px #ffb300;animation:ltin .6s ease">¥10,000,000</div>`+T("一千万円手に入れた！",17),3200);
+d.innerHTML=`<div style="font-size:16px;opacity:.85">一等</div><div style="font-size:40px;color:#ffd54a;text-shadow:0 0 18px #ffb300">¥10,000,000</div>`+T("一千万円手に入れた！",17)+`<button class="on" style="margin-top:22px;padding:10px 34px;font-size:15px">OK</button>`;d.querySelector("button").onclick=()=>{d.remove();done&&done()}})()}
 /* --- シーシャフェス：知名度30超で、9月・3月の月末に30%（2回目以降20%）。休業なし（8日目扱い） --- */
 function festRoll(fo){if(admTake("fest"))return true;if(fo)return false;const m=MN[G.month%12],o=G.ow;if(!o||(m!==9&&m!==3)||(o.fame||0)<=30)return false;if(G.festM===G.month)return false;G.festM=G.month;return Math.random()<(G.festN?.2:.3)}
 function festApply(){const o=G.ow,gal=Math.round((o.star||0)*5000);evMoney(gal,"フェスのギャラ");o.fol+=10000;o.starB=(o.starB||0)+10;o.star=starOf(o);const fl=[];for(let i=0;i<3;i++){const f=flPick(5);if(f>=0){flUnlock(f,"フェスで出会った");fl.push(FL[f][0])}}
@@ -2854,7 +2855,7 @@ if(G.setup&&G.tut===undefined)G.tut=99;
 let TUT=null;
 let TUTN=0;const TUTMAX=7;
 function tutSmokeDefs(){if($("#tutdefs"))return;document.body.insertAdjacentHTML("beforeend",'<svg id="tutdefs" width="0" height="0" style="position:absolute"><defs><filter id="tsm" x="-30%" y="-30%" width="160%" height="160%"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="2" seed="4" result="n"><animate attributeName="seed" values="4;5;6;5;4" dur="6s" repeatCount="indefinite"/></feTurbulence><feDisplacementMap in="SourceGraphic" in2="n" scale="14" xChannelSelector="R" yChannelSelector="G"/><feGaussianBlur stdDeviation="5"/></filter><filter id="tsm2" x="-30%" y="-30%" width="160%" height="160%"><feTurbulence type="fractalNoise" baseFrequency="0.02 0.035" numOctaves="2" seed="9" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="10" xChannelSelector="R" yChannelSelector="G"/><feGaussianBlur stdDeviation="1.6"/></filter></defs></svg>')}
-function tutCard(txt,btn,hl,cb,op){tutOff();tutSmokeDefs();if(!op)TUTN=G.tut===1?1:G.tut===2?(TUTN<2||TUTN>=5?2:TUTN+1):G.tut===3?6:G.tut===4?7:Math.min(TUTMAX,TUTN+1);const d=document.createElement("div");d.id="tut";
+function tutCard(txt,btn,hl,cb,op){if(document.getElementById("lotto"))return;tutOff();tutSmokeDefs();if(!op)TUTN=G.tut===1?1:G.tut===2?(TUTN<2||TUTN>=5?2:TUTN+1):G.tut===3?6:G.tut===4?7:Math.min(TUTMAX,TUTN+1);const d=document.createElement("div");d.id="tut";
 const tt=op&&op.tt?op.tt:["🌅 開店前の行動","☰ メニュー","🪴 装飾","📖 図鑑","▶ 営業開始","🙋 お客さんが来た！","🥤 フリードリンク"][TUTN-1]||"";
 d.innerHTML=`<div class="tc"><svg class="tsv"></svg><div class="tin">${tt?`<div class="tt">${tt}</div>`:""}<div class="tx">${txt}</div>${op?"":`<div class="tdot">${Array.from({length:TUTMAX},(_,i)=>`<i class="${i<TUTN?"on":""}"></i>`).join("")}</div>`}<div class="trow">${op?"<span></span>":`<button id="tutskip" class="tsk">スキップ</button>`}<button id="tutok">${btn&&btn!=="OK"?btn:"わかった"}</button></div></div></div>`;document.body.appendChild(d);
 {const c=d.querySelector(".tc"),s=d.querySelector(".tsv"),w=c.offsetWidth,h=c.offsetHeight,P=40;s.setAttribute("viewBox",`0 0 ${w+P*2} ${h+P*2}`);s.style.cssText=`left:${-P}px;top:${-P}px;width:${w+P*2}px;height:${h+P*2}px`;
@@ -2862,7 +2863,7 @@ const C="#f4f1fa";s.innerHTML=`<g filter="url(#tsm)" opacity=".6"><rect x="${P-4
 if(hl){const e=$(hl);if(e)e.classList.add("tuthl")}TUT={hl,cb}}
 function tutOff(){const d=$("#tut");if(d)d.remove();if(TUT&&TUT.hl){const e=$(TUT.hl);if(e)e.classList.remove("tuthl")}TUT=null}
 document.addEventListener("click",e=>{const b=e.target.closest("#tutok,#tutskip");if(!b||(b.id!=="tutok"&&b.id!=="tutskip"))return;e.stopPropagation&&e.stopPropagation();const t=TUT;tutOff();if(b.id==="tutskip"){if(R.tutSp!=null){const sp=R.tutSp||1;R.speed=sp;R.tutSp=null;document.querySelectorAll("[data-s]").forEach(x=>x.classList.toggle("on",+x.dataset.s===sp))}G.tut=99;save();return}if(t&&t.cb)t.cb()},true);
-function tutTick(){if(!G.setup||TUT)return;const ovOn=!$("#ov").hidden;try{seatChk()}catch(e){}
+function tutTick(){if(!G.setup||TUT||document.getElementById("lotto"))return;const ovOn=!$("#ov").hidden;try{seatChk()}catch(e){}
 if(G.tutSeat===1&&!ovOn&&R.phase==="prep"){tutCard("増築が解禁されたので、<b>客席</b>を増やせるようになりました！<br>☰ → 🪴装飾 → <b>🛋 客席</b> から、ソファ・ボックス席・カウンター席・ビーズクッションを置けます（1ヶ月に3個まで・置物とは別）。<br>席が多いほど、一度に入れるお客さんが増えます。<br>置いた家具は <b>🔧 模様替え</b> で、移動・回転・売却ができます（開店前だけ）","わかった","#menu",()=>{G.tutSeat=2;save()},{tt:"🛋 客席が解禁！"});return}
 if(G.tut>=99)return;
 if(G.tut===1&&ovOn&&$("#ov").textContent.includes("開店前")){tutCard("🌅 <b>開店前</b>に、1日1回だけ<b>行動</b>ができます。<br>📱 SNS更新で知名度とフォロワー、🔥 練習で技術が上がります。<br>知名度・スター性・技術が上がると、<b>新しい置物やフレーバー</b>が解禁されます！","わかった",null,()=>{G.tut=2;save()});return}
@@ -3624,7 +3625,7 @@ if(b.dataset.gt){try{await aapi({a:"a_gift_toggle",id:b.dataset.gt});admGifts()}
 });
 
 /* ===== 更新チェック：起動時・アプリに戻ったとき・30分ごと。新しい版があればお知らせを出して選んでもらう ===== */
-const GVER="1.0.185";
+const GVER="1.0.186";
 let updV=null,updLater=null,updBusy=0;
 async function updCheck(){if(updBusy||!/^https?:/.test(location.protocol))return;updBusy=1;try{const r=await fetch("version.txt?"+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.text()).trim();if(!v||v===GVER)return;updV=v;updShow()}catch(e){}finally{updBusy=0}}
 function updShow(){if(!updV||updLater===updV||document.getElementById("updm"))return;if(R.phase==="run"||!$("#ov").hidden||document.getElementById("sysm")){setTimeout(updShow,5000);return}

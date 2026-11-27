@@ -236,7 +236,7 @@ const EV=[
 {id:47,r:5,t:"run",n:"元恋人が来店",tx:"「…久しぶり。こんな店やってたんだ」",ef:"元恋人の見た目と名前を決めて、図鑑に登録。ときどき来るようになる",once:1,go:()=>"（どんな人だった？）"},
 {id:48,r:5,t:"run",n:"自称インフルエンサーが来店",tx:"「…この店、SNSで紹介していい？」",ef:"フォロワーが2倍か、半分に",go:()=>{const o=G.ow,u=Math.random()<.5;o.fol=Math.max(0,Math.round(o.fol*(u?2:.5)));o.star=starOf(o);return u?"（本物だった！フォロワー2倍）":"（炎上した…フォロワー半分）"}},
 {id:49,r:5,t:"run",n:"フードデリバリーの誤配達",tx:"「ピザLサイズ×10、お届けです！」…頼んでない。お代は払い済みらしい",ef:"お客さんに振る舞って全員の親密度アップ",cond:"お客さんが5人以上いる時",ok:()=>evIn().length>=5,go:()=>{evIn().forEach(p=>{p.c.fp+=3;p.c.hp=Math.min(100,p.c.hp+6);say(p,rnd(["ピザだ！","いいんですか！？","最高の店！"]))})}},
-{id:50,r:5,t:"pre",ok:()=>false,n:"宝くじ1等",tx:"宝くじが1等当たった‼️‼️‼️",ef:"¥100,000,000もらえる。でも今まで通りの生活をする",once:1,go:()=>{evMoney(100000000,"宝くじ")}}];
+{id:50,r:5,t:"pre",ok:()=>false,n:"宝くじ1等",tx:"宝くじが1等当たった‼️‼️‼️",ef:"¥10,000,000もらえる",once:1,go:()=>{evMoney(10000000,"宝くじ")}}];
 const EVN=EV.length;
 /* 「このあと続く」系・来店に効く系は開店後3時間以内に起こす */
 const EVEARLY=[36,44,46,9,12,21,5];
@@ -309,16 +309,17 @@ const shopNm=()=>(G.ow&&G.ow.shop)||((G.ow&&G.ow.name||"店長")+"の店");
 const isHallo=()=>MN[G.month%12]===10&&G.wd===6;
 const moneyTxt=v=>G.lotto?"∞":yen(v);
 /* --- 宝くじ1等：毎朝 1/8192 で抽選・1回きり --- */
-function lottoRoll(fr){if(admTake("lotto"))return true;if(fr)return false;return !G.lotto&&G.month>=1&&Math.random()<1/8192}
-function lottoApply(){G.lotto=1;G.money=Math.max(G.money,0)+100000000;G.lottoM=G.money;if(G.loan)G.loan.bal=0;G.evDex=G.evDex||{};G.evDex[50]=(G.evDex[50]||0)+1;log("🎰 宝くじ1等！ ¥100,000,000 を手に入れた。借金はすべて返済、所持金は∞に");save();hud()}
+function lottoRoll(fr){if(admTake("lotto"))return true;if(fr)return false;return !G.lotto&&!G.lottoW&&G.month>=1&&Math.random()<1/8192}
+/* 1000万円が手に入る（1回きり）。借金の返済や所持金∞はなし */
+function lottoApply(){G.lottoW=1;G.money=(G.money||0)+10000000;G.evDex=G.evDex||{};G.evDex[50]=(G.evDex[50]||0)+1;log("🎰 宝くじ1等！ ¥10,000,000 を手に入れた！");save();hud()}
 function lottoScene(done){R.frz=1;const d=document.createElement("div");d.id="lotto";d.style.cssText="position:fixed;inset:0;z-index:80;background:rgba(0,0,0,0);transition:background 1.2s;display:flex;align-items:center;justify-content:center;flex-direction:column;color:#fff;text-align:center;padding:24px;font-weight:700";document.body.appendChild(d);
 const say=(h,ms)=>new Promise(r=>{d.innerHTML=h;setTimeout(r,ms)}),T=(t,cls)=>`<div style="font-size:${cls||18}px;line-height:1.7;animation:ltin .5s ease">${t}</div>`;
 (async()=>{await say("",2200);await say(`<div style="position:absolute;top:38%;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.92);color:#2a2233;border-radius:14px;padding:8px 14px;font-size:15px">ん？おかしいな…</div>`,1600);
 d.style.background="rgba(0,0,0,1)";await say("",1400);R.frz=0;
 await say(T("そういえば宝くじを買ったんだっけ"),2200);await say(T("ガサゴソ…",20),1600);
 await say(`<div style="font-size:24px;animation:ltsh .12s linear infinite">あ、あ、当たってる！？！？</div>`,2300);
-lottoApply();await say(`<div style="font-size:16px;opacity:.85">一等</div><div style="font-size:40px;color:#ffd54a;text-shadow:0 0 18px #ffb300;animation:ltin .6s ease">¥100,000,000</div>`+T("一億円手に入れた！<br>借金はすべて返済、所持金は <b style='color:#ffd54a'>∞</b> に！",17),3200);
-d.innerHTML=T("なお残りの金額は寄付して<br>いつも通りの日常を楽しむことにした",16)+`<button class="on" style="margin-top:22px;padding:10px 34px;font-size:15px">OK</button>`;d.querySelector("button").onclick=()=>{d.remove();done&&done()}})()}
+lottoApply();await say(`<div style="font-size:16px;opacity:.85">一等</div><div style="font-size:40px;color:#ffd54a;text-shadow:0 0 18px #ffb300;animation:ltin .6s ease">¥10,000,000</div>`+T("一千万円手に入れた！",17),3200);
+d.innerHTML=`<div style="font-size:16px;opacity:.85">一等</div><div style="font-size:40px;color:#ffd54a;text-shadow:0 0 18px #ffb300">¥10,000,000</div>`+T("一千万円手に入れた！",17)+`<button class="on" style="margin-top:22px;padding:10px 34px;font-size:15px">OK</button>`;d.querySelector("button").onclick=()=>{d.remove();done&&done()}})()}
 /* --- シーシャフェス：知名度30超で、9月・3月の月末に30%（2回目以降20%）。休業なし（8日目扱い） --- */
 function festRoll(fo){if(admTake("fest"))return true;if(fo)return false;const m=MN[G.month%12],o=G.ow;if(!o||(m!==9&&m!==3)||(o.fame||0)<=30)return false;if(G.festM===G.month)return false;G.festM=G.month;return Math.random()<(G.festN?.2:.3)}
 function festApply(){const o=G.ow,gal=Math.round((o.star||0)*5000);evMoney(gal,"フェスのギャラ");o.fol+=10000;o.starB=(o.starB||0)+10;o.star=starOf(o);const fl=[];for(let i=0;i<3;i++){const f=flPick(5);if(f>=0){flUnlock(f,"フェスで出会った");fl.push(FL[f][0])}}
