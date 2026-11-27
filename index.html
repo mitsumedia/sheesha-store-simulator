@@ -156,7 +156,7 @@ body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,
 <div class="row">営業時間 <select id="op"></select>〜<select id="cl"></select></div>
 <div id="hrsi" class="m" style="font-size:12px;margin:4px 0"></div><div class="m" style="font-size:12px">シーシャ3500円／おかわり2000円／ドリンクはフリー。閉店1時間前に入店停止、閉店時刻で全員退店。</div>
 <div class="row"><button id="devreset">🛠 開発用：最初からやり直す</button></div></div></details>
-<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.191</div></div></details>
+<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.192</div></div></details>
 <span id="smk"></span>
 </div>
 <div id="p-deco" hidden><div class="card"><div class="dcat"><button data-dc="obj">🪴 置物</button><button data-dc="wp">🖼 壁アイテム</button><button data-dc="fl">🟫 床</button><button data-dc="wl">🧱 壁紙</button><button data-dc="seat" id="dcseat" class="dcw" hidden>🛋 客席</button><button data-dc="inv" class="dcw">📦 持ち物</button><button id="rm" class="dcw">🔧 模様替え（移動・回転・しまう）</button></div><div class="m" id="plc" style="font-size:12px;margin-top:6px"></div></div><div class="card" id="sec-obj"><div class="m" style="margin-bottom:6px">アイテムを選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。</div><div class="grid" id="dl"></div></div><div class="card" id="sec-seat" hidden><div class="m" style="margin-bottom:6px;font-size:12px">席を選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。席の前の1列はシーシャ台を置く場所として使います。</div><div class="m" id="spc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="sl"></div></div><div class="card" id="sec-wp" hidden><div class="m" style="font-size:12px;margin:2px 0 6px">選んでから、店内の壁をタップして貼ります（1区画に1枚）。見えている壁にだけ貼れるので、視点を回すと反対側にも貼れます。</div><div class="m" id="wc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="wl"></div></div><div class="card" id="sec-inv" hidden><div id="ivl"></div></div><div class="card" id="sec-clr" hidden><div class="m" style="font-size:12px">選ぶと店内でお試し表示されます。「購入する」で購入（¥5,000〜）。店の雰囲気には影響しません。</div><div id="clr"></div></div></div>
@@ -3676,7 +3676,7 @@ if(b.dataset.gt){try{await aapi({a:"a_gift_toggle",id:b.dataset.gt});admGifts()}
 });
 
 /* ===== 更新チェック：起動時・アプリに戻ったとき・30分ごと。新しい版があればお知らせを出して選んでもらう ===== */
-const GVER="1.0.191";
+const GVER="1.0.192";
 let updV=null,updLater=null,updBusy=0;
 async function updCheck(){if(updBusy||!/^https?:/.test(location.protocol))return;updBusy=1;try{const r=await fetch("version.txt?"+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.text()).trim();if(!v||v===GVER)return;updV=v;updShow()}catch(e){}finally{updBusy=0}}
 function updShow(){if(!updV||updLater===updV||document.getElementById("updm"))return;if(R.phase==="run"||!$("#ov").hidden||document.getElementById("sysm")){setTimeout(updShow,5000);return}
@@ -7101,7 +7101,7 @@ WP.forEach(x=>{if(x.wk&&SWIMG[x.wk]){const im=SWIMG[x.wk];x.img=im.img;x.iw=im.i
  const c1=(G.cs||[]).find(q=>q.name==="余白 広"),c2=(G.cs||[]).find(q=>q.sp==="kyo");GIFT[c1?c1.i:70]=a;GIFT[c2?c2.i:145]=b}
 /* --- 一覧：シリーズのタブ --- */
 function sProg(s){return s.it.filter(sOwn).length}
-function sBtn(id,i){const x=sItem(id);if(!x)return"";const w=id.startsWith("wp_"),op=w?wpOpen(x):decOpen(x),own=sOwn(id),ic=w?x.img:decIcon(id),nw=(w?(G.wnew||[]):(G.dnew||[])).includes(id);
+function sBtn(id,i){const x=sItem(id);if(!x)return"";const w=id.startsWith("wp_"),op=w?wpOpen(x):decOpen(x),own=sOwn(id),ic=w?x.img:decIcon(id),nw=op&&(w?(G.wnew||[]):(G.dnew||[])).includes(id);
  return`<button class="it dit ${R.tool===id?"on":""} ${op?"":"lock"}" ${op?`data-d="${id}"`:"disabled"}>${ic?`<img src="${ic}" alt="" style="object-fit:contain;image-rendering:${w?"pixelated":"auto"}">`:""}<span>${nw?'<b class="nw">NEW</b>':""}<b style="color:#9a7b4f">${i+1}.</b> ${esc(x.n)}${w?' <small style="display:inline;color:#7a8">［壁］</small>':""}${own?" ✅":""}<small>${op?"¥"+x.p.toLocaleString():"🔒 "+esc(serCond(x))}</small></span></button>`}
 function rdecoSer(){sOwnInit();const cur=R.dser||"wa",tabs=SER.map(s=>`<button class="dsc ${cur===s.id?"on":""}" data-dser="${s.id}">${esc(s.n)}<small>${sProg(s)}/10</small></button>`).join("")+`<button class="dsc ${cur==="tora"?"on":""}" data-dser="tora">虎虎水煙店</button><button class="dsc ${cur==="gift"?"on":""}" data-dser="gift">🎁 もらいもの</button>`;
  let h=`<div class="dsct">${tabs}</div>`;
@@ -7121,7 +7121,8 @@ document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest
 {const AK=["flv","talk","fol","buzz"];const _rd=rdeco;rdeco=function(){const r=_rd.apply(this,arguments);try{const wl=$("#wl");if(wl&&(R.dcat||"obj")==="wp")wl.innerHTML=`<div class="dgh">🏆 実績で手に入る壁アイテム</div>`+WP.filter(x=>x.u&&AK.includes(x.u[0])).map(wpIt).join("");const b=document.querySelector('[data-dc="wp"]');if(b&&b.textContent!=="🏆 実績")b.textContent="🏆 実績"}catch(e){}return r}}
 /* 見た目（タブの並び） */
 if(typeof document!=="undefined"&&document.head){const st=document.createElement("style");st.textContent=`.dsct{display:flex;flex-wrap:wrap;gap:4px;margin:2px 0 6px}.dsc{padding:4px 8px;font-size:12px;border-radius:14px;line-height:1.2}.dsc small{display:block;font-size:10px;opacity:.75}.dsc.on{background:#7b4fd0;color:#fff;border-color:#7b4fd0}.sbo{cursor:default}`;document.head.appendChild(st)}
-try{sOwnInit();sBonChk()}catch(e){}
+/* 前の仕組みで付いた「NEW」のうち、今はまだ買えない物の印は消す */
+try{sOwnInit();sBonChk();if(G.dnew)G.dnew=G.dnew.filter(id=>{const x=DEC.find(q=>q.id===id);return x&&decOpen(x)});if(G.dun)G.dun=G.dun.filter(id=>{const x=DEC.find(q=>q.id===id);return x&&decOpen(x)});if(typeof decBadge==="function")decBadge()}catch(e){}
 /* 全画面メニューの見本にも、動く部分（尾びれ・ワカメの葉）を入れる */
 {const _fv=fmsVox;fmsVox=function(kind,x){const a=_fv.apply(this,arguments);try{if(kind==="d"&&SANIM[x]){const d=DEC.find(q=>q.id===x);sRaw(d);sAnimVox(d,0,0).forEach(v=>a.push(v))}}catch(e){}return a}}
 </script></body></html>

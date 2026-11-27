@@ -74,7 +74,7 @@ WP.forEach(x=>{if(x.wk&&SWIMG[x.wk]){const im=SWIMG[x.wk];x.img=im.img;x.iw=im.i
  const c1=(G.cs||[]).find(q=>q.name==="余白 広"),c2=(G.cs||[]).find(q=>q.sp==="kyo");GIFT[c1?c1.i:70]=a;GIFT[c2?c2.i:145]=b}
 /* --- 一覧：シリーズのタブ --- */
 function sProg(s){return s.it.filter(sOwn).length}
-function sBtn(id,i){const x=sItem(id);if(!x)return"";const w=id.startsWith("wp_"),op=w?wpOpen(x):decOpen(x),own=sOwn(id),ic=w?x.img:decIcon(id),nw=(w?(G.wnew||[]):(G.dnew||[])).includes(id);
+function sBtn(id,i){const x=sItem(id);if(!x)return"";const w=id.startsWith("wp_"),op=w?wpOpen(x):decOpen(x),own=sOwn(id),ic=w?x.img:decIcon(id),nw=op&&(w?(G.wnew||[]):(G.dnew||[])).includes(id);
  return`<button class="it dit ${R.tool===id?"on":""} ${op?"":"lock"}" ${op?`data-d="${id}"`:"disabled"}>${ic?`<img src="${ic}" alt="" style="object-fit:contain;image-rendering:${w?"pixelated":"auto"}">`:""}<span>${nw?'<b class="nw">NEW</b>':""}<b style="color:#9a7b4f">${i+1}.</b> ${esc(x.n)}${w?' <small style="display:inline;color:#7a8">［壁］</small>':""}${own?" ✅":""}<small>${op?"¥"+x.p.toLocaleString():"🔒 "+esc(serCond(x))}</small></span></button>`}
 function rdecoSer(){sOwnInit();const cur=R.dser||"wa",tabs=SER.map(s=>`<button class="dsc ${cur===s.id?"on":""}" data-dser="${s.id}">${esc(s.n)}<small>${sProg(s)}/10</small></button>`).join("")+`<button class="dsc ${cur==="tora"?"on":""}" data-dser="tora">虎虎水煙店</button><button class="dsc ${cur==="gift"?"on":""}" data-dser="gift">🎁 もらいもの</button>`;
  let h=`<div class="dsct">${tabs}</div>`;
@@ -94,6 +94,7 @@ document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest
 {const AK=["flv","talk","fol","buzz"];const _rd=rdeco;rdeco=function(){const r=_rd.apply(this,arguments);try{const wl=$("#wl");if(wl&&(R.dcat||"obj")==="wp")wl.innerHTML=`<div class="dgh">🏆 実績で手に入る壁アイテム</div>`+WP.filter(x=>x.u&&AK.includes(x.u[0])).map(wpIt).join("");const b=document.querySelector('[data-dc="wp"]');if(b&&b.textContent!=="🏆 実績")b.textContent="🏆 実績"}catch(e){}return r}}
 /* 見た目（タブの並び） */
 if(typeof document!=="undefined"&&document.head){const st=document.createElement("style");st.textContent=`.dsct{display:flex;flex-wrap:wrap;gap:4px;margin:2px 0 6px}.dsc{padding:4px 8px;font-size:12px;border-radius:14px;line-height:1.2}.dsc small{display:block;font-size:10px;opacity:.75}.dsc.on{background:#7b4fd0;color:#fff;border-color:#7b4fd0}.sbo{cursor:default}`;document.head.appendChild(st)}
-try{sOwnInit();sBonChk()}catch(e){}
+/* 前の仕組みで付いた「NEW」のうち、今はまだ買えない物の印は消す */
+try{sOwnInit();sBonChk();if(G.dnew)G.dnew=G.dnew.filter(id=>{const x=DEC.find(q=>q.id===id);return x&&decOpen(x)});if(G.dun)G.dun=G.dun.filter(id=>{const x=DEC.find(q=>q.id===id);return x&&decOpen(x)});if(typeof decBadge==="function")decBadge()}catch(e){}
 /* 全画面メニューの見本にも、動く部分（尾びれ・ワカメの葉）を入れる */
 {const _fv=fmsVox;fmsVox=function(kind,x){const a=_fv.apply(this,arguments);try{if(kind==="d"&&SANIM[x]){const d=DEC.find(q=>q.id===x);sRaw(d);sAnimVox(d,0,0).forEach(v=>a.push(v))}}catch(e){}return a}}
