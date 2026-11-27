@@ -33,9 +33,16 @@ const OTAKU={
   boxV(P,2,2,8.5,2,2,2,"#ffe0bd");for(let x=1.5;x<4.5;x+=.5)for(let y=2.5;y<4.5;y+=.5)for(let z=8.5;z<11;z+=.5)if(y>3.5||z>10||x<2||x>=4)P(x,y,z,"#4dd0e1");for(const x of[2.25,3.25])P(x,1.75,9.5,"#3949ab")},
  panel(P){/* 等身大パネル：オリジナルのアイドルキャラ（板） */for(let x=2;x<4;x+=.5)for(let y=3.5;y<5;y+=.5)P(x,y,0,"#8d6e63");for(let z=.5;z<4;z+=.5)P(2.75,4.25,z,"#8d6e63");
   for(let x=1;x<5;x+=.5)for(let z=0;z<12;z+=.5){const cx=x+.25-3;let c=null;if(z>=9&&z<11.5&&Math.abs(cx)<1.3)c=(z>=10.5||Math.abs(cx)>1)?"#ffb300":"#ffe0bd";else if(z>=4.5&&z<9&&Math.abs(cx)<1.4)c=z<6?"#7c4dff":"#b388ff";else if(z<4.5&&Math.abs(cx)<1.1&&Math.abs(cx)>.2)c="#ffe0bd";if(z>=9.5&&z<10&&(Math.abs(cx-.5)<.3||Math.abs(cx+.5)<.3))c="#1a237e";if(c)P(x,3.5,z,c)}P(2.75,3.25,9.25,"#ff5252",.5)},
- cardtable(P){/* カードゲームのテーブル：プレイマットとデッキ、カードが並ぶ */boxV(P,0,0,3.5,6,6,.5,"#4e342e");for(const[x,y]of[[.5,.5],[5,.5],[.5,5],[5,5]])for(let z=0;z<3.5;z+=.5)P(x,y,z,"#3e2723");
-  for(let x=.5;x<5.5;x+=.5)for(let y=.5;y<5.5;y+=.5)P(x,y,4,"#1a237e");const cc=["#e53935","#fdd835","#43a047","#1e88e5","#fafafa"];for(let k=0;k<5;k++)for(let y=0;y<1;y+=.5){P(1+k,1.5+y,4.5,cc[k],.5);P(1+k,4+y,4.5,cc[(k+2)%5],.5)}
-  for(let z=4.5;z<6;z+=.5){P(.75,2.75,z,"#212121",.5);P(4.75,2.75,z,"#b71c1c",.5)}},
+ cardtable(P){/* カードゲームのテーブル：水色のプレイマット（白い枠線のカード置き場、中央はオリジナルの星マーク）とカード */
+  boxV(P,0,0,3.5,6,6,.5,"#4e342e");for(const[x,y]of[[.5,.5],[5,.5],[.5,5],[5,5]])for(let z=0;z<3.5;z+=.5)P(x,y,z,"#3e2723");
+  const M="#90bfe0",W="#fafafa",R=[];for(let k=0;k<5;k++){R.push([1.0+k*.85,.5,.75,1.0]);R.push([1.0+k*.85,4.5,.75,1.0])}R.push([.25,1.75,.6,.9],[.25,3.0,.6,.9],[5.15,1.75,.6,.9],[5.15,3.0,.6,.9]);
+  for(let x=.25;x<5.75;x+=.125)for(let y=.25;y<5.75;y+=.125){const px=x+.0625,py=y+.0625;let c=M;
+   for(const[rx,ry,rw,rh]of R)if(px>=rx&&px<=rx+rw&&py>=ry&&py<=ry+rh&&(px<rx+.13||px>rx+rw-.13||py<ry+.13||py>ry+rh-.13))c=W;
+   const cx=px-3,cy=py-3,r=Math.hypot(cx,cy),ang=Math.atan2(cy,cx),st=.5+.28*Math.cos(ang*5);if(Math.abs(r-1.15)<.07||Math.abs(r-st)<.07)c=W;
+   P(x,y,4,c,.125)}
+  const cc=["#e53935","#fdd835","#43a047","#1e88e5","#7e57c2"];const card=(x,y,c)=>{for(let a=0;a<.75;a+=.25)for(let b=0;b<1;b+=.25)P(x+a,y+b,4.125,(a===0||a===.5||b===0||b===.75)?"#fafafa":c,.25)};
+  card(1.85,.5,cc[0]);card(3.55,.5,cc[1]);card(1.0,4.5,cc[2]);card(2.7,4.5,cc[3]);card(4.4,4.5,cc[4]);
+  for(let z=4.125;z<4.9;z+=.125){for(let a=0;a<.75;a+=.25)for(let b=0;b<1;b+=.25){P(.25+a*.8,1.75+b*.9,z,"#263238",.25);P(5.15+a*.8,1.75+b*.9,z,"#8e0000",.25)}}},
  controllers(P){/* ゲームのコントローラー壁掛けラック（壁アイテム・x=0が壁） */for(let y=.5;y<5.5;y+=.5)for(const z of[9,12,15])P(.5,y,z,"#5d4037",.5);
   const cs=["#212121","#e53935","#1e88e5","#fafafa","#7cb342","#8e24aa"];for(let r=0;r<3;r++)for(let k=0;k<2;k++){const y=1+k*2.4,z=9.5+r*3,c=cs[(r*2+k)%6];for(let a=0;a<2;a+=.5)for(let b=0;b<1.5;b+=.5)P(.75,y+a,z+b,c,.5);P(1,y,z+1,"#fdd835",.5);P(1,y+1.5,z+.5,"#00e676",.5)}},
 };
