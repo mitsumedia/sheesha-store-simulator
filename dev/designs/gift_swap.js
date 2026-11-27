@@ -9,6 +9,6 @@ const GIFTX={
   for(let x=x0-.6;x<x0+3.1;x+=st)P(x,3.05,12.25,"#3e2a18",st);for(let t=0;t<6;t++)P(3-.06,3.05,12.3+t*.06,"#c9a227",st)},
  modart(P){/* モダンアートの額（スタンドつき） */const W="#212121";box(P,1.2,3.6,0,4.8,4,.25,"#424242",.25);for(const x of[1.4,4.35])box(P,x,3.7,.25,x+.25,3.95,3,"#424242",.25);
   const st=.25,x0=.5,z0=2.5,w=5,h=6;for(let x=x0;x<x0+w;x+=st)for(let z=z0;z<z0+h;z+=st){const u=1-(x-x0)/w,v=(z-z0)/h;let c="#f5f1e6";if(x<x0+st||x>=x0+w-st||z<z0+st||z>=z0+h-st)c=W;
-   else if(Math.hypot(u-.62,v-.62)<.2)c="#e53935";else if(u<.38&&v>.5)c="#1e4fa3";else if(u>.55&&v<.28)c="#fdd835";else if(Math.abs(u-.38)<.03||Math.abs(v-.28)<.025)c="#111";else if(Math.abs(u-.2-v*.3)<.035&&v<.5)c="#111";else if(u>.78&&v>.82)c="#26a69a";P(x,3.5,z,c,st)}
+   else if(Math.hypot(u-.62,v-.62)<.2)c="#e53935";else if(u<.38&&v>.5)c="#1e4fa3";else if(u>.55&&v<.28)c="#fdd835";else if(Math.abs(u-.38)<.03||Math.abs(v-.28)<.025)c="#111";else if(u>.78&&v>.82)c="#26a69a";P(x,3.5,z,c,st)}
   box(P,x0,3.6,z0,x0+w,3.75,z0+h,"#333",.25)}
 };
