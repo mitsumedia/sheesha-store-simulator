@@ -81,4 +81,8 @@ const CHINA={
   for(let x=0;x<6;x+=.5)for(let y=0;y<6;y+=.5){const e=x<.5||y<.5||x>=5.5||y>=5.5;P(x,y,3.5,e?"#5d4037":"#1b5e20")}
   for(let i=0;i<8;i++){const t=1+i*.5;P(t,1,4,"#fafafa",.5);P(t,4.5,4,"#fafafa",.5);P(1,t,4,"#fafafa",.5);P(4.5,t,4,"#fafafa",.5)}for(let i=0;i<8;i++){P(1+i*.5,.75,4.5,"#43a047",.25)}
   P(2.75,2.5,4,"#fafafa",.25);P(3.25,2.9,4,"#fafafa",.25);P(2.85,2.6,4.25,"#e53935",.125);P(3.35,3,4.25,"#212121",.125)},
+ ume(P){/* 梅の木の鉢植え：青い陶器の鉢、くねった黒い幹、ピンクと白の梅の花 */for(let x=1;x<5;x+=.5)for(let y=1;y<5;y+=.5){const d=Math.hypot(x+.25-3,y+.25-3);if(d>2)continue;for(let z=0;z<2.5;z+=.5){if(d<1.5&&z<2)continue;P(x,y,z,z===2?"#e3f2fd":(((x+y+z)*2|0)%3?"#1565c0":"#e3f2fd"))}if(d<1.5)P(x,y,2,"#4e342e")}
+  const br=[[[2.75,2.75,2.5],[2.4,2.6,5],[3,2.8,7],[2.4,3,9]],[[2.4,2.6,5],[1.2,2.4,6.5],[.6,2.8,7.5]],[[3,2.8,7],[4.4,2.6,8],[5.2,3,9.2]],[[2.4,3,9],[1.8,3.4,10.5]]];
+  const fl=[];br.forEach(ch=>{for(let k=0;k<ch.length-1;k++){const[a,b]=[ch[k],ch[k+1]];for(let t=0;t<1;t+=.1){const x=a[0]+(b[0]-a[0])*t,y=a[1]+(b[1]-a[1])*t,z=a[2]+(b[2]-a[2])*t;P(x,y,z,"#3e2723");if(t>.5&&Math.random()<.5)fl.push([x,y,z])}}fl.push(ch[ch.length-1])});
+  let sd=7;const rnd=()=>{sd=(sd*16807)%2147483647;return sd/2147483647};fl.forEach(([x,y,z])=>{for(let k=0;k<3;k++){const dx=(rnd()-.5)*1.2,dy=(rnd()-.5)*1.2,dz=(rnd()-.5)*.8;const c=rnd()<.6?"#f48fb1":"#fce4ec";P(x+dx,y+dy,z+dz,c,.5);if(k===0)P(x+dx+.125,y+dy+.125,z+dz+.5,"#ffe082",.25)}})},
 };
