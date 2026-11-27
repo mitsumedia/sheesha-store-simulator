@@ -11,16 +11,19 @@ g.fillStyle='#3c4a3a';g.fillRect(84,78,192,850);
 for(let y=78;y<928;y+=14){g.fillStyle='rgba(212,175,55,.18)';g.fillRect(84,y,192,2)}
 g.fillStyle='#f3ecdc';g.fillRect(104,150,152,700);
 // お札（黄色）
-g.fillStyle='#f7d51d';g.fillRect(124,190,112,620);g.fillStyle='rgba(0,0,0,.06)';g.fillRect(124,190,112,4);
-const red='#d6281e';g.fillStyle=red;g.strokeStyle=red;g.textAlign='center';g.textBaseline='middle';
-const F='"Noto Serif CJK JP","Noto Serif JP","Hiragino Mincho ProN",serif';
-g.font='900 70px '+F;g.save();g.translate(180,262);g.scale(1,1.08);g.fillText('勅',0,0);g.restore();
-g.font='900 56px '+F;g.fillText('令',180,340);
-// 渦巻き（ぐるぐる）
-g.lineWidth=4.5;for(let k=0;k<3;k++){const y=392+k*30;g.beginPath();for(let t=0;t<=Math.PI*2;t+=.05){const x=180+Math.sin(t)*44,yy=y+Math.sin(2*t)*11;t===0?g.moveTo(x,yy):g.lineTo(x,yy)}g.stroke()}
-// 下に広がる枠線
-g.lineWidth=3.5;g.beginPath();g.moveTo(140,488);g.quadraticCurveTo(150,640,128,790);g.moveTo(220,488);g.quadraticCurveTo(210,640,232,790);g.moveTo(132,484);g.lineTo(228,484);g.stroke();
-g.font='700 40px '+F;['随','身','保','命'].forEach((ch,i)=>g.fillText(ch,180,530+i*62));
+g.fillStyle='#f9dc1f';g.fillRect(120,186,120,628);g.fillStyle='rgba(0,0,0,.06)';g.fillRect(124,190,112,4);
+const red='#d8261c';g.fillStyle=red;g.strokeStyle=red;g.textAlign='center';g.textBaseline='middle';g.lineCap='round';g.lineJoin='round';
+const F='"Noto Serif CJK JP",serif';
+// 勅（大きく、筆っぽく少し傾ける）
+g.save();g.translate(182,262);g.rotate(-.04);g.scale(1.12,1.18);g.font='900 74px '+F;g.fillText('勅',0,0);g.restore();
+g.save();g.translate(180,352);g.scale(1.25,.95);g.font='900 52px '+F;g.fillText('令',0,0);g.restore();
+// ぐるぐる（3段の8の字、太め）
+g.lineWidth=6;for(let k=0;k<3;k++){const y=410+k*30;g.beginPath();for(let t=0;t<=Math.PI*2+.05;t+=.04){const x=180+Math.sin(t)*48,yy=y+Math.sin(2*t)*12;t===0?g.moveTo(x,yy):g.lineTo(x,yy)}g.stroke()}
+// 渦の下から左右に開いて下まで伸びる線（すそ広がり）
+g.lineWidth=4;g.beginPath();g.moveTo(176,486);g.bezierCurveTo(150,488,142,494,146,512);g.bezierCurveTo(150,640,140,720,128,792);g.stroke();
+g.beginPath();g.moveTo(184,486);g.bezierCurveTo(210,488,218,494,214,512);g.bezierCurveTo(212,640,222,720,234,792);g.stroke();
+g.font='900 40px '+F;['随','身','保','命'].forEach((ch,i)=>{g.save();g.translate(180+(i%2?2:-2),546+i*60);g.scale(1.05,1);g.fillText(ch,0,0);g.restore()});
+g.lineWidth=3;g.beginPath();g.moveTo(180,768);g.lineTo(180,800);g.stroke();
 // 下の軸
 g.fillStyle='#2b1d16';g.fillRect(64,928,232,26);g.fillStyle='#4a3326';g.fillRect(64,928,232,6);
 g.fillStyle='#1a120d';g.fillRect(52,930,14,22);g.fillRect(294,930,14,22);
