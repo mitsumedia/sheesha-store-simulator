@@ -23,7 +23,7 @@ function sBonChk(){if(!G.sown)return;G.sbon=G.sbon||[];SER.forEach(s=>{if(G.sbon
 {const _wp=wallPlace;wallPlace=function(w){const x=R.tool&&WP.find(q=>q.id===R.tool);if(x&&R.tool!=="rm"&&!ivF()&&x.u&&x.u[0]==="ser"&&!serOpen(x)){log("🔒 "+serCond(x)+"で解放されます");return}
  const n0=(G.wall||[]).length,r=_wp.apply(this,arguments);if((G.wall||[]).length>n0)sOwnAdd(G.wall[G.wall.length-1].id);return r}}
 /* --- 見た目：モデルからボクセルを作る（回転・何マス分か） --- */
-const SMULTI={sb_kare:1,sb_turn:1,sb_mahou:1,sb_hockey:1,sb_lander:1,sb_oasis:1,sb_gate:1,sb_raiko:1,sb_shark:1,sb_parthenon:1};
+const SMULTI={sb_wheel:1,sb_kare:1,sb_turn:1,sb_mahou:1,sb_hockey:1,sb_lander:1,sb_oasis:1,sb_gate:1,sb_raiko:1,sb_shark:1,sb_parthenon:1};
 /* 見本は正面が-y側。お店のカメラは-x側から見るので、正面が-xを向くように回しておく（x=0側が正面の見本は回さない・扉は壁に付ける向き） */
 const SROT0={s_medal:0,s_punch:0,s_rhythm:0,sb_lion:0,s_door:1};const sRb=id=>SROT0[id]!==undefined?SROT0[id]:3;
 const SANIM={sb_shark:"tail",s_wakame:"sway"};

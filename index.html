@@ -156,7 +156,7 @@ body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,
 <div class="row">営業時間 <select id="op"></select>〜<select id="cl"></select></div>
 <div id="hrsi" class="m" style="font-size:12px;margin:4px 0"></div><div class="m" style="font-size:12px">シーシャ3500円／おかわり2000円／ドリンクはフリー。閉店1時間前に入店停止、閉店時刻で全員退店。</div>
 <div class="row"><button id="devreset">🛠 開発用：最初からやり直す</button></div></div></details>
-<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.190</div></div></details>
+<details class="cd" id="d-sys"><summary>🔑 データ・お知らせ</summary><div class="card"><button id="cdb" style="width:100%;margin-bottom:6px">🔑 引き継ぎコード</button><button id="giftb2" style="width:100%;margin-bottom:6px">🎁 不思議な贈り物</button><button id="polb" style="width:100%">📄 規約・プライバシー・お問い合わせ</button><div id="verl" class="m" style="text-align:center;font-size:11px;margin-top:10px;user-select:none">Ver 1.0.191</div></div></details>
 <span id="smk"></span>
 </div>
 <div id="p-deco" hidden><div class="card"><div class="dcat"><button data-dc="obj">🪴 置物</button><button data-dc="wp">🖼 壁アイテム</button><button data-dc="fl">🟫 床</button><button data-dc="wl">🧱 壁紙</button><button data-dc="seat" id="dcseat" class="dcw" hidden>🛋 客席</button><button data-dc="inv" class="dcw">📦 持ち物</button><button id="rm" class="dcw">🔧 模様替え（移動・回転・しまう）</button></div><div class="m" id="plc" style="font-size:12px;margin-top:6px"></div></div><div class="card" id="sec-obj"><div class="m" style="margin-bottom:6px">アイテムを選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。</div><div class="grid" id="dl"></div></div><div class="card" id="sec-seat" hidden><div class="m" style="margin-bottom:6px;font-size:12px">席を選んで、店内の<span style="color:#ff6b6b">赤いマス</span>をタップして設置。席の前の1列はシーシャ台を置く場所として使います。</div><div class="m" id="spc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="sl"></div></div><div class="card" id="sec-wp" hidden><div class="m" style="font-size:12px;margin:2px 0 6px">選んでから、店内の壁をタップして貼ります（1区画に1枚）。見えている壁にだけ貼れるので、視点を回すと反対側にも貼れます。</div><div class="m" id="wc" style="font-size:12px;margin-bottom:6px"></div><div class="grid" id="wl"></div></div><div class="card" id="sec-inv" hidden><div id="ivl"></div></div><div class="card" id="sec-clr" hidden><div class="m" style="font-size:12px">選ぶと店内でお試し表示されます。「購入する」で購入（¥5,000〜）。店の雰囲気には影響しません。</div><div id="clr"></div></div></div>
@@ -3676,7 +3676,7 @@ if(b.dataset.gt){try{await aapi({a:"a_gift_toggle",id:b.dataset.gt});admGifts()}
 });
 
 /* ===== 更新チェック：起動時・アプリに戻ったとき・30分ごと。新しい版があればお知らせを出して選んでもらう ===== */
-const GVER="1.0.190";
+const GVER="1.0.191";
 let updV=null,updLater=null,updBusy=0;
 async function updCheck(){if(updBusy||!/^https?:/.test(location.protocol))return;updBusy=1;try{const r=await fetch("version.txt?"+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.text()).trim();if(!v||v===GVER)return;updV=v;updShow()}catch(e){}finally{updBusy=0}}
 function updShow(){if(!updV||updLater===updV||document.getElementById("updm"))return;if(R.phase==="run"||!$("#ov").hidden||document.getElementById("sysm")){setTimeout(updShow,5000);return}
@@ -6545,13 +6545,18 @@ function boxV(P,x0,y0,z0,w,d,h,c,rib){for(let x=x0;x<x0+w;x+=.5)for(let y=y0;y<y
 const PARTY={
  presents(P){const L=[[.5,.5,0,3,3,2.5,"#e53935","#ffeb3b"],[3,.5,0,2.5,2.5,2,"#1e88e5","#ffffff"],[1,3,0,3,2.5,3,"#43a047","#e53935"],[3.5,3.2,0,2,2,1.5,"#ab47bc","#ffd54f"],[1,1,2.5,2,2,2,"#ffb300","#e53935"],[1.5,3.5,3,2,1.5,1.5,"#f06292","#ffffff"],[1.5,1.5,4.5,1.5,1.5,1.5,"#26c6da","#ffeb3b"]];
   L.forEach(([x,y,z,w,d,h,c,r])=>{boxV(P,x,y,z,w,d,h,c,r);const cx=x+w/2-.25,cy=y+d/2-.25;P(cx-.5,cy,z+h,r);P(cx+.5,cy,z+h,r);P(cx,cy,z+h+.5,r)})},
- wheel(P){/* 台座 */for(let x=1;x<5;x+=.5)for(let y=1;y<5;y+=.5)P(x,y,0,"#37474f");
-  for(let z=.5;z<9;z+=.5){P(2.75,1.5,z,"#90a4ae");P(2.75,4,z,"#90a4ae")}
-  const C=[3,2.75,10],R=6.5,cols=["#ff4081","#40c4ff","#ffea00","#69f0ae","#e040fb","#ff9100"];
-  for(let t=0;t<6.28;t+=.08){const y=C[1]+Math.cos(t)*R,z=C[2]+Math.sin(t)*R;P(2.75,y,z,"#ff4081");P(3.25,y,z,"#40c4ff")}
-  for(let k=0;k<8;k++){const a=k*.785;for(let r=0;r<R;r+=.5)P(3,C[1]+Math.cos(a)*r,C[2]+Math.sin(a)*r,"#e1f5fe")}
-  for(let k=0;k<8;k++){const a=k*.785+.39,y=C[1]+Math.cos(a)*R,z=C[2]+Math.sin(a)*R-1.2,c=cols[k%6];for(let dy=-.5;dy<1;dy+=.5)for(let dz=0;dz<1.5;dz+=.5)P(2.5,y+dy,z+dz,c),P(3.5,y+dy,z+dz,c)}
-  P(3,2.5,9.75,"#ffd600",1)},
+ wheel(P){/* ボーナス：ネオンの観覧車（1×2マス・横6×奥12。輪は直径約3マス、高さ約3.5マス） */
+  for(let x=.5;x<5.5;x+=.5)for(let y=.5;y<11.5;y+=.5)P(x,y,0,(x===.5||x===5||y===.5||y===11)?"#263238":"#37474f");
+  const C=[3,6,11.5],R=9,cols=["#ff4081","#40c4ff","#ffea00","#69f0ae","#e040fb","#ff9100"];
+  /* A字の支柱（左右2組） */for(const x of[1.25,4.5])for(let t=0;t<=1;t+=.04){for(const y0 of[2,10]){const y=y0+(C[1]-y0)*t,z=.5+(C[2]-.5)*t;P(x,y,z,"#90a4ae")}}
+  for(let x=1.25;x<4.75;x+=.5)P(x,C[1]-.25,C[2]-.25,"#b0bec5");P(2.75,C[1]-.25,C[2]-.25,"#ffd600",1);
+  /* 外の輪（2重）とネオンの電球 */for(let t=0;t<6.283;t+=.05){const cy=Math.cos(t),cz=Math.sin(t);for(const x of[1.75,3.75]){P(x,C[1]+cy*R,C[2]+cz*R,"#ff4081");P(x,C[1]+cy*(R-.5),C[2]+cz*(R-.5),"#e91e63")}}
+  for(let k=0;k<32;k++){const t=k/32*6.283;for(const x of[1.5,4])P(x,C[1]+Math.cos(t)*R,C[2]+Math.sin(t)*R,cols[k%6])}
+  /* 内側の輪とスポーク */for(let t=0;t<6.283;t+=.1)for(const x of[1.75,3.75])P(x,C[1]+Math.cos(t)*3,C[2]+Math.sin(t)*3,"#40c4ff");
+  for(let k=0;k<12;k++){const a=k*.5236;for(let r=.5;r<R;r+=.5)for(const x of[1.75,3.75])P(x,C[1]+Math.cos(a)*r,C[2]+Math.sin(a)*r,"#e1f5fe")}
+  /* ゴンドラ（12個） */for(let k=0;k<12;k++){const a=k*.5236+.26,y=C[1]+Math.cos(a)*R,z=C[2]+Math.sin(a)*R-2,c=cols[k%6];
+   for(let x=1.5;x<4.5;x+=.5)for(let dy=-.75;dy<1;dy+=.5)for(let dz=0;dz<2;dz+=.5){const win=dz===1&&Math.abs(dy)<.5&&(x===1.5||x===4);P(x,y+dy,z+dz,win?"#fff9c4":c)}
+   for(let x=1.5;x<4.5;x+=.5)P(x,y,z+2,"#fafafa");P(2.75,y,z+2.5,"#cfd8dc")}},
  champ(P){/* 丸いハイテーブルに、氷のバケツとシャンパン、グラス2つ */
   for(let x=1.5;x<4.5;x+=.5)for(let y=1.5;y<4.5;y+=.5)if(Math.hypot(x+.25-3,y+.25-3)<1.6)P(x,y,0,"#424242");
   for(let z=.5;z<7;z+=.5)P(2.75,2.75,z,"#bdbdbd");
@@ -7045,7 +7050,7 @@ function sBonChk(){if(!G.sown)return;G.sbon=G.sbon||[];SER.forEach(s=>{if(G.sbon
 {const _wp=wallPlace;wallPlace=function(w){const x=R.tool&&WP.find(q=>q.id===R.tool);if(x&&R.tool!=="rm"&&!ivF()&&x.u&&x.u[0]==="ser"&&!serOpen(x)){log("🔒 "+serCond(x)+"で解放されます");return}
  const n0=(G.wall||[]).length,r=_wp.apply(this,arguments);if((G.wall||[]).length>n0)sOwnAdd(G.wall[G.wall.length-1].id);return r}}
 /* --- 見た目：モデルからボクセルを作る（回転・何マス分か） --- */
-const SMULTI={sb_kare:1,sb_turn:1,sb_mahou:1,sb_hockey:1,sb_lander:1,sb_oasis:1,sb_gate:1,sb_raiko:1,sb_shark:1,sb_parthenon:1};
+const SMULTI={sb_wheel:1,sb_kare:1,sb_turn:1,sb_mahou:1,sb_hockey:1,sb_lander:1,sb_oasis:1,sb_gate:1,sb_raiko:1,sb_shark:1,sb_parthenon:1};
 /* 見本は正面が-y側。お店のカメラは-x側から見るので、正面が-xを向くように回しておく（x=0側が正面の見本は回さない・扉は壁に付ける向き） */
 const SROT0={s_medal:0,s_punch:0,s_rhythm:0,sb_lion:0,s_door:1};const sRb=id=>SROT0[id]!==undefined?SROT0[id]:3;
 const SANIM={sb_shark:"tail",s_wakame:"sway"};
