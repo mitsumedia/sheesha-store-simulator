@@ -1,13 +1,14 @@
 /* ゲーセンシリーズ（新規3種＋ボーナス）見本。1マス=6、ボクセル0.5、原点はマスの角 */
 function boxV(P,x0,y0,z0,w,d,h,c,cTop){for(let x=x0;x<x0+w;x+=.5)for(let y=y0;y<y0+d;y+=.5)for(let z=z0;z<z0+h;z+=.5){const top=z+.5>=z0+h;P(x,y,z,top&&cTop?cTop:c)}}
 const GESEN={
- purikura(P){/* 正面はx=0側。上に大きな看板、カーテンは半分あいて中のカメラが見える */
-  boxV(P,1,.5,0,5,5,11,"#f8bbd0");boxV(P,.5,0,11,5.5,6,3.5,"#ff4081");
-  for(let y=.5;y<5.5;y+=.5)for(let z=11.5;z<14;z+=.5){const st=((y*2+z*2)|0)%5===0;P(0,y,z,st?"#fff59d":"#ff80ab")}
-  for(const[y,z]of[[1,12.5],[2.5,13],[4,12.5],[1.75,11.75],[3.5,11.75]])P(-.5,y,z,"#ffffff");
-  for(let y=.5;y<3.5;y+=.5)for(let z=.5;z<10.5;z+=.5)P(.5,y,z,((y*2)|0)%2?"#ba68c8":"#ce93d8");
-  for(let y=3.5;y<5.5;y+=.5)for(let z=.5;z<10.5;z+=.5)P(1.5,y,z,"#4a148c");for(let y=4;y<5;y+=.5)for(let z=7;z<8.5;z+=.5)P(2,y,z,"#212121");P(1.5,4.25,7.75,"#90caf9",.5);
-  const ph=["#ffcdd2","#c5e1a5","#b3e5fc","#fff9c4","#e1bee7","#ffe0b2"];for(let k=0;k<6;k++)for(let x=1.5;x<2.5;x+=.5)for(let z=0;z<1;z+=.5)P(x+(k%3)*1.4,5.5,5+Math.floor(k/3)*1.6+z,ph[k])},
+ rhythm(P){/* 正面はx=0側。大きな画面、手前に丸いカラフルなボタンが並んだ台、上にスピーカー */
+  boxV(P,2,.5,0,3.5,5,14,"#311b92");boxV(P,0,.5,0,2.5,5,6,"#4527a0");
+  for(let x=0;x<2.5;x+=.5)for(let y=.5;y<5.5;y+=.5)P(x,y,6,"#ede7f6");
+  const bc=["#f44336","#ffeb3b","#4caf50","#2196f3","#e91e63","#00bcd4"];for(let k=0;k<6;k++){const y=1+(k%3)*1.5,x=.5+Math.floor(k/3)*1.1;P(x,y,6.5,bc[k]);P(x+.5,y,6.5,bc[k]);P(x,y+.5,6.5,bc[k]);P(x+.5,y+.5,6.5,bc[k])}
+  for(let y=1;y<5;y+=.5)for(let z=7.5;z<11.5;z+=.5){const lane=Math.floor((y-1)/0.66);const note=((z*2+lane*3)|0)%5===0;P(1.5,y,z,note?bc[lane%6]:"#0d0b1e")}
+  for(let y=.5;y<5.5;y+=.5)for(let z=7;z<12;z+=.5)if(y===.5||y===5||z===7||z===11.5)P(1.5,y,z,"#7c4dff");
+  for(const y of[1,4])for(let a=-.5;a<1;a+=.5)for(let b=-.5;b<1;b+=.5)if(Math.abs(a)+Math.abs(b)<1)P(1.75,y+a+.25,13+b,"#212121");
+  for(let y=.5;y<5.5;y+=.5)P(1.75,y,14,((y*2)|0)%2?"#ff4081":"#40c4ff")},
  punch(P){/* 正面はx=0側。丸い赤いミット、上に大きな点数表示、横にグローブ */
   boxV(P,2,1.5,0,3.5,3,15,"#263238");boxV(P,1.5,1,15,4,4,.5,"#ffd600");
   for(let y=1.5;y<4.5;y+=.5)for(let z=11.5;z<14.5;z+=.5)P(1.5,y,z,"#111");
