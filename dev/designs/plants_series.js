@@ -4,7 +4,7 @@ function leafDisc(P,cx,cy,cz,r,c,c2,slit){for(let x=-r;x<r;x+=.5)for(let y=-r;y<
 function stem(P,x0,y0,z0,x1,y1,z1,c){const n=Math.ceil(Math.hypot(x1-x0,y1-y0,z1-z0)/.4);for(let i=0;i<=n;i++){const t=i/n;P(x0+(x1-x0)*t-.25,y0+(y1-y0)*t-.25,z0+(z1-z0)*t,c)}}
 const PLANTS={
  monstera(P){potVox(P,"#f2f2f2","#e0e0e0",3);const L=[[1.2,1.5,6,1.8],[4.8,1.8,7,1.9],[3,5,8,2.1],[1.5,4.2,9,1.6],[4.5,4.5,10,1.7]];L.forEach(([x,y,z,r])=>{stem(P,3,3,3,x,y,z,"#4e7a3a");leafDisc(P,x,y,z,r,"#2e7d32","#1b5e20",1)})},
- pachira(P){potVox(P,"#c56b3c","#a65a32",3);for(let z=3;z<10;z+=.5){const s=Math.sin(z*1.6)*.5;P(2.75+s,2.75,z,"#8d6e63");P(3.25-s,3.25,z,"#a1887f")}
+ pachira(P){potVox(P,"#4e342e","#3e2723",3);for(let z=3;z<10;z+=.5){const s=Math.sin(z*1.6)*.5;P(2.75+s,2.75,z,"#8d6e63");P(3.25-s,3.25,z,"#a1887f")}
   [[3,3,11],[1.5,2.5,10],[4.5,3.5,10.5],[2.5,4.5,11.5]].forEach(([x,y,z])=>{for(let k=0;k<5;k++){const a=k*1.256;for(let t=.5;t<2.2;t+=.5)P(x+Math.cos(a)*t,y+Math.sin(a)*t,z-t*.25,"#43a047")}})},
  sansevieria(P){potVox(P,"#263238","#37474f",3);[[2,2,9],[3,1.8,10.5],[4,2.4,8.5],[1.8,3.4,10],[3.2,3.2,11.5],[4.2,3.8,9.5],[2.6,4.2,8.8],[3.8,4.6,10]].forEach(([x,y,h])=>{for(let z=3;z<h;z+=.5){const tip=z>h-1;P(x,y,z,tip?"#9ccc65":(z%1.5<.5?"#cddc39":"#33691e"));if(!tip&&z<h-2)P(x+.5,y,z,"#2e7d32")}})},
  rubber(P){potVox(P,"#9e9e9e","#757575",3);for(let z=3;z<12;z+=.5)P(2.75,2.75,z,"#6d4c41");
